@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Cjip\LoiResource\Pages;
 
 use App\Filament\Resources\Cjip\LoiResource;
+use App\Filament\Widgets\LoiBySektor;
+use App\Filament\Widgets\LoiByCountry;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,6 +14,14 @@ use Filament\Tables\Actions\Action;
 class ListLois extends ListRecords
 {
     protected static string $resource = LoiResource::class;
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            LoiBySektor::class,
+            LoiByCountry::class,
+        ];
+    }
 
     protected function getHeaderActions(): array
     {

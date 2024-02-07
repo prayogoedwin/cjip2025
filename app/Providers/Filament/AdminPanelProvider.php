@@ -26,6 +26,7 @@ use Awcodes\LightSwitch\Enums\Alignment;
 use lockscreen\FilamentLockscreen\Lockscreen;
 use lockscreen\FilamentLockscreen\Http\Middleware\Locker;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin;
+use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -59,6 +60,7 @@ class AdminPanelProvider extends PanelProvider
             )
             ->plugin(new Lockscreen())
             ->plugins([
+                FilamentApexChartsPlugin::make(),
                 LightSwitchPlugin::make()
                     ->position(Alignment::TopCenter),
                 SpotlightPlugin::make(),
