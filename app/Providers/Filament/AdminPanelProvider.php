@@ -1,0 +1,112 @@
+<?php
+
+namespace App\Providers\Filament;
+
+use App\Filament\Pages\General\Profile;
+use Filament\Http\Middleware\Authenticate;
+use Filament\Http\Middleware\DisableBladeIconComponents;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
+use Filament\Pages;
+use Filament\Panel;
+use Filament\PanelProvider;
+use Filament\Support\Colors\Color;
+use Filament\Widgets;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Filament\Navigation\MenuItem;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Session\Middleware\AuthenticateSession;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\SpatieLaravelTranslatablePlugin;
+use Awcodes\LightSwitch\LightSwitchPlugin;
+use Awcodes\LightSwitch\Enums\Alignment;
+use lockscreen\FilamentLockscreen\Lockscreen;
+use lockscreen\FilamentLockscreen\Http\Middleware\Locker;
+use pxlrbt\FilamentSpotlight\SpotlightPlugin;
+
+class AdminPanelProvider extends PanelProvider
+{
+    public function panel(Panel $panel): Panel
+    {
+        return $panel
+            ->default()
+            ->id('admin')
+            ->path('admin')
+            ->login()
+            ->brandName('CJIP V3')
+            ->brandLogo(asset('https://cjip.jatengprov.go.id/storage/DarFhfrwapwXjwwpQFljtO1wzoTTEs-metaZXNyMEM4SG1Rc3M3OEFBbmxhdWUucG5n-.png'))
+            ->brandLogoHeight('3rem')
+            ->favicon(asset('https://cjip.jatengprov.go.id/storage/DarFhfrwapwXjwwpQFljtO1wzoTTEs-metaZXNyMEM4SG1Rc3M3OEFBbmxhdWUucG5n-.png'))
+            ->maxContentWidth('full')
+            ->sidebarFullyCollapsibleOnDesktop()
+            ->breadcrumbs(true)
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Setting')
+                    ->url(fn(): string => Profile::getUrl())
+                    ->icon('heroicon-o-cog-8-tooth'),
+                // ...
+            ])
+            ->colors([
+                'primary' => Color::Amber,
+            ])
+            ->plugin(
+                SpatieLaravelTranslatablePlugin::make()
+                    ->defaultLocales(['id', 'en']),
+            )
+            ->plugin(new Lockscreen())
+            ->plugins([
+                LightSwitchPlugin::make()
+                    ->position(Alignment::TopCenter),
+                SpotlightPlugin::make(),
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+            ])
+            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
+            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->pages([
+                Pages\Dashboard::class,
+            ])
+            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->widgets([
+                Widgets\AccountWidget::class,
+                Widgets\FilamentInfoWidget::class,
+            ])
+            ->middleware([
+                EncryptCookies::class,
+                AddQueuedCookiesToResponse::class,
+                StartSession::class,
+                AuthenticateSession::class,
+                ShareErrorsFromSession::class,
+                VerifyCsrfToken::class,
+                SubstituteBindings::class,
+                DisableBladeIconComponents::class,
+                DispatchServingFilamentEvent::class,
+            ])
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Settings')
+                    ->icon('heroicon-o-cog-8-tooth'),
+                NavigationGroup::make()
+                    ->label('Cjip')
+                    ->icon('heroicon-o-window'),
+                NavigationGroup::make()
+                    ->label('Cjibf')
+                    ->icon('heroicon-o-bars-3'),
+                NavigationGroup::make()
+                    ->label('Si-Mike')
+                    ->icon('heroicon-o-squares-2x2')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Si-Rusa')
+                    ->icon('heroicon-o-squares-2x2')
+                    ->collapsed(),
+            ])
+            ->authMiddleware([
+                Authenticate::class,
+                Locker::class,
+            ]);
+    }
+}
