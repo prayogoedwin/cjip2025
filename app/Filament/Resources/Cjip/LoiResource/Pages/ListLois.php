@@ -3,8 +3,12 @@
 namespace App\Filament\Resources\Cjip\LoiResource\Pages;
 
 use App\Filament\Resources\Cjip\LoiResource;
+use App\Filament\Resources\Cjip\LoiResource\Widgets\LoiCountNilai;
+use App\Filament\Resources\Cjip\LoiResource\Widgets\LoiSumNilai;
+use App\Filament\Widgets\LoiByKawasan;
 use App\Filament\Widgets\LoiBySektor;
 use App\Filament\Widgets\LoiByCountry;
+use App\Filament\Widgets\LoiByKabKota;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,8 +22,12 @@ class ListLois extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
+            LoiSumNilai::class,
+            LoiCountNilai::class,
             LoiBySektor::class,
             LoiByCountry::class,
+            LoiByKabKota::class,
+            LoiByKawasan::class,
         ];
     }
 
