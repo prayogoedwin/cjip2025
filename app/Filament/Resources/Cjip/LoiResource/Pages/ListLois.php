@@ -9,6 +9,8 @@ use App\Filament\Widgets\LoiByKawasan;
 use App\Filament\Widgets\LoiBySektor;
 use App\Filament\Widgets\LoiByCountry;
 use App\Filament\Widgets\LoiByKabKota;
+use App\Livewire\Widgets\LoiCountNilai as WidgetsLoiCountNilai;
+use App\Livewire\Widgets\LoiSumNilai as WidgetsLoiSumNilai;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
@@ -22,8 +24,10 @@ class ListLois extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            LoiSumNilai::class,
-            LoiCountNilai::class,
+                // LoiSumNilai::class,
+                // LoiCountNilai::class,
+            WidgetsLoiSumNilai::class,
+            WidgetsLoiCountNilai::class,
             LoiBySektor::class,
             LoiByCountry::class,
             LoiByKabKota::class,

@@ -44,5 +44,15 @@
             </div>
         </div>
     </div>
+
+    <div>
+        <div class="container py-2">
+            @livewire(\App\Livewire\Widgets\LoiSumNilai::class)
+
+        </div>
+        <div class="container mb-5 mt-5">
+            @livewire(\App\Livewire\Widgets\LoiCountNilai::class)
+        </div>
+    </div>
     <!-- End Hero -->
 </div>
