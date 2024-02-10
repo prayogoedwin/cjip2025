@@ -53,6 +53,18 @@
         <div class="container mb-5 mt-5">
             @livewire(\App\Livewire\Widgets\LoiCountNilai::class)
         </div>
+        <div class="container mb-5 mt-5">
+            @livewire(\App\Filament\Widgets\LoiByKabKota::class)
+        </div>
+        <div class="container mb-5 mt-5">
+            @livewire(\App\Filament\Widgets\LoiByKawasan::class)
+        </div>
+        <div class="container mb-5 mt-5">
+            @livewire(\App\Filament\Widgets\LoiBySektor::class)
+        </div>
+        <div class="container mb-5 mt-5">
+            @livewire(\App\Filament\Widgets\LoiByCountry::class)
+        </div>
     </div>
     <!-- End Hero -->
 </div>
