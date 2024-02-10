@@ -66,7 +66,7 @@
     <!-- JAVASCRIPTS -->
 
     <script>
-        function changeLanguage(language) {
+        function changeLanguage(language = '') {
             // Lakukan sesuatu di sini untuk mengubah bahasa (mungkin perubahan pada UI)
 
             // Kemudian muat ulang halaman untuk merefresh sesi
