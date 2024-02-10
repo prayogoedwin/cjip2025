@@ -1,3 +1,29 @@
+@section('meta_investasi')
+    <title>
+        {{ $proyek->getTranslations('nama', [$locale]) ? $proyek->getTranslations('nama', [$locale])[$locale] : $proyek->nama }}
+        - Central
+        Java Investment Platform</title>
+
+    <link rel="canonical" href="https://cjip.jatengprov.go.id/peluang-investasi/{{ $proyek->id }}" />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:title"
+        content="{{ $proyek->getTranslations('nama', [$locale]) ? $proyek->getTranslations('nama', [$locale])[$locale] : $proyek->nama }}">
+    <meta name="description"
+        content=" {{ \Illuminate\Support\Str::limit(strip_tags($proyek->getTranslations('latar_belakang', [$locale]) ? $proyek->getTranslations('latar_belakang', [$locale])[$locale] : $proyek->latar_belakang), 100, ' ...') }}">
+    <meta property="og:url" content="https://cjip.jatengprov.go.id/peluang-investasi/{{ $proyek->id }}">
+    <meta property="og:site_name" content="Central Java Investment Platform">
+    <meta property="og:image" content="https://cjip.jatengprov.go.id/storage/{{ $proyek->foto[0] }}">
+    <meta property="og:width" content="512">
+    <meta property="og:height" content="512">
+    <meta property="article:publisher" content="https://www.facebook.com/dpmptspjateng">
+    <meta property='article:published_time' content='{{ $proyek->created_at }}' />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="http://cjip.jatengprov.go.id/storage/{{ $proyek->foto[0] }}">
+    <meta name="twitter:site" content="@investCJ">
+@stop
 <div>
     <!-- Hero -->
     <div
@@ -217,7 +243,8 @@
                     </div>
                     <!-- End List Group -->
                 </div>
-                <div id="fill-and-justify-2" class="hidden" role="tabpanel" aria-labelledby="fill-and-justify-item-2">
+                <div id="fill-and-justify-2" class="hidden" role="tabpanel"
+                    aria-labelledby="fill-and-justify-item-2">
                     <div class="flex flex-col">
                         <div class="-m-1.5 overflow-x-auto">
                             <div class="p-1.5 min-w-full inline-block align-middle">

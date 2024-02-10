@@ -1,3 +1,29 @@
+@section('meta_kawasan')
+    <title>
+        {{ $kawasan->getTranslations('nama', [$locale]) ? $kawasan->getTranslations('nama', [$locale])[$locale] : $kawasan->nama }}
+        - Central
+        Java Investment Platform</title>
+
+    <link rel="canonical" href="https://cjip.jatengprov.go.id/detail-kawasan-industri/{{ $kawasan->id }}" />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:title"
+        content="{{ $kawasan->getTranslations('nama', [$locale]) ? $kawasan->getTranslations('nama', [$locale])[$locale] : $kawasan->nama }}">
+    <meta name="description"
+        content=" {{ \Illuminate\Support\Str::limit(strip_tags($kawasan->getTranslations('kawasan', [$locale]) ? $kawasan->getTranslations('kawasan', [$locale])[$locale] : $kawasan->kawasan), 100, ' ...') }}">
+    <meta property="og:url" content="https://cjip.jatengprov.go.id/detail-kawasan-industri/{{ $kawasan->id }}">
+    <meta property="og:site_name" content="Central Java Investment Platform">
+    <meta property="og:image" content="https://cjip.jatengprov.go.id/storage/{{ $kawasan->foto[0] }}">
+    <meta property="og:width" content="512">
+    <meta property="og:height" content="512">
+    <meta property="article:publisher" content="https://www.facebook.com/dpmptspjateng">
+    <meta property='article:published_time' content='{{ $kawasan->created_at }}' />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="http://cjip.jatengprov.go.id/storage/{{ $kawasan->foto[0] }}">
+    <meta name="twitter:site" content="@investCJ">
+@stop
 <div>
     <div
         class="py-16 relative overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] before:bg-no-repeat before:bg-top before:bg-cover before:w-full before:h-full before:-z-[50] before:transform before:-translate-x-1/2 dark:before:bg-[url('https://preline.co/assets/svg/examples-dark/polygon-bg-element.svg')]">
@@ -134,7 +160,8 @@
                         </div>
                     </div>
                 </div>
-                <div id="fill-and-justify-2" class="hidden" role="tabpanel" aria-labelledby="fill-and-justify-item-2">
+                <div id="fill-and-justify-2" class="hidden" role="tabpanel"
+                    aria-labelledby="fill-and-justify-item-2">
                     <div class="flex flex-col">
                         <div class="-m-1.5 overflow-x-auto">
                             <div class="p-1.5 min-w-full inline-block align-middle">
@@ -180,7 +207,8 @@
                         </div>
                     </div>
                 </div>
-                <div id="fill-and-justify-3" class="hidden" role="tabpanel" aria-labelledby="fill-and-justify-item-3">
+                <div id="fill-and-justify-3" class="hidden" role="tabpanel"
+                    aria-labelledby="fill-and-justify-item-3">
                     <div id="grid" class="md:flex w-full justify-center mx-auto mt-4">
                         @foreach ($kawasan->foto as $image)
                             <div class="lg:w-1/3 md:w-1/3 p-4 picture-item" data-groups='["branding"]'>

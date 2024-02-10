@@ -10,14 +10,17 @@
     <title>{{ config('app.name') }}</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Tailwind CSS Saas & Software Landing Page Template">
+    <meta name="description" content="digitizing the promotion of investment opportunities in Central Java">
     <meta name="keywords"
-        content="agency, application, business, clean, creative, cryptocurrency, it solutions, modern, multipurpose, nft marketplace, portfolio, saas, software, tailwind css">
-    <meta name="author" content="Shreethemes">
-    <meta name="website" content="https://shreethemes.in/">
-    <meta name="email" content="support@shreethemes.in">
+        content="cjip, cjibf, investasi, investasi jawa tengah, proyek jawa tengah, central java, investment central java">
+    <meta name="author" content="DPMPTSPProvinsiJateng">
+    <meta name="website" content="https://web.dpmptsp.jatengprov.go.id">
+    <meta name="email" content="cjibf.jateng@gmail.com">
     <meta name="version" content="2.1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    @yield('meta_berita')
+    @yield('meta_investasi')
+    @yield('meta_kawasan')
 
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ asset('images/cjip-small.png') }}">
@@ -55,6 +58,20 @@
 
     @filamentScripts
     @stack('js')
+
+    <!-- Back to top -->
+    <a href="#" onclick="topFunction()" id="back-to-top"
+        class="back-to-top fixed hidden text-lg rounded-full z-50 py-1 bottom-5 right-5 h-9 w-9 text-center bg-green-600 text-white leading-9"><i
+            class="uil uil-arrow-up"></i>
+    </a>
+
+    {{-- whatsapp --}}
+    <div class="fixed bottom-10 mb-6 m-2 -right-1 z-10 pr-4 ">
+        <a href="https://wa.me/628112949326?text=Hai%20saya%20butuh%20bantuan%20CJIP" target="blank">
+            <img src="{{ asset('images/whatsapp.png') }}" class="h-9 shadow-md rounded-full" alt="">
+        </a>
+    </div>
+
 
     <!-- JAVASCRIPTS -->
     <script src="{{ asset('assets/libs/tobii/js/tobii.min.js') }}"></script>
