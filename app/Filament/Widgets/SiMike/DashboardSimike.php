@@ -8,6 +8,7 @@ use App\Models\SiMike\Proyek;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Carbon\Carbon;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -63,7 +64,7 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
     protected function getFormSchema(): array
     {
         return [
-            \Filament\Forms\Components\Card::make()->schema([
+            Section::make()->schema([
                 Grid::make([
                     'sm' => 1,
                     'xl' => 1,
@@ -124,20 +125,21 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
                                 }
                                 return true;
                             }),
-                        Select::make('kecamatan_usaha')->label('Kecamatan Usaha')
-                            ->searchable()
-                            ->options(function () {
-                                $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
-                                    ->pluck('kecamatan_usaha')->toArray();
-                                $kec_usaha = array_combine($kec_usahas, $kec_usahas);
-                                return $kec_usaha;
-                            })
-                            ->visible(function () {
-                                if (auth()->user()->hasRole('kabkota')) {
-                                    return true;
-                                }
-                                return false;
-                            }),
+                        // Select::make('kecamatan_usaha')
+                        //     ->label('Kecamatan Usaha')
+                        //     ->searchable()
+                        //     ->options(function () {
+                        //         $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
+                        //             ->pluck('kecamatan_usaha')->toArray();
+                        //         $kec_usaha = array_combine($kec_usahas, $kec_usahas);
+                        //         return $kec_usaha;
+                        //     })
+                        //     ->visible(function () {
+                        //         if (auth()->user()->hasRole('kabkota')) {
+                        //             return true;
+                        //         }
+                        //         return false;
+                        //     }),
                         Select::make('sektor')->label('Kategori')
                             ->options(Sektor::groupBy('sektor')->pluck('sektor', 'id'))
                             ->searchable()
@@ -159,6 +161,8 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
         }
         $this->sektor = $this->form->getState()['sektor'];
         $this->uraian_skala_usaha = $this->form->getState()['uraian_skala_usaha'];
+        $this->kecamatan_usaha = $this->form->getState()['kecamatan_usaha'];
+
 
         if (auth()->user()->hasRole('super_admin')) {
             $this->superadmin = auth()->user('super_admin');

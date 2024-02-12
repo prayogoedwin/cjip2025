@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Pengguna;
 
 use App\Filament\Resources\Pengguna\UserResource\Pages;
+use App\Filament\Resources\Pengguna\UserResource\Pages\CreateUser;
 use App\Filament\Resources\Pengguna\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
@@ -15,6 +16,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -78,7 +80,7 @@ class UserResource extends Resource
                                 ->placeholder('example@gmail.com')
                                 ->required()
                                 ->email()
-                                ->unique(ModelsUser::class, 'email', fn($record) => $record),
+                                ->unique(User::class, 'email', fn($record) => $record),
                         ])->columns(2),
                         Forms\Components\Toggle::make('reset_password')
                             ->columnSpan('full')
@@ -188,7 +190,9 @@ class UserResource extends Resource
                     ]),
             ])->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                SelectFilter::make('roles_id')->label('Roles')->relationship('roles', 'name'),
+                SelectFilter::make('user_kawasan_id')->label('User Kawasan')->relationship('userkawasan', 'nama'),
+                SelectFilter::make('kabkota_id')->label('Kabupaten/Kota')->relationship('kabkota', 'nama'),
             ])
             ->actions([
                 Impersonate::make(), // <--- 

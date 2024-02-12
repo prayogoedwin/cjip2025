@@ -93,6 +93,12 @@ class ListRilis extends ListRecords
 
                 ]),
             Action::make('fix_rilis')
+                ->hidden(function ($record) {
+                    if (auth()->user()->hasRole('super_admin')) {
+                        return false;
+                    }
+                    return true;
+                })
                 ->action(function () {
 
                     $rilises = Rilis::whereNull('proyek_id')->get();

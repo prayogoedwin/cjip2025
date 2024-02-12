@@ -119,6 +119,11 @@ class ListNibs extends ListRecords
 
                     CompareNIB::dispatch();
 
+                })->hidden(function ($record) {
+                    if (auth()->user()->hasRole('super_admin')) {
+                        return false;
+                    }
+                    return true;
                 }),
             Action::make('fix_proyek')
                 ->action(function () {
@@ -131,6 +136,11 @@ class ListNibs extends ListRecords
                     }
 
 
+                })->hidden(function ($record) {
+                    if (auth()->user()->hasRole('super_admin')) {
+                        return false;
+                    }
+                    return true;
                 }),
             /* Action::make('fix_total')
                  ->action(function () {
