@@ -27,8 +27,8 @@
 <div>
     <div
         class="py-16 relative overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] before:bg-no-repeat before:bg-top before:bg-cover before:w-full before:h-full before:-z-[50] before:transform before:-translate-x-1/2 dark:before:bg-[url('https://preline.co/assets/svg/examples-dark/polygon-bg-element.svg')]">
-        <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <div class="max-w-2xl text-center mx-auto">
+        <div class="container mx-auto py-10">
+            <div class="container text-center mx-auto pt-5">
                 <h1 class="block text-3xl font-bold text-gray-800 sm:text-4xl md:text-5xl dark:text-white">
                     {{ $kawasan->getTranslations('nama', [$locale]) ? $kawasan->getTranslations('nama', [$locale])[$locale] : $kawasan->nama }}
                 </h1>
@@ -50,7 +50,7 @@
                     <div class="bg-white w-48 h-48 rounded-full dark:bg-slate-900"></div>
                 </div>
             </div>
-            <div class="mt-5 container">
+            <div class="mt-5">
                 <h5 class="text-lg font-semibold mb-2">{{ __('kawasan.detail_profil_1', [], $locale) }} :</h5>
                 <p class="text-lg text-gray-600 dark:text-gray-400">{!! $kawasan->getTranslations('kawasan', [$locale])
                     ? $kawasan->getTranslations('kawasan', [$locale])[$locale]

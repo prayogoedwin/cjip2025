@@ -36,7 +36,7 @@
 
 <div
     class="relative overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] before:bg-no-repeat before:bg-top before:bg-cover before:w-full before:h-full before:-z-[50] before:transform before:-translate-x-1/2 dark:before:bg-[url('https://preline.co/assets/svg/examples-dark/polygon-bg-element.svg')]">
-    <div class="container px-4 sm:px-6 lg:px-8 mx-auto py-24">
+    <div class="container py-24">
         <div class="grid lg:grid-cols-3 gap-y-8 lg:gap-y-0 lg:gap-x-6">
             <div class="lg:col-span-2">
                 <div class="py-8 lg:pe-8">

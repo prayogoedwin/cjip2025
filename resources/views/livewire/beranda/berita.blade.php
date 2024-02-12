@@ -22,7 +22,7 @@
                                 </div>
 
                                 <div class="content p-6 relative">
-                                    <a href="#"
+                                    <a href="{{ route('detail_berita', $berita->getTranslations('slug', [$locale])[$locale]) }}"
                                         class="text-lg font-medium block hover:text-green-600 duration-500 ease-in-out mt-2">{{ $berita->getTranslations('title', [$locale]) ? $berita->getTranslations('title', [$locale])[$locale] : $berita->title }}</a>
                                     <p class="text-slate-400 mt-3 mb-4 text-justify">
                                         {{ \Illuminate\Support\Str::limit(strip_tags($berita->getTranslations('body', [$locale]) ? $berita->getTranslations('body', [$locale])[$locale] : $berita->body), 200, ' ...') }}

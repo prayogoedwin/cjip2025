@@ -28,8 +28,8 @@
     <!-- Hero -->
     <div
         class="py-16 relative overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] before:bg-no-repeat before:bg-top before:bg-cover before:w-full before:h-full before:-z-[50] before:transform before:-translate-x-1/2 dark:before:bg-[url('https://preline.co/assets/svg/examples-dark/polygon-bg-element.svg')]">
-        <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <div class="max-w-2xl text-center mx-auto">
+        <div class="container mx-auto py-10">
+            <div class="max-w-2xl text-center mx-auto pt-5">
                 <h1 class="block text-3xl font-bold text-gray-800 sm:text-4xl md:text-5xl dark:text-white">
                     {{ $proyek->getTranslations('nama', [$locale]) ? $proyek->getTranslations('nama', [$locale])[$locale] : $proyek->nama }}
                 </h1>

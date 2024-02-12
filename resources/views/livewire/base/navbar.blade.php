@@ -1,7 +1,7 @@
 <div>
     <!-- Start Navbar -->
     <nav id="topnav" class="defaultscroll is-sticky">
-        <div class="container relative">
+        <div class="container relative py-2">
             <!-- Logo container-->
             <a class="logo" href="index.html">
                 <span class="inline-block dark:hidden">
@@ -121,7 +121,8 @@
                             <li><a href="{{ route('sektor') }}"
                                     class="sub-menu-item">{{ __('navbar.sector', [], $locale) }}</a>
                             </li>
-                            {{-- <li><a href="{{ route('lokasi') }}" class="sub-menu-item">Lokasi</a></li> --}}
+                            <li><a href="{{ route('peta') }}"
+                                    class="sub-menu-item">{{ __('navbar.maps', [], $locale) }}</a></li>
                         </ul>
                     </li>
 
@@ -135,13 +136,11 @@
                     </li>
                     <li><a href="{{ route('peta') }}" class="sub-menu-item">{{ __('navbar.maps', [], $locale) }}</a>
                     </li>
-                    <li><a href="{{route('cjibf')}}" class="sub-menu-item"><b
+                    <li><a href="{{ route('cjibf') }}" class="sub-menu-item"><b
                                 class="bg-yellow-500 hover:bg-gray-500 py-1 px-3 rounded text-gray-100">CJIBF</b></a>
                     </li>
-                </ul><!--end navigation menu-->
-            </div><!--end navigation-->
-        </div><!--end container-->
-    </nav><!--end header-->
-    <!-- End Navbar -->
-
+                </ul>
+            </div>
+        </div>
+    </nav>
 </div>

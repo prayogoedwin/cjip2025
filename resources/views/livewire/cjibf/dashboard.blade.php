@@ -1,11 +1,11 @@
 <div>
     <!-- Hero -->
     <div class="relative overflow-hidden mt-16">
-        <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <div class="max-w-2xl text-center mx-auto">
-                <h1 class="block text-3xl font-bold text-gray-800 sm:text-4xl md:text-5xl dark:text-white">
+        <div class="container mx-auto py-10">
+            <div class="max-w-5xl text-center mx-auto mt-5">
+                <h1 class="block text-4xl font-bold text-gray-800 sm:text-4xl md:text-5xl dark:text-white">
                     {{ $cjibf->site_title }}</span></h1>
-                <p class="mt-3 text-xl text-gray-800 dark:text-gray-400">{{ $cjibf->site_desc }}</p>
+                <p class="mt-3 text-2xl text-gray-800 dark:text-gray-400">{{ $cjibf->site_desc }}</p>
                 <div class="mt-8 mb-5 grid-cols-1">
                     @foreach ($cjibf->button as $button)
                         @if ($button['btn_name'] != '')
@@ -18,14 +18,15 @@
             </div>
 
             <div class="mt-10 relative container mx-auto">
-                <div class="relative">
+                <div class="relative mx-auto">
                     <div class="tiny-one-item studio-img">
                         @foreach ($cjibf->image as $fotos)
                             @if ($fotos['image'] != '')
                                 <div class="tiny-slide">
-                                    <div class="m-2 mx-3">
-                                        <img src="{{ asset('storage/' . $fotos['image']) }}" class="rounded-lg"
-                                            alt="">
+                                    <div class="">
+                                        <img src="{{ asset('storage/' . $fotos['image']) }}"
+                                            class="w-full rounded-lg object-cover bg-cover"
+                                            style="background-size: cover" alt="">
                                     </div>
                                 </div>
                             @endif
