@@ -55,3 +55,7 @@ Route::get('cjibf', Dashboard::class)->name('cjibf');
 
 Route::get('panduan-investasi', Faq::class)->name('faq');
 
+Route::get('/loi', function () {
+    return view('templates.loi');
+});
+
