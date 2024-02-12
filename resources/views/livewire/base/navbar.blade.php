@@ -35,11 +35,13 @@
                             class="text-white hover:bg-yellow-500 focus:ring-1 focus:outline-none font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-cente dark:hover:bg-yellow-500 dark:focus:ring-yellow-500"
                             type="button">
                             @if ($locale == 'id')
-                                <div><img class="inline rounded" width="25px" alt="Indonesia"
+                                <div><img class="inline rounded outline outline-offset-0 outline-gray-300 outline-1"
+                                        width="25px" alt="Indonesia"
                                         src="http://purecatamphetamine.github.io/country-flag-icons/3x2/ID.svg" /></div>
                                 <span class="menu-arrow"></span>
                             @else
-                                <div><img class="inline rounded" width="25px" alt="english"
+                                <div><img class="inline rounded outline outline-offset-0 outline-gray-300"
+                                        width="25px" alt="english"
                                         src="http://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" /></div>
                                 <span class="menu-arrow"></span>
                             @endif
@@ -70,9 +72,9 @@
                         </div>
                     </div>
                 </li>
-                <li class="inline  mb-0">
+                <li class="inline mb-0">
                     <button type="button"
-                        class="hs-dark-mode-active:hidden inline-flex justify-center tracking-wide align-middle hs-dark-mode group items-center  text-gray-500 hover:text-yellow-500 font-medium dark:text-gray-400 dark:hover:text-gray-500"
+                        class="outline outline-offset-2 rounded-full outline-1 hs-dark-mode-active:hidden inline-flex justify-center tracking-wide align-middle hs-dark-mode group items-center  text-gray-500 hover:text-yellow-500 font-medium dark:text-gray-400 dark:hover:text-gray-500"
                         data-hs-theme-click-value="dark">
                         <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -81,7 +83,7 @@
                         </svg>
                     </button>
                     <button type="button"
-                        class="hs-dark-mode-active:inline-block hidden inline-flex justify-center tracking-wide align-middle hs-dark-mode group items-center text-gray-600 hover:text-yellow-500 font-medium dark:text-gray-400 dark:hover:text-gray-500"
+                        class="outline outline-offset-2 rounded-full outline-1 hs-dark-mode-active:inline-block hidden inline-flex justify-center tracking-wide align-middle hs-dark-mode group items-center text-gray-600 hover:text-yellow-500 font-medium dark:text-gray-400 dark:hover:text-gray-500"
                         data-hs-theme-click-value="light">
                         <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

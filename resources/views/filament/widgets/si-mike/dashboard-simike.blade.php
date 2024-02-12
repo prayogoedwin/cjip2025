@@ -38,11 +38,11 @@
                         </span>
                     </div>
 
-                    <div class="lg:text-4xl mt-2 md:text-2xl text-xl flex justify-center font-semibold tracking-tight text-green-00 dark:text-custom-600"
+                    <div class="lg:text-4xl md:text-lg sm:text-md text-md flex justify-center font-semibold tracking-tight text-green-00 dark:text-custom-600"
                         style="font-size: 2.25rem; color: rgb(22 163 74);">
                         Rp. {{ number_format($simike->total_investasi) }}
                     </div>
-                    <div class="flex justify-center gap-x-1 mt-2">
+                    <div class="flex justify-center gap-x-1">
                         <span
                             class="italic fi-wi-stats-overview-stat-description text-sm fi-color-custom text-custom-600 dark:text-custom-400"
                             style="color: rgb(22 163 74);">
@@ -61,11 +61,11 @@
                         </span>
                     </div>
 
-                    <div class="lg:text-4xl mt-2 md:text-2xl text-xl flex justify-center font-semibold tracking-tight text-custom-600 dark:text-custom-600"
+                    <div class="lg:text-4xl md:text-lg sm:text-md text-md flex justify-center font-semibold tracking-tight text-custom-600 dark:text-custom-600"
                         style="font-size: 2.25rem; color: rgb(245 158 11);">
                         Rp. {{ number_format($simike->jumlah_investasi) }}
                     </div>
-                    <div class="flex justify-center gap-x-1 mt-2">
+                    <div class="flex justify-center gap-x-1">
                         <span
                             class="italic fi-wi-stats-overview-stat-description text-sm fi-color-custom text-custom-600 dark:text-custom-400"
                             style="color: rgb(245 158 11);">
