@@ -27,6 +27,7 @@ use lockscreen\FilamentLockscreen\Lockscreen;
 use lockscreen\FilamentLockscreen\Http\Middleware\Locker;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
+use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -57,7 +58,9 @@ class AdminPanelProvider extends PanelProvider
             ->plugin(
                 SpatieLaravelTranslatablePlugin::make()
                     ->defaultLocales(['id', 'en']),
+
             )
+            ->plugin(FilamentProgressbarPlugin::make()->color('#fbbf24'))
             ->plugin(new Lockscreen())
             ->plugins([
                 FilamentApexChartsPlugin::make(),
