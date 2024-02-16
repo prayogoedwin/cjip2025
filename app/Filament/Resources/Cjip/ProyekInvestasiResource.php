@@ -31,6 +31,7 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Carbon\Carbon;
+use Filament\Tables\Columns\IconColumn;
 use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -425,17 +426,17 @@ class ProyekInvestasiResource extends Resource
                                 ->extraAttributes([
                                     'class' => 'mt-2 text-gray-500 dark:text-gray-300 text-md font-bold'
                                 ]),
-                            BooleanColumn::make('status')
+                            IconColumn::make('status')
                                 ->alignRight()
                                 ->colors([
                                     'success' => 1,
                                     'danger' => 0,
-                                    'warning' => null,
+                                    'warning' => null
                                 ])
                                 ->icons([
                                     'heroicon-s-check-circle' => 1,
                                     'heroicon-s-x-circle' => 0,
-                                    'heroicon-s-document' => null,
+                                    'heroicon-s-pencil-square' => null
                                 ])
                                 ->extraAttributes([
                                     'class' => 'mt-2 text-sm text-justify'
