@@ -95,6 +95,14 @@
                         <span class="mx-2 text-sm font-medium">{{ __('map.subdistrict', [], $locale) }}</span>
                     </a>
                 </li>
+                <li>
+                    <a class="flex ring-2 hover:ring-yellow-500 items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-primary-500 dark:hover:bg-primary-500 dark:hover:text-gray-200 hover:text-yellow-500"
+                        href="#" id="jalansemarang">
+                        <img src="{{ asset('map/kec.png') }}" class="h-5" alt="">
+
+                        <span class="mx-2 text-sm font-medium">Jalan Semarang</span>
+                    </a>
+                </li>
                 <div
                     class="py-3 flex items-center text-sm text-gray-800 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:after:border-gray-600">
                     Proyek Investasi</div>

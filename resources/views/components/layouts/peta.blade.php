@@ -30,6 +30,8 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
     <script src="https://unpkg.com/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js"></script>
+
+
     {{-- end maps --}}
 
     <style>
@@ -133,6 +135,7 @@
     <script src="{{ asset('map/data/bataskabkota.js') }}"></script>
     <script src="{{ asset('map/data/jawatengah.js') }}"></script>
     <script src="{{ asset('map/data/kecamatan.js') }}"></script>
+    <script src="{{ asset('map/data/jalansemarang.js') }}"></script>
 
     @isset($locations)
         <script>
@@ -807,6 +810,18 @@
                 }
             }).addTo(map);
 
+            // jalan semarang
+            var jalansemarang = L.geoJSON(jalansemarang);
+
+            document.getElementById('jalansemarang').addEventListener('click', function() {
+                if (map.hasLayer(jalansemarang)) {
+                    map.removeLayer(jalansemarang);
+                } else {
+                    map.addLayer(jalansemarang);
+                }
+            });
+
+
             // Base Maps
             var baseMaps = {
                 "Open Street Map": osm,
@@ -846,4 +861,5 @@
     @endisset
 
 </body>
+
 </html>

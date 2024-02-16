@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LocalizationController;
+use App\Livewire\Base\Maps;
 use App\Livewire\Beranda\Beranda;
 use App\Livewire\Berita\Berita;
 use App\Livewire\Berita\DetailBerita;
