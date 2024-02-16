@@ -24,6 +24,7 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
     use InteractsWithForms;
     protected static ?int $sort = 2;
     protected static ?string $pollingInterval = null;
+    protected static bool $isLazy = false;
     protected int|string|array $columnSpan = 'full';
 
     protected $simike, $sirusa, $nibs;

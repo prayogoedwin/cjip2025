@@ -44,6 +44,8 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(asset('https://cjip.jatengprov.go.id/storage/DarFhfrwapwXjwwpQFljtO1wzoTTEs-metaZXNyMEM4SG1Rc3M3OEFBbmxhdWUucG5n-.png'))
             ->maxContentWidth('full')
             ->sidebarFullyCollapsibleOnDesktop()
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
             ->breadcrumbs(true)
             ->userMenuItems([
                 MenuItem::make()
@@ -91,6 +93,9 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Graph')
+                    ->icon('heroicon-o-presentation-chart-bar'),
                 NavigationGroup::make()
                     ->label('Settings')
                     ->icon('heroicon-o-cog-8-tooth'),

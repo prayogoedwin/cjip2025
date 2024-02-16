@@ -16,12 +16,13 @@ class KabupatenTable extends Page
 {
     use HasPageShield;
 
-    protected static ?string $navigationIcon = 'heroicon-o-table-cells';
+    // protected static ?string $navigationIcon = 'heroicon-o-table-cells';
 
     protected static ?string $navigationLabel = "Rekap Kabupaten/Kota";
 
     protected static ?string $pluralModelLabel = 'Rekap Kabupaten/Kota';
-
+    protected static ?int $navigationSort = 1;
+    protected static ?string $navigationGroup = "Graph";
     protected static string $view = 'filament.pages.si-mike.kabupaten-table';
 
     public $tahun,
@@ -57,16 +58,16 @@ class KabupatenTable extends Page
         //\dd([is_null($this->triwulan), empty($this->triwulan)]);
 
         //\dd($this->triwulan);
-        $this->emit(
-            'filterUpdated',
-            ['tahun' => $this->tahun],
-            ['triwulan' => $this->triwulan],
-            ['kabkota' => $this->kabkota],
-            ['sektor' => $this->sektor],
-            ['uraian_skala_usaha' => $this->uraian_skala_usaha],
-            ['kecamatan_usaha' => $this->kecamatan_usaha]
+        // $this->emit(
+        //     'filterUpdated',
+        //     ['tahun' => $this->tahun],
+        //     ['triwulan' => $this->triwulan],
+        //     ['kabkota' => $this->kabkota],
+        //     ['sektor' => $this->sektor],
+        //     ['uraian_skala_usaha' => $this->uraian_skala_usaha],
+        //     ['kecamatan_usaha' => $this->kecamatan_usaha]
 
-        );
+        // );
     }
 
     public function mount()

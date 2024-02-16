@@ -13,7 +13,7 @@
         </form>
     </x-filament::section>
 
-    <div wire:loading wire:target="submit">
+    {{-- <div wire:loading wire:target="submit">
         <div class="top-0 left-0 z-50 w-screen h-screen bg-gray-800 opacity-70 fixed flex items-center justify-center duration-300 transition-opacity"
             style="z-index: 6000">
             <div class="flex-col">
@@ -128,5 +128,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </x-filament-panels::page>

@@ -17,6 +17,8 @@ class KabupatenTable extends BaseWidget
 {
     protected int|string|array $columnSpan = 'full';
 
+    protected static bool $isLazy = false;
+
     //FILTERS
     public $filter;
     public $tahun,
