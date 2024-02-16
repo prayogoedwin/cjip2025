@@ -3,7 +3,7 @@
     <nav id="topnav" class="defaultscroll is-sticky">
         <div class="container relative py-2">
             <!-- Logo container-->
-            <a class="logo" href="index.html">
+            <a class="logo" href="/">
                 <span class="inline-block dark:hidden">
                     <img src="{{ asset('images/cjip.png') }}" class="l-dark w-9" height="9" alt="">
                     <img src="{{ asset('images/logowhite.png') }}" class="l-light w-9" height="9" alt="">
