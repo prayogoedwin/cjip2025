@@ -158,7 +158,7 @@
             class="py-7 flex items-center text-sm text-gray-800 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:after:border-gray-600">
         </div>
         <div class="rounded-lg dark:border-gray-700">
-            <div class="z-10" style="height: 90vh; width: auto;" id="map"></div>
+            <div class="z-10" style="height: 94vh; width: auto;" id="map"></div>
 
         </div>
     </div>
