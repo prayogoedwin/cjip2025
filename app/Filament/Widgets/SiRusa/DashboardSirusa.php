@@ -27,7 +27,7 @@ class DashboardSirusa extends Widget implements HasForms
 
     use InteractsWithForms;
     protected int|string|array $columnSpan = 'full';
-
+    protected static bool $isLazy = false;
     protected static ?string $pollingInterval = null;
 
     public $loading = false;

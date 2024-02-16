@@ -19,7 +19,6 @@ class KabupatenTable extends Page
     // protected static ?string $navigationIcon = 'heroicon-o-table-cells';
 
     protected static ?string $navigationLabel = "Rekap Kabupaten/Kota";
-
     protected static ?string $pluralModelLabel = 'Rekap Kabupaten/Kota';
     protected static ?int $navigationSort = 1;
     protected static ?string $navigationGroup = "Graph";

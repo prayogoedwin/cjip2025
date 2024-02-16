@@ -56,19 +56,19 @@
                 class="fi-wi-stats-overview-stat relative rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 cursor-pointer">
                 <div class="grid gap-y-2">
                     <div class="flex justify-center gap-x-2">
-                        <span class="text-md font-medium text-custom-600 text-primary-500 dark:text-primary-500">
-                            Jumlah Nilai Investasi
+                        <span class="text-md font-medium text-custom-600 dark:text-custom-600">
+                            Rencana Nilai Investasi
                         </span>
                     </div>
 
                     <div class="lg:text-4xl md:text-lg sm:text-md text-md flex justify-center font-semibold tracking-tight text-custom-600 dark:text-custom-600"
-                        style="font-size: 2rem; color: rgb(245 158 11);">
+                        style="font-size: 2rem;">
                         Rp. {{ number_format($simike->jumlah_investasi) }}
                     </div>
                     <div class="flex justify-center gap-x-1">
                         <span
                             class="italic fi-wi-stats-overview-stat-description text-sm fi-color-custom text-custom-600 dark:text-custom-400"
-                            style="color: rgb(245 158 11);">
+                            style="">
                             (Tanpa Dikurangi Tanah dan Bangunan)
                         </span>
                     </div>

@@ -162,7 +162,7 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
         }
         $this->sektor = $this->form->getState()['sektor'];
         $this->uraian_skala_usaha = $this->form->getState()['uraian_skala_usaha'];
-        $this->kecamatan_usaha = $this->form->getState()['kecamatan_usaha'];
+        // $this->kecamatan_usaha = $this->form->getState()['kecamatan_usaha'];
 
 
         if (auth()->user()->hasRole('super_admin')) {

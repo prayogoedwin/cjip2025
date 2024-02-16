@@ -419,7 +419,7 @@ class ProyekResource extends Resource
                 ExportAction::make()->exports([
                     ExcelExport::make('table')
                         ->fromTable()
-                        ->withFilename(date('d-M-Y') . ' - Data Perusahaan')
+                        ->withFilename(date('d-M-Y') . ' - Data Simike')
                         ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
                 ])
                     ->button()
