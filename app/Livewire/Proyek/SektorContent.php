@@ -15,8 +15,9 @@ class SektorContent extends Component
     public $marketPlace;
     public $marketPlaces;
     public $query = '';
+
     public $active, $locale;
-    protected $searchs;
+    public $searchs;
     public $highlightIndex = 0;
 
     protected $listeners = ['languageChange' => 'changeLanguange'];
@@ -32,7 +33,7 @@ class SektorContent extends Component
     {
 
         $this->marketPlace = $selectedCategory;
-        // $this->reset(['query', 'searchs', 'highlightIndex']);
+        $this->reset(['query', 'searchs', 'highlightIndex']);
     }
 
 
@@ -70,11 +71,11 @@ class SektorContent extends Component
             ->orWhereHas('sektor', function ($q) {
                 $q->where('nama', 'like', '%' . $this->query . '%');
             })
-            ->orWhereHas('kabkota', function ($r) {
+            ->orWhereHas('kabKota', function ($r) {
                 $r->where('nama', 'like', '%' . $this->query . '%');
             })
             ->simplePaginate(15);
-        //dd($this->searchs);
+        // dd($this->searchs);
     }
     public function updateMarket($value)
     {
@@ -119,6 +120,6 @@ class SektorContent extends Component
             $acti = $this->active;
         }
 
-        return view('livewire.proyek.sektor-content', compact('jenis_marketplaces', 'proyeks', 'searchs', 'acti',));
+        return view('livewire.proyek.sektor-content', compact('jenis_marketplaces', 'proyeks', 'searchs', 'acti', ));
     }
 }

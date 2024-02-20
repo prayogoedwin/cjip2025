@@ -8,8 +8,10 @@
             <div class="mb-10 mx-auto justify-center">
                 <label for="hs-trailing-button-add-on-with-icon-and-button" class="sr-only">Label</label>
                 <div class="relative flex rounded-lg shadow-sm">
-                    <input type="text" id="hs-trailing-button-add-on-with-icon-and-button"
-                        name="hs-trailing-button-add-on-with-icon-and-button" placeholder="Search"
+                    <input type="text" name="search" id="search"
+                        name="hs-trailing-button-add-on-with-icon-and-button" placeholder="Search" wire:model="query"
+                        wire:keydown.escape="reset" wire:keydown.tab="reset" wire:keydown.ArrowUp="decrementHighlight"
+                        wire:keydown.ArrowDown="incrementHighlight"
                         class="py-3 px-4 ps-11 block w-full border-gray-200 shadow-md rounded-s-lg dark:shadow-md ring-1 ring-gray-300 text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
                     <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
                         <svg class="flex-shrink-0 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg"
@@ -19,9 +21,64 @@
                             <path d="m21 21-4.3-4.3" />
                         </svg>
                     </div>
-                    <button type="button"
+                    <button type="submit" wire:model="query"
                         class="py-3 px-4 inline-flex justify-center items-center dark:shadow-md gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-green-600 text-white hover:bg-green-700 shadow-md disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Search</button>
+                    <div wire:loading class="fixed mx-auto h-screen w-screen z-50 justify-center items-center">
+                        <div
+                            class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 text-center border-gray-900">
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <div>
+                @if (!empty($query))
+                    <div class="flex flex-col items-center mb-2">
+                        <div class="lg:w-3/5 w-4/5 flex flex-col items-center h-64 mb-14">
+                            <div class="w-full px-4 mt-0">
+                                <div class="flex flex-col items-center relative">
+                                    <div
+                                        class="absolute shadow bg-slate-100 dark:bg-slate-800 top-100 z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
+                                        <div class="flex flex-col w-full">
+                                            @isset($searchs)
+                                                @foreach ($searchs as $search)
+                                                    <a href="{{ route('detail_investasi', $search->id) }}"
+                                                        class="cursor-pointer w-full rounded-lg hover:bg-green-600 hover:text-white">
+                                                        <div class=" w-full items-center p-2 relative">
+                                                            <div class="w-6 flex flex-col items-center pl-4">
+                                                                {{-- <div
+                                                                    class="flex relative w-5 h-5 justify-center  m-1 mr-2 w-4 h-4 mt-1 rounded-full ">
+                                                                    <img class="rounded-full" alt="{{ $search->nama }}"
+                                                                        src="">
+                                                                </div> --}}
+                                                            </div>
+                                                            <div class="w-full items-center flex pl-4">
+                                                                <div class="mx-2 -mt-1">
+                                                                    {{ \Illuminate\Support\Str::limit(strip_tags($search->getTranslations('nama', [$locale]) ? $search->getTranslations('nama', [$locale])[$locale] : $search->nama), 100, ' ...') }}
+                                                                    @isset($search->sektor_id)
+                                                                        <div
+                                                                            class="text-xs truncate w-full normal-case font-normal -mt-1 text-gray-500">
+                                                                            {{ $search->sektor->nama }}</div>
+                                                                    @endisset
+                                                                    <div
+                                                                        class="text-xs truncate w-full normal-case font-normal -mt-1 text-gray-500">
+                                                                        {{ $search->kabkota->nama }}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                @endforeach
+                                                {{ $searchs->links() }}
+                                            @else
+                                                <p>Tidak ditemukan !</p>
+                                            @endisset
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
 
 
@@ -103,77 +160,6 @@
 
 
 
-        {{-- search --}}
-        {{-- <div class="lg:w-3/5 w-4/5 mx-auto p-4 mt-8 bg-white dark:bg-slate-800 rounded-lg flex justify-between items-center relative m-8 shadow-sm px-5 "
-            style="height: 3.5rem;">
-            <div class="pr-4 text-green-600">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                    stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6">
-                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-            </div>
-            <input type="text" name="search" id="search" placeholder="{{ __('proyek.search', [], $locale) }}"
-                style="border: #1DB053;"
-                class=" w-full outline-none focus:outline-hidden bg-white dark:bg-slate-800 text-lg" wire:model="query"
-                wire:keydown.escape="reset" wire:keydown.tab="reset" wire:keydown.ArrowUp="decrementHighlight"
-                wire:keydown.ArrowDown="incrementHighlight" />
-
-            <div wire:loading class="fixed mx-auto h-screen w-screen z-50 justify-center items-center">
-                <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 text-center border-gray-900">
-                </div>
-            </div>
-        </div> --}}
-        {{-- end search --}}
-
-        <div>
-            @if (!empty($query))
-                <div class="flex flex-col items-center mb-2">
-                    <div class="lg:w-3/5 w-4/5 flex flex-col items-center h-64 mb-14">
-                        <div class="w-full px-4 mt-0">
-                            <div class="flex flex-col items-center relative">
-                                <div
-                                    class="absolute shadow bg-slate-100 dark:bg-slate-800 top-100 z-40 w-full lef-0 rounded max-h-select overflow-y-auto">
-                                    <div class="flex flex-col w-full">
-                                        @isset($searchs)
-                                            @foreach ($searchs as $search)
-                                                <a href="{{ route('detail_investasi', $search->id) }}"
-                                                    class="cursor-pointer w-full rounded-lg hover:bg-green-600 hover:text-white">
-                                                    <div class=" w-full items-center p-2 relative">
-                                                        <div class="w-6 flex flex-col items-center pl-4">
-                                                            {{-- <div
-                                                                class="flex relative w-5 h-5 justify-center  m-1 mr-2 w-4 h-4 mt-1 rounded-full ">
-                                                                <img class="rounded-full" alt="{{ $search->nama }}"
-                                                                    src="">
-                                                            </div> --}}
-                                                        </div>
-                                                        <div class="w-full items-center flex pl-4">
-                                                            <div class="mx-2 -mt-1">
-                                                                {{ \Illuminate\Support\Str::limit(strip_tags($search->getTranslations('nama', [$locale]) ? $search->getTranslations('nama', [$locale])[$locale] : $search->nama), 100, ' ...') }}
-                                                                @isset($search->sektor_id)
-                                                                    <div
-                                                                        class="text-xs truncate w-full normal-case font-normal -mt-1 text-gray-500">
-                                                                        {{ $search->sektor->nama }}</div>
-                                                                @endisset
-                                                                <div
-                                                                    class="text-xs truncate w-full normal-case font-normal -mt-1 text-gray-500">
-                                                                    {{ $search->kabkota->nama }}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            @endforeach
-                                            {{ $searchs->links() }}
-                                        @else
-                                            <p>Tidak ditemukan !</p>
-                                        @endisset
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-        </div>
 
         @isset($proyeks)
             <div class="container">

@@ -21,7 +21,7 @@ class Kesiapan extends Component
     public $marketPlaces;
     public $active;
     public $query = '';
-    protected $searchs;
+    public $searchs;
     public $highlightIndex = 0;
     public $locale;
 
@@ -53,7 +53,7 @@ class Kesiapan extends Component
 
         // dd($this->locale);
         $this->marketPlace = $selectedCategory;
-        // $this->reset(['query', 'searchs', 'highlightIndex']);
+        $this->reset(['query', 'searchs', 'highlightIndex']);
     }
 
 
