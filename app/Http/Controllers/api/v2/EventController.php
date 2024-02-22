@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\v2;
 
 use App\Http\Controllers\Controller;
-use App\Models\Investasi\Event;
+use App\Models\Cjip\Event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller {

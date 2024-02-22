@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\v2;
 
 use App\Http\Controllers\Controller;
-use App\Models\General\Kabkota;
+use App\Models\Cjip\Kabkota;
 use Illuminate\Http\Request;
 
 class KabKotaController extends Controller {

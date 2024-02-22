@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\v2;
 
 use App\Http\Controllers\Controller;
-use App\Models\Investasi\Loi;
+use App\Models\Cjip\Loi;
 use Illuminate\Http\Request;
 
 class LoiController extends Controller
