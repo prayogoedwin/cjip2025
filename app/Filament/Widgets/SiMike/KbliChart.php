@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\URL;
 class KbliChart extends ChartWidget
 {
     use HasWidgetShield;
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = 'Top 5 Nilai Realisasi Investasi berdasarkan KBLI (dalam Rp. Juta)';
     public $years;
     public $kblis_data;
     public $label_kbli;
