@@ -7,6 +7,7 @@ use App\Filament\Resources\SiRusa\BapResource\RelationManagers;
 use App\Models\SiMike\Proyek;
 use App\Models\SiRusa\Bap;
 use Carbon\Carbon;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -14,7 +15,10 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
+use Filament\Support\RawJs;
 use Filament\Tables;
 use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
@@ -57,29 +61,25 @@ class BapResource extends Resource
                                     return null;
 
                                 })
-                                ->options(function () {
-                                    $proyek = Proyek::where('uraian_skala_usaha', '!=', 'Usaha Mikro')
-                                        ->whereNotNull('rilis')
-                                        ->get()
-                                        ->pluck('proyek_kbli', 'id');
-                                    return $proyek;
-                                })
+
                                 ->columnSpanFull()
-                                ->preload()
                                 ->getSearchResultsUsing(fn(string $search) => Proyek::where('nama_perusahaan', 'like', "%{$search}%")
                                     ->limit(50)
                                     ->get()
                                     ->pluck('proyek_kbli', 'id'))
                                 ->getOptionLabelUsing(fn($value): ?string => Proyek::find($value)?->proyek_kbli)
                                 ->reactive()
-                                ->afterStateUpdated(function (\Filament\Forms\Set $set, $state) {
+                                ->afterStateUpdated(function (Set $set, $state) {
                                     //dd($state);
                         
                                     $perusahaan = Proyek::where('id', $state)->first();
+                                    if ($perusahaan->nibCheck) {
+                                        $set('tanggal_nib', $perusahaan->nibCheck->tanggal_terbit_oss);
+                                        $set('nama_perusahaan', $perusahaan->nibCheck->nama_perusahaan);
+                                    }
                                     $set('nib', $perusahaan->nib);
-                                    $set('tanggal_nib', $perusahaan->nibCheck->day_of_tanggal_terbit_oss);
-                                    $set('nama_perusahaan', $perusahaan->nibCheck->nama_perusahaan);
                                     $set('rencana_investasi', $perusahaan->total_investasi);
+                                    $set('alamat', $perusahaan->alamat_usaha);
 
                                 }),
                             Forms\Components\Grid::make()->schema([
@@ -153,10 +153,14 @@ class BapResource extends Resource
                         ->schema([
                             Forms\Components\Grid::make()->schema([
                                 TextInput::make('rencana_investasi')
-                                    ->mask(fn(TextInput\Mask $mask) => $mask->money(prefix: 'Rp. ', thousandsSeparator: ',', decimalPlaces: 2))
+                                    ->mask(RawJs::make('$money($input)'))
+                                    ->stripCharacters(',')
+                                    ->numeric()
                                     ->disabled(),
                                 TextInput::make('realisasi_investasi')
-                                    ->mask(fn(TextInput\Mask $mask) => $mask->money(prefix: 'Rp. ', thousandsSeparator: ',', decimalPlaces: 2)),
+                                    ->mask(RawJs::make('$money($input)'))
+                                    ->stripCharacters(',')
+                                    ->numeric(),
                                 TableRepeater::make('sumber_listriks')
                                     ->required()
                                     // ->headers(['Sumber', 'Kapasitas (Kva)'])
@@ -206,7 +210,9 @@ class BapResource extends Resource
                                                 ->disableLabel(),
                                             TextInput::make('jumlah_potensi_investasi')
                                                 ->disableLabel()
-                                                ->mask(fn(TextInput\Mask $mask) => $mask->money(prefix: 'Rp. ', thousandsSeparator: ',', decimalPlaces: 2))
+                                                ->mask(RawJs::make('$money($input)'))
+                                                ->stripCharacters(',')
+                                                ->numeric()
                                         ])
                                         ->defaultItems(1)
                                         ->createItemButtonLabel('Tambah Potensi Investasi')
@@ -323,7 +329,9 @@ class BapResource extends Resource
                                     ->reactive(),
                                 TextInput::make('alokasi_dana_csr')
                                     ->label('Alokasi dana CSR')
-                                    ->mask(fn(TextInput\Mask $mask) => $mask->money(prefix: 'Rp. ', thousandsSeparator: ',', decimalPlaces: 2))
+                                    ->mask(RawJs::make('$money($input)'))
+                                    ->stripCharacters(',')
+                                    ->numeric()
                                     ->visible(function (\Filament\Forms\Get $get) {
                                         //dd($get('jenis_anggaran'));
                                         if ($get('is_csr') === true) {
@@ -428,7 +436,7 @@ class BapResource extends Resource
                                 TextInput::make('nama'),
                                 TextInput::make('jabatan'),
                                 TextInput::make('no_hp')
-                                    ->mask(fn(TextInput\Mask $mask) => $mask->pattern('000-000-000-000')),
+                                    ->mask('000-000-000-000'),
 
                             ])
                                 ->collapsible(),
@@ -450,9 +458,12 @@ class BapResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('proyek.id_proyek'),
-                Tables\Columns\TextColumn::make('tanggal_bap')->date(),
-                Tables\Columns\TextColumn::make('proyek.kabkota.nama')->searchable(),
+                Tables\Columns\TextColumn::make('tanggal_bap')->date('d M Y')->label('Tanggal BAP'),
+                Tables\Columns\TextColumn::make('proyek.id_proyek')->label('ID Proyek'),
+                Tables\Columns\TextColumn::make('proyek.nib')->label('NIB'),
+                Tables\Columns\TextColumn::make('proyek.kbli')->label('KBLI'),
+                Tables\Columns\TextColumn::make('proyek.nama_perusahaan')->label('Nama Perusahaan')->wrap(),
+                Tables\Columns\TextColumn::make('proyek.kabkota.nama')->searchable()->label('Kabupaten/Kota'),
             ])
             ->filters([
                 //
