@@ -151,7 +151,7 @@ class TopNilaiInvestasi extends Page
     protected function getFooterWidgets(): array
     {
         return [
-            KbliChart::class,
+            // KbliChart::class,
             // SiMikeSektorChart::class
         ];
     }
