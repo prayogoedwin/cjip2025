@@ -293,59 +293,82 @@ class ProyekResource extends Resource
                     ->falseColor('success')
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                Tables\Columns\TextColumn::make('total_investasi')->label('Rencana Nilai Investasi (Dikurangi Tanah dan Bangunan)')
-                    ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                    // ->formatStateUsing(function ($state) {
-                    //     return number_format($state);
-                    // })
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('total_investasi')->label('Rencana Nilai Investasi (Dikurangi Tanah dan Bangunan)')
+                //     ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
+                //     // ->formatStateUsing(function ($state) {
+                //     //     return number_format($state);
+                //     // })
+                //     ->sortable(),
+
                 Tables\Columns\TextColumn::make('jumlah_investasi')
-                    ->label('Rencana Nilai Investasi (Tanpa Dikurangi Tanah dan Bangunan)')
-                    ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                    // ->formatStateUsing(function ($state) {
-                    //     return number_format($state);
-                    // })
-                    ->sortable(),
+                    ->label('Rencana Nilai Investasi')
+                    ->color('primary')
+                    ->sortable()
+                    // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
+                    ->formatStateUsing(function ($state) {
+                        return number_format($state);
+                    }),
                 Tables\Columns\TextColumn::make('pembelian_pematangan_tanah')
                     ->label('Pembelian Pematangan Tanah')
                     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
                     ->wrap()
+                    ->formatStateUsing(function ($state) {
+                        return number_format($state);
+                    })
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('bangunan_gedung')
                     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
                     ->label('Bangunan Gedung')
                     ->wrap()
+                    ->formatStateUsing(function ($state) {
+                        return number_format($state);
+                    })
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('mesin_peralatan')
                     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
                     ->label('Mesin Peralatan')
                     ->wrap()
+                    ->formatStateUsing(function ($state) {
+                        return number_format($state);
+                    })
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('mesin_peralatan_impor')
                     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
                     ->label('Mesin Peralatan Impor')
                     ->wrap()
+                    ->formatStateUsing(function ($state) {
+                        return number_format($state);
+                    })
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('modal_kerja')
                     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
                     ->label('Modal Kerja')
                     ->wrap()
+                    ->formatStateUsing(function ($state) {
+                        return number_format($state);
+                    })
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('lain_lain')
                     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
                     ->label('Lain-Lain')
                     ->wrap()
+                    ->formatStateUsing(function ($state) {
+                        return number_format($state);
+                    })
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('luas_tanah')
                     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
                     ->label('Luas Tanah')
                     ->wrap()
+                    ->formatStateUsing(function ($state) {
+                        return number_format($state);
+                    })
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('satuan_tanah')
