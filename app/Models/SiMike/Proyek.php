@@ -80,6 +80,7 @@ class Proyek extends Model
         'rilis',
         'is_terfasilitasi',
         'is_terbina',
+        'dikecualikan',
 
         'luas_tanah',
         'satuan_tanah',
@@ -149,6 +150,7 @@ class Proyek extends Model
             }
         })
             ->select(
+                DB::raw('sum(CASE WHEN dikecualikan = "0" THEN jumlah_investasi ELSE 0 END) as `investasi`'),
                 DB::raw('sum(CASE WHEN is_anomaly = "0" THEN jumlah_investasi ELSE 0 END) as `jumlah_investasi`'),
                 DB::raw('sum(CASE WHEN is_anomaly = "0" THEN total_investasi ELSE 0 END) as `total_investasi`'),
                 DB::raw('sum(CASE WHEN is_anomaly = "1" THEN jumlah_investasi ELSE 0 END) as `jumlah_investasi_anomaly`'),

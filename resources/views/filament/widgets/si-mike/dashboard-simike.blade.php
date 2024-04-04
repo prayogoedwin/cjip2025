@@ -40,6 +40,32 @@
 
                     <div class="lg:text-4xl md:text-lg sm:text-md text-md flex justify-center font-semibold tracking-tight text-green-00 dark:text-custom-600"
                         style="font-size: 2rem; color: rgb(22 163 74);">
+                        Rp. {{ number_format($simike->investasi) }}
+                    </div>
+                    <div class="flex justify-center gap-x-1">
+                        <span
+                            class="italic fi-wi-stats-overview-stat-description text-sm fi-color-custom text-custom-600 dark:text-custom-400"
+                            style="color: rgb(22 163 74);">
+                            (Perhitungan Dengan Rumus Baru)
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            {{-- <div
+                class="fi-wi-stats-overview-stat relative rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 cursor-pointer">
+                <div class="grid gap-y-2">
+                    <div class="flex justify-center items-center gap-x-2">
+
+                        <span class="text-md  font-medium text-green-500 dark:text-custom-600"
+                            style="color: rgb(22 163 74);">
+                            Rencana Nilai Investasi
+                        </span>
+                    </div>
+
+                    <div class="lg:text-4xl md:text-lg sm:text-md text-md flex justify-center font-semibold tracking-tight text-green-00 dark:text-custom-600"
+                        style="font-size: 2rem; color: rgb(22 163 74);">
                         Rp. {{ number_format($simike->total_investasi) }}
                     </div>
                     <div class="flex justify-center gap-x-1">
@@ -50,14 +76,14 @@
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <div
                 class="fi-wi-stats-overview-stat relative rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 cursor-pointer">
                 <div class="grid gap-y-2">
                     <div class="flex justify-center gap-x-2">
                         <span class="text-md font-medium text-custom-600 dark:text-custom-600">
-                            Rencana Nilai Investasi
+                            Total Rencana Nilai Investasi
                         </span>
                     </div>
 
@@ -69,7 +95,7 @@
                         <span
                             class="italic fi-wi-stats-overview-stat-description text-sm fi-color-custom text-custom-600 dark:text-custom-400"
                             style="">
-                            (Tanpa Dikurangi Tanah dan Bangunan)
+                            (Perhitungan Tanpa Menggunakan Rumus)
                         </span>
                     </div>
                 </div>
@@ -97,7 +123,7 @@
                         <span
                             class="italic fi-wi-stats-overview-stat-description text-sm fi-color-custom text-custom-600 dark:text-custom-600"
                             style="--c-400:var(--danger-600);--c-600:var(--danger-600);">
-                            (Dikurangi Tanah dan Bangunan)
+                            {{-- (Dikurangi Tanah dan Bangunan) --}}
                         </span>
                     </div>
                 </div>

@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use PhpParser\Node\Stmt\Else_;
 
 class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading, ShouldQueue, WithUpserts, WithEvents, WithValidation
 {
@@ -28,6 +29,9 @@ class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
     private $mulai;
     private $akhir;
     private $rules_id;
+    public $dikecualikan = false;
+
+    public $kblis = [];
     public $anomaly = false;
     public $dataToInsert, $dashboardToInsert = [], $kabkotas = [], $sektors = [];
     public $nilai_investasi,
@@ -120,20 +124,54 @@ class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
             'sektor' => $sektor->sektor ?? null,
             'sektor_id' => $sektor->id ?? null,
             'is_anomaly' => $this->anomaly,
+            'dikecualikan' => $this->dikecualikan,
             'rilis' => json_encode($proyekRilis)
         ];
 
+        // if (!empty($row['jumlah_investasi'])) {
+        //     //dd($row);
+        //     //dd((int)$row('bangunan_gedung'));
+        //     $total = (int) $user['jumlah_investasi'] - ((int) $row['pembelian_pematangan_tanah'] + (int) $row['bangunan_gedung']);
+        // } else {
+        //     $total = $user['jumlah_investasi'];
+        // }
+        // if (($total > 1000000000 or $total <= 0) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
+        //     $this->anomaly = true;
+        //     $user['is_anomaly'] = true;
+        // }
+
+        //  =========================================== Rumus Baru ============================================= //
+
+
         if (!empty($row['jumlah_investasi'])) {
-            //dd($row);
-            //dd((int)$row('bangunan_gedung'));
-            $total = (int) $user['jumlah_investasi'] - ((int) $row['pembelian_pematangan_tanah'] + (int) $row['bangunan_gedung']);
-        } else {
             $total = $user['jumlah_investasi'];
         }
-        if (($total > 1000000000 or $total <= 0) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
+        if (($total > 1000000000 or $total = 0) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
             $this->anomaly = true;
             $user['is_anomaly'] = true;
         }
+
+        // switch ($row['kbli']) {
+        //     case '11090':
+        //     case '11091':
+        //     case '11092':
+        //         $user['dikecualikan'] = true;
+        //         break;
+        //     default:
+        //         $user['dikecualikan'] = false;
+        //         break;
+        // }
+
+        if (in_array($row['kbli'], ['11090', '10799']) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
+            $user['dikecualikan'] = true;
+        }
+
+        if (in_array($row['klsektor_pembina'], ['Kementerian Kesehatan'])) {
+            $user['dikecualikan'] = true;
+        }
+
+
+        //  =========================================== Rumus Baru ============================================= //
 
         $data = array_merge(
             $row,
@@ -143,6 +181,7 @@ class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
             ]
         );
 
+        $this->dikecualikan = false;
         $this->anomaly = false;
 
         return new Proyek($data);

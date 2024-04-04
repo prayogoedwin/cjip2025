@@ -17,6 +17,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class PengawasanResource extends Resource
 {
@@ -335,6 +336,15 @@ class PengawasanResource extends Resource
         ];
     }
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        if (auth()->user()->hasRole(['kabkota'])) {
+            return false;
+        }
+        return true;
+    }
+
+
     public static function getPages(): array
     {
         return [
@@ -343,4 +353,5 @@ class PengawasanResource extends Resource
             'edit' => Pages\EditPengawasan::route('/{record}/edit'),
         ];
     }
+
 }
