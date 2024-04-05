@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        {{-- anomaly --}}
+        {{-- anomaly data yang dikecualikan --}}
         <div class="fi-wi-stats-overview grid gap-6 md:grid-cols-2 xl:grid-cols-2 gap-x-6 gap-y-6 mt-6">
             <div
                 class="fi-wi-stats-overview-stat relative rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 cursor-pointer">
