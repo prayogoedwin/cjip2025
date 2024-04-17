@@ -149,6 +149,7 @@ class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
         if (($total > 1000000000 or $total = 0) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
             $this->anomaly = true;
             $user['is_anomaly'] = true;
+            
         }
 
         // switch ($row['kbli']) {
