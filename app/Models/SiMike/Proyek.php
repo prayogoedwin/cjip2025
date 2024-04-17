@@ -151,10 +151,15 @@ class Proyek extends Model
         })
             ->select(
                 DB::raw('sum(CASE WHEN dikecualikan = "0" THEN jumlah_investasi ELSE 0 END) as `investasi`'),
-                DB::raw('sum(CASE WHEN is_anomaly = "0" THEN jumlah_investasi ELSE 0 END) as `jumlah_investasi`'),
+                DB::raw('sum(jumlah_investasi) as `jumlah_investasi`'),
+                // DB::raw('sum(CASE WHEN is_anomaly = "0" THEN jumlah_investasi ELSE 0 END) as `jumlah_investasi`'),
                 DB::raw('sum(CASE WHEN is_anomaly = "0" THEN total_investasi ELSE 0 END) as `total_investasi`'),
                 DB::raw('sum(CASE WHEN is_anomaly = "1" THEN jumlah_investasi ELSE 0 END) as `jumlah_investasi_anomaly`'),
+<<<<<<< HEAD
                 DB::raw('sum(CASE WHEN is_anomaly = "1" THEN jumlah_investasi ELSE 0 END) as `total_investasi_anomaly`'),
+=======
+                DB::raw('sum(CASE WHEN dikecualikan = "1" THEN jumlah_investasi ELSE 0 END) as `total_investasi_anomaly`'),
+>>>>>>> f186f99d556219bdbdbdca443fb4b948b367785c
                 DB::raw('sum(CASE WHEN is_anomaly = "0" THEN nib_count ELSE 0 END) as `count_nib`'),
                 DB::raw('sum(CASE WHEN is_anomaly = "1" THEN nib_count ELSE 0 END) as `count_nib_anomaly`'),
                 DB::raw('sum(CASE WHEN is_anomaly = "0" THEN tki ELSE 0 END) as `count_tki`'),
