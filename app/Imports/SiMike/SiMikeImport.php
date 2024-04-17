@@ -162,11 +162,11 @@ class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
         //         break;
         // }
 
-        if (in_array($row['kbli'], ['11090', '10799']) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
-            $user['dikecualikan'] = true;
-        }
+        // if (in_array($row['kbli'], ['11090', '10799']) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
+        //     $user['dikecualikan'] = true;
+        // }
 
-        if (in_array($row['klsektor_pembina'], ['Kementerian Kesehatan'])) {
+        if (in_array($row['klsektor_pembina'], ['Kementerian Investasi/Badan Koordinasi Penanaman Modal', 'Otoritas Jasa Keuangan', 'Kementerian Keuangan', 'Kementrian Dalam Negeri', 'Kementerian Hukum dan Hak Asasi Manusia', 'Kementerian Pemuda dan Olahraga', 'Kementerian Sosial']) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
             $user['dikecualikan'] = true;
         }
 
