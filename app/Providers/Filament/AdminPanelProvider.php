@@ -116,6 +116,10 @@ class AdminPanelProvider extends PanelProvider
                     ->label('Si-Rusa')
                     ->icon('heroicon-o-squares-2x2')
                     ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Kepeminatan')
+                    ->icon('heroicon-o-squares-2x2')
+                    ->collapsed(),
             ])
             ->authMiddleware([
                 Authenticate::class,
