@@ -94,7 +94,7 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            
+
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label('Graph')
@@ -106,6 +106,10 @@ class AdminPanelProvider extends PanelProvider
                     ->label('Cjip')
                     ->icon('heroicon-o-window'),
                 NavigationGroup::make()
+                    ->label('Kepeminatan')
+                    ->icon('heroicon-o-window')
+                    ->collapsed(),
+                NavigationGroup::make()
                     ->label('Cjibf')
                     ->icon('heroicon-o-bars-3'),
                 NavigationGroup::make()
@@ -114,10 +118,6 @@ class AdminPanelProvider extends PanelProvider
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('Si-Rusa')
-                    ->icon('heroicon-o-squares-2x2')
-                    ->collapsed(),
-                NavigationGroup::make()
-                    ->label('Kepeminatan')
                     ->icon('heroicon-o-squares-2x2')
                     ->collapsed(),
             ])
