@@ -5,14 +5,18 @@ namespace App\Filament\Resources\SiMike;
 use App\Filament\Resources\SiMike\ProyekResource\Pages;
 use App\Filament\Resources\SiMike\ProyekResource\RelationManagers;
 use App\Models\Cjip\Sektor;
+use App\Models\SiMike\MappingKbli;
 use App\Models\SiMike\Proyek;
 use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -244,13 +248,18 @@ class ProyekResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nib')
                     ->copyable()
-                    ->icon('heroicon-s-document-duplicate')
-                    ->iconPosition('before')
                     ->label('NIB')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('day_of_tanggal_pengajuan_proyek')
+                    ->label('Tanggal Pengajuan Proyek')
+                    ->wrap()
+                    ->date('d M Y')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tanggal_terbit_oss')
                     ->label('Tanggal Terbit OSS')
                     ->wrap()
+                    ->date('d M Y')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nama_perusahaan')
@@ -265,7 +274,28 @@ class ProyekResource extends Resource
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->wrap(),
-                Tables\Columns\TextColumn::make('sektor')->label('Kategori')->searchable()->wrap(),
+                Tables\Columns\TextColumn::make('kbli2digit.kbli_2digit')
+                    ->label('KBLI 2Digit')
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('kbli2digit.nama_kbli_2digit')
+                    ->label('Nama KBLI 2Digit')
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('kbli2digit.nama_23_sektor')
+                    ->label('Nama 23 Sektor')
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('klsektor_pembina')
+                    ->label('K/L Sektor Pembina')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->wrap(),
+                Tables\Columns\TextColumn::make('sektor')->label('Kategori')->searchable()->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\BadgeColumn::make('uraian_skala_usaha')
                     ->colors([
                         'warning' => 'Usaha Menengah',
@@ -279,114 +309,79 @@ class ProyekResource extends Resource
                 Tables\Columns\TextColumn::make('triwulan')->sortable(),
                 Tables\Columns\TextColumn::make('rules.nama')
                     ->label('Sumber Data')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jmlTenagaKerja')
                     ->label('Jumlah Naker')
                     ->getStateUsing(function (Model $record) {
                         return $record->tki + $record->tka;
                     }),
-                Tables\Columns\IconColumn::make('is_anomaly')
+                Tables\Columns\IconColumn::make('dikecualikan')
                     ->boolean()
-                    ->label('Anomaly')
+                    ->label('Dikecualikan')
                     ->sortable()
                     ->trueColor('danger')
                     ->falseColor('success')
                     ->toggleable(isToggledHiddenByDefault: true),
-
-                // Tables\Columns\TextColumn::make('total_investasi')->label('Rencana Nilai Investasi (Dikurangi Tanah dan Bangunan)')
-                //     ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                //     // ->formatStateUsing(function ($state) {
-                //     //     return number_format($state);
-                //     // })
-                //     ->sortable(),
-
+                Tables\Columns\IconColumn::make('is_mapping')
+                    ->boolean()
+                    ->label('Is Mapping')
+                    ->sortable()
+                    ->trueColor('danger')
+                    ->falseColor('success')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('jumlah_investasi')
                     ->label('Rencana Nilai Investasi')
-                    ->color('primary')
-                    ->sortable()
-                    // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                    ->formatStateUsing(function ($state) {
-                        return number_format($state);
-                    }),
-                Tables\Columns\TextColumn::make('pembelian_pematangan_tanah')
-                    ->label('Pembelian Pematangan Tanah')
-                    // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                    ->wrap()
-                    ->formatStateUsing(function ($state) {
-                        return number_format($state);
-                    })
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
-                Tables\Columns\TextColumn::make('bangunan_gedung')
-                    // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                    ->label('Bangunan Gedung')
-                    ->wrap()
-                    ->formatStateUsing(function ($state) {
-                        return number_format($state);
-                    })
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
-                Tables\Columns\TextColumn::make('mesin_peralatan')
-                    // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                    ->label('Mesin Peralatan')
-                    ->wrap()
-                    ->formatStateUsing(function ($state) {
-                        return number_format($state);
-                    })
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
-                Tables\Columns\TextColumn::make('mesin_peralatan_impor')
-                    // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                    ->label('Mesin Peralatan Impor')
-                    ->wrap()
-                    ->formatStateUsing(function ($state) {
-                        return number_format($state);
-                    })
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
-                Tables\Columns\TextColumn::make('modal_kerja')
-                    // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                    ->label('Modal Kerja')
-                    ->wrap()
-                    ->formatStateUsing(function ($state) {
-                        return number_format($state);
-                    })
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
-                Tables\Columns\TextColumn::make('lain_lain')
-                    // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                    ->label('Lain-Lain')
-                    ->wrap()
-                    ->formatStateUsing(function ($state) {
-                        return number_format($state);
-                    })
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
-                Tables\Columns\TextColumn::make('luas_tanah')
-                    // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                    ->label('Luas Tanah')
-                    ->wrap()
-                    ->formatStateUsing(function ($state) {
-                        return number_format($state);
-                    })
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('satuan_tanah')
-                    // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                    ->label('Satuan Tanah')
-                    ->wrap()
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->formatStateUsing(fn(float $state): string => "Rp. " . number_format($state, 0, ',', '.'))
+                    ->sortable(),
+
+                // Tables\Columns\TextColumn::make('pembelian_pematangan_tanah')
+                //     ->label('Pembelian Pematangan Tanah')
+                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
+                //     ->wrap()
+                //     ->searchable()
+                //     ->toggleable(isToggledHiddenByDefault: false),
+                // Tables\Columns\TextColumn::make('bangunan_gedung')
+                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
+                //     ->label('Bangunan Gedung')
+                //     ->wrap()
+                //     ->searchable()
+                //     ->toggleable(isToggledHiddenByDefault: false),
+                // Tables\Columns\TextColumn::make('mesin_peralatan')
+                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
+                //     ->label('Mesin Peralatan')
+                //     ->wrap()
+                //     ->searchable()
+                //     ->toggleable(isToggledHiddenByDefault: false),
+                // Tables\Columns\TextColumn::make('mesin_peralatan_impor')
+                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
+                //     ->label('Mesin Peralatan Impor')
+                //     ->wrap()
+                //     ->searchable()
+                //     ->toggleable(isToggledHiddenByDefault: false),
+                // Tables\Columns\TextColumn::make('modal_kerja')
+                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
+                //     ->label('Modal Kerja')
+                //     ->wrap()
+                //     ->searchable()
+                //     ->toggleable(isToggledHiddenByDefault: false),
+                // Tables\Columns\TextColumn::make('lain_lain')
+                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
+                //     ->label('Lain-Lain')
+                //     ->wrap()
+                //     ->searchable()
+                //     ->toggleable(isToggledHiddenByDefault: false),
+
                 Tables\Columns\TextColumn::make('npwp_perusahaan')
                     ->label('NPWP Perusahaan')
                     ->wrap()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nama_user')
                     ->label('Nama User')
                     ->wrap()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nomor_identitas_user')
                     ->label('Nomor Identitas User')
                     ->wrap()
@@ -395,18 +390,18 @@ class ProyekResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->wrap()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('alamat')
                     ->wrap()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nomor_telp')
                     ->label('Nomor Telp')
                     ->wrap()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('uraian_status_penanaman_modal')
-                    ->label('Uraian Status Penanaman Modal')
+                    ->label('Status Penanaman Modal')
                     ->wrap()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
@@ -425,6 +420,16 @@ class ProyekResource extends Resource
                     ->label('Kecamatan Usaha')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
+                Tables\Columns\TextColumn::make('luas_tanah')
+                    ->wrap()
+                    ->label('Luas Tanah')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('satuan_tanah')
+                    ->wrap()
+                    ->label('Satuan Tanah')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('kabkota.nama')
                     ->wrap()
                     ->label('Kabupaten/Kota')
@@ -450,56 +455,34 @@ class ProyekResource extends Resource
             ])
             ->filters(
                 [
-                    Tables\Filters\SelectFilter::make('uraian_skala_usaha')
-                        ->options([
-                            'Usaha Besar' => 'Usaha Besar',
-                            'Usaha Menengah' => 'Usaha Menengah',
-                            'Usaha Kecil' => 'Usaha Kecil',
-                            'Usaha Mikro' => 'Usaha Mikro',
+                    Filter::make('tanggal_terbit_oss')
+                        ->form([
+                            Fieldset::make('Tanggal Terbit Oss')
+                                ->schema([
+                                    DatePicker::make('created_from')->label('Tanggal Awal')->disableLabel()->placeholder('Awal'),
+                                    DatePicker::make('created_until')->label('Tanggal Akhir')->disableLabel()->placeholder('Akhir'),
+                                ])
                         ])
-                        ->default('Usaha Mikro'),
-                    Tables\Filters\SelectFilter::make('tahun')
-                        ->options(function () {
-                            $years = range(Carbon::now()->year, Carbon::now()->subYear(4)->year);
-                            //dd($years);
-                            return array_combine(array_values($years), array_values($years));
-                        })->default(Carbon::now(0)->year),
-                    Tables\Filters\SelectFilter::make('triwulan')
-                        ->options([
-                            1 => 'I',
-                            2 => 'II',
-                            3 => 'III',
-                            4 => 'IV',
-                        ])->default(function () {
-                            $bulan_ini = Carbon::now()->month;
-                            if ($bulan_ini <= 3) {
-                                return 1;
-                            } elseif ($bulan_ini >= 3 && $bulan_ini <= 6) {
-                                return 2;
-                            } elseif ($bulan_ini >= 6 && $bulan_ini <= 9) {
-                                return 3;
-                            } elseif ($bulan_ini >= 9 && $bulan_ini <= 12) {
-                                return 4;
-                            }
-
-                            return null;
+                        ->query(function (Builder $query, array $data): Builder {
+                            return $query
+                                ->when(
+                                    $data['created_from'],
+                                    fn(Builder $query, $date): Builder => $query->whereDate('tanggal_terbit_oss', '>=', $date),
+                                )
+                                ->when(
+                                    $data['created_until'],
+                                    fn(Builder $query, $date): Builder => $query->whereDate('tanggal_terbit_oss', '<=', $date),
+                                );
                         }),
-
-                    // penambahan filter periode 
                     Filter::make('created_at')
                         ->form([
-                            Grid::make()->schema([
-                                Forms\Components\DatePicker::make('periode_start')->label('Periode Data (mulai)')
-                                    ->placeholder('Mulai'),
-                                Forms\Components\DatePicker::make('periode_end')->label('Periode Data (akhir)')->placeholder('Akhir'),
-                            ])->columnSpan(2),
+                            Fieldset::make('Periode Import')
+                                ->schema([
+                                    Forms\Components\DatePicker::make('periode_start')
+                                        ->disableLabel()->placeholder('Awal'),
+                                    Forms\Components\DatePicker::make('periode_end')->disableLabel()->placeholder('Akhir'),
+                                ])->columns(2),
                         ])
-                        ->visible(function () {
-                            if (auth()->user()->hasRole('kabkota')) {
-                                return false;
-                            }
-                            return true;
-                        })
                         ->query(function (Builder $query, array $data): Builder {
                             return $query
                                 ->when(
@@ -512,6 +495,41 @@ class ProyekResource extends Resource
                                 );
                         }),
 
+                    Tables\Filters\SelectFilter::make('tahun')
+                        ->options(function () {
+                            $years = range(Carbon::now()->year, Carbon::now()->subYear(2)->year);
+                            return array_combine(array_values($years), array_values($years));
+                        })
+                        ->default(Carbon::now()->year),
+
+                    Tables\Filters\SelectFilter::make('triwulan')
+                        ->options([
+                            1 => 'I',
+                            2 => 'II',
+                            3 => 'III',
+                            4 => 'IV',
+                        ]),
+                    // ->default(function () {
+                    //     $bulan_ini = Carbon::now()->month;
+                    //     if ($bulan_ini <= 3) {
+                    //         return 1;
+                    //     } elseif ($bulan_ini >= 3 && $bulan_ini <= 6) {
+                    //         return 2;
+                    //     } elseif ($bulan_ini >= 6 && $bulan_ini <= 9) {
+                    //         return 3;
+                    //     } elseif ($bulan_ini >= 9 && $bulan_ini <= 12) {
+                    //         return 4;
+                    //     }
+                    //     return null;
+                    // }),
+
+                    Tables\Filters\SelectFilter::make('uraian_skala_usaha')
+                        ->label('Skala Usaha')
+                        ->options([
+                            'Usaha Mikro' => 'Usaha Mikro',
+                            'Usaha Kecil' => 'Usaha Kecil',
+                        ]),
+
                     Tables\Filters\SelectFilter::make('kab_kota_id')
                         ->label('Kabupaten/Kota')
                         ->searchable()
@@ -519,69 +537,116 @@ class ProyekResource extends Resource
                         ->relationship('kabkota', 'nama')
                         ->visible(function () {
                             if (auth()->user()->hasRole('kabkota')) {
-                                return true;
+                                return false;
                             }
                             return true;
-                        })
+                        }),
+
+                    SelectFilter::make('kecamatan_usaha')
+                        ->label('Kecamatan Usaha')
+                        ->searchable()
+                        ->multiple()
                         ->default(function () {
-                            if (auth()->user()->hasRole('kabkota')) {
-                                return auth()->user()->kabkota->id;
+                            if (auth()->user()->kabkota->id) {
+                                return true;
                             }
-                            return null;
+                            return false;
+                        })
+                        ->options(function () {
+                            $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
+                                ->pluck('kecamatan_usaha')->toArray();
+                            $kec_usaha = array_combine($kec_usahas, $kec_usahas);
+                            return $kec_usaha;
+                        })
+                        ->visible(function () {
+                            if (auth()->user()->hasRole('kabkota')) {
+                                return true;
+                            }
+                            return false;
                         }),
-                    // SelectFilter::make('kecamatan_usaha')
-                    //     ->label('Kecamatan Usaha')
-                    //     ->searchable()
-                    //     ->multiple()
-                    //     ->default(function () {
-                    //         if (auth()->user()->kabkota->id) {
-                    //             return true;
-                    //         }
-                    //         return false;
-                    //     })
-                    //     ->options(function () {
-                    //         $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
-                    //             ->pluck('kecamatan_usaha')->toArray();
-                    //         $kec_usaha = array_combine($kec_usahas, $kec_usahas);
-                    //         return $kec_usaha;
-                    //     })
-                    //     ->visible(function () {
-                    //         if (auth()->user()->hasRole('kabkota')) {
-                    //             return true;
-                    //         }
-                    //         return false;
-                    //     }),
 
-                    // penambahan filter nomor KBLI
-                    SelectFilter::make('kbli')->label('KBLI')
+                    SelectFilter::make('kbli')
+                        ->label('KBLI')
                         ->multiple()
                         ->options(function () {
-                            $kbli = Proyek::all()->pluck('kbli')->toArray();
-                            $kblis = array_combine($kbli, $kbli);
-                            return $kblis;
-                        }),
-                    // ->visible(function () {
-                    //     if (auth()->user()->hasRole('kabkota')) {
-                    //         return true;
-                    //     }
-                    //     return false;
-                    // }),
+                            $kbliCodes = Proyek::pluck('kbli')->unique()->toArray();
+                            $options = [];
+                            foreach ($kbliCodes as $kbli) {
+                                $options[$kbli] = $kbli;
+                            }
 
-                    SelectFilter::make('sektor')->label('Kategori')
+                            return $options;
+                        })->visible(function () {
+                            if (auth()->user()->hasRole('kabkota')) {
+                                return false;
+                            }
+                            return true;
+                        }),
+
+                    SelectFilter::make('sektor')
+                        ->label('Kategori')
                         ->multiple()
                         ->options(function () {
-                            $sektors = Sektor::all()->pluck('sektor')->toArray();
-                            $sektor = array_combine($sektors, $sektors);
-                            // dd($sektor);
-                            return $sektor;
+                            $sektors = Sektor::pluck('sektor')->unique()->toArray();
+                            $options = [];
+                            foreach ($sektors as $sektor) {
+                                $options[$sektor] = $sektor;
+                            }
+
+                            return $options;
+                        })->visible(function () {
+                            if (auth()->user()->hasRole('kabkota')) {
+                                return false;
+                            }
+                            return true;
                         }),
-                    Tables\Filters\SelectFilter::make('is_anomaly')->label('Anomaly')
+
+                    SelectFilter::make('nama_23_sektor')
+                        ->label('23 Sektor')
+                        ->multiple()
+                        ->options(function () {
+                            $kblis = MappingKbli::pluck('nama_23_sektor')->unique()->toArray();
+                            $options = [];
+                            foreach ($kblis as $kbli) {
+                                $options[$kbli] = $kbli;
+                            }
+                            return $options;
+                        })
+                        ->visible(function () {
+                            if (auth()->user()->hasRole('kabkota')) {
+                                return false;
+                            }
+                            return true;
+                        }),
+
+
+                    Tables\Filters\SelectFilter::make('dikecualikan')->label('Dikecualikan')
                         ->options([
-                            0 => 'Bukan Anomaly',
-                            1 => 'Anomaly',
-                        ])->default('0'),
+                            0 => 'Tidak Dikecualikan',
+                            1 => 'Dikecualikan',
+                        ])
+                        ->default('0')
+                        ->visible(function () {
+                            if (auth()->user()->hasRole('kabkota')) {
+                                return false;
+                            }
+                            return true;
+                        }),
+
+                    Tables\Filters\SelectFilter::make('is_mapping')->label('Is Mapping')
+                        ->options([
+                            0 => 'Tidak Mapping',
+                            1 => 'Mapping',
+                        ])
+                        ->default('1')
+                        ->visible(function () {
+                            if (auth()->user()->hasRole('kabkota')) {
+                                return false;
+                            }
+                            return true;
+                        }),
                 ],
-                layout: \Filament\Tables\Enums\FiltersLayout::AboveContent,
+                layout: FiltersLayout::AboveContent
             )
             ->actions([
                 Tables\Actions\EditAction::make(),

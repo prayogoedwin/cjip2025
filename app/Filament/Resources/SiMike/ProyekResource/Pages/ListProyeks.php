@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Bus;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class ListProyeks extends ListRecords
 {
@@ -42,7 +43,7 @@ class ListProyeks extends ListRecords
                 ->modalSubheading('Import Data Proyek Unduhan OSS Perbulan')
                 ->action(function (array $data): void {
                     // dd($data);
-        
+
                     if (Auth::user()->hasRole('kabkota')) {
                         $this->kabkota = Auth::user()->kabkota->id;
                     }
@@ -50,7 +51,7 @@ class ListProyeks extends ListRecords
                     $this->importing = true;
                     $this->importFilePath = storage_path('app/public/' . $data['file']);
                     //dd($this->kabkota);
-        
+
                     if (auth()->user()->hasRole('super_admin')) {
                         $batch = Bus::batch([
                             new ImportSimikeAdmin($this->importFilePath, $data['tahun'], $data['triwulan'], $data['periode_start'], $data['periode_end'], $data['rules_id'])
@@ -73,7 +74,7 @@ class ListProyeks extends ListRecords
                         ->body(
                             'Proses **IMPORT** data **SIMIKE**
                         periode **' . Carbon::parse($data['periode_start'])->toDateString() . '-' . Carbon::parse($data['periode_end'])->toDateString() . '**'
-                            . ' sedang berlangsung. '
+                                . ' sedang berlangsung. '
                         )
                         ->success()
                         ->send();
@@ -131,7 +132,11 @@ class ListProyeks extends ListRecords
                     ])->columns(2),
 
                     FileUpload::make('file')
-                        ->preserveFilenames()
+                        // ->preserveFilenames()
+                        ->getUploadedFileNameForStorageUsing(
+                            fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
+                                ->prepend(Carbon::now()->subMonth()->format('M Y') . '_'),
+                        )
                         ->directory('Si Mike/' . Auth::user()->name . '/' . Carbon::now()->year)
                         ->acceptedFileTypes(['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'])
                         ->autofocus()
@@ -167,10 +172,10 @@ class ListProyeks extends ListRecords
             ->title('*Import Finished* ' . '(' . \auth()->user()->kabkota->nama . ')')
             ->body(
                 'import data *SIMIKE* pada periode '
-                . Carbon::parse($data['periode_start'])->toDateString()
-                . ' hingga '
-                . Carbon::parse($data['periode_end'])->toDateString()
-                . 'telah behasil'
+                    . Carbon::parse($data['periode_start'])->toDateString()
+                    . ' hingga '
+                    . Carbon::parse($data['periode_end'])->toDateString()
+                    . 'telah behasil'
             )
             ->sendToDatabase($recipient);
     }

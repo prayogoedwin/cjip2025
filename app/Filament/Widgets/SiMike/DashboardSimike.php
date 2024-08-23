@@ -7,6 +7,8 @@ use App\Models\Cjip\Sektor;
 use App\Models\SiMike\Proyek;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Carbon\Carbon;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -29,70 +31,93 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
 
     protected $simike, $sirusa, $nibs;
     public $proyek,
-    $tk,
-    $nib,
-    $nib_anomaly,
-    $pma_count,
-    $pmdn_count,
-    $nonpmapmdn_count,
-    $pma,
-    $pmdn,
-    $nonpmapmdn,
-    $kab_proyeks,
-    $total_realisasi,
-    $kab_realisasi;
+        $tk,
+        $nib,
+        $nib_anomaly,
+        $pma_count,
+        $pmdn_count,
+        $nonpmapmdn_count,
+        $pma,
+        $pmdn,
+        $nonpmapmdn,
+        $kab_proyeks,
+        $total_realisasi,
+        $kab_realisasi;
 
     //FILTERS
-    public $tahun,
-    $triwulan,
-    $kabkota,
-    $sektor,
-    $kbli,
-    $uraian_skala_usaha,
-    $kecamatan_usaha,
+    public
+        $tahun,
+        $triwulan,
+        $kabkota,
+        $sektor,
+        $kbli,
+        $uraian_skala_usaha,
+        $kecamatan_usaha,
 
-    $superadmin,
-    $admin;
+        $superadmin,
+        $admin;
+    public $start, $end, $tanggal_terbit_oss;
 
     public static function canView(): bool
     {
-        if (auth()->user()->hasRole(['admin_cjip', 'admin_promosi', 'admin_ki'])) {
+        if (auth()->user()->hasRole(['admin_cjip', 'admin_promosi', 'admin_ki', 'perusahaan', 'bapeda'])) {
             return false;
         }
         return true;
     }
 
+
     protected function getFormSchema(): array
     {
         return [
-            Section::make()->schema([
+            \Filament\Forms\Components\Card::make()->schema([
                 Grid::make([
                     'sm' => 1,
                     'xl' => 1,
                 ])->schema([
-                            Select::make('uraian_skala_usaha')
-                                ->label('Skala Usaha')
-                                ->options([
-                                    'Usaha Mikro' => 'Usaha Mikro',
-                                    'Usaha Kecil' => 'Usaha Kecil',
-                                    'Usaha Menengah' => 'Usaha Menengah',
-                                    'Usaha Besar' => 'Usaha Besar',
-                                ])
-                                ->default($this->uraian_skala_usaha)
-                                ->required()
-                        ]),
+
+                    Select::make('tahun')
+                        ->default(Carbon::now()->year)
+                        ->searchable()
+                        ->required()
+                        ->options(function () {
+                            $currentYear = Carbon::now()->year;
+                            $years = range($currentYear, $currentYear - 5);
+                            return array_combine($years, $years);
+                        }),
+                    Fieldset::make('Tanggal Terbit Oss')
+                        ->schema([
+                            Grid::make()->schema([
+                                DatePicker::make('start')
+                                    ->label('Tanggal Awal')
+                                    ->disableLabel()
+                                    ->placeholder('Awal')
+                                    ->format('d M Y')
+                                    ->displayFormat('d M Y'),
+                                DatePicker::make('end')
+                                    ->label('Tanggal Akhir')
+                                    ->disableLabel()
+                                    ->placeholder('Akhir')
+                                    ->format('d M Y')
+                                    ->displayFormat('d M Y'),
+                            ])->columns(2),
+                        ])
+
+                ]),
                 Grid::make([
                     'sm' => 2,
                     'xl' => 2,
                 ])
                     ->schema([
-                        Select::make('tahun')->default(Carbon::now()->year)
-                            ->searchable()
-                            ->options(function () {
-                                $years = range(Carbon::now()->year, Carbon::now()->subYear(5)->year);
-                                //dd($years);
-                                return array_combine(array_values($years), array_values($years));
-                            })->default(Carbon::now(0)->year)->required(),
+                        Select::make('uraian_skala_usaha')
+                            ->label('Skala Usaha')
+                            ->options([
+                                'Usaha Mikro' => 'Usaha Mikro',
+                                'Usaha Kecil' => 'Usaha Kecil',
+                                // 'Usaha Menengah' => 'Usaha Menengah',
+                                // 'Usaha Besar' => 'Usaha Besar',
+                            ])
+                            ->default($this->uraian_skala_usaha),
 
                         Select::make('triwulan')
                             ->options([
@@ -126,21 +151,20 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
                                 }
                                 return true;
                             }),
-                        // Select::make('kecamatan_usaha')
-                        //     ->label('Kecamatan Usaha')
-                        //     ->searchable()
-                        //     ->options(function () {
-                        //         $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
-                        //             ->pluck('kecamatan_usaha')->toArray();
-                        //         $kec_usaha = array_combine($kec_usahas, $kec_usahas);
-                        //         return $kec_usaha;
-                        //     })
-                        //     ->visible(function () {
-                        //         if (auth()->user()->hasRole('kabkota')) {
-                        //             return true;
-                        //         }
-                        //         return false;
-                        //     }),
+                        Select::make('kecamatan_usaha')->label('Kecamatan Usaha')
+                            ->searchable()
+                            ->options(function () {
+                                $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
+                                    ->pluck('kecamatan_usaha')->toArray();
+                                $kec_usaha = array_combine($kec_usahas, $kec_usahas);
+                                return $kec_usaha;
+                            })
+                            ->visible(function () {
+                                if (auth()->user()->hasRole('kabkota')) {
+                                    return true;
+                                }
+                                return false;
+                            }),
                         Select::make('sektor')->label('Kategori')
                             ->options(Sektor::groupBy('sektor')->pluck('sektor', 'id'))
                             ->searchable()
@@ -152,29 +176,30 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
 
     public function submit()
     {
-        //dd(range(Carbon::now()->year, Carbon::now()->subYear(5)->year));
+        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+
         $this->tahun = $this->form->getState()['tahun'];
+
         $this->triwulan = $this->form->getState()['triwulan'];
+
         if (auth()->user()->hasRole('kabkota')) {
             $this->kabkota = auth()->user()->kabkota->id;
         } else {
             $this->kabkota = $this->form->getState()['kabkota'];
         }
+
         $this->sektor = $this->form->getState()['sektor'];
         $this->uraian_skala_usaha = $this->form->getState()['uraian_skala_usaha'];
-        // $this->kecamatan_usaha = $this->form->getState()['kecamatan_usaha'];
-
 
         if (auth()->user()->hasRole('super_admin')) {
             $this->superadmin = auth()->user('super_admin');
         } else {
             // $this->kecamatan_usaha = $this->form->getState()['kecamatan_usaha'];
         }
-        //dd($this->uraian_skala_usaha);
-        //\dd([is_null($this->triwulan), empty($this->triwulan)]);
-        //\dd($this->triwulan);
+
         // $this->emit(
         //     'filterUpdated',
+        //     ['tanggal' => $this->tanggal_terbit_oss],
         //     ['tahun' => $this->tahun],
         //     ['triwulan' => $this->triwulan],
         //     ['kabkota' => $this->kabkota],
@@ -187,10 +212,30 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
 
     public function mount()
     {
-        // dd(auth()->user()->kabkota_id);
-        //DEAFULT FILTERS
+
+        // DEAFULT FILTERS TAHUN
         $this->tahun = now()->year;
-        $this->uraian_skala_usaha = 'Usaha Mikro';
+
+        // DEFAULT FILTER DATERANGE TANGGAL TERBIT OSS
+        // $this->start = Carbon::now()->startOfYear()->format('d M Y');
+        // $this->end = Carbon::now()->format('d M Y');
+        // $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+        // $this->emit('filterTable', $this->tanggal_terbit_oss);
+
+        // DEFAULT FILTER SKALA USAHA
+        // $this->uraian_skala_usaha = 'Usaha Mikro';
+
+        // DEFAULT FILTER TRIWULAN
+        // $bulan_ini = Carbon::now()->month;
+        // if ($bulan_ini <= 3) {
+        //     $this->triwulan = 1;
+        // } elseif ($bulan_ini > 3 && $bulan_ini <= 6) {
+        //     $this->triwulan = 2;
+        // } elseif ($bulan_ini > 6 && $bulan_ini <= 9) {
+        //     $this->triwulan = 3;
+        // } else {
+        //     $this->triwulan = 4;
+        // }
     }
 
     public function render(): View
@@ -222,47 +267,55 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
 
         //DB::connection()->enableQueryLog();
         if (auth()->user()->hasRole('kabkota')) {
-            $this->simike = Proyek::filterMikro($this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+            $this->simike = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
                 ->first();
         } else {
-            $this->simike = Proyek::filterMikro($this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+            $this->simike = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
                 ->first();
         }
         //\dd($queries);
         //\dd($this->simike);
         if (auth()->user()->hasRole('kabkota')) {
-            $this->nib = Proyek::filterMikro($this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+            $this->nib = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
                 ->groupBy('nib')
-                ->where('is_anomaly', false)
+                ->where('dikecualikan', false)
+                ->where('is_mapping', true)
                 ->get()
                 ->count();
         } else {
-            $this->nib = Proyek::filterMikro($this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
-                ->where('is_anomaly', false)
+            $this->nib = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+                ->where('dikecualikan', false)
+                ->where('is_mapping', true)
                 ->groupBy(['nib', 'kab_kota_id'])
                 ->get()
                 ->count();
         }
 
         if (auth()->user()->hasRole('kabkota')) {
-            $this->nib_anomaly = Proyek::filterMikro($this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+            $this->nib_anomaly = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
                 ->groupBy('nib')
-                ->where('is_anomaly', true)
+                ->where('dikecualikan', true)
+                ->where('is_mapping', false)
                 ->get()
                 ->count();
         } else {
-            $this->nib = Proyek::filterMikro($this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
-                ->where('is_anomaly', false)
+            $this->nib = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+                ->where('dikecualikan', false)
+                ->where('is_mapping', true)
                 ->groupBy(['nib', 'kab_kota_id'])
                 ->get()
                 ->count();
         }
+
+
         //\dd($this->simike);
+
+        $tanggal = $this->tanggal_terbit_oss;
         $tahun = $this->tahun;
         $triwulan = $this->triwulan;
         $simike = $this->simike;
         $nib = $this->nib;
 
-        return view('filament.widgets.si-mike.dashboard-simike', compact('tahun', 'triwulan', 'simike', 'nib'));
+        return view('filament.widgets.si-mike.dashboard-simike', compact('tanggal', 'tahun', 'triwulan', 'simike', 'nib'));
     }
 }

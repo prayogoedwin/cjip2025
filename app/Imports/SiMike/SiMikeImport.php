@@ -3,7 +3,9 @@
 namespace App\Imports\SiMike;
 
 use App\Models\Cjip\Sektor;
+use App\Models\SiMike\MappingKbli;
 use App\Models\SiMike\Proyek;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
@@ -29,21 +31,23 @@ class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
     private $mulai;
     private $akhir;
     private $rules_id;
+    public $mapping_kbli_id, $nama_23_sektor;
     public $dikecualikan = false;
+    public $is_mapping = false;
 
     public $kblis = [];
     public $anomaly = false;
     public $dataToInsert, $dashboardToInsert = [], $kabkotas = [], $sektors = [];
     public $nilai_investasi,
-    $nilai_investasi_pma,
-    $nilai_investasi_pmdn,
-    $jumlah_nib = 1,
-    $jumlah_proyek = 1,
-    $jumlah_tk,
-    $jumlah_proyek_pma = 1,
-    $jumlah_proyek_pmdn = 1,
-    $sumber_data,
-    $kabkotaId;
+        $nilai_investasi_pma,
+        $nilai_investasi_pmdn,
+        $jumlah_nib = 1,
+        $jumlah_proyek = 1,
+        $jumlah_tk,
+        $jumlah_proyek_pma = 1,
+        $jumlah_proyek_pmdn = 1,
+        $sumber_data,
+        $kabkotaId;
 
     public function __construct($kab_kota_id, $tahun, $triwulan, $user_id, $mulai, $akhir, $rules_id)
     {
@@ -76,7 +80,7 @@ class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
     public function model(array $row)
     {
         // dd($row);
-        // $row['tanggal_terbit_oss'] = Carbon::createFromFormat('d/m/Y', $row['tanggal_terbit_oss']);
+        $row['tanggal_terbit_oss'] = Carbon::createFromFormat('d/m/Y', $row['tanggal_terbit_oss']);
 
         $sektor = Sektor::where('kbli', $row['kbli'])->first();
 
@@ -125,6 +129,9 @@ class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
             'sektor_id' => $sektor->id ?? null,
             'is_anomaly' => $this->anomaly,
             'dikecualikan' => $this->dikecualikan,
+            'is_mapping' => $this->is_mapping,
+            'mapping_kbli_id' => $this->mapping_kbli_id,
+            'nama_23_sektor' => $this->nama_23_sektor,
             'rilis' => json_encode($proyekRilis)
         ];
 
@@ -140,39 +147,69 @@ class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
         //     $user['is_anomaly'] = true;
         // }
 
-        //  =========================================== Rumus Baru ============================================= //
 
+        // ==================================== Rumus Baru ==================================================
 
         if (!empty($row['jumlah_investasi'])) {
             $total = $user['jumlah_investasi'];
         }
-        if (($total > 1000000000 or $total = 0) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
-            $this->anomaly = true;
-            $user['is_anomaly'] = true;
-            
+
+        // =================================================
+
+        if (($total > 1000000000) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
+            $user['dikecualikan'] = true;
         }
-
-        // switch ($row['kbli']) {
-        //     case '11090':
-        //     case '11091':
-        //     case '11092':
-        //         $user['dikecualikan'] = true;
-        //         break;
-        //     default:
-        //         $user['dikecualikan'] = false;
-        //         break;
-        // }
-
-        if (in_array($row['kbli'], ['68111', '85122', '47301', '86105']) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
+        if (($total > 5000000000) && ($row['uraian_skala_usaha'] === 'Usaha Kecil')) {
             $user['dikecualikan'] = true;
         }
 
-        if (in_array($row['klsektor_pembina'], ['Kementerian Kesehatan', 'Kementerian Pekerjaan Umum dan Perumahan Rakyat', 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi', 'Kementerian Energi dan Sumber Daya Mineral', 'Kementerian Pekerjaan Umum dan Perumahan Rakyat'])) {
+        if (
+            in_array($row['klsektor_pembina'], [
+                'Bank Indonesia',
+                'Kementerian Dalam Negeri',
+                'Kementerian Hukum dan Hak Asasi Manusia',
+                'Kementerian Investasi/Badan Koordinasi Penanaman Modal',
+                'Kementerian Keuangan',
+                'Kementerian Pemuda dan Olahraga',
+                'Kementerian Sosial',
+                'Otoritas Jasa Keuangan',
+            ]) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')
+        ) {
             $user['dikecualikan'] = true;
         }
 
+        if (
+            in_array($row['klsektor_pembina'], [
+                'Bank Indonesia',
+                'Kementerian Dalam Negeri',
+                'Kementerian Hukum dan Hak Asasi Manusia',
+                'Kementerian Investasi/Badan Koordinasi Penanaman Modal',
+                'Kementerian Keuangan',
+                'Kementerian Pemuda dan Olahraga',
+                'Kementerian Sosial',
+                'Otoritas Jasa Keuangan',
+            ]) && ($row['uraian_skala_usaha'] === 'Usaha Kecil')
+        ) {
+            $user['dikecualikan'] = true;
+        }
 
-        //  =========================================== Rumus Baru ============================================= //
+        $kbliPrefix = substr($row['kbli'], 0, 2);
+
+        $mappingKbli = MappingKbli::where('kbli_2digit', $kbliPrefix)->first();
+
+        if ($mappingKbli && in_array($user['uraian_skala_usaha'], ['Usaha Mikro', 'Usaha Kecil'])) {
+
+            $investmentAmount = $row['jumlah_investasi'] ?? null;
+
+            if ($investmentAmount !== null && $mappingKbli->min <= $investmentAmount && $investmentAmount <= $mappingKbli->max) {
+                $user['mapping_kbli_id'] = $mappingKbli->id ?? null;
+                $user['nama_23_sektor'] = $mappingKbli->nama_23_sektor;
+                $user['is_mapping'] = true;
+            }
+        }
+
+
+        // ==================================== Rumus Baru ==================================================
 
         $data = array_merge(
             $row,
@@ -182,6 +219,7 @@ class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
             ]
         );
 
+        $this->is_mapping = false;
         $this->dikecualikan = false;
         $this->anomaly = false;
 

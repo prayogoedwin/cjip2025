@@ -11,6 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Filament\Notifications\Notification;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 class ImportSiMike implements ShouldQueue
@@ -37,8 +38,16 @@ class ImportSiMike implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(): void
+    public function handle()
     {
+        Log::info('ImportSimike job started');
+        Log::info('File path: ' . $this->file);
+        Log::info('Kabkota: ' . $this->kabkota);
+        Log::info('Year: ' . $this->tahun);
+        Log::info('Quarter: ' . $this->triwulan);
+        Log::info('Period start: ' . $this->mulai);
+        Log::info('Period end: ' . $this->akhir);
+        Log::info('Rules ID: ' . $this->rules_id);
         try {
             Excel::import(new SiMikeImport($this->kabkota, $this->tahun, $this->triwulan, $this->user, $this->mulai, $this->akhir, $this->rules_id), $this->file);
         } catch (ValidationException $e) {
@@ -52,10 +61,10 @@ class ImportSiMike implements ShouldQueue
                     ->body(
                         'Proses **IMPORT** data **SIMIKE**
                         gagal. ' .
-                        $failure->row() .
-                        $failure->attribute() .
-                        $failure->errors() .
-                        $failure->values()
+                            $failure->row() .
+                            $failure->attribute() .
+                            $failure->errors() .
+                            $failure->values()
                     )
                     ->danger()
                     ->send();

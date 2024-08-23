@@ -8,6 +8,8 @@ use App\Models\Cjip\Sektor;
 use App\Models\SiMike\Proyek;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Carbon\Carbon;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Pages\Page;
@@ -25,17 +27,19 @@ class KabupatenTable extends Page
     protected static string $view = 'filament.pages.si-mike.kabupaten-table';
 
     public $tahun,
-    $triwulan,
-    $kabkota,
-    $sektor,
-    $kbli,
-    $uraian_skala_usaha,
-    $kecamatan_usaha,
+        $triwulan,
+        $kabkota,
+        $sektor,
+        $kbli,
+        $uraian_skala_usaha,
+        $kecamatan_usaha,
+        $start, $end, $tanggal_terbit_oss,
 
-    $superadmin;
+        $superadmin;
 
     public function submit()
     {
+        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
         // dd(range(Carbon::now()->year, Carbon::now()->subYear(5)->year));
         $this->tahun = $this->form->getState()['tahun'];
         $this->triwulan = $this->form->getState()['triwulan'];
@@ -74,7 +78,7 @@ class KabupatenTable extends Page
         // dd(auth()->user()->kabkota_id);
         //DEAFULT FILTERS
         $this->tahun = now()->year;
-        $this->uraian_skala_usaha = 'Usaha Mikro';
+        // $this->uraian_skala_usaha = 'Usaha Mikro';
     }
 
     protected function getFormSchema(): array
@@ -85,17 +89,33 @@ class KabupatenTable extends Page
                     'sm' => 1,
                     'xl' => 1,
                 ])->schema([
-                            Select::make('uraian_skala_usaha')
-                                ->label('Skala Usaha')
-                                ->options([
-                                    'Usaha Mikro' => 'Usaha Mikro',
-                                    'Usaha Kecil' => 'Usaha Kecil',
-                                    'Usaha Menengah' => 'Usaha Menengah',
-                                    'Usaha Besar' => 'Usaha Besar',
-                                ])
-                                ->default($this->uraian_skala_usaha)
-                                ->required()
+                    Select::make('uraian_skala_usaha')
+                        ->label('Skala Usaha')
+                        ->options([
+                            'Usaha Mikro' => 'Usaha Mikro',
+                            'Usaha Kecil' => 'Usaha Kecil',
+                            // 'Usaha Menengah' => 'Usaha Menengah',
+                            // 'Usaha Besar' => 'Usaha Besar',
+                        ])
+                        ->default($this->uraian_skala_usaha),
+                    Fieldset::make('Tanggal Terbit Oss')
+                        ->schema([
+                            Grid::make()->schema([
+                                DatePicker::make('start')
+                                    ->label('Tanggal Awal')
+                                    ->disableLabel()
+                                    ->placeholder('Awal')
+                                    ->format('d M Y')
+                                    ->displayFormat('d M Y'),
+                                DatePicker::make('end')
+                                    ->label('Tanggal Akhir')
+                                    ->disableLabel()
+                                    ->placeholder('Akhir')
+                                    ->format('d M Y')
+                                    ->displayFormat('d M Y'),
+                            ])->columns(2),
                         ]),
+                ]),
                 Grid::make([
                     'sm' => 2,
                     'xl' => 2,

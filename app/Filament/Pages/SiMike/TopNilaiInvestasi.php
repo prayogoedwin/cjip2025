@@ -6,6 +6,7 @@ use App\Filament\Widgets\SiMike\KbliChart;
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\Sektor;
 use App\Models\SiMike\Proyek;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Carbon\Carbon;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
@@ -14,6 +15,7 @@ use Filament\Pages\Page;
 
 class TopNilaiInvestasi extends Page
 {
+    use HasPageShield;
 
     protected static ?string $navigationGroup = 'Graph';
     protected static string $view = 'filament.pages.si-mike.top-nilai-investasi';
@@ -26,7 +28,8 @@ class TopNilaiInvestasi extends Page
     $kbli,
     $uraian_skala_usaha,
     $superadmin,
-    $kecamatan_usaha;
+    $kecamatan_usaha,
+    $start, $end, $tanggal_terbit_oss;
 
     protected function getFormSchema(): array
     {
@@ -115,6 +118,7 @@ class TopNilaiInvestasi extends Page
     public function submit()
     {
         // dd(range(Carbon::now()->year, Carbon::now()->subYear(5)->year));
+        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
         $this->tahun = $this->form->getState()['tahun'];
         $this->triwulan = $this->form->getState()['triwulan'];
         if (auth()->user()->hasRole('kabkota')) {
