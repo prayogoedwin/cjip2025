@@ -16,7 +16,6 @@
         "binarytorch/larecipe": "^2.6",
         "binarytorch/larecipe-dark-theme": "^0.1.5",
         "cheesegrits/filament-google-maps": "^3.0",
-        "dotswan/filament-laravel-pulse": "^1.1",
         "filament/filament": "^3.2",
         "filament/notifications": "^3.2",
         "filament/spatie-laravel-settings-plugin": "^3.2",
