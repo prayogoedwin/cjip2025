@@ -1,13 +1,17 @@
 <x-filament-widgets::widget class="fi-filament-info-widget">
     <x-filament::section>
-        <div class="flex items-center gap-x-3 py-3">
+        <div x-data="{ darkMode: document.documentElement.classList.contains('dark') }" class="flex items-center gap-x-3 py-3">
             <div class="flex-1">
-                <a href="/" rel="noopener noreferrer" target="_blank">
-                    <h5 class="font-semibold" style="color: orange">Central Java Investment Platform</h5>
+                <a href="" rel="noopener noreferrer" target="_blank">
+                    <template x-if="darkMode">
+                        <!-- Gambar untuk mode gelap -->
+                        <img src="{{ asset('images/cjip-white.png') }}" class="h-10" alt="Logo Mode Gelap">
+                    </template>
+                    <template x-if="!darkMode">
+                        <!-- Gambar untuk mode terang -->
+                        <img src="{{ asset('images/cjip-black.png') }}" class="h-10" alt="Logo Mode Terang">
+                    </template>
                 </a>
-                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                    v3.0
-                </p>
             </div>
 
             <div class="flex flex-col items-end gap-y-1">

@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Policies\ActivityPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use TomatoPHP\FilamentLogger\Models\Activity;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
+        Activity::class => ActivityPolicy::class,
         'App\Models\Cjip\Berita' => 'App\Policies\Cjip\BeritaPolicy',
         'App\Models\Cjip\BiayaAir' => 'App\Policies\Cjip\BiayaAirPolicy',
         'App\Models\Cjip\Faq' => 'App\Policies\Cjip\FaqPolicy',

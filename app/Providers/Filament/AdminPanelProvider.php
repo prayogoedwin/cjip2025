@@ -32,7 +32,8 @@ use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
 use Filament\Navigation\NavigationItem;
-use Filament\Pages\Dashboard as PagesDashboard;
+use App\Filament\Pages\Dashboard as PagesDashboard;
+use TomatoPHP\FilamentLogger\FilamentLoggerPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -54,9 +55,9 @@ class AdminPanelProvider extends PanelProvider
             ->breadcrumbs(true)
             ->userMenuItems([
                 MenuItem::make()
-                    ->label('Setting')
+                    ->label('Profile')
                     ->url(fn(): string => Profile::getUrl())
-                    ->icon('heroicon-o-cog-8-tooth'),
+                    ->icon('heroicon-s-user'),
                 // ...
             ])
             ->colors([
@@ -81,11 +82,10 @@ class AdminPanelProvider extends PanelProvider
                         'sm' => 2,
                     ]),
                 FilamentProgressbarPlugin::make()->color('#fbbf24'),
-                SpatieLaravelTranslatablePlugin::make()
-                    ->defaultLocales(['id', 'en']),
+                SpatieLaravelTranslatablePlugin::make()->defaultLocales(['id', 'en']),
+                FilamentLoggerPlugin::make(),
                 FilamentApexChartsPlugin::make(),
-                LightSwitchPlugin::make()
-                    ->position(Alignment::TopCenter),
+                LightSwitchPlugin::make()->position(Alignment::TopCenter),
                 // SpotlightPlugin::make(),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

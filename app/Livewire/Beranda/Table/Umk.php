@@ -29,9 +29,12 @@ class Umk extends Component implements HasForms, HasTable
             ->columns([
                 TextColumn::make('tahun'),
                 TextColumn::make('sumber_data'),
-                TextColumn::make('kabkota.nama')->searchable(),
-                TextColumn::make('nilai_umr'),
-            ])
+                TextColumn::make('kabkota.nama')
+                    ->label('Kabupaten/Kota')
+                    ->searchable(),
+                TextColumn::make('nilai_umr')
+                ,
+            ])->defaultSort('nilai_umr', 'desc')    
             ->filters([
                 // 
             ])

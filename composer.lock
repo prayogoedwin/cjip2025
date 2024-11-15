@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d243f355b910d5e54d43c40dbe71a61b",
+    "content-hash": "f6aec1f7ab089fdfbeb5b550d09127f1",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -465,54 +465,6 @@
                 }
             ],
             "time": "2024-03-26T11:57:09+00:00"
-        },
-        {
-            "name": "binarytorch/larecipe-dark-theme",
-            "version": "v0.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/larecipe/larecipe-dark-theme.git",
-                "reference": "9cf48afc89445141df4599512e01446f623f3a38"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/larecipe/larecipe-dark-theme/zipball/9cf48afc89445141df4599512e01446f623f3a38",
-                "reference": "9cf48afc89445141df4599512e01446f623f3a38",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "BinaryTorch\\LaRecipeDarkTheme\\LaRecipeDarkThemeServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "BinaryTorch\\LaRecipeDarkTheme\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Official LaRecipe Dark Theme Mode.",
-            "keywords": [
-                "docs",
-                "documentation",
-                "laravel",
-                "larecipe"
-            ],
-            "support": {
-                "issues": "https://github.com/larecipe/larecipe-dark-theme/issues",
-                "source": "https://github.com/larecipe/larecipe-dark-theme/tree/v0.1.5"
-            },
-            "abandoned": true,
-            "time": "2020-10-24T08:08:47+00:00"
         },
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -10850,6 +10802,130 @@
             "time": "2023-12-08T13:03:43+00:00"
         },
         {
+            "name": "tomatophp/console-helpers",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tomatophp/console-helpers.git",
+                "reference": "69dd818a2bfa7d038467fb526be6c9b573d36a34"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tomatophp/console-helpers/zipball/69dd818a2bfa7d038467fb526be6c9b573d36a34",
+                "reference": "69dd818a2bfa7d038467fb526be6c9b573d36a34",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TomatoPHP\\ConsoleHelpers\\ConsoleHelpersServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TomatoPHP\\ConsoleHelpers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fady Mondy",
+                    "email": "EngFadyMondy@gmail.com"
+                }
+            ],
+            "description": "tons of helper you need for you artisan command line application",
+            "keywords": [
+                "application",
+                "artisan",
+                "command",
+                "console",
+                "helpers",
+                "line"
+            ],
+            "support": {
+                "issues": "https://github.com/tomatophp/console-helpers/issues",
+                "source": "https://github.com/tomatophp/console-helpers/tree/v1.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/3x1io",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-02-12T12:00:38+00:00"
+        },
+        {
+            "name": "tomatophp/filament-logger",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tomatophp/filament-logger.git",
+                "reference": "8bbeb4a6bf81290ac0ce88d226e9f66f357860d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tomatophp/filament-logger/zipball/8bbeb4a6bf81290ac0ce88d226e9f66f357860d8",
+                "reference": "8bbeb4a6bf81290ac0ce88d226e9f66f357860d8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "filament/filament": "^3.2",
+                "illuminate/http": "^9.0|^10.0|^11.0",
+                "illuminate/support": "^9.0|^10.0|^11.0",
+                "monolog/monolog": "^2.9|^3.6",
+                "php": "^8.1|^8.2",
+                "tomatophp/console-helpers": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TomatoPHP\\FilamentLogger\\FilamentLoggerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TomatoPHP\\FilamentLogger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fady Mondy",
+                    "email": "info@3x1.io"
+                }
+            ],
+            "description": "Log all user activity to file or log driver and preview it on your FilamentPHP panel",
+            "keywords": [
+                "filament-plugin",
+                "filamentphp",
+                "laravel",
+                "logger",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/tomatophp/filament-logger/issues",
+                "source": "https://github.com/tomatophp/filament-logger/tree/v1.0.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/3x1io",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-10-06T12:55:07+00:00"
+        },
+        {
             "name": "ueberdosis/tiptap-php",
             "version": "1.4.0",
             "source": {
@@ -13789,7 +13865,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.3"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
