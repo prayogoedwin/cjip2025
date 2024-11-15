@@ -110,6 +110,10 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-window')
                     ->collapsed(),
                 NavigationGroup::make()
+                    ->label('Kemitraan')
+                    ->icon('heroicon-o-window')
+                    ->collapsed(),
+                NavigationGroup::make()
                     ->label('Cjibf')
                     ->icon('heroicon-o-bars-3'),
                 NavigationGroup::make()
