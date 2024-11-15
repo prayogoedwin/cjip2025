@@ -15,7 +15,7 @@ class KepeminatanPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_kepeminatan::kepeminatan');
+        return $user->can('view_any_kepeminatan');
     }
 
     /**
@@ -23,7 +23,7 @@ class KepeminatanPolicy
      */
     public function view(User $user, Kepeminatan $kepeminatan): bool
     {
-        return $user->can('view_kepeminatan::kepeminatan');
+        return $user->can('view_kepeminatan');
     }
 
     /**
@@ -31,7 +31,7 @@ class KepeminatanPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_kepeminatan::kepeminatan');
+        return $user->can('create_kepeminatan');
     }
 
     /**
@@ -39,7 +39,7 @@ class KepeminatanPolicy
      */
     public function update(User $user, Kepeminatan $kepeminatan): bool
     {
-        return $user->can('update_kepeminatan::kepeminatan');
+        return $user->can('update_kepeminatan');
     }
 
     /**
@@ -47,7 +47,7 @@ class KepeminatanPolicy
      */
     public function delete(User $user, Kepeminatan $kepeminatan): bool
     {
-        return $user->can('delete_kepeminatan::kepeminatan');
+        return $user->can('delete_kepeminatan');
     }
 
     /**
@@ -55,7 +55,7 @@ class KepeminatanPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_kepeminatan::kepeminatan');
+        return $user->can('delete_any_kepeminatan');
     }
 
     /**
@@ -63,7 +63,7 @@ class KepeminatanPolicy
      */
     public function forceDelete(User $user, Kepeminatan $kepeminatan): bool
     {
-        return $user->can('force_delete_kepeminatan::kepeminatan');
+        return $user->can('force_delete_kepeminatan');
     }
 
     /**
@@ -71,7 +71,7 @@ class KepeminatanPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_kepeminatan::kepeminatan');
+        return $user->can('force_delete_any_kepeminatan');
     }
 
     /**
@@ -79,7 +79,7 @@ class KepeminatanPolicy
      */
     public function restore(User $user, Kepeminatan $kepeminatan): bool
     {
-        return $user->can('restore_kepeminatan::kepeminatan');
+        return $user->can('restore_kepeminatan');
     }
 
     /**
@@ -87,7 +87,7 @@ class KepeminatanPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_kepeminatan::kepeminatan');
+        return $user->can('restore_any_kepeminatan');
     }
 
     /**
@@ -95,7 +95,7 @@ class KepeminatanPolicy
      */
     public function replicate(User $user, Kepeminatan $kepeminatan): bool
     {
-        return $user->can('replicate_kepeminatan::kepeminatan');
+        return $user->can('replicate_kepeminatan');
     }
 
     /**
@@ -103,6 +103,6 @@ class KepeminatanPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_kepeminatan::kepeminatan');
+        return $user->can('reorder_kepeminatan');
     }
 }

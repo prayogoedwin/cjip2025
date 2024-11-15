@@ -15,7 +15,7 @@ class UpahMinimumPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::upah::minimum');
+        return $user->can('view_any_upah::minimum');
     }
 
     /**
@@ -23,7 +23,7 @@ class UpahMinimumPolicy
      */
     public function view(User $user, UpahMinimum $upahMinimum): bool
     {
-        return $user->can('view_cjip::upah::minimum');
+        return $user->can('view_upah::minimum');
     }
 
     /**
@@ -31,7 +31,7 @@ class UpahMinimumPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::upah::minimum');
+        return $user->can('create_upah::minimum');
     }
 
     /**
@@ -39,7 +39,7 @@ class UpahMinimumPolicy
      */
     public function update(User $user, UpahMinimum $upahMinimum): bool
     {
-        return $user->can('update_cjip::upah::minimum');
+        return $user->can('update_upah::minimum');
     }
 
     /**
@@ -47,7 +47,7 @@ class UpahMinimumPolicy
      */
     public function delete(User $user, UpahMinimum $upahMinimum): bool
     {
-        return $user->can('delete_cjip::upah::minimum');
+        return $user->can('delete_upah::minimum');
     }
 
     /**
@@ -55,7 +55,7 @@ class UpahMinimumPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::upah::minimum');
+        return $user->can('delete_any_upah::minimum');
     }
 
     /**
@@ -63,7 +63,7 @@ class UpahMinimumPolicy
      */
     public function forceDelete(User $user, UpahMinimum $upahMinimum): bool
     {
-        return $user->can('force_delete_cjip::upah::minimum');
+        return $user->can('force_delete_upah::minimum');
     }
 
     /**
@@ -71,7 +71,7 @@ class UpahMinimumPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::upah::minimum');
+        return $user->can('force_delete_any_upah::minimum');
     }
 
     /**
@@ -79,7 +79,7 @@ class UpahMinimumPolicy
      */
     public function restore(User $user, UpahMinimum $upahMinimum): bool
     {
-        return $user->can('restore_cjip::upah::minimum');
+        return $user->can('restore_upah::minimum');
     }
 
     /**
@@ -87,7 +87,7 @@ class UpahMinimumPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::upah::minimum');
+        return $user->can('restore_any_upah::minimum');
     }
 
     /**
@@ -95,7 +95,7 @@ class UpahMinimumPolicy
      */
     public function replicate(User $user, UpahMinimum $upahMinimum): bool
     {
-        return $user->can('replicate_cjip::upah::minimum');
+        return $user->can('replicate_upah::minimum');
     }
 
     /**
@@ -103,6 +103,6 @@ class UpahMinimumPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::upah::minimum');
+        return $user->can('reorder_upah::minimum');
     }
 }

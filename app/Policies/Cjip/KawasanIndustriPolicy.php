@@ -15,7 +15,7 @@ class KawasanIndustriPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::kawasan::industri');
+        return $user->can('view_any_kawasan::industri');
     }
 
     /**
@@ -23,7 +23,7 @@ class KawasanIndustriPolicy
      */
     public function view(User $user, KawasanIndustri $kawasanIndustri): bool
     {
-        return $user->can('view_cjip::kawasan::industri');
+        return $user->can('view_kawasan::industri');
     }
 
     /**
@@ -31,7 +31,7 @@ class KawasanIndustriPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::kawasan::industri');
+        return $user->can('create_kawasan::industri');
     }
 
     /**
@@ -39,7 +39,7 @@ class KawasanIndustriPolicy
      */
     public function update(User $user, KawasanIndustri $kawasanIndustri): bool
     {
-        return $user->can('update_cjip::kawasan::industri');
+        return $user->can('update_kawasan::industri');
     }
 
     /**
@@ -47,7 +47,7 @@ class KawasanIndustriPolicy
      */
     public function delete(User $user, KawasanIndustri $kawasanIndustri): bool
     {
-        return $user->can('delete_cjip::kawasan::industri');
+        return $user->can('delete_kawasan::industri');
     }
 
     /**
@@ -55,7 +55,7 @@ class KawasanIndustriPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::kawasan::industri');
+        return $user->can('delete_any_kawasan::industri');
     }
 
     /**
@@ -63,7 +63,7 @@ class KawasanIndustriPolicy
      */
     public function forceDelete(User $user, KawasanIndustri $kawasanIndustri): bool
     {
-        return $user->can('force_delete_cjip::kawasan::industri');
+        return $user->can('force_delete_kawasan::industri');
     }
 
     /**
@@ -71,7 +71,7 @@ class KawasanIndustriPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::kawasan::industri');
+        return $user->can('force_delete_any_kawasan::industri');
     }
 
     /**
@@ -79,7 +79,7 @@ class KawasanIndustriPolicy
      */
     public function restore(User $user, KawasanIndustri $kawasanIndustri): bool
     {
-        return $user->can('restore_cjip::kawasan::industri');
+        return $user->can('restore_kawasan::industri');
     }
 
     /**
@@ -87,7 +87,7 @@ class KawasanIndustriPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::kawasan::industri');
+        return $user->can('restore_any_kawasan::industri');
     }
 
     /**
@@ -95,7 +95,7 @@ class KawasanIndustriPolicy
      */
     public function replicate(User $user, KawasanIndustri $kawasanIndustri): bool
     {
-        return $user->can('replicate_cjip::kawasan::industri');
+        return $user->can('replicate_kawasan::industri');
     }
 
     /**
@@ -103,6 +103,6 @@ class KawasanIndustriPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::kawasan::industri');
+        return $user->can('reorder_kawasan::industri');
     }
 }

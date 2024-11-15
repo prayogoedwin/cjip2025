@@ -2,7 +2,7 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Pages\Dashboard as PagesDashboard;
+
 use App\Filament\Pages\General\Profile;
 use App\Livewire\Cjibf\Dashboard;
 use Filament\Http\Middleware\Authenticate;
@@ -25,12 +25,14 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\SpatieLaravelTranslatablePlugin;
 use Awcodes\LightSwitch\LightSwitchPlugin;
 use Awcodes\LightSwitch\Enums\Alignment;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use lockscreen\FilamentLockscreen\Lockscreen;
 use lockscreen\FilamentLockscreen\Http\Middleware\Locker;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
 use Filament\Navigation\NavigationItem;
+use Filament\Pages\Dashboard as PagesDashboard;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -60,19 +62,31 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->plugin(
-                SpatieLaravelTranslatablePlugin::make()
-                    ->defaultLocales(['id', 'en']),
-
-            )
-            ->plugin(FilamentProgressbarPlugin::make()->color('#fbbf24'))
             ->plugin(new Lockscreen())
             ->plugins([
+                FilamentShieldPlugin::make()
+                    ->gridColumns([
+                        'default' => 1,
+                        'sm' => 2,
+                        'lg' => 2
+                    ])
+                    ->sectionColumnSpan(1)
+                    ->checkboxListColumns([
+                        'default' => 1,
+                        'sm' => 2,
+                        'lg' => 3,
+                    ])
+                    ->resourceCheckboxListColumns([
+                        'default' => 1,
+                        'sm' => 2,
+                    ]),
+                FilamentProgressbarPlugin::make()->color('#fbbf24'),
+                SpatieLaravelTranslatablePlugin::make()
+                    ->defaultLocales(['id', 'en']),
                 FilamentApexChartsPlugin::make(),
                 LightSwitchPlugin::make()
                     ->position(Alignment::TopCenter),
-                SpotlightPlugin::make(),
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+                // SpotlightPlugin::make(),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -104,7 +118,7 @@ class AdminPanelProvider extends PanelProvider
                     ->collapsed()
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('Settings')
+                    ->label('Super Admin')
                     ->icon('heroicon-o-cog-8-tooth')
                     ->collapsed()
                     ->collapsible(),
@@ -113,19 +127,6 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-s-computer-desktop')
                     ->collapsed()
                     ->collapsible(),
-                NavigationGroup::make()
-                    ->label('Kepeminatan')
-                    ->icon('heroicon-o-window')
-                    ->collapsed()
-                    ->collapsible(),
-                NavigationGroup::make()
-                    ->label('Kemitraan')
-                    ->icon('heroicon-o-window')
-                    ->collapsed()
-                    ->collapsible(),
-                NavigationGroup::make()
-                    ->label('Cjibf')
-                    ->icon('heroicon-o-bars-3'),
                 NavigationGroup::make()
                     ->label('Si-Mike')
                     ->icon('heroicon-o-squares-2x2')

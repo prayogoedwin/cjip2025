@@ -15,7 +15,7 @@ class PendidikanPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::pendidikan');
+        return $user->can('view_any_pendidikan');
     }
 
     /**
@@ -23,7 +23,7 @@ class PendidikanPolicy
      */
     public function view(User $user, Pendidikan $pendidikan): bool
     {
-        return $user->can('view_cjip::pendidikan');
+        return $user->can('view_pendidikan');
     }
 
     /**
@@ -31,7 +31,7 @@ class PendidikanPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::pendidikan');
+        return $user->can('create_pendidikan');
     }
 
     /**
@@ -39,7 +39,7 @@ class PendidikanPolicy
      */
     public function update(User $user, Pendidikan $pendidikan): bool
     {
-        return $user->can('update_cjip::pendidikan');
+        return $user->can('update_pendidikan');
     }
 
     /**
@@ -47,7 +47,7 @@ class PendidikanPolicy
      */
     public function delete(User $user, Pendidikan $pendidikan): bool
     {
-        return $user->can('delete_cjip::pendidikan');
+        return $user->can('delete_pendidikan');
     }
 
     /**
@@ -55,7 +55,7 @@ class PendidikanPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::pendidikan');
+        return $user->can('delete_any_pendidikan');
     }
 
     /**
@@ -63,7 +63,7 @@ class PendidikanPolicy
      */
     public function forceDelete(User $user, Pendidikan $pendidikan): bool
     {
-        return $user->can('force_delete_cjip::pendidikan');
+        return $user->can('force_delete_pendidikan');
     }
 
     /**
@@ -71,7 +71,7 @@ class PendidikanPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::pendidikan');
+        return $user->can('force_delete_any_pendidikan');
     }
 
     /**
@@ -79,7 +79,7 @@ class PendidikanPolicy
      */
     public function restore(User $user, Pendidikan $pendidikan): bool
     {
-        return $user->can('restore_cjip::pendidikan');
+        return $user->can('restore_pendidikan');
     }
 
     /**
@@ -87,7 +87,7 @@ class PendidikanPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::pendidikan');
+        return $user->can('restore_any_pendidikan');
     }
 
     /**
@@ -95,7 +95,7 @@ class PendidikanPolicy
      */
     public function replicate(User $user, Pendidikan $pendidikan): bool
     {
-        return $user->can('replicate_cjip::pendidikan');
+        return $user->can('replicate_pendidikan');
     }
 
     /**
@@ -103,6 +103,6 @@ class PendidikanPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::pendidikan');
+        return $user->can('reorder_pendidikan');
     }
 }

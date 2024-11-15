@@ -15,7 +15,7 @@ class BeritaPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::berita');
+        return $user->can('view_any_berita');
     }
 
     /**
@@ -23,7 +23,7 @@ class BeritaPolicy
      */
     public function view(User $user, Berita $berita): bool
     {
-        return $user->can('view_cjip::berita');
+        return $user->can('view_berita');
     }
 
     /**
@@ -31,7 +31,7 @@ class BeritaPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::berita');
+        return $user->can('create_berita');
     }
 
     /**
@@ -39,7 +39,7 @@ class BeritaPolicy
      */
     public function update(User $user, Berita $berita): bool
     {
-        return $user->can('update_cjip::berita');
+        return $user->can('update_berita');
     }
 
     /**
@@ -47,7 +47,7 @@ class BeritaPolicy
      */
     public function delete(User $user, Berita $berita): bool
     {
-        return $user->can('delete_cjip::berita');
+        return $user->can('delete_berita');
     }
 
     /**
@@ -55,7 +55,7 @@ class BeritaPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::berita');
+        return $user->can('delete_any_berita');
     }
 
     /**
@@ -63,7 +63,7 @@ class BeritaPolicy
      */
     public function forceDelete(User $user, Berita $berita): bool
     {
-        return $user->can('force_delete_cjip::berita');
+        return $user->can('force_delete_berita');
     }
 
     /**
@@ -71,7 +71,7 @@ class BeritaPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::berita');
+        return $user->can('force_delete_any_berita');
     }
 
     /**
@@ -79,7 +79,7 @@ class BeritaPolicy
      */
     public function restore(User $user, Berita $berita): bool
     {
-        return $user->can('restore_cjip::berita');
+        return $user->can('restore_berita');
     }
 
     /**
@@ -87,7 +87,7 @@ class BeritaPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::berita');
+        return $user->can('restore_any_berita');
     }
 
     /**
@@ -95,7 +95,7 @@ class BeritaPolicy
      */
     public function replicate(User $user, Berita $berita): bool
     {
-        return $user->can('replicate_cjip::berita');
+        return $user->can('replicate_berita');
     }
 
     /**
@@ -103,6 +103,6 @@ class BeritaPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::berita');
+        return $user->can('reorder_berita');
     }
 }

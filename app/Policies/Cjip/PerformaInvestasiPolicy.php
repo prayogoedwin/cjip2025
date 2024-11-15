@@ -15,7 +15,7 @@ class PerformaInvestasiPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::performa::investasi');
+        return $user->can('view_any_performa::investasi');
     }
 
     /**
@@ -23,7 +23,7 @@ class PerformaInvestasiPolicy
      */
     public function view(User $user, PerformaInvestasi $performaInvestasi): bool
     {
-        return $user->can('view_cjip::performa::investasi');
+        return $user->can('view_performa::investasi');
     }
 
     /**
@@ -31,7 +31,7 @@ class PerformaInvestasiPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::performa::investasi');
+        return $user->can('create_performa::investasi');
     }
 
     /**
@@ -39,7 +39,7 @@ class PerformaInvestasiPolicy
      */
     public function update(User $user, PerformaInvestasi $performaInvestasi): bool
     {
-        return $user->can('update_cjip::performa::investasi');
+        return $user->can('update_performa::investasi');
     }
 
     /**
@@ -47,7 +47,7 @@ class PerformaInvestasiPolicy
      */
     public function delete(User $user, PerformaInvestasi $performaInvestasi): bool
     {
-        return $user->can('delete_cjip::performa::investasi');
+        return $user->can('delete_performa::investasi');
     }
 
     /**
@@ -55,7 +55,7 @@ class PerformaInvestasiPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::performa::investasi');
+        return $user->can('delete_any_performa::investasi');
     }
 
     /**
@@ -63,7 +63,7 @@ class PerformaInvestasiPolicy
      */
     public function forceDelete(User $user, PerformaInvestasi $performaInvestasi): bool
     {
-        return $user->can('force_delete_cjip::performa::investasi');
+        return $user->can('force_delete_performa::investasi');
     }
 
     /**
@@ -71,7 +71,7 @@ class PerformaInvestasiPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::performa::investasi');
+        return $user->can('force_delete_any_performa::investasi');
     }
 
     /**
@@ -79,7 +79,7 @@ class PerformaInvestasiPolicy
      */
     public function restore(User $user, PerformaInvestasi $performaInvestasi): bool
     {
-        return $user->can('restore_cjip::performa::investasi');
+        return $user->can('restore_performa::investasi');
     }
 
     /**
@@ -87,7 +87,7 @@ class PerformaInvestasiPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::performa::investasi');
+        return $user->can('restore_any_performa::investasi');
     }
 
     /**
@@ -95,7 +95,7 @@ class PerformaInvestasiPolicy
      */
     public function replicate(User $user, PerformaInvestasi $performaInvestasi): bool
     {
-        return $user->can('replicate_cjip::performa::investasi');
+        return $user->can('replicate_performa::investasi');
     }
 
     /**
@@ -103,6 +103,6 @@ class PerformaInvestasiPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::performa::investasi');
+        return $user->can('reorder_performa::investasi');
     }
 }

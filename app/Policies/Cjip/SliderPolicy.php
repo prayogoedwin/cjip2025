@@ -15,7 +15,7 @@ class SliderPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::slider');
+        return $user->can('view_any_slider');
     }
 
     /**
@@ -23,7 +23,7 @@ class SliderPolicy
      */
     public function view(User $user, Slider $slider): bool
     {
-        return $user->can('view_cjip::slider');
+        return $user->can('view_slider');
     }
 
     /**
@@ -31,7 +31,7 @@ class SliderPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::slider');
+        return $user->can('create_slider');
     }
 
     /**
@@ -39,7 +39,7 @@ class SliderPolicy
      */
     public function update(User $user, Slider $slider): bool
     {
-        return $user->can('update_cjip::slider');
+        return $user->can('update_slider');
     }
 
     /**
@@ -47,7 +47,7 @@ class SliderPolicy
      */
     public function delete(User $user, Slider $slider): bool
     {
-        return $user->can('delete_cjip::slider');
+        return $user->can('delete_slider');
     }
 
     /**
@@ -55,7 +55,7 @@ class SliderPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::slider');
+        return $user->can('delete_any_slider');
     }
 
     /**
@@ -63,7 +63,7 @@ class SliderPolicy
      */
     public function forceDelete(User $user, Slider $slider): bool
     {
-        return $user->can('force_delete_cjip::slider');
+        return $user->can('force_delete_slider');
     }
 
     /**
@@ -71,7 +71,7 @@ class SliderPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::slider');
+        return $user->can('force_delete_any_slider');
     }
 
     /**
@@ -79,7 +79,7 @@ class SliderPolicy
      */
     public function restore(User $user, Slider $slider): bool
     {
-        return $user->can('restore_cjip::slider');
+        return $user->can('restore_slider');
     }
 
     /**
@@ -87,7 +87,7 @@ class SliderPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::slider');
+        return $user->can('restore_any_slider');
     }
 
     /**
@@ -95,7 +95,7 @@ class SliderPolicy
      */
     public function replicate(User $user, Slider $slider): bool
     {
-        return $user->can('replicate_cjip::slider');
+        return $user->can('replicate_slider');
     }
 
     /**
@@ -103,6 +103,6 @@ class SliderPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::slider');
+        return $user->can('reorder_slider');
     }
 }

@@ -28,6 +28,9 @@ class Profile extends Page
 
     protected static ?string $navigationLabel = 'Profil';
 
+    protected static bool $shouldRegisterNavigation = false;
+
+
     protected static ?int $navigationSort = -3;
 
     protected static string $view = 'filament.pages.general.profile';

@@ -15,7 +15,7 @@ class ProyekInvestasiPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::proyek::investasi');
+        return $user->can('view_any_proyek::investasi');
     }
 
     /**
@@ -23,7 +23,7 @@ class ProyekInvestasiPolicy
      */
     public function view(User $user, ProyekInvestasi $proyekInvestasi): bool
     {
-        return $user->can('view_cjip::proyek::investasi');
+        return $user->can('view_proyek::investasi');
     }
 
     /**
@@ -31,7 +31,7 @@ class ProyekInvestasiPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::proyek::investasi');
+        return $user->can('create_proyek::investasi');
     }
 
     /**
@@ -39,7 +39,7 @@ class ProyekInvestasiPolicy
      */
     public function update(User $user, ProyekInvestasi $proyekInvestasi): bool
     {
-        return $user->can('update_cjip::proyek::investasi');
+        return $user->can('update_proyek::investasi');
     }
 
     /**
@@ -47,7 +47,7 @@ class ProyekInvestasiPolicy
      */
     public function delete(User $user, ProyekInvestasi $proyekInvestasi): bool
     {
-        return $user->can('delete_cjip::proyek::investasi');
+        return $user->can('delete_proyek::investasi');
     }
 
     /**
@@ -55,7 +55,7 @@ class ProyekInvestasiPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::proyek::investasi');
+        return $user->can('delete_any_proyek::investasi');
     }
 
     /**
@@ -63,7 +63,7 @@ class ProyekInvestasiPolicy
      */
     public function forceDelete(User $user, ProyekInvestasi $proyekInvestasi): bool
     {
-        return $user->can('force_delete_cjip::proyek::investasi');
+        return $user->can('force_delete_proyek::investasi');
     }
 
     /**
@@ -71,7 +71,7 @@ class ProyekInvestasiPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::proyek::investasi');
+        return $user->can('force_delete_any_proyek::investasi');
     }
 
     /**
@@ -79,7 +79,7 @@ class ProyekInvestasiPolicy
      */
     public function restore(User $user, ProyekInvestasi $proyekInvestasi): bool
     {
-        return $user->can('restore_cjip::proyek::investasi');
+        return $user->can('restore_proyek::investasi');
     }
 
     /**
@@ -87,7 +87,7 @@ class ProyekInvestasiPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::proyek::investasi');
+        return $user->can('restore_any_proyek::investasi');
     }
 
     /**
@@ -95,7 +95,7 @@ class ProyekInvestasiPolicy
      */
     public function replicate(User $user, ProyekInvestasi $proyekInvestasi): bool
     {
-        return $user->can('replicate_cjip::proyek::investasi');
+        return $user->can('replicate_proyek::investasi');
     }
 
     /**
@@ -103,6 +103,6 @@ class ProyekInvestasiPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::proyek::investasi');
+        return $user->can('reorder_proyek::investasi');
     }
 }

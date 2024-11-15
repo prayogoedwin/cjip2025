@@ -25,6 +25,8 @@
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ asset('images/cjip-small.png') }}">
 
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+
     <!-- Css -->
     <link href="{{ asset('assets/libs/tobii/css/tobii.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libs/tiny-slider/tiny-slider.css') }}" rel="stylesheet">
@@ -43,6 +45,7 @@
 
     @filamentStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('css')
 </head>
 
 <body class="antialiased font-nunito text-base text-black dark:text-white dark:bg-slate-900">
@@ -72,6 +75,7 @@
         </a>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 
     <!-- JAVASCRIPTS -->
     <script src="{{ asset('assets/libs/tobii/js/tobii.min.js') }}"></script>
@@ -83,12 +87,11 @@
     <!-- JAVASCRIPTS -->
 
     <script>
-        function changeLanguage(language = '') {
-            // Lakukan sesuatu di sini untuk mengubah bahasa (mungkin perubahan pada UI)
-
-            // Kemudian muat ulang halaman untuk merefresh sesi
-            window.location.reload();
-        }
+        document.addEventListener('livewire:load', function() {
+            Livewire.on('reloadPage', () => {
+                location.reload(); // Reload halaman
+            });
+        });
     </script>
 </body>
 

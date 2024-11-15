@@ -31,39 +31,37 @@
             <ul class="buy-button list-none mb-0">
                 <li class="inline mb-0">
                     <div class="hs-dropdown relative inline-flex">
+
                         <button id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider"
-                            class="text-white hover:bg-yellow-500 focus:ring-1 focus:outline-none font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-cente dark:hover:bg-yellow-500 dark:focus:ring-yellow-500"
+                            class=" text-white hover:bg-yellow-500 focus:ring-1 focus:outline-none font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center dark:hover:bg-yellow-500 dark:focus:ring-yellow-500"
                             type="button">
                             @if ($locale == 'id')
-                                <div><img class="inline rounded outline outline-offset-0 outline-gray-300 outline-1"
-                                        width="25px" alt="Indonesia"
+                                <div><img class="inline rounded" width="25px" alt="Indonesia"
                                         src="http://purecatamphetamine.github.io/country-flag-icons/3x2/ID.svg" /></div>
                                 <span class="menu-arrow"></span>
                             @else
-                                <div><img class="inline rounded outline outline-offset-0 outline-gray-300"
-                                        width="25px" alt="english"
+                                <div><img class="inline rounded" width="25px" alt="English"
                                         src="http://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" /></div>
                                 <span class="menu-arrow"></span>
                             @endif
                         </button>
 
-                        <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 w-10 hidden z-10 mt-2 min-w-[7rem] bg-white shadow-md rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700"
-                            aria-labelledby="hs-dropdown-basic">
+                        <div id="dropdownDivider"
+                            class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                                 aria-labelledby="dropdownDividerButton">
                                 <li>
-                                    <div wire:click="changeLanguage('id')" onclick="changeLanguage('id')"
-                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    <div wire:click="changeLanguage('id')"
+                                        class="block py-2 px-4 hover:bg-gray-100 text-black dark:hover:bg-gray-600 dark:hover:text-white">
                                         <img class="inline mr-1 rounded" width="30px" alt="Indonesia"
                                             src="http://purecatamphetamine.github.io/country-flag-icons/3x2/ID.svg" />
                                         ID
                                     </div>
-
                                 </li>
                                 <li>
-                                    <div wire:click="changeLanguage('en')" onclick="changeLanguage('en')"
-                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                        <img class="inline mr-1 rounded" width="30px" alt="english"
+                                    <div wire:click="changeLanguage('en')"
+                                        class="block py-2 px-4 hover:bg-gray-100 text-black dark:hover:bg-gray-600 dark:hover:text-white">
+                                        <img class="inline mr-1 rounded" width="30px" alt="English"
                                             src="http://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" />
                                         EN
                                     </div>
@@ -145,4 +143,65 @@
             </div>
         </div>
     </nav>
+    @push('js')
+        <script>
+            document.addEventListener('livewire:load', function() {
+                Livewire.on('reloadPage', () => {
+                    location.reload(); // Reload halaman
+                });
+            });
+        </script>
+        <script>
+            // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
+                    '(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark')
+            }
+        </script>
+        <script>
+            var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+            var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+            // Change the icons inside the button based on previous settings
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
+                    '(prefers-color-scheme: dark)').matches)) {
+                themeToggleLightIcon.classList.remove('hidden');
+            } else {
+                themeToggleDarkIcon.classList.remove('hidden');
+            }
+
+            var themeToggleBtn = document.getElementById('theme-toggle');
+
+            themeToggleBtn.addEventListener('click', function() {
+
+                // toggle icons inside button
+                themeToggleDarkIcon.classList.toggle('hidden');
+                themeToggleLightIcon.classList.toggle('hidden');
+
+                // if set via local storage previously
+                if (localStorage.getItem('color-theme')) {
+                    if (localStorage.getItem('color-theme') === 'light') {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    }
+
+                    // if NOT set via local storage previously
+                } else {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    }
+                }
+
+            });
+        </script>
+    @endpush
 </div>

@@ -15,7 +15,7 @@ class SmtpPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_kepeminatan::smtp');
+        return $user->can('view_any_smtp');
     }
 
     /**
@@ -23,7 +23,7 @@ class SmtpPolicy
      */
     public function view(User $user, Smtp $smtp): bool
     {
-        return $user->can('view_kepeminatan::smtp');
+        return $user->can('view_smtp');
     }
 
     /**
@@ -31,7 +31,7 @@ class SmtpPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_kepeminatan::smtp');
+        return $user->can('create_smtp');
     }
 
     /**
@@ -39,7 +39,7 @@ class SmtpPolicy
      */
     public function update(User $user, Smtp $smtp): bool
     {
-        return $user->can('update_kepeminatan::smtp');
+        return $user->can('update_smtp');
     }
 
     /**
@@ -47,7 +47,7 @@ class SmtpPolicy
      */
     public function delete(User $user, Smtp $smtp): bool
     {
-        return $user->can('delete_kepeminatan::smtp');
+        return $user->can('delete_smtp');
     }
 
     /**
@@ -55,7 +55,7 @@ class SmtpPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_kepeminatan::smtp');
+        return $user->can('delete_any_smtp');
     }
 
     /**
@@ -63,7 +63,7 @@ class SmtpPolicy
      */
     public function forceDelete(User $user, Smtp $smtp): bool
     {
-        return $user->can('force_delete_kepeminatan::smtp');
+        return $user->can('force_delete_smtp');
     }
 
     /**
@@ -71,7 +71,7 @@ class SmtpPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_kepeminatan::smtp');
+        return $user->can('force_delete_any_smtp');
     }
 
     /**
@@ -79,7 +79,7 @@ class SmtpPolicy
      */
     public function restore(User $user, Smtp $smtp): bool
     {
-        return $user->can('restore_kepeminatan::smtp');
+        return $user->can('restore_smtp');
     }
 
     /**
@@ -87,7 +87,7 @@ class SmtpPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_kepeminatan::smtp');
+        return $user->can('restore_any_smtp');
     }
 
     /**
@@ -95,7 +95,7 @@ class SmtpPolicy
      */
     public function replicate(User $user, Smtp $smtp): bool
     {
-        return $user->can('replicate_kepeminatan::smtp');
+        return $user->can('replicate_smtp');
     }
 
     /**
@@ -103,6 +103,6 @@ class SmtpPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_kepeminatan::smtp');
+        return $user->can('reorder_smtp');
     }
 }

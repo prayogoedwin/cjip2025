@@ -15,7 +15,7 @@ class InfrastrukturPendukungPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::infrastruktur::pendukung');
+        return $user->can('view_any_infrastruktur::pendukung');
     }
 
     /**
@@ -23,7 +23,7 @@ class InfrastrukturPendukungPolicy
      */
     public function view(User $user, InfrastrukturPendukung $infrastrukturPendukung): bool
     {
-        return $user->can('view_cjip::infrastruktur::pendukung');
+        return $user->can('view_infrastruktur::pendukung');
     }
 
     /**
@@ -31,7 +31,7 @@ class InfrastrukturPendukungPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::infrastruktur::pendukung');
+        return $user->can('create_infrastruktur::pendukung');
     }
 
     /**
@@ -39,7 +39,7 @@ class InfrastrukturPendukungPolicy
      */
     public function update(User $user, InfrastrukturPendukung $infrastrukturPendukung): bool
     {
-        return $user->can('update_cjip::infrastruktur::pendukung');
+        return $user->can('update_infrastruktur::pendukung');
     }
 
     /**
@@ -47,7 +47,7 @@ class InfrastrukturPendukungPolicy
      */
     public function delete(User $user, InfrastrukturPendukung $infrastrukturPendukung): bool
     {
-        return $user->can('delete_cjip::infrastruktur::pendukung');
+        return $user->can('delete_infrastruktur::pendukung');
     }
 
     /**
@@ -55,7 +55,7 @@ class InfrastrukturPendukungPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::infrastruktur::pendukung');
+        return $user->can('delete_any_infrastruktur::pendukung');
     }
 
     /**
@@ -63,7 +63,7 @@ class InfrastrukturPendukungPolicy
      */
     public function forceDelete(User $user, InfrastrukturPendukung $infrastrukturPendukung): bool
     {
-        return $user->can('force_delete_cjip::infrastruktur::pendukung');
+        return $user->can('force_delete_infrastruktur::pendukung');
     }
 
     /**
@@ -71,7 +71,7 @@ class InfrastrukturPendukungPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::infrastruktur::pendukung');
+        return $user->can('force_delete_any_infrastruktur::pendukung');
     }
 
     /**
@@ -79,7 +79,7 @@ class InfrastrukturPendukungPolicy
      */
     public function restore(User $user, InfrastrukturPendukung $infrastrukturPendukung): bool
     {
-        return $user->can('restore_cjip::infrastruktur::pendukung');
+        return $user->can('restore_infrastruktur::pendukung');
     }
 
     /**
@@ -87,7 +87,7 @@ class InfrastrukturPendukungPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::infrastruktur::pendukung');
+        return $user->can('restore_any_infrastruktur::pendukung');
     }
 
     /**
@@ -95,7 +95,7 @@ class InfrastrukturPendukungPolicy
      */
     public function replicate(User $user, InfrastrukturPendukung $infrastrukturPendukung): bool
     {
-        return $user->can('replicate_cjip::infrastruktur::pendukung');
+        return $user->can('replicate_infrastruktur::pendukung');
     }
 
     /**
@@ -103,6 +103,6 @@ class InfrastrukturPendukungPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::infrastruktur::pendukung');
+        return $user->can('reorder_infrastruktur::pendukung');
     }
 }

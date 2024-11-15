@@ -15,7 +15,7 @@ class PeminatProductPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_kemitraan::peminat::product');
+        return $user->can('view_any_peminat::product');
     }
 
     /**
@@ -23,7 +23,7 @@ class PeminatProductPolicy
      */
     public function view(User $user, PeminatProduct $peminatProduct): bool
     {
-        return $user->can('view_kemitraan::peminat::product');
+        return $user->can('view_peminat::product');
     }
 
     /**
@@ -31,7 +31,7 @@ class PeminatProductPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_kemitraan::peminat::product');
+        return $user->can('create_peminat::product');
     }
 
     /**
@@ -39,7 +39,7 @@ class PeminatProductPolicy
      */
     public function update(User $user, PeminatProduct $peminatProduct): bool
     {
-        return $user->can('update_kemitraan::peminat::product');
+        return $user->can('update_peminat::product');
     }
 
     /**
@@ -47,7 +47,7 @@ class PeminatProductPolicy
      */
     public function delete(User $user, PeminatProduct $peminatProduct): bool
     {
-        return $user->can('delete_kemitraan::peminat::product');
+        return $user->can('delete_peminat::product');
     }
 
     /**
@@ -55,7 +55,7 @@ class PeminatProductPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_kemitraan::peminat::product');
+        return $user->can('delete_any_peminat::product');
     }
 
     /**
@@ -63,7 +63,7 @@ class PeminatProductPolicy
      */
     public function forceDelete(User $user, PeminatProduct $peminatProduct): bool
     {
-        return $user->can('force_delete_kemitraan::peminat::product');
+        return $user->can('force_delete_peminat::product');
     }
 
     /**
@@ -71,7 +71,7 @@ class PeminatProductPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_kemitraan::peminat::product');
+        return $user->can('force_delete_any_peminat::product');
     }
 
     /**
@@ -79,7 +79,7 @@ class PeminatProductPolicy
      */
     public function restore(User $user, PeminatProduct $peminatProduct): bool
     {
-        return $user->can('restore_kemitraan::peminat::product');
+        return $user->can('restore_peminat::product');
     }
 
     /**
@@ -87,7 +87,7 @@ class PeminatProductPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_kemitraan::peminat::product');
+        return $user->can('restore_any_peminat::product');
     }
 
     /**
@@ -95,7 +95,7 @@ class PeminatProductPolicy
      */
     public function replicate(User $user, PeminatProduct $peminatProduct): bool
     {
-        return $user->can('replicate_kemitraan::peminat::product');
+        return $user->can('replicate_peminat::product');
     }
 
     /**
@@ -103,6 +103,6 @@ class PeminatProductPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_kemitraan::peminat::product');
+        return $user->can('reorder_peminat::product');
     }
 }

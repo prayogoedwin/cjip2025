@@ -15,7 +15,7 @@ class FaqPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::faq');
+        return $user->can('view_any_faq');
     }
 
     /**
@@ -23,7 +23,7 @@ class FaqPolicy
      */
     public function view(User $user, Faq $faq): bool
     {
-        return $user->can('view_cjip::faq');
+        return $user->can('view_faq');
     }
 
     /**
@@ -31,7 +31,7 @@ class FaqPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::faq');
+        return $user->can('create_faq');
     }
 
     /**
@@ -39,7 +39,7 @@ class FaqPolicy
      */
     public function update(User $user, Faq $faq): bool
     {
-        return $user->can('update_cjip::faq');
+        return $user->can('update_faq');
     }
 
     /**
@@ -47,7 +47,7 @@ class FaqPolicy
      */
     public function delete(User $user, Faq $faq): bool
     {
-        return $user->can('delete_cjip::faq');
+        return $user->can('delete_faq');
     }
 
     /**
@@ -55,7 +55,7 @@ class FaqPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::faq');
+        return $user->can('delete_any_faq');
     }
 
     /**
@@ -63,7 +63,7 @@ class FaqPolicy
      */
     public function forceDelete(User $user, Faq $faq): bool
     {
-        return $user->can('force_delete_cjip::faq');
+        return $user->can('force_delete_faq');
     }
 
     /**
@@ -71,7 +71,7 @@ class FaqPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::faq');
+        return $user->can('force_delete_any_faq');
     }
 
     /**
@@ -79,7 +79,7 @@ class FaqPolicy
      */
     public function restore(User $user, Faq $faq): bool
     {
-        return $user->can('restore_cjip::faq');
+        return $user->can('restore_faq');
     }
 
     /**
@@ -87,7 +87,7 @@ class FaqPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::faq');
+        return $user->can('restore_any_faq');
     }
 
     /**
@@ -95,7 +95,7 @@ class FaqPolicy
      */
     public function replicate(User $user, Faq $faq): bool
     {
-        return $user->can('replicate_cjip::faq');
+        return $user->can('replicate_faq');
     }
 
     /**
@@ -103,6 +103,6 @@ class FaqPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::faq');
+        return $user->can('reorder_faq');
     }
 }

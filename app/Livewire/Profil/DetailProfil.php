@@ -13,39 +13,31 @@ class DetailProfil extends Component
     protected $kabkota;
     protected $proyek;
     public $locale;
-
-    // protected $listeners = ['changeLanguange' => 'languageChange'];
     protected $listeners = ['changeLanguange' => 'languageChange'];
 
-    public function languageChange($lang)
+
+    public function changeLanguage($lang)
     {
-        //dd($lang);
-        $this->locale = $lang['lang'];
+        Session::put('lang', $lang);
+        $this->locale = $lang;
+        $this->dispatch('reloadPage');
     }
 
     public function mount($id)
     {
-
         $this->kabkota = ProfileKabkota::where('kab_kota_id', $id)->first();
         $this->proyek = ProyekInvestasi::where('status', 1)->where('kab_kota_id', $id)->get();
     }
     public function render()
     {
         if (Session::get('lang')) {
-            // dd(Session::get('lang'));
-            if (is_array(Session::get('lang'))) {
-                $this->locale = Session::get('lang')[0];
-            } else {
-                $this->locale = Session::get('lang');
-            }
-            // dd($this->locale);
+            $this->locale = is_array(Session::get('lang')) ? Session::get('lang')[0] : Session::get('lang');
         } else {
             $this->locale = 'id';
         }
 
         $profil = $this->kabkota;
-        // $profil->infrasturktur = json_decode($profil->infrasturktur);
         $proyeks = $this->proyek;
-        return view('livewire.profil.detail-profil', compact('proyeks', 'profil'));
+        return view('livewire.profil.detail-profil', compact('proyeks', 'profil'), ['locale' => $this->locale]);
     }
 }

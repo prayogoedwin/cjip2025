@@ -15,7 +15,7 @@ class TemplateEmailPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_kepeminatan::template::email');
+        return $user->can('view_any_template::email');
     }
 
     /**
@@ -23,7 +23,7 @@ class TemplateEmailPolicy
      */
     public function view(User $user, TemplateEmail $templateEmail): bool
     {
-        return $user->can('view_kepeminatan::template::email');
+        return $user->can('view_template::email');
     }
 
     /**
@@ -31,7 +31,7 @@ class TemplateEmailPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_kepeminatan::template::email');
+        return $user->can('create_template::email');
     }
 
     /**
@@ -39,7 +39,7 @@ class TemplateEmailPolicy
      */
     public function update(User $user, TemplateEmail $templateEmail): bool
     {
-        return $user->can('update_kepeminatan::template::email');
+        return $user->can('update_template::email');
     }
 
     /**
@@ -47,7 +47,7 @@ class TemplateEmailPolicy
      */
     public function delete(User $user, TemplateEmail $templateEmail): bool
     {
-        return $user->can('delete_kepeminatan::template::email');
+        return $user->can('delete_template::email');
     }
 
     /**
@@ -55,7 +55,7 @@ class TemplateEmailPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_kepeminatan::template::email');
+        return $user->can('delete_any_template::email');
     }
 
     /**
@@ -63,7 +63,7 @@ class TemplateEmailPolicy
      */
     public function forceDelete(User $user, TemplateEmail $templateEmail): bool
     {
-        return $user->can('force_delete_kepeminatan::template::email');
+        return $user->can('force_delete_template::email');
     }
 
     /**
@@ -71,7 +71,7 @@ class TemplateEmailPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_kepeminatan::template::email');
+        return $user->can('force_delete_any_template::email');
     }
 
     /**
@@ -79,7 +79,7 @@ class TemplateEmailPolicy
      */
     public function restore(User $user, TemplateEmail $templateEmail): bool
     {
-        return $user->can('restore_kepeminatan::template::email');
+        return $user->can('restore_template::email');
     }
 
     /**
@@ -87,7 +87,7 @@ class TemplateEmailPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_kepeminatan::template::email');
+        return $user->can('restore_any_template::email');
     }
 
     /**
@@ -95,7 +95,7 @@ class TemplateEmailPolicy
      */
     public function replicate(User $user, TemplateEmail $templateEmail): bool
     {
-        return $user->can('replicate_kepeminatan::template::email');
+        return $user->can('replicate_template::email');
     }
 
     /**
@@ -103,6 +103,6 @@ class TemplateEmailPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_kepeminatan::template::email');
+        return $user->can('reorder_template::email');
     }
 }

@@ -8,39 +8,25 @@ use Illuminate\Support\Facades\Session;
 class Navbar extends Component
 {
 
-    protected $navbar;
     public $locale;
 
     protected $listeners = ['refresh' => '$refresh'];
 
     public function changeLanguage($lang)
     {
-
-        if (Session::exists('lang')) {
-            Session::put('lang', $lang);
-        } else {
-            Session::push('lang', $lang);
-        }
-
-        if (is_array(Session::get('lang'))) {
-            $this->locale = Session::get('lang')[0];
-        } else {
-            $this->locale = Session::get('lang');
-        }
-
+        Session::put('lang', $lang);
+        $this->locale = $lang;
+        $this->dispatch('languageChanged', $lang);
     }
+
     public function render()
     {
         if (Session::get('lang')) {
-            if (is_array(Session::get('lang'))) {
-                $this->locale = Session::get('lang')[0];
-            } else {
-                $this->locale = Session::get('lang');
-            }
+            $this->locale = is_array(Session::get('lang')) ? Session::get('lang')[0] : Session::get('lang');
         } else {
             $this->locale = 'id';
         }
-        $locale = $this->locale;
-        return view('livewire.base.navbar', compact('locale'));
+
+        return view('livewire.base.navbar', ['locale' => $this->locale]);
     }
 }

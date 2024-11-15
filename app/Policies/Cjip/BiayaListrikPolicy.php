@@ -15,7 +15,7 @@ class BiayaListrikPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::biaya::listrik');
+        return $user->can('view_any_biaya::listrik');
     }
 
     /**
@@ -23,7 +23,7 @@ class BiayaListrikPolicy
      */
     public function view(User $user, BiayaListrik $biayaListrik): bool
     {
-        return $user->can('view_cjip::biaya::listrik');
+        return $user->can('view_biaya::listrik');
     }
 
     /**
@@ -31,7 +31,7 @@ class BiayaListrikPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::biaya::listrik');
+        return $user->can('create_biaya::listrik');
     }
 
     /**
@@ -39,7 +39,7 @@ class BiayaListrikPolicy
      */
     public function update(User $user, BiayaListrik $biayaListrik): bool
     {
-        return $user->can('update_cjip::biaya::listrik');
+        return $user->can('update_biaya::listrik');
     }
 
     /**
@@ -47,7 +47,7 @@ class BiayaListrikPolicy
      */
     public function delete(User $user, BiayaListrik $biayaListrik): bool
     {
-        return $user->can('delete_cjip::biaya::listrik');
+        return $user->can('delete_biaya::listrik');
     }
 
     /**
@@ -55,7 +55,7 @@ class BiayaListrikPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::biaya::listrik');
+        return $user->can('delete_any_biaya::listrik');
     }
 
     /**
@@ -63,7 +63,7 @@ class BiayaListrikPolicy
      */
     public function forceDelete(User $user, BiayaListrik $biayaListrik): bool
     {
-        return $user->can('force_delete_cjip::biaya::listrik');
+        return $user->can('force_delete_biaya::listrik');
     }
 
     /**
@@ -71,7 +71,7 @@ class BiayaListrikPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::biaya::listrik');
+        return $user->can('force_delete_any_biaya::listrik');
     }
 
     /**
@@ -79,7 +79,7 @@ class BiayaListrikPolicy
      */
     public function restore(User $user, BiayaListrik $biayaListrik): bool
     {
-        return $user->can('restore_cjip::biaya::listrik');
+        return $user->can('restore_biaya::listrik');
     }
 
     /**
@@ -87,7 +87,7 @@ class BiayaListrikPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::biaya::listrik');
+        return $user->can('restore_any_biaya::listrik');
     }
 
     /**
@@ -95,7 +95,7 @@ class BiayaListrikPolicy
      */
     public function replicate(User $user, BiayaListrik $biayaListrik): bool
     {
-        return $user->can('replicate_cjip::biaya::listrik');
+        return $user->can('replicate_biaya::listrik');
     }
 
     /**
@@ -103,6 +103,6 @@ class BiayaListrikPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::biaya::listrik');
+        return $user->can('reorder_biaya::listrik');
     }
 }

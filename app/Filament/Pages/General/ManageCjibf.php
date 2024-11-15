@@ -19,7 +19,7 @@ class ManageCjibf extends SettingsPage
 
     // protected static ?string $navigationIcon = 'heroicon-s-cog';
 
-    protected static ?string $navigationGroup = 'Cjibf';
+    protected static ?string $navigationGroup = 'CJIBF';
 
     protected static ?string $navigationLabel = 'Manage Cjibf';
 

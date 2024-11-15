@@ -15,7 +15,7 @@ class PrivacyPolicyPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::privacy::policy');
+        return $user->can('view_any_privacy::policy');
     }
 
     /**
@@ -23,7 +23,7 @@ class PrivacyPolicyPolicy
      */
     public function view(User $user, PrivacyPolicy $privacyPolicy): bool
     {
-        return $user->can('view_cjip::privacy::policy');
+        return $user->can('view_privacy::policy');
     }
 
     /**
@@ -31,7 +31,7 @@ class PrivacyPolicyPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::privacy::policy');
+        return $user->can('create_privacy::policy');
     }
 
     /**
@@ -39,7 +39,7 @@ class PrivacyPolicyPolicy
      */
     public function update(User $user, PrivacyPolicy $privacyPolicy): bool
     {
-        return $user->can('update_cjip::privacy::policy');
+        return $user->can('update_privacy::policy');
     }
 
     /**
@@ -47,7 +47,7 @@ class PrivacyPolicyPolicy
      */
     public function delete(User $user, PrivacyPolicy $privacyPolicy): bool
     {
-        return $user->can('delete_cjip::privacy::policy');
+        return $user->can('delete_privacy::policy');
     }
 
     /**
@@ -55,7 +55,7 @@ class PrivacyPolicyPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::privacy::policy');
+        return $user->can('delete_any_privacy::policy');
     }
 
     /**
@@ -63,7 +63,7 @@ class PrivacyPolicyPolicy
      */
     public function forceDelete(User $user, PrivacyPolicy $privacyPolicy): bool
     {
-        return $user->can('force_delete_cjip::privacy::policy');
+        return $user->can('force_delete_privacy::policy');
     }
 
     /**
@@ -71,7 +71,7 @@ class PrivacyPolicyPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::privacy::policy');
+        return $user->can('force_delete_any_privacy::policy');
     }
 
     /**
@@ -79,7 +79,7 @@ class PrivacyPolicyPolicy
      */
     public function restore(User $user, PrivacyPolicy $privacyPolicy): bool
     {
-        return $user->can('restore_cjip::privacy::policy');
+        return $user->can('restore_privacy::policy');
     }
 
     /**
@@ -87,7 +87,7 @@ class PrivacyPolicyPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::privacy::policy');
+        return $user->can('restore_any_privacy::policy');
     }
 
     /**
@@ -95,7 +95,7 @@ class PrivacyPolicyPolicy
      */
     public function replicate(User $user, PrivacyPolicy $privacyPolicy): bool
     {
-        return $user->can('replicate_cjip::privacy::policy');
+        return $user->can('replicate_privacy::policy');
     }
 
     /**
@@ -103,6 +103,6 @@ class PrivacyPolicyPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::privacy::policy');
+        return $user->can('reorder_privacy::policy');
     }
 }

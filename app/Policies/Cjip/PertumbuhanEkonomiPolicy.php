@@ -15,7 +15,7 @@ class PertumbuhanEkonomiPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::pertumbuhan::ekonomi');
+        return $user->can('view_any_pertumbuhan::ekonomi');
     }
 
     /**
@@ -23,7 +23,7 @@ class PertumbuhanEkonomiPolicy
      */
     public function view(User $user, PertumbuhanEkonomi $pertumbuhanEkonomi): bool
     {
-        return $user->can('view_cjip::pertumbuhan::ekonomi');
+        return $user->can('view_pertumbuhan::ekonomi');
     }
 
     /**
@@ -31,7 +31,7 @@ class PertumbuhanEkonomiPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::pertumbuhan::ekonomi');
+        return $user->can('create_pertumbuhan::ekonomi');
     }
 
     /**
@@ -39,7 +39,7 @@ class PertumbuhanEkonomiPolicy
      */
     public function update(User $user, PertumbuhanEkonomi $pertumbuhanEkonomi): bool
     {
-        return $user->can('update_cjip::pertumbuhan::ekonomi');
+        return $user->can('update_pertumbuhan::ekonomi');
     }
 
     /**
@@ -47,7 +47,7 @@ class PertumbuhanEkonomiPolicy
      */
     public function delete(User $user, PertumbuhanEkonomi $pertumbuhanEkonomi): bool
     {
-        return $user->can('delete_cjip::pertumbuhan::ekonomi');
+        return $user->can('delete_pertumbuhan::ekonomi');
     }
 
     /**
@@ -55,7 +55,7 @@ class PertumbuhanEkonomiPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::pertumbuhan::ekonomi');
+        return $user->can('delete_any_pertumbuhan::ekonomi');
     }
 
     /**
@@ -63,7 +63,7 @@ class PertumbuhanEkonomiPolicy
      */
     public function forceDelete(User $user, PertumbuhanEkonomi $pertumbuhanEkonomi): bool
     {
-        return $user->can('force_delete_cjip::pertumbuhan::ekonomi');
+        return $user->can('force_delete_pertumbuhan::ekonomi');
     }
 
     /**
@@ -71,7 +71,7 @@ class PertumbuhanEkonomiPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::pertumbuhan::ekonomi');
+        return $user->can('force_delete_any_pertumbuhan::ekonomi');
     }
 
     /**
@@ -79,7 +79,7 @@ class PertumbuhanEkonomiPolicy
      */
     public function restore(User $user, PertumbuhanEkonomi $pertumbuhanEkonomi): bool
     {
-        return $user->can('restore_cjip::pertumbuhan::ekonomi');
+        return $user->can('restore_pertumbuhan::ekonomi');
     }
 
     /**
@@ -87,7 +87,7 @@ class PertumbuhanEkonomiPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::pertumbuhan::ekonomi');
+        return $user->can('restore_any_pertumbuhan::ekonomi');
     }
 
     /**
@@ -95,7 +95,7 @@ class PertumbuhanEkonomiPolicy
      */
     public function replicate(User $user, PertumbuhanEkonomi $pertumbuhanEkonomi): bool
     {
-        return $user->can('replicate_cjip::pertumbuhan::ekonomi');
+        return $user->can('replicate_pertumbuhan::ekonomi');
     }
 
     /**
@@ -103,6 +103,6 @@ class PertumbuhanEkonomiPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::pertumbuhan::ekonomi');
+        return $user->can('reorder_pertumbuhan::ekonomi');
     }
 }
