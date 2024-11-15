@@ -7,7 +7,7 @@ return [
     'sector' => 'Sektor',
     'readiness' => 'Kesiapan Proyek',
     'kawasans' => 'Kawasan Industri',
-    'project' => 'Proyek & Peluang Investasi',
+    'project' => 'Proyek Investasi',
     'news' => 'Berita',
     'guide' => 'FAQ',
     'contact' => 'Hubungi Kami',

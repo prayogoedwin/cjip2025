@@ -3,7 +3,7 @@
 return [
 
     "title" => "Project Readiness",
-    "sub_title" => "Projects & Investment Opportunities",
+    "sub_title" => "Projects Opportunities",
     "tab_1" => "Project Ready to Offer",
     "tab_2" => "Prospective Project",
     "tab_3" => "Potential Project",
@@ -11,10 +11,12 @@ return [
 
     "button_1" => "Details",
     "button_2" => "Project Location",
+    "button_3" => 'Interest',
 
     "investment" => "Investment Value",
 
     "search" => "Project Search",
+    'notfound' => "No projects found.",
 
     // sector
     "title_sector" => "Sector",

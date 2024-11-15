@@ -6,7 +6,7 @@ return [
     'sector' => 'Sector',
     'readiness' => 'Project Readiness',
     'kawasans' => 'Industrial Estate',
-    'project' => 'Projects & Investment Opportunities',
+    'project' => 'Projects Investments',
     'news' => 'News',
     'guide' => 'FAQ',
     'contact' => 'Contact Us',

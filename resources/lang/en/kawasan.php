@@ -2,8 +2,6 @@
 
 return [
     'title' => 'Industrial Estate',
-    'deskripsi' => 'Several Industrial Areas in Central Java',
-
 
     'tab_1' => 'Company Profile',
     'tab_2' => 'Location',
@@ -16,6 +14,8 @@ return [
     'tab_9' => 'Videos',
     'tab_10' => 'Tenant',
 
+    'search' => 'Search Area',
+    'notfound' => "No industrial areas found.",
 
     'detail_profil' => 'Profile Company',
     'detail_profil_1' => 'Profile Industrial Estate',

@@ -8,7 +8,7 @@
             {{-- js pert_ekonomi --}}
             <script>
                 var chartData = JSON.parse(`<?php echo $pert_ekonomi; ?>`)
-                console.log(chartData);
+                // console.log(chartData);
                 const ctx = document.getElementById('myChart').getContext('2d');
                 const myChart = new Chart(ctx, {
                     type: 'bar',
@@ -50,7 +50,7 @@
             {{-- js perf_investasi --}}
             <script>
                 var chartData = JSON.parse(`<?php echo $perf_investasi; ?>`)
-                console.log(chartData);
+                // console.log(chartData);
                 const ctx1 = document.getElementById('myChart1').getContext('2d');
                 const myChart1 = new Chart(ctx1, {
                     type: 'line',

@@ -3,7 +3,7 @@
 return [
 
     "title" => "Kesiapan Proyek",
-    "sub_title" => "Proyek & Peluang Investasi",
+    "sub_title" => "Proyek Investasi",
     "tab_1" => "Proyek Siap Ditawarkan",
     "tab_2" => "Proyek Prospektif",
     "tab_3" => "Proyek Potensial",
@@ -11,10 +11,12 @@ return [
 
     "button_1" => "Detail",
     "button_2" => "Lokasi Proyek",
+    "button_3" => "Minat Proyek",
 
     "investment" => "Nilai Investasi",
 
     "search" => "Cari Proyek",
+    'notfound' => "Tidak ada proyek yang ditemukan.",
 
     // sector
     "title_sector" => "Sektor",

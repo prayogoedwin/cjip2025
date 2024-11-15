@@ -2,8 +2,6 @@
 
 return [
     'title' => 'Kawasan Industri',
-    'deskripsi' => 'Beberapa Kawasan Industri Yang Ada di Jawa Tengah',
-
 
     'tab_1' => 'Profil Perusahaan',
     'tab_2' => 'Lokasi',
@@ -15,6 +13,9 @@ return [
     'tab_8' => 'Fasilitas Lain',
     'tab_9' => 'Video',
     'tab_10' => 'Tenant',
+
+    'search' => 'Cari Kawasan',
+    'notfound' => "Tidak ada kawasan industri ditemukan.",
 
 
     'detail_profil' => 'Profil Perusahaan',
