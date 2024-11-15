@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\FaqResource\Pages;
 use App\Filament\Resources\Cjip\FaqResource\RelationManagers;
 use App\Models\Cjip\Faq;
@@ -25,6 +26,8 @@ class FaqResource extends Resource
     protected static ?string $navigationLabel = 'Faq';
 
     protected static ?int $navigationSort = 12;
+
+    protected static ?string $cluster = CJIP::class;
 
     protected static ?string $recordTitleAttribute = 'question';
     protected static ?string $pluralLabel = 'Faq';

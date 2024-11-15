@@ -15,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\FilamentUser;
 // use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements HasAvatar
@@ -41,10 +42,10 @@ class User extends Authenticatable implements HasAvatar
      * @var array<int, string>
      */
 
-    public function getFilamentAvatarUrl(): ?string
-    {
-        return 'storage/' . $this->profile_photo_path;
-    }
+     public function getFilamentAvatarUrl(): ?string
+     {
+         return $this->profile_photo_path ? Storage::url($this->profile_photo_path) : null;
+     }
     protected $fillable = [
         'name',
         'email',

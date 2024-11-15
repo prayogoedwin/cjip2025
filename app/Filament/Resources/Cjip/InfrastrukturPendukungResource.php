@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\InfrastrukturPendukungResource\Pages;
 use App\Filament\Resources\Cjip\InfrastrukturPendukungResource\RelationManagers;
 use App\Models\Cjip\InfrastrukturPendukung;
@@ -33,6 +34,9 @@ class InfrastrukturPendukungResource extends Resource
     protected static ?string $navigationLabel = 'Infrastruktur Pendukung';
 
     protected static ?int $navigationSort = 5;
+
+
+    protected static ?string $cluster = CJIP::class;
 
     protected static ?string $recordTitleAttribute = 'nama';
 

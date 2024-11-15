@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\BiayaListrikResource\Pages;
 use App\Filament\Resources\Cjip\BiayaListrikResource\RelationManagers;
 use App\Models\Cjip\BiayaListrik;
@@ -31,6 +32,8 @@ class BiayaListrikResource extends Resource
     protected static ?string $recordTitleAttribute = 'kode';
 
     protected static ?string $pluralLabel = 'Biaya Listrik';
+
+    protected static ?string $cluster = CJIP::class;
 
     public static function form(Form $form): Form
     {

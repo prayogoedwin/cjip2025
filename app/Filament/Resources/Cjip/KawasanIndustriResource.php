@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\KawasanIndustriResource\Pages;
 use App\Filament\Resources\Cjip\KawasanIndustriResource\RelationManagers;
 use App\Models\Cjip\KawasanIndustri;
@@ -40,6 +41,8 @@ class KawasanIndustriResource extends Resource
     protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $navigationLabel = 'Kawasan Industri';
+
+    protected static ?string $cluster = CJIP::class;
 
     protected static ?int $navigationSort = 2;
 

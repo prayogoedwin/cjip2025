@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\PendidikanResource\Pages;
 use App\Filament\Resources\Cjip\PendidikanResource\RelationManagers;
 use App\Models\Cjip\Kabkota;
@@ -26,6 +27,8 @@ class PendidikanResource extends Resource
     protected static ?int $navigationSort = 16;
 
     protected static ?string $navigationLabel = 'Pendidikan';
+
+    protected static ?string $cluster = CJIP::class;
 
     protected static ?string $recordTitleAttribute = 'nama';
 

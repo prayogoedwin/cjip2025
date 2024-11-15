@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\EventResource\Pages;
 use App\Filament\Resources\Cjip\EventResource\RelationManagers;
 use App\Models\Cjip\Event;
@@ -17,6 +18,8 @@ class EventResource extends Resource
 {
     protected static ?string $model = Event::class;
     protected static ?string $navigationGroup = 'Cjibf';
+
+    protected static ?string $cluster = CJIP::class;
 
     protected static ?int $navigationSort = 3;
 

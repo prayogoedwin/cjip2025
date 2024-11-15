@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\UpahMinimumResource\Pages;
 use App\Filament\Resources\Cjip\UpahMinimumResource\RelationManagers;
 use App\Models\Cjip\UpahMinimum;
@@ -26,6 +27,8 @@ class UpahMinimumResource extends Resource
     protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?int $navigationSort = 15;
+
+    protected static ?string $cluster = CJIP::class;
 
     protected static ?string $navigationLabel = 'Upah Minimum';
 

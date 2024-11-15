@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\BiayaAirResource\Pages;
 use App\Filament\Resources\Cjip\BiayaAirResource\RelationManagers;
 use App\Models\Cjip\BiayaAir;
@@ -33,6 +34,8 @@ class BiayaAirResource extends Resource
     protected static ?string $recordTitleAttribute = 'category';
 
     protected static ?string $pluralLabel = 'Biaya Air';
+
+    protected static ?string $cluster = CJIP::class;
 
     public static function form(Form $form): Form
     {

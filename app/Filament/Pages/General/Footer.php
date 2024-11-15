@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages\General;
 
+use App\Filament\Clusters\CJIP;
 use App\Settings\FooterSettings;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use BladeUI\Icons\Components\Icon;
@@ -26,7 +27,9 @@ class Footer extends SettingsPage
 
     protected static ?int $navigationSort = 20;
 
-    protected static ?string $navigationGroup = 'Cjip';
+    protected static ?string $cluster = CJIP::class;
+
+    protected static ?string $navigationGroup = 'Setting';
 
     protected function getFormSchema(): array
     {

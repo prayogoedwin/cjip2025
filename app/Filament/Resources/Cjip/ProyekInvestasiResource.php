@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\ProyekInvestasiResource\Pages;
 use App\Filament\Resources\Cjip\ProyekInvestasiResource\RelationManagers;
 use App\Models\Cjip\ProyekInvestasi;
@@ -31,7 +32,9 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Carbon\Carbon;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -52,6 +55,8 @@ class ProyekInvestasiResource extends Resource
     protected static ?string $recordTitleAttribute = 'nama';
 
     protected static ?string $navigationLabel = 'Proyek Investasi';
+
+    protected static ?string $cluster = CJIP::class;
 
     protected static ?string $pluralLabel = 'Data Proyek Investasi';
 
@@ -421,22 +426,28 @@ class ProyekInvestasiResource extends Resource
                     ])->columns(1)->grow(false),
                     Stack::make([
                         Split::make([
-                            TextColumn::make('nama')->wrap()->sortable()->searchable()
+                            TextColumn::make('nama')->wrap()->sortable()
+                                ->searchable()
                                 ->grow(false)
                                 ->extraAttributes([
                                     'class' => 'mt-2 text-gray-500 dark:text-gray-300 text-md font-bold'
                                 ]),
-                            IconColumn::make('status')
+                            BadgeColumn::make('status')
                                 ->alignRight()
+                                // ->enum([
+                                //     '1' => 'Published',
+                                //     '0' => 'UnPublished',
+                                //     null => 'Review',
+                                // ])
                                 ->colors([
                                     'success' => 1,
                                     'danger' => 0,
-                                    'warning' => null
+                                    'warning' => null,
                                 ])
                                 ->icons([
                                     'heroicon-s-check-circle' => 1,
                                     'heroicon-s-x-circle' => 0,
-                                    'heroicon-s-pencil-square' => null
+                                    'heroicon-s-document' => null,
                                 ])
                                 ->extraAttributes([
                                     'class' => 'mt-2 text-sm text-justify'
@@ -444,14 +455,13 @@ class ProyekInvestasiResource extends Resource
                         ]),
                         TextColumn::make('latar_belakang')
                             ->sortable()
-                            ->searchable()
                             ->html()
-                            ->limit(450)
+                            ->limit(200)
                             ->extraAttributes([
                                 'class' => 'mt-2 text-gray-500 dark:text-gray-300 text-xs text-justify'
                             ]),
                         TextColumn::make('nilai_investasi')->wrap()->sortable()->searchable()->color('primary')
-                            ->icon('heroicon-m-banknotes')->iconPosition('before')
+                            ->icon('heroicon-s-banknotes')->iconPosition('before')
                             ->extraAttributes([
                                 'class' => 'mt-2 text-primary-500 dark:text-primary-500 text-xs text-justify'
                             ]),
@@ -459,7 +469,7 @@ class ProyekInvestasiResource extends Resource
                         Split::make([
                             TextColumn::make('kabKota.nama')->sortable()->searchable()
                                 ->alignLeft()
-                                ->icon('heroicon-m-building-library')->iconPosition('before')
+                                ->icon('heroicon-s-building-library')->iconPosition('before')
                                 ->grow()
                                 ->extraAttributes([
                                     'class' => 'text-gray-500 dark:text-gray-300 text-xs'
@@ -480,29 +490,27 @@ class ProyekInvestasiResource extends Resource
                             ->extraAttributes([
                                 'class' => 'text-gray-500 dark:text-gray-300 text-xs italic'
                             ]),
-                        // ToggleColumn::make('status')
-                        //     ->onIcon('heroicon-s-check-circle')
-                        //     ->offIcon('heroicon-s-x-circle')
-                        //     ->onColor('success')
-                        //     ->offColor('danger')
-                        //     ->extraAttributes([
-                        //         'class' => 'w-sm mt-2 dark:text-gray-300 text-xs text-right'
-                        //     ])->visible(function () {
-                        //         if (auth()->user()->hasRole('admin_cjip')) {
-                        //             return false;
-                        //         }
-                        //         return true;
-                        //     })
-
+                        ToggleColumn::make(name: 'is_cjibf')
+                            ->onIcon('heroicon-s-check-circle')
+                            ->offIcon('heroicon-s-x-circle')
+                            ->onColor('success')
+                            ->offColor('danger')
+                            ->extraAttributes([
+                                'class' => 'w-sm mt-2 dark:text-gray-300 text-xs text-right'
+                            ])->visible(function () {
+                                if (auth()->user()->hasRole('admin_cjip')) {
+                                    return false;
+                                }
+                                return true;
+                            })
                     ]),
-
 
                 ]),
                 Panel::make([
                     Stack::make([
                         TextColumn::make('cp_nama')->wrap()->icon('heroicon-s-user')->limit(60)->iconPosition('before'),
-                        TextColumn::make('cp_email')->wrap()->icon('heroicon-m-envelope')->iconPosition('before'),
-                        TextColumn::make('cp_alamat')->wrap()->icon('heroicon-m-map-pin')->limit(200)->iconPosition('before'),
+                        TextColumn::make('cp_email')->wrap()->icon('heroicon-s-envelope')->iconPosition('before'),
+                        TextColumn::make('cp_alamat')->wrap()->icon('heroicon-s-map-pin')->limit(200)->iconPosition('before'),
                         TextColumn::make('cp_hp')->wrap()->icon('heroicon-s-phone')->iconPosition('before'),
                     ])->space(2)
                         ->extraAttributes([

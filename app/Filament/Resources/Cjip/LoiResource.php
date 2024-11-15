@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\LoiResource\Pages;
 use App\Filament\Resources\Cjip\LoiResource\RelationManagers;
 use App\Models\Cjip\Event;
@@ -30,6 +31,8 @@ class LoiResource extends Resource
 {
     protected static ?string $model = Loi::class;
     protected static ?string $navigationGroup = 'Cjibf';
+
+    protected static ?string $cluster = CJIP::class;
 
     protected static ?int $navigationSort = 2;
 

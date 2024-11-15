@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\SliderResource\Pages;
 use App\Filament\Resources\Cjip\SliderResource\RelationManagers;
 use App\Models\Cjip\Slider;
@@ -28,7 +29,9 @@ class SliderResource extends Resource
     use Translatable;
 
     protected static ?string $model = Slider::class;
-    protected static ?string $navigationGroup = 'Cjip';
+    protected static ?string $navigationGroup = 'Setting';
+
+    protected static ?string $cluster = CJIP::class;
 
     protected static ?int $navigationSort = 30;
 

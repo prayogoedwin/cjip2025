@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\PrivacyPolicyResource\Pages;
 use App\Filament\Resources\Cjip\PrivacyPolicyResource\RelationManagers;
 use App\Models\Cjip\PrivacyPolicy;
@@ -25,6 +26,8 @@ class PrivacyPolicyResource extends Resource
     protected static ?string $navigationLabel = 'Privacy Policy';
 
     protected static ?string $navigationGroup = 'Cjip';
+
+    protected static ?string $cluster = CJIP::class;
 
     protected static ?int $navigationSort = 13;
 

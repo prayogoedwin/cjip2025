@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\PertumbuhanEkonomiResource\Pages;
 use App\Filament\Resources\Cjip\PertumbuhanEkonomiResource\RelationManagers;
 use App\Models\Cjip\PertumbuhanEkonomi;
@@ -26,6 +27,7 @@ class PertumbuhanEkonomiResource extends Resource
     protected static ?string $navigationGroup = 'Cjip';
     protected static ?int $navigationSort = 8;
     protected static ?string $navigationLabel = 'Pertumbuhan Ekonomi';
+    protected static ?string $cluster = CJIP::class;
     protected static ?string $recordTitleAttribute = 'tahun';
     protected static ?string $pluralLabel = 'Pertumbuhan Ekonomi';
     public static function form(Form $form): Form

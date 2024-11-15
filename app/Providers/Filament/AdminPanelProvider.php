@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Dashboard as PagesDashboard;
 use App\Filament\Pages\General\Profile;
 use App\Livewire\Cjibf\Dashboard;
 use Filament\Http\Middleware\Authenticate;
@@ -75,8 +76,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->pages([
-                Pages\Dashboard::class,
+                PagesDashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
@@ -98,32 +100,42 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label('Graph')
-                    ->icon('heroicon-o-presentation-chart-bar'),
+                    ->icon('heroicon-o-presentation-chart-bar')
+                    ->collapsed()
+                    ->collapsible(),
                 NavigationGroup::make()
                     ->label('Settings')
-                    ->icon('heroicon-o-cog-8-tooth'),
-                NavigationGroup::make()
-                    ->label('Cjip')
-                    ->icon('heroicon-o-window'),
+                    ->icon('heroicon-o-cog-8-tooth')
+                    ->collapsed()
+                    ->collapsible(),
+                NavigationGroup::make('Website')
+                    ->label('Website')
+                    ->icon('heroicon-s-computer-desktop')
+                    ->collapsed()
+                    ->collapsible(),
                 NavigationGroup::make()
                     ->label('Kepeminatan')
                     ->icon('heroicon-o-window')
-                    ->collapsed(),
+                    ->collapsed()
+                    ->collapsible(),
                 NavigationGroup::make()
                     ->label('Kemitraan')
                     ->icon('heroicon-o-window')
-                    ->collapsed(),
+                    ->collapsed()
+                    ->collapsible(),
                 NavigationGroup::make()
                     ->label('Cjibf')
                     ->icon('heroicon-o-bars-3'),
                 NavigationGroup::make()
                     ->label('Si-Mike')
                     ->icon('heroicon-o-squares-2x2')
-                    ->collapsed(),
+                    ->collapsed()
+                    ->collapsible(),
                 NavigationGroup::make()
                     ->label('Si-Rusa')
                     ->icon('heroicon-o-squares-2x2')
-                    ->collapsed(),
+                    ->collapsed()
+                    ->collapsible(),
             ])
             ->authMiddleware([
                 Authenticate::class,

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cjip;
 
+use App\Filament\Clusters\CJIP;
 use App\Filament\Resources\Cjip\PerformaInvestasiResource\Pages;
 use App\Filament\Resources\Cjip\PerformaInvestasiResource\RelationManagers;
 use App\Models\Cjip\PerformaInvestasi;
@@ -26,6 +27,8 @@ class PerformaInvestasiResource extends Resource
     protected static ?int $navigationSort = 6;
 
     protected static ?string $navigationLabel = 'Performa Investasi';
+
+    protected static ?string $cluster = CJIP::class;
 
     protected static ?string $recordTitleAttribute = 'tahun';
 
