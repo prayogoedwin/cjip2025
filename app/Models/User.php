@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\Kawasan;
+use App\Models\Kepeminatan\Perusahaan;
 use App\Models\Simike\Report;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -42,10 +43,10 @@ class User extends Authenticatable implements HasAvatar
      * @var array<int, string>
      */
 
-     public function getFilamentAvatarUrl(): ?string
-     {
-         return $this->profile_photo_path ? Storage::url($this->profile_photo_path) : null;
-     }
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->profile_photo_path ? Storage::url($this->profile_photo_path) : null;
+    }
     protected $fillable = [
         'name',
         'email',
@@ -91,5 +92,10 @@ class User extends Authenticatable implements HasAvatar
     public function simikeReport(): HasMany
     {
         return $this->hasMany(Report::class, 'user_id', 'id');
+    }
+
+    public function userperusahaan()
+    {
+        return $this->hasOne(Perusahaan::class);
     }
 }

@@ -85,6 +85,55 @@
                         </svg>
                     </a>
                 </li>
+
+                <li class="inline mb-0">
+                    <div class="relative inline-block">
+                        @if (Route::has('login'))
+                            @auth
+                                @if (Auth::user()->profile_photo_path)
+                                    <img class="w-8 h-8 inline-block rounded-full ring-2 cursor-pointer"
+                                        style="--tw-ring-color: rgb(255 255 255);"
+                                        src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" alt=""
+                                        id="profileMenuButton">
+                                @else
+                                    <img class="w-8 h-8 inline-block rounded-full ring-2 cursor-pointer"
+                                        style="--tw-ring-color: rgb(255 255 255);"
+                                        src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                                        alt="" id="profileMenuButton">
+                                @endif
+                            @else
+                                <a href="{{ route('login') }}"
+                                    class="bg-yellow-500 py-1 px-3 rounded text-gray-100 text-sm">Login</a>
+                            @endauth
+                        @endif
+
+                        <div id="profileMenu"
+                            class="hidden absolute right-0 mt-2 w-24 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                            <div class="py-1" role="menu" aria-orientation="vertical"
+                                aria-labelledby="profileMenuButton">
+                                <a href="#"
+                                    class="flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                    </svg>
+                                    Profile</a>
+
+                                {{-- <button wire:click="logout"
+                                    class="w-full  flex justify-between text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><svg
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                                    </svg>
+                                    Logout
+                                </button> --}}
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
             </ul>
 
             <!--Login button End-->
