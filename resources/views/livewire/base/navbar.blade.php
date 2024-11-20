@@ -111,7 +111,7 @@
                             class="hidden absolute right-0 mt-2 w-24 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                             <div class="py-1" role="menu" aria-orientation="vertical"
                                 aria-labelledby="profileMenuButton">
-                                <a href="#"
+                                <a href="{{ route('dashboard.profile') }}"
                                     class="flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -120,7 +120,7 @@
                                     </svg>
                                     Profile</a>
 
-                                {{-- <button wire:click="logout"
+                                <button wire:click="logout"
                                     class="w-full  flex justify-between text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><svg
                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -128,7 +128,7 @@
                                             d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                                     </svg>
                                     Logout
-                                </button> --}}
+                                </button>
 
                             </div>
                         </div>
@@ -229,6 +229,22 @@
                     }
                 }
 
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var profileMenuButton = document.getElementById('profileMenuButton');
+                var profileMenu = document.getElementById('profileMenu');
+
+                profileMenuButton.addEventListener('click', function() {
+                    profileMenu.classList.toggle('hidden');
+                });
+
+                window.addEventListener('click', function(event) {
+                    if (!profileMenuButton.contains(event.target) && !profileMenu.contains(event.target)) {
+                        profileMenu.classList.add('hidden');
+                    }
+                });
             });
         </script>
     @endpush

@@ -3,7 +3,7 @@
     <ul class="mt-4">
         <li class="mb-2">
             <a href="{{ route('dashboard.investor') }}" class="space-x-2 rounded hover:bg-gray-700 flex items-center"><i
-                    class="uil uil-clinic-medical text-lg"></i>
+                    class="uil uil-clinic-medical text-lg dark:text-gray-900"></i>
                 <span>Dashboard</span></a>
         </li>
         <li class="mb-2">

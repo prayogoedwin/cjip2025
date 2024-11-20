@@ -9,6 +9,7 @@ use App\Livewire\Cjibf\Dashboard;
 use App\Livewire\Faq\Faq;
 use App\Livewire\Frontend\Auth\Login;
 use App\Livewire\Frontend\Auth\Profile;
+use App\Livewire\Frontend\Auth\Register;
 use App\Livewire\Frontend\Dashboard as FrontendDashboard;
 use App\Livewire\Frontend\MasterDashboard;
 use App\Livewire\Kawasan\DetailKawasan;
@@ -63,7 +64,7 @@ Route::get('panduan-investasi', Faq::class)->name('faq');
 Route::get('/loi', function () {
     return view('templates.loi');
 });
-// Route::get('register', Register::class)->name('register');
+Route::get('register', Register::class)->name('register');
 Route::get('login', Login::class, 'login')->name('login');
 
 Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(function () {
