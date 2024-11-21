@@ -11,6 +11,7 @@ use App\Livewire\Frontend\Auth\Login;
 use App\Livewire\Frontend\Auth\Profile;
 use App\Livewire\Frontend\Auth\Register;
 use App\Livewire\Frontend\Dashboard as FrontendDashboard;
+use App\Livewire\Frontend\Kepeminatan\BerandaPengajuan;
 use App\Livewire\Frontend\MasterDashboard;
 use App\Livewire\Kawasan\DetailKawasan;
 use App\Livewire\Kawasan\Kawasan;
@@ -35,9 +36,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::get('lang/{language}', [LocalizationController::class, 'switch'])->name('localization.switch');
 
 Route::get('/', Beranda::class)->name('beranda');
@@ -64,8 +62,12 @@ Route::get('panduan-investasi', Faq::class)->name('faq');
 Route::get('/loi', function () {
     return view('templates.loi');
 });
+
 Route::get('register', Register::class)->name('register');
 Route::get('login', Login::class, 'login')->name('login');
+
+// Kepeminatan
+Route::get('kepeminatan', BerandaPengajuan::class)->name('pengajuan.kepeminatan');
 
 Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(function () {
 

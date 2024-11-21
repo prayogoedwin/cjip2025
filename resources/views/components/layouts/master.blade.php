@@ -55,23 +55,6 @@
     @stack('js')
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-
-    <!-- JAVASCRIPTS -->
-    {{-- <script src="{{ asset('assets/libs/tobii/js/tobii.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/tiny-slider/min/tiny-slider.js') }}"></script>
-    <script src="{{ asset('assets/libs/swiper/js/swiper.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins.init.js') }}"></script>
-    <script src="{{ asset('assets/js/app.js') }}"></script> --}}
-    <!-- JAVASCRIPTS -->
-
-    {{-- <script>
-        document.addEventListener('livewire:load', function() {
-            Livewire.on('reloadPage', () => {
-                location.reload(); // Reload halaman
-            });
-        });
-    </script> --}}
 </body>
 
 </html>

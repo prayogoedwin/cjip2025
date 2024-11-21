@@ -12,7 +12,6 @@
                     class="hover:bg-green-800 shadow-lg w-full text-center btn-primary mb-2 mt-4 bg-green-500 px-10 py-3 rounded-md text-white">
                     Simpan
                 </button>
-
             </div>
         </form>
     </div>

@@ -33,19 +33,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind.css') }}" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
-    {{-- custome --}}
-
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}" />
-
-
-
-
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-nunito text-base text-black dark:text-white dark:bg-slate-900"
     style="background-image: url('https://preline.co/assets/svg/examples/polygon-bg-element.svg'); background-repeat: no-repeat; background-size: cover;">
-
-
 
     <main>
         @yield('content')
@@ -55,24 +47,8 @@
         @endisset
     </main>
 
-
-
-
-    <!-- Back to top -->
-    <a href="#" onclick="topFunction()" id="back-to-top"
-        class="back-to-top fixed hidden text-lg rounded-full z-50 bottom-5 right-5 h-9 w-9 text-center bg-primary-600 text-white leading-9"><i
-            class="uil uil-arrow-up"></i>
-    </a>
-
-    <!-- Back to top -->
-
-
-    <!-- End Switcher Darkmode -->
-
     @livewireScripts
     @stack('js')
-    <script src="{{ mix('js/app.js') }}" defer></script>
-
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <!-- JAVASCRIPTS -->
