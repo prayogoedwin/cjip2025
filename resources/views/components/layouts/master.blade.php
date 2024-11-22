@@ -47,9 +47,9 @@
     <main>
         @yield('content')
 
-        @isset($slot)
+        
             {{ $slot }}
-        @endisset
+        
     </main>
     @filamentScripts
     @stack('js')

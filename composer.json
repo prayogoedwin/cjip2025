@@ -15,6 +15,7 @@
         "bezhansalleh/filament-shield": "^3.2",
         "binarytorch/larecipe": "^2.6",
         "cheesegrits/filament-google-maps": "^3.0",
+        "coolsam/signature-pad": "^2.0",
         "filament/filament": "^3.2",
         "filament/notifications": "^3.2",
         "filament/spatie-laravel-settings-plugin": "^3.2",
