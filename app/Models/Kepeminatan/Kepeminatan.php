@@ -2,6 +2,7 @@
 
 namespace App\Models\Kepeminatan;
 
+use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\ProyekInvestasi;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,7 +34,9 @@ class Kepeminatan extends Model
         'other_information',
         'proyek_id',
         'sektor',
-        'interest_invesment'
+        'interest_invesment',
+        'mata_uang',
+        'signature'
     ];
 
     protected $cast = [
@@ -41,7 +44,8 @@ class Kepeminatan extends Model
         'local_exis' => 'boolean',
         'foreign_plan' => 'boolean',
         'foreign_exis' => 'boolean',
-        'interest_invesment' => 'boolean'
+        'interest_invesment' => 'boolean',
+        'mata_uang' => 'boolean'
     ];
 
     public function user()
@@ -54,6 +58,10 @@ class Kepeminatan extends Model
         return $this->belongsTo(TemplateEmail::class, 'status_id');
     }
 
+    public function kabkota()
+    {
+        return $this->belongsTo(Kabkota::class,'prefensi_lokasi');
+    }
     public function proyek()
     {
         return $this->belongsTo(ProyekInvestasi::class, 'proyek_id');

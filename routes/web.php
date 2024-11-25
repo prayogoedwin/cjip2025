@@ -68,6 +68,9 @@ Route::get('login', Login::class, 'login')->name('login');
 
 // Kepeminatan
 Route::get('kepeminatan', BerandaPengajuan::class)->name('pengajuan.kepeminatan');
+Route::get('/success', function () {
+    return view('success');
+});
 
 Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(function () {
 

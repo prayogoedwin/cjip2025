@@ -4,6 +4,10 @@ namespace App\Livewire\Frontend\Kepeminatan;
 
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\ProyekInvestasi;
+use App\Models\Kepeminatan\Kepeminatan;
+use App\Models\Kepeminatan\Perusahaan;
+use App\Models\Kepeminatan\TemplateEmail;
+use App\Models\User;
 use Closure;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
@@ -21,14 +25,28 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Livewire\Component;
 use Coolsam\SignaturePad\Forms\Components\Fields\SignaturePad;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
+
 
 class BerandaPengajuan extends Component implements HasForms
 {
     use InteractsWithForms;
 
-    public $name, $jabatan, $no_hp, $email, $nama_perusahaan, $jenis_usaha, $alamat_perusahaan, $negara_asal, $induk_perusahaan, $proyek_id, $sektor, $mata_uang, $nilai_investasi;
-    public $investment_interest, $prefensi_lokasi, $deskripsi_proyek, $signature, $rencana_bidang_usaha, $status_investasi, $local_worker_plan, $local_worker_exis, $foreign_worker_plan, $foreign_worker_exis, $jadwal_proyek;
+    public $name, $jabatan, $no_hp, $email, $nama_perusahaan,
+        $jenis_usaha, $alamat_perusahaan, $negara_asal, $induk_perusahaan, $proyek_id,
+        $sektor, $mata_uang, $nilai_investasi, $nilai_investasi_rupiah, $local_plan;
+    public $interest_invesment, $prefensi_lokasi, $deskripsi_proyek, $status_investasi, $signature, $rencana_bidang_usaha, $local_worker_plan, $local_worker_exis,
+        $foreign_worker_plan, $foreign_worker_exis, $jadwal_proyek;
     public ?array $data = [];
+
+    public $emailConfigService, $config, $loading;
+
+    public $kabkota, $locale, $selectedProyek, $is_invesment, $proyek;
     public function form(Form $form): Form
     {
         return $form
@@ -323,7 +341,7 @@ class BerandaPengajuan extends Component implements HasForms
                 Section::make('INVESTMENT INTEREST / Kepemintan Investasi')
                     ->collapsible()
                     ->schema([
-                        Toggle::make('investment_interest')
+                        Toggle::make('interest_invesment')
                             ->label('Apakah Kepeminatan dengan Proyek Jawa Tengah/What is the Interest in Central Java Project?')
                             ->inlineLabel()
                             // ->columnSpanFull()
@@ -346,7 +364,7 @@ class BerandaPengajuan extends Component implements HasForms
                                 }
                             })
                             ->visible(function (Get $get) {
-                                if ($get('investment_interest')) {
+                                if ($get('interest_invesment')) {
                                     return true;
                                 }
                                 return false;
@@ -368,7 +386,7 @@ class BerandaPengajuan extends Component implements HasForms
                                 'Lainnya' => 'Lainnya',
                             ])
                             ->visible(function (Get $get) {
-                                if ($get('investment_interest')) {
+                                if ($get('interest_invesment')) {
                                     return true;
                                 }
                                 return false;
@@ -389,7 +407,7 @@ class BerandaPengajuan extends Component implements HasForms
                             ])
                             ->searchable()
                             ->inlineLabel(),
-                        Radio::make('mata_uang')
+                        Radio::make('local_plan')
                             ->label('Mata Uang/Currency')
                             ->required()
                             ->options([
@@ -401,13 +419,13 @@ class BerandaPengajuan extends Component implements HasForms
                         TextInput::make('nilai_investasi')
                             ->label('Nilai Investasi Dalam USD')
                             ->visible(function (Get $get) {
-                                if ($get('mata_uang') === '0' or $get('mata_uang') === 0) {
+                                if ($get('local_plan') === '0' or $get('local_plan') === 0) {
                                     return true;
                                 }
                                 return false;
                             })
                             ->required(function ($get) {
-                                if ($get('mata_uang') === '0' or $get('mata_uang') === 0) {
+                                if ($get('local_plan') === '0' or $get('local_plan') === 0) {
                                     return true;
                                 }
                                 return false;
@@ -418,14 +436,14 @@ class BerandaPengajuan extends Component implements HasForms
                         TextInput::make('nilai_investasi_rupiah')
                             ->label('Nilai Investasi Dalam Rupiah')
                             ->visible(function (Get $get) {
-                                if ($get('mata_uang') === '1' or $get('mata_uang') === 1) {
+                                if ($get('local_plan') === '1' or $get('local_plan') === 1) {
                                     return true;
                                 }
                                 return false;
                             })
                             ->required(function ($get) {
                                 //dd($get);
-                                if ($get('mata_uang') === '1' or $get('mata_uang') === 1) {
+                                if ($get('local_plan') === '1' or $get('local_plan') === 1) {
                                     return true;
                                 }
                                 return false;
@@ -474,7 +492,7 @@ class BerandaPengajuan extends Component implements HasForms
                     ->schema([
                         Textarea::make('deskripsi_proyek')
                             ->required()
-                            ->label('Timeline Project/ Jadwal Proyek'),
+                            ->label('Deskripsi Proyek/ Project Description'),
                         DatePicker::make('jadwal_proyek')
                             ->required()
                             ->label('Tanggal Proyek/ Project Date'),
@@ -490,9 +508,119 @@ class BerandaPengajuan extends Component implements HasForms
             ]);
     }
 
-    public function create(): void
+    public function mount()
     {
-        dd($this->form->getState());
+        try {
+            $this->kabkota = Kabkota::pluck('nama', 'id')->toArray();
+
+            if (Session::get('lang')) {
+                if (is_array(Session::get('lang'))) {
+                    $this->locale = Session::get('lang')[0];
+                } else {
+                    $this->locale = Session::get('lang');
+                }
+            } else {
+                $this->locale = 'id';
+            }
+
+            if (Session::has('id_proyek')) {
+                $this->is_invesment = true;
+                $this->proyek = ProyekInvestasi::where('status', 1)->pluck('nama', 'id')->toArray();
+                $this->selectedProyek = Session::get('id_proyek');
+                $this->proyek_id = $this->selectedProyek;
+            }
+        } catch (\Exception $e) {
+            Log::error('Error during mount: ' . $e->getMessage());
+            session()->flash('error', 'An error occurred while initializing the form. Please try again later.');
+        }
+    }
+
+    public function create()
+    {
+        // try {
+        $status = TemplateEmail::where('modul', 'kepeminatan')
+            ->where('status', 'menunggu')
+            ->first();
+
+        if (!$status) {
+            throw new \Exception('Email template not found');
+        }
+
+        $role = Role::where('name', 'perusahaan')->first();
+        if (!$role) {
+            throw new \Exception('Role perusahaan not found');
+        }
+
+        $pass = Str::random(8);
+        $user = User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => Hash::make($pass),
+            'jabatan' => $this->jabatan,
+            'no_hp' => $this->no_hp
+        ]);
+        $user->syncRoles($role->id);
+
+        Perusahaan::create([
+            'user_id' => $user->id,
+            'nama_perusahaan' => $this->nama_perusahaan,
+            'jenis_usaha' => $this->jenis_usaha,
+            'alamat_perusahaan' => $this->alamat_perusahaan,
+            'negara_asal' => $this->negara_asal,
+            'induk_perusahaan' => $this->induk_perusahaan
+        ]);
+
+        // $this->prefensi_lokasi = Kabkota::findOrFail($this->kabkota_id)->nama;
+
+        Kepeminatan::create([
+            'user_id' => $user->id,
+            'rencana_bidang_usaha' => $this->rencana_bidang_usaha,
+            'status_investasi' => $this->status_investasi,
+            'prefensi_lokasi' => $this->prefensi_lokasi,
+            'local_worker_plan' => $this->local_worker_plan,
+            'local_worker_exis' => $this->local_worker_exis,
+            'foreign_worker_plan' => $this->foreign_worker_plan,
+            'foreign_worker_exis' => $this->foreign_worker_exis,
+            'nilai_investasi' => $this->nilai_investasi,
+            'nilai_investasi_rupiah' => $this->nilai_investasi_rupiah,
+            'local_plan' => $this->local_plan,
+            // 'local_exis' => $this->local_exis,
+            // 'foreign_plan' => $this->foreign_plan,
+            // 'foreign_exis' => $this->foreign_exis,
+            'deskripsi_proyek' => $this->deskripsi_proyek,
+            'jadwal_proyek' => $this->jadwal_proyek,
+            'status_id' => $status->id,
+            'interest_invesment' => $this->interest_invesment,
+            'proyek_id' => $this->proyek_id ? (int) $this->proyek_id : null,
+            'sektor' => $this->sektor,
+            'signature' => $this->signature,
+        ]);
+        return redirect()->route('beranda');
+
+        // $emailConfigService->applyEmailConfig('kepeminatan');
+        // $subject = $status->subject;
+        // $message = [
+        //     'name' => $user->name,
+        //     'password' => $pass,
+        //     'message' => $status->content,
+        //     'email' => $user->email
+        // ];
+        // $email = $user->email;
+        // Mail::send('emails.kepeminatan', ['customMessage' => $message], function ($message) use ($email, $subject) {
+        //     $message->to($email)
+        //         ->subject($subject);
+        // });
+
+        // $this->loading = false;
+        // $this->reset();
+        // Session::forget('id_proyek');
+
+        // return redirect()->to('/success');
+        // } catch (\Exception $e) {
+        //     Log::error('Error during form submission: ' . $e->getMessage());
+        //     session()->flash('error', 'An error occurred while submitting the form. Please try again later.');
+        //     $this->loading = false;
+        // }
     }
     public function render()
     {
