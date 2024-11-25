@@ -51,7 +51,7 @@
             <div
                 class="absolute gap-3 bottom-0 left-0 right-0 justify-center mb-4 z-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-4 w-full max-w-5xl mx-auto">
                 @auth
-                    <a href="#"
+                    <a href="{{ route('dashboard.kepeminatan') }}"
                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
                         Kepeminatan
                     </a>

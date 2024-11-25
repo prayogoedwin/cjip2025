@@ -14,7 +14,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-1 md:grid-cols-1 gap-5">
 
-        <a href="#"
+        <a href="{{route('dashboard.kepeminatan')}}"
             class="group hover:bg-gray-200 ring-1 ring-gray-300 relative flex flex-col md:flex-row md:space-y-0 rounded-xl shadow-lg p-3 mx-auto bg-white dark:bg-gray-800 ">
             <div class=" grid place-items-center">
                 <img src="{{ asset('images/minat.png') }}" alt="tailwind logo" class="rounded-xl object-cover"

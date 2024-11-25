@@ -12,6 +12,7 @@ use App\Livewire\Frontend\Auth\Profile;
 use App\Livewire\Frontend\Auth\Register;
 use App\Livewire\Frontend\Dashboard as FrontendDashboard;
 use App\Livewire\Frontend\Kepeminatan\BerandaPengajuan;
+use App\Livewire\Frontend\Kepeminatan\SuratKepeminatan;
 use App\Livewire\Frontend\MasterDashboard;
 use App\Livewire\Kawasan\DetailKawasan;
 use App\Livewire\Kawasan\Kawasan;
@@ -92,7 +93,7 @@ Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(functio
 
     Route::get('/', FrontendDashboard::class)->name('dashboard.investor');
     Route::get('profile', Profile::class)->name('dashboard.profile'); // perbaikan
-    // Route::get('kepeminatan', SuratKepeminatan::class)->name('dashboard.kepeminatan');
+    Route::get('kepeminatan', SuratKepeminatan::class)->name('dashboard.kepeminatan');
     // Route::get('riwayat-kepeminatan', RiwayatPengajuan::class)->name('dashboard.riwayat-kepeminatan');
     // Route::get('download-loi/{slug}', DownloadLoi::class)->name('download-loi');
 
