@@ -81,6 +81,7 @@ class AdminPanelProvider extends PanelProvider
                         'default' => 1,
                         'sm' => 2,
                     ]),
+                SpotlightPlugin::make(),
                 FilamentProgressbarPlugin::make()->color('#fbbf24'),
                 SpatieLaravelTranslatablePlugin::make()->defaultLocales(['id', 'en']),
                 FilamentLoggerPlugin::make(),

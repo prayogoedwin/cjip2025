@@ -13,11 +13,11 @@ class Berita extends Component
 
     protected $listeners = ['languageChange' => 'changeLanguange'];
 
-    // public function changeLanguange($lang)
-    // {
-    //     //dd($lang);
-    //     $this->locale = $lang['lang'];
-    // }
+    public function changeLanguange($lang)
+    {
+        //dd($lang);
+        $this->locale = $lang['lang'];
+    }
     public function render()
     {
         if (Session::get('lang')) {

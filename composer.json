@@ -34,7 +34,7 @@
         "njxqlus/filament-progressbar": "^1.0",
         "psr/simple-cache": "^2.0",
         "pxlrbt/filament-excel": "^2.3",
-        "pxlrbt/filament-spotlight": "^1.2",
+        "pxlrbt/filament-spotlight": "^1.3",
         "stechstudio/filament-impersonate": "^3.6",
         "tomatophp/filament-logger": "^1.0"
     },
