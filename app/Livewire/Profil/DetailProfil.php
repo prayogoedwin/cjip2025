@@ -15,7 +15,6 @@ class DetailProfil extends Component
     public $locale;
     protected $listeners = ['changeLanguange' => 'languageChange'];
 
-
     public function changeLanguage($lang)
     {
         Session::put('lang', $lang);

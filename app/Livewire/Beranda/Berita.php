@@ -11,23 +11,25 @@ class Berita extends Component
 {
     public $locale, $beritas;
 
-    protected $listeners = ['languageChange' => 'changeLanguange'];
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh',
+    ];
 
-    public function changeLanguange($lang)
+    public function changeLanguage($lang)
     {
-        //dd($lang);
         $this->locale = $lang['lang'];
+        Session::put('lang', $this->locale);
+        $this->emit('languageChanged');
     }
     public function render()
     {
         if (Session::get('lang')) {
-            // dd(Session::get('lang'));
             if (is_array(Session::get('lang'))) {
                 $this->locale = Session::get('lang')[0];
             } else {
                 $this->locale = Session::get('lang');
             }
-            // dd($this->locale);
         } else {
             $this->locale = 'id';
         }

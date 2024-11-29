@@ -15,29 +15,22 @@ class DetailKawasan extends Component
 
     protected $listeners = [
         'languageChange' => 'changeLanguage',
-        'languageChanged' => '$refresh', // Keep this if you have other listeners that need refreshing after language change
+        'languageChanged' => '$refresh',
     ];
 
-    // Set language preference and store it in session
     public function changeLanguage($lang)
     {
         $this->locale = $lang['lang'];
         Session::put('lang', $this->locale);
     }
 
-    // Mount the component, fetch the KawasanIndustri and its tenant
     public function mount($id)
     {
-        // Set the default language (or use the session if available)
         $this->locale = Session::get('lang', 'id');
-
-        // Fetch KawasanIndustri and its related tenant in a single query
         $this->kawasan = KawasanIndustri::findOrFail($id);
-
         $this->tenant = KawasanIndustri::findOrFail($id)->tenant;
     }
 
-    // Render the component view
     public function render()
     {
         if (Session::get('lang')) {

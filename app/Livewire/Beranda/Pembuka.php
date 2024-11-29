@@ -19,9 +19,7 @@ class Pembuka extends Component
     public function changeLanguage($lang)
     {
         $this->locale = $lang['lang'];
-
         Session::put('lang', $this->locale);
-
         $this->emit('languageChanged');
     }
     public function render(GeneralSettings $generalSettings)

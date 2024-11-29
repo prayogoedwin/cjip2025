@@ -24,15 +24,12 @@ class ProfilKabkota extends Component
     public function changeLanguage($lang)
     {
         $this->locale = $lang['lang'];
-
         Session::put('lang', $this->locale);
-
         $this->emit('languageChanged');
     }
     public function render()
     {
         if (Session::get('lang')) {
-
             if (is_array(Session::get('lang'))) {
                 $this->locale = Session::get('lang')[0];
             } else {
@@ -41,11 +38,8 @@ class ProfilKabkota extends Component
         } else {
             $this->locale = 'id';
         }
-
         $this->profil = \App\Models\Cjip\ProfileKabkota::paginate(4);
-
         $kabkota = $this->profil;
-
         return view('livewire.profil.profil-kabkota', compact('kabkota'));
     }
 }

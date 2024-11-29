@@ -10,27 +10,27 @@ class DetailBerita extends Component
 {
     protected $berita, $count, $post, $update;
     protected $beritas;
-    protected $listeners = ['changeLanguange' => 'languageChange'];
 
     public $locale, $slug;
-
-    public function languageChange($lang)
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh',
+    ];
+    public function changeLanguage($lang)
     {
-        //dd($lang);
         $this->locale = $lang['lang'];
+        Session::put('lang', $this->locale);
     }
 
     public function mount($slug)
     {
         $this->slug = $slug;
         if (Session::get('lang')) {
-            // dd(Session::get('lang'));
             if (is_array(Session::get('lang'))) {
                 $this->locale = Session::get('lang')[0];
             } else {
                 $this->locale = Session::get('lang');
             }
-            // dd($this->locale);
         } else {
             $this->locale = 'id';
         }
@@ -42,8 +42,8 @@ class DetailBerita extends Component
 
         // $this->post = Berita::find($slug);
 
-        $update = ['count' => $this->berita->count + 1,];
-        Berita::where('slug->' . $this->locale, $this->slug)->update($update);
+        // $update = ['count' => $this->berita->count + 1,];
+        // Berita::where('slug->' . $this->locale, $this->slug)->update($update);
 
         $this->beritas = Berita::where('status', '1')->inRandomOrder()->take(5)->get();
 
@@ -56,6 +56,15 @@ class DetailBerita extends Component
     }
     public function render()
     {
+        if (Session::get('lang')) {
+            if (is_array(Session::get('lang'))) {
+                $this->locale = Session::get('lang')[0];
+            } else {
+                $this->locale = Session::get('lang');
+            }
+        } else {
+            $this->locale = 'id';
+        }
         $this->berita = Berita::where('slug->' . $this->locale, $this->slug)->first();
 
         $this->beritas = Berita::where('status', '1')->inRandomOrder()->take(5)->get();

@@ -8,13 +8,16 @@ use Illuminate\Support\Facades\Session;
 
 class Berita extends Component
 {
-    protected $listeners = ['languageChange' => 'changeLanguange'];
-
     public $locale;
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh',
+    ];
 
-    public function changeLanguange($lang)
+    public function changeLanguage($lang)
     {
         $this->locale = $lang['lang'];
+        Session::put('lang', $this->locale);
     }
 
     public function mount()
@@ -31,6 +34,7 @@ class Berita extends Component
     }
     public function render()
     {
+        $this->locale = Session::get('lang', 'id');
         return view('livewire.berita.berita');
     }
 }

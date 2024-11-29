@@ -17,22 +17,18 @@ class Link extends Component
     public function changeLanguage($lang)
     {
         $this->locale = $lang['lang'];
-
         Session::put('lang', $this->locale);
-
         $this->emit('languageChanged');
     }
 
     public function render()
     {
         if (Session::get('lang')) {
-            // dd(Session::get('lang'));
             if (is_array(Session::get('lang'))) {
                 $this->locale = Session::get('lang')[0];
             } else {
                 $this->locale = Session::get('lang');
             }
-            // dd($this->locale);
         } else {
             $this->locale = 'id';
         }

@@ -21,9 +21,6 @@ class Sdm extends Component
         Session::put('lang', $this->locale);
         $this->emit('languageChanged');
     }
-    // use WithPagination;
-
-    // protected $umks;
 
     public function render(GeneralSettings $generalSettings)
     {
