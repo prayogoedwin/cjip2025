@@ -10,11 +10,20 @@ class Faq extends Component
 {
     public $locale;
 
-    protected $listeners = ['languageChange' => 'changeLanguange'];
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh', // Refresh komponen setelah bahasa diubah
+    ];
 
-    public function changeLanguange($lang)
+    public function changeLanguage($lang)
     {
         $this->locale = $lang['lang'];
+
+        // Mengatur bahasa di sesi
+        Session::put('lang', $this->locale);
+
+        // Emit event untuk melakukan reload atau refresh halaman
+        $this->emit('languageChanged');
     }
     public function render()
     {

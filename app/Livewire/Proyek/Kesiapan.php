@@ -24,8 +24,17 @@ class Kesiapan extends Component
 
     protected $listeners = [
         'languageChange' => 'changeLanguange',
-        'minatProyek' => 'updateState'
+        'minatProyek' => 'updateState',
+        'languageChanged' => '$refresh',
     ];
+
+    public function changeLanguange($lang)
+    {
+        $this->locale = $lang['lang'];
+        Session::put('lang', $this->locale);
+        $this->emit('languageChanged');
+        $this->cariProyeks();
+    }
 
     public function cariProyeks()
     {
@@ -54,7 +63,7 @@ class Kesiapan extends Component
     {
         $this->marketPlace = $id;
         $this->acti = $id;
-        $this->resetPage(); 
+        $this->resetPage();
         $this->cariProyeks();
     }
 
@@ -62,11 +71,6 @@ class Kesiapan extends Component
     {
         Session::put('id_proyek', $id);
         return redirect()->to('/kepeminatan');
-    }
-    public function changeLanguange($lang)
-    {
-        $this->locale = $lang['lang'];
-        $this->cariProyeks();
     }
 
     public function mount($selectedCategory = 1)
@@ -87,7 +91,7 @@ class Kesiapan extends Component
     }
     public function render()
     {
-        
+
 
         $jenis_marketplaces = Market::all();
         return view('livewire.proyek.kesiapan',  [

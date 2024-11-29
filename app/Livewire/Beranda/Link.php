@@ -9,12 +9,18 @@ use Illuminate\Support\Facades\Session;
 class Link extends Component
 {
     public $locale;
-    protected $listeners = ['languageChange' => 'changeLanguange'];
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh',
+    ];
 
-    public function changeLanguange($lang)
+    public function changeLanguage($lang)
     {
-        //dd($lang);
         $this->locale = $lang['lang'];
+
+        Session::put('lang', $this->locale);
+
+        $this->emit('languageChanged');
     }
 
     public function render()

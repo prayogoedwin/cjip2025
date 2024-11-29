@@ -20,13 +20,18 @@ class SektorContent extends Component
     public $searchs;
     public $highlightIndex = 0;
 
-    protected $listeners = ['languageChange' => 'changeLanguange'];
-    //protected $listeners = ['refresh' => '$refresh'];
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh',
+    ];
 
-    public function changeLanguange($lang)
+    public function changeLanguage($lang)
     {
-        //dd($lang);
         $this->locale = $lang['lang'];
+
+        Session::put('lang', $this->locale);
+
+        $this->emit('languageChanged');
     }
 
     public function mount($selectedCategory = 18)
@@ -120,6 +125,6 @@ class SektorContent extends Component
             $acti = $this->active;
         }
 
-        return view('livewire.proyek.sektor-content', compact('jenis_marketplaces', 'proyeks', 'searchs', 'acti', ));
+        return view('livewire.proyek.sektor-content', compact('jenis_marketplaces', 'proyeks', 'searchs', 'acti',));
     }
 }

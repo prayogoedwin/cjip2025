@@ -12,12 +12,16 @@ class Kawasan extends Component
 {
 
     public $locale, $kawasan_industris;
-    protected $listeners = ['languageChange' => 'changeLanguange'];
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh',
+    ];
 
-    public function changeLanguange($lang)
+    public function changeLanguage($lang)
     {
-        //dd($lang);
         $this->locale = $lang['lang'];
+        Session::put('lang', $this->locale);
+        $this->emit('languageChanged');
     }
     public function render()
     {

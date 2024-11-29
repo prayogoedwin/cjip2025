@@ -10,12 +10,16 @@ class Sdm extends Component
 {
     protected $profil;
     public $locale;
-    protected $listeners = ['languageChange' => 'changeLanguange'];
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh',
+    ];
 
-    public function changeLanguange($lang)
+    public function changeLanguage($lang)
     {
-        //dd($lang);
         $this->locale = $lang['lang'];
+        Session::put('lang', $this->locale);
+        $this->emit('languageChanged');
     }
     // use WithPagination;
 

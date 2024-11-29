@@ -18,24 +18,27 @@ class Content extends Component
 
     public $locale;
 
-    protected $listeners = ['languageChange' => 'changeLanguange'];
-    // protected $listeners = ['refresh' => '$refresh'];
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh',
+    ];
 
-    public function changeLanguange($lang)
+    public function changeLanguage($lang)
     {
-        //dd($lang);
         $this->locale = $lang['lang'];
+
+        Session::put('lang', $this->locale);
+
+        $this->emit('languageChanged');
     }
     public function render(GeneralSettings $generalSettings)
     {
         if (Session::get('lang')) {
-            // dd(Session::get('lang'));
             if (is_array(Session::get('lang'))) {
                 $this->locale = Session::get('lang')[0];
             } else {
                 $this->locale = Session::get('lang');
             }
-            // dd($this->locale);
         } else {
             $this->locale = 'id';
         }
@@ -47,6 +50,6 @@ class Content extends Component
 
         $this->services = $generalSettings;
         $pelayanan = $this->services;
-        return view('livewire.faq.content', compact('faqs', 'privacies', 'pelayanan'));
+        return view('livewire.faq.content', compact('faqs', 'privacies', 'pelayanan',));
     }
 }

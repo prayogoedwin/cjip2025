@@ -11,12 +11,18 @@ class Pembuka extends Component
 {
     protected $opening;
     public $locale, $infrastrukturs;
-    protected $listeners = ['languageChange' => 'changeLanguange'];
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh',
+    ];
 
-    public function changeLanguange($lang)
+    public function changeLanguage($lang)
     {
-        //dd($lang);
         $this->locale = $lang['lang'];
+
+        Session::put('lang', $this->locale);
+
+        $this->emit('languageChanged');
     }
     public function render(GeneralSettings $generalSettings)
     {

@@ -10,10 +10,18 @@ class Footer extends Component
 {
     protected $footer;
     public $locale;
-    protected $listeners = ['languageChange' => 'changeLanguange'];
-    public function changeLanguange($lang)
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh',
+    ];
+
+    public function changeLanguage($lang)
     {
         $this->locale = $lang['lang'];
+
+        Session::put('lang', $this->locale);
+
+        $this->emit('languageChanged');
     }
     public function render(FooterSettings $footerSettings)
     {

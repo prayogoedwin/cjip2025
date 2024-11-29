@@ -11,12 +11,17 @@ class Beranda extends Component
 {
     public $locale;
     public $sliders;
-    protected $listeners = ['languageChange' => 'changeLanguange'];
+    protected $listeners = [
+        'languageChange' => 'changeLanguage',
+        'languageChanged' => '$refresh',
+    ];
 
-    // public function changeLanguange($lang)
-    // {
-    //     $this->locale = $lang['lang'];
-    // }
+    public function changeLanguage($lang)
+    {
+        $this->locale = $lang['lang'];
+        Session::put('lang', $this->locale);
+        $this->emit('languageChanged');
+    }
     public function mount()
     {
         if (Session::get('lang')) {
