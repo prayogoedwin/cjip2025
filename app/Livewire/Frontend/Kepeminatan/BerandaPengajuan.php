@@ -80,7 +80,7 @@ class BerandaPengajuan extends Component implements HasForms
                             ->inlineLabel()
                             ->label('Bidang Usaha Saat ini/Business Field')
                             ->required(),
-                        TextInput::make('alamat_perusahaan')
+                        Textarea::make('alamat_perusahaan')
                             ->inlineLabel()
                             ->label('Alamat Perusahaan/Company Address')
                             ->required(),

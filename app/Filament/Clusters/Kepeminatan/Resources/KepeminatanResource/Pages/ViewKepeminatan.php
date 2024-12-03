@@ -4,15 +4,13 @@ namespace App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource\Pages;
 
 use App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource;
 use Filament\Actions;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ViewRecord;
 
-class EditKepeminatan extends EditRecord
+class ViewKepeminatan extends ViewRecord
 {
-    protected static string $resource = KepeminatanResource::class;
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-
         $data['name'] = $this->record->user->name;
         $data['jabatan'] = $this->record->user->jabatan;
         $data['email'] = $this->record->user->email;
@@ -26,11 +24,5 @@ class EditKepeminatan extends EditRecord
 
         return $data;
     }
-
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
+    protected static string $resource = KepeminatanResource::class;
 }
