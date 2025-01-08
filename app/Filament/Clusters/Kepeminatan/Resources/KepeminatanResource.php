@@ -24,13 +24,18 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
 use Filament\Tables;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\ActionsPosition;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction as TablesExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class KepeminatanResource extends Resource
 {
@@ -580,14 +585,40 @@ class KepeminatanResource extends Resource
                     ->color('primary'),
             ])->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('created_from'),
+                        DatePicker::make('created_until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
             ])
             ->headerActions([
-               //
+                TablesExportAction::make()->exports([
+                    ExcelExport::make('table')
+                        ->fromTable()
+                        ->withFilename(date('d-M-Y') . ' - Data Kepeminatan')
+                        ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
+                ])
+                    ->button()
+                    ->color('success')
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()->label('Lihat'),
-            ])
+                Tables\Actions\ViewAction::make()->label('Lihat')->iconButton(),
+                Action::make('print')
+                    ->icon('heroicon-o-printer')
+                    ->url(fn(\App\Models\Kepeminatan\Kepeminatan $record): string => route('download-loi', $record->id))
+                    ->openUrlInNewTab(),
+            ], position: ActionsPosition::BeforeCells)
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

@@ -23,6 +23,8 @@ class TemplateEmailResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-envelope';
 
+    protected static ?string $navigationGroup = 'Settings ----------------------------';
+
     protected static ?int $navigationSort = 2;
 
     protected static ?string $navigationLabel = 'Template Email';

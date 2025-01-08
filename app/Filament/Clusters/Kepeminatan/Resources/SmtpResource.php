@@ -22,6 +22,8 @@ class SmtpResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-cog-8-tooth';
 
+    protected static ?string $navigationGroup = 'Settings ----------------------------';
+
     protected static ?string $navigationLabel = 'SMTP';
 
     protected static ?string $pluralLabel = 'SMTP';
