@@ -3,17 +3,31 @@
 namespace App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource\Pages;
 
 use App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource;
+use App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource\Widgets\QuickReportKepeminatan;
 use Filament\Actions;
+use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 
 class ListKepeminatans extends ListRecords
 {
     protected static string $resource = KepeminatanResource::class;
+    protected int | string | array $columnSpan = 'full';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Action::make('Tambah Kepeminatan')
+                ->icon('heroicon-o-document-plus')
+                ->tooltip('Tambah Kepeminatan')
+                ->label('Tambah Kepeminatan')
+                ->url(route('dashboard.kepeminatan'))
+                ->color('primary'),
+        ];
+    }
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            QuickReportKepeminatan::class,
         ];
     }
 }

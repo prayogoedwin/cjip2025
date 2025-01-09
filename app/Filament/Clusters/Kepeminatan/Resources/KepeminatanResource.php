@@ -579,6 +579,7 @@ class KepeminatanResource extends Resource
                     ]),
                 TextColumn::make('jadwal_proyek')->date('d M Y')->label('Jadwal Proyek')->toggleable(),
                 TextColumn::make('status_template.subject')
+                    ->label('Status Permohonan')
                     ->wrap()
                     ->searchable()
                     ->toggleable()
