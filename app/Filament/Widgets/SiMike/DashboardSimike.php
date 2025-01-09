@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Widgets\SiMike;
+namespace App\Filament\Widgets\Simike;
 
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\Sektor;
@@ -18,10 +18,12 @@ use Filament\Widgets\StatsOverviewWidget;
 use Illuminate\Contracts\View\View;
 
 use Filament\Widgets\Widget;
+use Livewire\Component;
 
 class DashboardSimike extends StatsOverviewWidget implements HasForms
 {
     use HasWidgetShield;
+
 
     use InteractsWithForms;
     protected static ?int $sort = 2;
@@ -316,6 +318,7 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
         $simike = $this->simike;
         $nib = $this->nib;
 
-        return view('filament.widgets.si-mike.dashboard-simike', compact('tanggal', 'tahun', 'triwulan', 'simike', 'nib'));
+        return view('filament.widgets.simike.dashboard-simike', compact('tanggal', 'tahun', 'triwulan', 'simike', 'nib'));
     }
+
 }
