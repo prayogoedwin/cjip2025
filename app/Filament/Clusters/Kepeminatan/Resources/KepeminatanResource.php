@@ -28,6 +28,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Filters\Filter;
@@ -584,12 +585,16 @@ class KepeminatanResource extends Resource
                     ->searchable()
                     ->toggleable()
                     ->color('primary'),
+                TextColumn::make('nilai_investasi_rupiah')
+                    ->summarize(Sum::make()->label('Total Nilai Investasi Rupiah'))->money('IDR', divideBy: 100),
+                TextColumn::make('nilai_investasi')
+                    ->summarize(Sum::make()->label('Total Nilai Investasi Dolar'))->money('USD', divideBy: 100)
             ])->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('created_at')
                     ->form([
-                        DatePicker::make('created_from'),
-                        DatePicker::make('created_until'),
+                        DatePicker::make('created_from')->label('Dari Tanggal'),
+                        DatePicker::make('created_until')->label('Sampai Tanggal'),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
