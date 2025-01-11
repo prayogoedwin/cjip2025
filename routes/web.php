@@ -11,6 +11,7 @@ use App\Livewire\Frontend\Auth\Login;
 use App\Livewire\Frontend\Auth\Profile;
 use App\Livewire\Frontend\Auth\Register;
 use App\Livewire\Frontend\Dashboard as FrontendDashboard;
+use App\Livewire\Frontend\Kemitraan\Produk\ProductList;
 use App\Livewire\Frontend\Kepeminatan\BerandaPengajuan;
 use App\Livewire\Frontend\Kepeminatan\Surat\DownloadLoi;
 use App\Livewire\Frontend\Kepeminatan\SuratKepeminatan;
@@ -73,9 +74,10 @@ Route::get('kepeminatan', BerandaPengajuan::class)->name('pengajuan.kepeminatan'
 Route::get('/success', function () {
     return view('success');
 });
+Route::get('product-all', ProductList::class)->name('product');
+// Route::get('product/{slug}', ProductDetailProduct::class)->name('product.detail');
 
 Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(function () {
-
 
     // Kemitraan
     // Route::get('product-me', ProductList::class)->name('product.me');
@@ -91,7 +93,6 @@ Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(functio
 
     // Kepeminatan
     Route::get('/', MasterDashboard::class)->name('dashboard.investor');
-
     Route::get('/', FrontendDashboard::class)->name('dashboard.investor');
     Route::get('profile', Profile::class)->name('dashboard.profile'); // perbaikan
     Route::get('kepeminatan', SuratKepeminatan::class)->name('dashboard.kepeminatan');

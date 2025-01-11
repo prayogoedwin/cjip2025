@@ -42,11 +42,13 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->label('Nama Produk'),
-                TextColumn::make('user.name')->label('Pemilik Produk'),
-                // TextColumn::make('slug'),
-                ImageColumn::make('image_cover'),
-            ])
+                ImageColumn::make('image_cover')->label('Cover Produk')->width(50),
+                TextColumn::make('name')->label('Nama Produk')->searchable()->sortable(),
+                TextColumn::make('description')->label('Deskripsi Produk')->searchable()->wrap()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('user.name')->label('Pemilik Produk')->searchable(),
+                TextColumn::make('user.userperusahaan.nama_perusahaan')->label('Nama Perusahaan')->searchable(),
+                TextColumn::make('user.userperusahaan.alamat_perusahaan')->label('Alamat Perusahaan')->searchable()->wrap()->toggleable(isToggledHiddenByDefault: true),
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
