@@ -11,6 +11,7 @@ use App\Livewire\Frontend\Auth\Login;
 use App\Livewire\Frontend\Auth\Profile;
 use App\Livewire\Frontend\Auth\Register;
 use App\Livewire\Frontend\Dashboard as FrontendDashboard;
+use App\Livewire\Frontend\Kemitraan\Produk\DetailProduct;
 use App\Livewire\Frontend\Kemitraan\Produk\ProductList;
 use App\Livewire\Frontend\Kepeminatan\BerandaPengajuan;
 use App\Livewire\Frontend\Kepeminatan\Surat\DownloadLoi;
@@ -75,7 +76,7 @@ Route::get('/success', function () {
     return view('success');
 });
 Route::get('product-all', ProductList::class)->name('product');
-// Route::get('product/{slug}', ProductDetailProduct::class)->name('product.detail');
+Route::get('product/{slug}', DetailProduct::class)->name('product.detail');
 
 Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(function () {
 
