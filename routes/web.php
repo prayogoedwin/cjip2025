@@ -14,7 +14,9 @@ use App\Livewire\Frontend\Dashboard as FrontendDashboard;
 use App\Livewire\Frontend\Kemitraan\Produk\DetailProduct;
 use App\Livewire\Frontend\Kemitraan\Produk\ProductAll;
 use App\Livewire\Frontend\Kemitraan\Produk\ProductDetail;
+use App\Livewire\Frontend\Kemitraan\Produk\ProductEdit;
 use App\Livewire\Frontend\Kemitraan\Produk\ProductList;
+use App\Livewire\Frontend\Kemitraan\Produk\ProductMe;
 use App\Livewire\Frontend\Kepeminatan\BerandaPengajuan;
 use App\Livewire\Frontend\Kepeminatan\Surat\DownloadLoi;
 use App\Livewire\Frontend\Kepeminatan\SuratKepeminatan;
@@ -83,10 +85,10 @@ Route::get('product/{slug}', DetailProduct::class)->name('product.detail');
 Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(function () {
 
     // Kemitraan
-    // Route::get('product-me', ProductList::class)->name('product.me');
+    Route::get('product-me', ProductMe::class)->name('product.me');
     Route::get('product-kemitraan', ProductAll::class)->name('product-kemitraan');
     // Route::get('add-product', TambahProduk::class)->name('add-product'); // perbaikan
-    // Route::get('edit-product/{id}', EditProduk::class)->name('edit-product'); // perbaikan
+    Route::get('edit-product/{id}', ProductEdit::class)->name('edit-product'); // perbaikan
     Route::get('product-kemitraan/{slug}', ProductDetail::class)->name('detail.product');
     // Route::get('minat-masuk', MinatMasuk::class)->name('kemitraan.minat-masuk');
     // Route::get('minat-masuk/{id}', DetailMinatMasuk::class)->name('detail.minat-masuk');
