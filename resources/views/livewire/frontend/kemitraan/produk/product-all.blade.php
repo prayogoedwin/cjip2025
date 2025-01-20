@@ -28,7 +28,7 @@
                         style="height: 230px; width: 100%;">
 
                     <div class="content p-3">
-                        <a href="#"
+                        <a href="{{ route('detail.product', $product->slug) }}"
                             class="title h5 text-xl font-semibold hover:text-green-900 text-green-600 transition duration-500 text-justify">
                             {{ $product->name }}</a>
                         <p class="desc text-gray-500">
