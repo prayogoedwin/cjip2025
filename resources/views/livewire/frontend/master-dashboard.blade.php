@@ -148,7 +148,7 @@
                     </button>
                     <ul id="dropdown-example" class="hidden py-2 space-y-2">
                         <li>
-                            <a href="{{route('dashboard.kepeminatan')}}"
+                            <a href="{{ route('dashboard.kepeminatan') }}"
                                 class="@if (request()->is('dashboard/kepeminatan')) text-green-700 @else text-black @endif flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Form
                                 Pengajuan</a>
                         </li>
@@ -202,7 +202,7 @@
                                 Saya</a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="{{ route('product-kemitraan') }}"
                                 class="@if (request()->is('dashboard/product-kemitraan')) text-green-700 @else text-black @endif flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Semua
                                 Produk</a>
                         </li>

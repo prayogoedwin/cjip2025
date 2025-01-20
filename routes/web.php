@@ -12,6 +12,7 @@ use App\Livewire\Frontend\Auth\Profile;
 use App\Livewire\Frontend\Auth\Register;
 use App\Livewire\Frontend\Dashboard as FrontendDashboard;
 use App\Livewire\Frontend\Kemitraan\Produk\DetailProduct;
+use App\Livewire\Frontend\Kemitraan\Produk\ProductAll;
 use App\Livewire\Frontend\Kemitraan\Produk\ProductList;
 use App\Livewire\Frontend\Kepeminatan\BerandaPengajuan;
 use App\Livewire\Frontend\Kepeminatan\Surat\DownloadLoi;
@@ -82,7 +83,7 @@ Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(functio
 
     // Kemitraan
     // Route::get('product-me', ProductList::class)->name('product.me');
-    // Route::get('product-kemitraan', ProductAll::class)->name('product-kemitraan');
+    Route::get('product-kemitraan', ProductAll::class)->name('product-kemitraan');
     // Route::get('add-product', TambahProduk::class)->name('add-product'); // perbaikan
     // Route::get('edit-product/{id}', EditProduk::class)->name('edit-product'); // perbaikan
     // Route::get('product-kemitraan/{slug}', DetailProduct::class)->name('detail.product');

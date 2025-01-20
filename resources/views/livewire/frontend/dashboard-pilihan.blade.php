@@ -38,7 +38,7 @@
             </div>
         </a>
 
-        <a href="#"
+        <a href="{{ route('product-kemitraan') }}"
             class="group hover:bg-gray-100 ring-1 ring-gray-300 relative flex flex-col md:flex-row md:space-y-0 rounded-xl shadow-lg p-3 mx-auto bg-white dark:bg-gray-800">
             <div class=" grid place-items-center">
                 <img src="{{ asset('images/mitra.png') }}" alt="tailwind logo" class="rounded-xl object-cover"
