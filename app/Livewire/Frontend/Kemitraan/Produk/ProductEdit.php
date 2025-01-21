@@ -23,7 +23,6 @@ class ProductEdit extends Component implements HasForms
     use InteractsWithForms;
 
     use WithFileUploads;
-
     public ?array $data = [];
     public Product $product;
     public ProductGallery $galeriProduct;
@@ -65,6 +64,24 @@ class ProductEdit extends Component implements HasForms
             TextInput::make('slug')->required()->hidden(),
             MarkdownEditor::make('description')
                 ->label('Deskripsi')
+                ->toolbarButtons([
+                    'attachFiles',
+                    'blockquote',
+                    'bold',
+                    'bulletList',
+                    'codeBlock',
+                    'heading',
+                    'italic',
+                    'link',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'table',
+                    'underline',
+                    'undo',
+                    'fullscreen',
+                    'justify',
+                ])
                 ->required()
                 ->placeholder('Masukan Deskripsi Produk'),
             FileUpload::make('image_cover')
@@ -89,6 +106,7 @@ class ProductEdit extends Component implements HasForms
                 ->multiple()
                 ->hint('*maksimal 5 gambar')
                 ->label('Galeri Produk'),
+
             Toggle::make('is_active')->default(false)->label('Status')
                 ->onIcon('heroicon-s-check-circle')
                 ->offIcon('heroicon-s-x-circle')

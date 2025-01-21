@@ -52,16 +52,35 @@ class ProductAdd extends Component implements HasForms
 
                 TextInput::make('slug')
                     ->label('Slug Produk')
-                    ->required(),
+                    ->required()
+                    ->hidden(),
 
-                TiptapEditor::make('description')
+                MarkdownEditor::make('description')
                     ->label('Deskripsi')
+                    ->toolbarButtons([
+                        'attachFiles',
+                        'blockquote',
+                        'bold',
+                        'bulletList',
+                        'codeBlock',
+                        'heading',
+                        'italic',
+                        'link',
+                        'orderedList',
+                        'redo',
+                        'strike',
+                        'table',
+                        'underline',
+                        'undo',
+                        'fullscreen',
+                        'justify',
+                    ])
                     ->placeholder('Masukan Deskripsi Produk'),
 
                 FileUpload::make('image_cover')
                     ->label('Sampul Produk')
                     ->image()
-                    // ->required()
+                    ->required()
                     ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg'])
                     ->disk('public')
                     ->directory('kemitraan/product/cover')
@@ -72,7 +91,7 @@ class ProductAdd extends Component implements HasForms
                 FileUpload::make('image')
                     ->label('Galeri Produk')
                     ->image()
-                    // ->required()
+                    ->required()
                     ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg'])
                     ->disk('public')
                     ->directory('kemitraan/product/gallery')
