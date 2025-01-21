@@ -155,7 +155,7 @@
                         <li>
                             <a href="#"
                                 class="@if (request()->is('dashboard/riwayat-kepeminatan')) text-green-700 @else text-black @endif flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Riwayat
-                                Pengajuann</a>
+                                Pengajuan</a>
                         </li>
                     </ul>
                 </li>
@@ -352,7 +352,8 @@
 
             });
         </script>
-        <script>
+
+        {{-- <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var profileMenuButton = document.getElementById('profileMenuButton');
                 var profileMenu = document.getElementById('profileMenu');
@@ -367,6 +368,6 @@
                     }
                 });
             });
-        </script>
+        </script> --}}
     @endpush
 </div>

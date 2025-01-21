@@ -55,7 +55,7 @@
                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
                         Kepeminatan
                     </a>
-                    <a href="#"
+                    <a href="{{ route('product-kemitraan') }}"
                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
                         Kemitraan
                     </a>

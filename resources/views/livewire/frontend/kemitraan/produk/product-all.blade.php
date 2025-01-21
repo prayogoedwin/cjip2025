@@ -32,7 +32,7 @@
                             class="title h5 text-xl font-semibold hover:text-green-900 text-green-600 transition duration-500 text-justify">
                             {{ $product->name }}</a>
                         <p class="desc text-gray-500">
-                            {{ \Illuminate\Support\Str::limit(strip_tags($product->description), 80, ' ...') }}
+                            {!! Str::limit(str($product->description)->markdown()->sanitizeHtml(), 150) !!}
                         </p>
                         <div class="flex flex-col justify-between h-full">
                             <p class="text-gray-900 mt-2">{{ $product->user->userperusahaan->nama_perusahaan }}</p>

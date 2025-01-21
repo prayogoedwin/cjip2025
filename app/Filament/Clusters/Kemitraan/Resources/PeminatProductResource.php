@@ -62,7 +62,7 @@ class PeminatProductResource extends Resource
             ->actions([
                 Action::make('detail')
                     ->label('Detail Minat')
-                    ->url(fn(PeminatProduct $record) => route('peminat-product.show', $record->id))
+                    // ->url(fn(PeminatProduct $record) => route('peminat-product.show', $record->id))
                     ->color('primary')
                     ->icon('heroicon-s-eye'),
                 Action::make('download-form')

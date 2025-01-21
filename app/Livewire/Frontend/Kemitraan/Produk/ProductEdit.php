@@ -11,6 +11,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -23,6 +24,7 @@ class ProductEdit extends Component implements HasForms
 
     use WithFileUploads;
 
+    public ?array $data = [];
     public Product $product;
     public ProductGallery $galeriProduct;
 
@@ -59,9 +61,7 @@ class ProductEdit extends Component implements HasForms
                 ->required()
                 ->placeholder('Masukan Nama Produk')
                 ->reactive()
-                ->afterStateUpdated(function (Closure $set, $state) {
-                    $set('slug', Str::slug($state));
-                }),
+                ->afterStateUpdated(fn($set, ?string $state) => $set('slug', Str::slug($state))),
             TextInput::make('slug')->required()->hidden(),
             MarkdownEditor::make('description')
                 ->label('Deskripsi')

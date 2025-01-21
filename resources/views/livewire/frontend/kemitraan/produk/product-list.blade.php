@@ -41,7 +41,7 @@
                                                     {{ $product->name }}</h5>
                                             </a>
                                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                                {{ \Illuminate\Support\Str::limit(strip_tags($product->description), 80, ' ...') }}
+                                                {!! Str::limit(str($product->description)->markdown()->sanitizeHtml(), 150) !!}
                                             </p>
                                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                                 {{ $product->user->userperusahaan->nama_perusahaan }}</p>

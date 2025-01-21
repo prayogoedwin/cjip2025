@@ -20,7 +20,7 @@
         <!-- Kolom Keterangan Produk -->
         <div class="w-full lg:w-1/2 lg:ml-6">
             <h2 class="text-3xl font-bold mb-4">{{ $product->name }}</h2>
-            <p class="text-lg mb-4">{{ $product->description }}</p>
+            <p class="text-lg mb-4">{!! str($product->description)->markdown()->sanitizeHtml() !!}</p>
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center">
                     <span class="font-semibold text-xl">{{ $product->user->userperusahaan->nama_perusahaan }}</span>
