@@ -40,8 +40,8 @@
                                                     class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                                     {{ $product->name }}</h5>
                                             </a>
-                                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                                {!! Str::limit(str($product->description)->markdown()->sanitizeHtml(), 150) !!}
+                                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-justify" style="text-align: justify">
+                                                {!! Str::limit(str($product->description)->markdown()->sanitizeHtml(), 100) !!}
                                             </p>
                                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                                 {{ $product->user->userperusahaan->nama_perusahaan }}</p>

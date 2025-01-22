@@ -28,12 +28,20 @@
             </div>
 
             <!-- Button Minat Bermitra -->
-            @if (!$isOwner && $show)
-                <button wire:click="minatProduct({{ $product->id }})"
-                    class="items-center px-6 py-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 transition duration-300 w-full">
-                    Minat Bermitra
+            <div class="justify-between w-full">
+                @if (!$isOwner && $show)
+                    <button wire:click="minatProduct({{ $product->id }})"
+                        class="items-center px-6 py-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 transition duration-300 w-full sm:w-auto">
+                        Minat Bermitra
+                    </button>
+                @endif
+
+                <button onclick="window.history.back()"
+                    class="items-center px-6 py-3 text-sm font-medium text-center mt-2 text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 transition duration-300 w-full sm:w-auto">
+                    Kembali
                 </button>
-            @endif
+            </div>
+
 
             <!-- Button jika pemilik produk -->
             @if ($isOwner)

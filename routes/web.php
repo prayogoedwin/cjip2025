@@ -11,6 +11,10 @@ use App\Livewire\Frontend\Auth\Login;
 use App\Livewire\Frontend\Auth\Profile;
 use App\Livewire\Frontend\Auth\Register;
 use App\Livewire\Frontend\Dashboard as FrontendDashboard;
+use App\Livewire\Frontend\Kemitraan\Minat\DetailMinatKeluar;
+use App\Livewire\Frontend\Kemitraan\Minat\DetailMinatMasuk;
+use App\Livewire\Frontend\Kemitraan\Minat\MinatKeluar;
+use App\Livewire\Frontend\Kemitraan\Minat\MinatMasuk;
 use App\Livewire\Frontend\Kemitraan\Produk\DetailProduct;
 use App\Livewire\Frontend\Kemitraan\Produk\ProductAdd;
 use App\Livewire\Frontend\Kemitraan\Produk\ProductAll;
@@ -91,11 +95,11 @@ Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(functio
     Route::get('add-product', ProductAdd::class)->name('add-product'); // perbaikan
     Route::get('edit-product/{id}', ProductEdit::class)->name('edit-product'); // perbaikan
     Route::get('product-kemitraan/{slug}', ProductDetail::class)->name('detail.product');
-    // Route::get('minat-masuk', MinatMasuk::class)->name('kemitraan.minat-masuk');
-    // Route::get('minat-masuk/{id}', DetailMinatMasuk::class)->name('detail.minat-masuk');
+    Route::get('minat-masuk', MinatMasuk::class)->name('kemitraan.minat-masuk');
+    Route::get('minat-masuk/{id}', DetailMinatMasuk::class)->name('detail.minat-masuk');
 
-    // Route::get('minat-keluar', MinatKeluar::class)->name('kemitraan.minat-keluar');
-    // Route::get('minat-keluar/{slug}', DetailMinatKeluar::class)->name('detail.minat-keluar');
+    Route::get('minat-keluar', MinatKeluar::class)->name('kemitraan.minat-keluar');
+    Route::get('minat-keluar/{slug}', DetailMinatKeluar::class)->name('detail.minat-keluar');
 
     // Kepeminatan
     Route::get('/', MasterDashboard::class)->name('dashboard.investor');
