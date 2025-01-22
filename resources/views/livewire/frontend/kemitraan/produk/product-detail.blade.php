@@ -38,7 +38,7 @@
                         </button>
                     @endif
                     <button onclick="window.history.back()"
-                        class="items-center px-6 py-3 text-sm font-medium text-center mt-2 text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 transition duration-300 w-full sm:w-auto">
+                        class="items-center px-6 py-3 text-sm font-medium text-center mt-2 text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 transition duration-300 w-full">
                         Kembali
                     </button>
 
