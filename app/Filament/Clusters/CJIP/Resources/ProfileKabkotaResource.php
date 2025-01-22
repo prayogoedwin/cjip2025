@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\CJIP\Resources;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Filament\Clusters\CJIP\Resources\ProfileKabkotaResource\Pages;
 use App\Filament\Clusters\CJIP\Resources\ProfileKabkotaResource\RelationManagers;
 use App\Models\Cjip\ProfileKabkota;
@@ -41,7 +41,7 @@ class ProfileKabkotaResource extends Resource
 
     protected static ?string $pluralLabel = 'Profil Kabupaten/Kota';
 
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     public static function getTranslatableLocales(): array
     {

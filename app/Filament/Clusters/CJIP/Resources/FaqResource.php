@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\CJIP\Resources;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Filament\Clusters\CJIP\Resources\FaqResource\Pages;
 use App\Filament\Clusters\CJIP\Resources\FaqResource\RelationManagers;
 use App\Models\Cjip\Faq;
@@ -30,7 +30,7 @@ class FaqResource extends Resource
 
     protected static ?string $pluralLabel = 'FAQ';
 
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     public static function getTranslatableLocales(): array
     {

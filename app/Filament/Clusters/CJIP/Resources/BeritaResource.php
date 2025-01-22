@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\CJIP\Resources;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Filament\Clusters\CJIP\Resources\BeritaResource\Pages;
 use App\Filament\Clusters\CJIP\Resources\BeritaResource\RelationManagers;
 use App\Models\Cjip\Berita;
@@ -46,7 +46,7 @@ class BeritaResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
     protected static ?string $pluralLabel = 'Berita';
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     public static function getTranslatableLocales(): array
     {

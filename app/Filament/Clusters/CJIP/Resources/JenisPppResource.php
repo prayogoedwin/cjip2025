@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\CJIP\Resources;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Filament\Clusters\CJIP\Resources\JenisPppResource\Pages;
 use App\Filament\Clusters\CJIP\Resources\JenisPppResource\RelationManagers;
 use App\Models\Cjip\JenisPpp;
@@ -26,7 +26,7 @@ class JenisPppResource extends Resource
 
     protected static ?string $pluralLabel = 'Jenis PPP';
 
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     public static function form(Form $form): Form
     {

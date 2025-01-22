@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\CJIP\Resources;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Filament\Clusters\CJIP\Resources\PerformaInvestasiResource\Pages;
 use App\Filament\Clusters\CJIP\Resources\PerformaInvestasiResource\RelationManagers;
 use App\Models\Cjip\PerformaInvestasi;
@@ -31,7 +31,7 @@ class PerformaInvestasiResource extends Resource
 
     protected static ?string $pluralLabel = 'Performa Investasi';
 
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     public static function form(Form $form): Form
     {

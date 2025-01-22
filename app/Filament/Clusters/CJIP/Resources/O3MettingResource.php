@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\CJIP\Resources;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Filament\Clusters\CJIP\Resources\O3MettingResource\Pages;
 use App\Filament\Clusters\CJIP\Resources\O3MettingResource\RelationManagers;
 use App\Models\Cjibf\CjibfRegisterO3m;
@@ -27,7 +27,7 @@ use pxlrbt\FilamentExcel\Exports\ExcelExport;
 class O3MettingResource extends Resource
 {
     protected static ?string $model = CjibfRegisterO3m::class;
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     protected static ?string $navigationGroup = 'CJIBF';
 

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\CJIP\Resources;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Filament\Clusters\CJIP\Resources\KawasanIndustriResource\Pages;
 use App\Filament\Clusters\CJIP\Resources\KawasanIndustriResource\RelationManagers;
 use App\Models\Cjip\KawasanIndustri;
@@ -50,7 +50,7 @@ class KawasanIndustriResource extends Resource
     protected static ?string $navigationLabel = 'Kawasan Industri';
 
     protected static ?string $pluralLabel = 'Kawasan Industri';
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     public static function getTranslatableLocales(): array
     {

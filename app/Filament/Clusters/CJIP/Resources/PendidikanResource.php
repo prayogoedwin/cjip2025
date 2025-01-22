@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\CJIP\Resources;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Filament\Clusters\CJIP\Resources\PendidikanResource\Pages;
 use App\Filament\Clusters\CJIP\Resources\PendidikanResource\RelationManagers;
 use App\Models\Cjip\Pendidikan;
@@ -31,7 +31,7 @@ class PendidikanResource extends Resource
 
     protected static ?string $pluralLabel = 'Pendidikan';
 
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     public static function form(Form $form): Form
     {

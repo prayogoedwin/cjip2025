@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages\General;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Settings\GeneralSettings;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Faker\Provider\ar_EG\Text;
@@ -37,7 +37,7 @@ class General extends SettingsPage
 
     protected static ?string $navigationGroup = 'Setting';
 
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     protected function getFormSchema(): array
     {

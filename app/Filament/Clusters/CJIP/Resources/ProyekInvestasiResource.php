@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\CJIP\Resources;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Filament\Clusters\CJIP\Resources\ProyekInvestasiResource\Pages;
 use App\Filament\Clusters\CJIP\Resources\ProyekInvestasiResource\RelationManagers;
 use App\Models\Cjip\ProyekInvestasi;
@@ -50,7 +50,7 @@ class ProyekInvestasiResource extends Resource
     protected static ?string $navigationLabel = 'Proyek Investasi';
 
     protected static ?string $pluralLabel = 'Proyek Investasi';
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     public static function getTranslatableLocales(): array
     {

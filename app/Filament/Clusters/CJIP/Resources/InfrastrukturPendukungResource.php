@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\CJIP\Resources;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Filament\Clusters\CJIP\Resources\InfrastrukturPendukungResource\Pages;
 use App\Filament\Clusters\CJIP\Resources\InfrastrukturPendukungResource\RelationManagers;
 use App\Models\Cjip\InfrastrukturPendukung;
@@ -40,7 +40,7 @@ class InfrastrukturPendukungResource extends Resource
 
     protected static ?string $pluralLabel = 'Infrastruktur Pendukung';
 
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     public static function getTranslatableLocales(): array
     {

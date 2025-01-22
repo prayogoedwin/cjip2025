@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages\General;
 
-use App\Filament\Clusters\CJIP;
+use App\Filament\Clusters\Cjip;
 use App\Settings\CjibfSettings;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\FileUpload;
@@ -23,7 +23,7 @@ class ManageCjibf extends SettingsPage
 
     protected static ?string $navigationLabel = 'Manage Cjibf';
 
-    protected static ?string $cluster = CJIP::class;
+    protected static ?string $cluster = Cjip::class;
 
     protected static ?int $navigationSort = 1;
 
