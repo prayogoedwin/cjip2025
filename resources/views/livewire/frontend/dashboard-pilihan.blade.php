@@ -14,7 +14,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-1 md:grid-cols-1 gap-5">
 
-        <a href="{{route('dashboard.kepeminatan')}}"
+        <a href="{{ route('dashboard.kepeminatan') }}"
             class="group hover:bg-gray-200 ring-1 ring-gray-300 relative flex flex-col md:flex-row md:space-y-0 rounded-xl shadow-lg p-3 mx-auto bg-white dark:bg-gray-800 ">
             <div class=" grid place-items-center">
                 <img src="{{ asset('images/minat.png') }}" alt="tailwind logo" class="rounded-xl object-cover"
@@ -59,7 +59,7 @@
             </div>
         </a>
 
-        <a href="#"
+        <a href="{{ route('dashboard.sinida') }}"
             class="group hover:bg-gray-100 ring-1 ring-gray-300 relative flex flex-col md:flex-row md:space-y-0 rounded-xl shadow-lg p-3 mx-auto bg-white dark:bg-gray-800">
             <div class=" grid place-items-center">
                 <img src="{{ asset('images/sinida.png') }}" alt="tailwind logo" class="rounded-xl object-cover"
@@ -71,7 +71,9 @@
                     class="font-bold text-gray-800 md:text-3xl text-2xl group-hover:text-black dark:text-gray-300 dark:group-hover:text-white">
                     Permohonan
                     Insentif</h3>
-                <p class="md:text-lg text-gray-500 text-base group-hover:text-black text-justify dark:group-hover:text-white">Sistem Permohonan
+                <p
+                    class="md:text-lg text-gray-500 text-base group-hover:text-black text-justify dark:group-hover:text-white">
+                    Sistem Permohonan
                     Insentif Daerah
                     dapat digunakan oleh pelaku usaha di Jawa Tengah dalam mengajukan Insentif Daerah. Pengajuan
                     tersebut akan dilakukan review dan approval berjenjang. Untuk menunjang agar pelaku usaha di
