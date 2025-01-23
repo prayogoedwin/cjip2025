@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\PendidikanResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\PendidikanResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\PendidikanResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\PendidikanResource\RelationManagers;
 use App\Models\Cjip\Pendidikan;
 use App\Models\General\Kabkota;
 use Filament\Forms;
@@ -23,7 +23,7 @@ class PendidikanResource extends Resource
 {
     protected static ?string $model = Pendidikan::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $recordTitleAttribute = 'nama';
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\JenisPppResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\JenisPppResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\JenisPppResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\JenisPppResource\RelationManagers;
 use App\Models\Cjip\JenisPpp;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
@@ -20,7 +20,7 @@ class JenisPppResource extends Resource
 {
     protected static ?string $model = JenisPpp::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $navigationLabel = 'Jenis PPP';
 

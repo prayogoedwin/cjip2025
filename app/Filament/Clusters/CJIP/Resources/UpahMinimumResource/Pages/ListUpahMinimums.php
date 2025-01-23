@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\UpahMinimumResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\UpahMinimumResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\UpahMinimumResource;
+use App\Filament\Clusters\Cjip\Resources\UpahMinimumResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 

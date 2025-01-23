@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\JenisPppResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\JenisPppResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\JenisPppResource;
+use App\Filament\Clusters\Cjip\Resources\JenisPppResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 

@@ -12,7 +12,7 @@
         "awcodes/filament-tiptap-editor": "^3.0",
         "awcodes/light-switch": "^1.0",
         "barryvdh/laravel-dompdf": "^2.0",
-        "bezhansalleh/filament-shield": "^3.2",
+        "bezhansalleh/filament-shield": "^3.3",
         "binarytorch/larecipe": "^2.6",
         "cheesegrits/filament-google-maps": "^3.0",
         "coolsam/signature-pad": "^2.0",

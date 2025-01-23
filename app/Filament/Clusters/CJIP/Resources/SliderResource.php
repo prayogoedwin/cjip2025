@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\SliderResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\SliderResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\SliderResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\SliderResource\RelationManagers;
 use App\Models\Cjip\Slider;
 use Carbon\Carbon;
 use Filament\Forms;

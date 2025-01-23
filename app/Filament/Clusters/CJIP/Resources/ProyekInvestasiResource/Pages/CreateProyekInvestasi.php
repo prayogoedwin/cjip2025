@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\ProyekInvestasiResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\ProyekInvestasiResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\ProyekInvestasiResource;
+use App\Filament\Clusters\Cjip\Resources\ProyekInvestasiResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 

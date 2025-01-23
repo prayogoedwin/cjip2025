@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\BiayaListrikResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\BiayaListrikResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\BiayaListrikResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\BiayaListrikResource\RelationManagers;
 use App\Models\Cjip\BiayaListrik;
 use Filament\Forms;
 use Filament\Forms\Components\BelongsToSelect;
@@ -24,7 +24,7 @@ class BiayaListrikResource extends Resource
 {
     protected static ?string $model = BiayaListrik::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $recordTitleAttribute = 'tanggal';
 

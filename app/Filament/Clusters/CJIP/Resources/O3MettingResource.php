@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\O3MettingResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\O3MettingResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\O3MettingResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\O3MettingResource\RelationManagers;
 use App\Models\Cjibf\CjibfRegisterO3m;
 use App\Models\Cjip\Kawasan;
 use App\Models\General\Kabkota;

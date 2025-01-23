@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\KawasanIndustriResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\KawasanIndustriResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\KawasanIndustriResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\KawasanIndustriResource\RelationManagers;
 use App\Models\Cjip\KawasanIndustri;
 use Carbon\Carbon;
 use Cheesegrits\FilamentGoogleMaps\Fields\Map;
@@ -43,7 +43,7 @@ class KawasanIndustriResource extends Resource
 
     use Translatable;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $recordTitleAttribute = 'nama';
 

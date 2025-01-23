@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\ProyekInvestasiResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\ProyekInvestasiResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\ProyekInvestasiResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\ProyekInvestasiResource\RelationManagers;
 use App\Models\Cjip\ProyekInvestasi;
 use Carbon\Carbon;
 use Cheesegrits\FilamentGoogleMaps\Fields\Map;
@@ -43,7 +43,7 @@ class ProyekInvestasiResource extends Resource
     use Translatable;
     protected static ?string $model = ProyekInvestasi::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $recordTitleAttribute = 'nama';
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\ProfileKabkotaResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\ProfileKabkotaResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\ProfileKabkotaResource;
+use App\Filament\Clusters\Cjip\Resources\ProfileKabkotaResource;
 use Filament\Actions;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ListRecords;

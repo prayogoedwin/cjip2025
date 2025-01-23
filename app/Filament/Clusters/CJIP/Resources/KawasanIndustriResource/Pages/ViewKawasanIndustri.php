@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\KawasanIndustriResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\KawasanIndustriResource\Pages;
 
 use App\Filament\Clusters\CJIP\Resources\KawasanIndustriResource;
 use Filament\Actions;

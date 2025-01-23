@@ -9,7 +9,7 @@ use Filament\Resources\Concerns\Translatable;
 class Kemitraan extends Cluster
 {
     use Translatable, HasPageShield;
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
     protected static ?string $navigationGroup = 'Website';
 
 }

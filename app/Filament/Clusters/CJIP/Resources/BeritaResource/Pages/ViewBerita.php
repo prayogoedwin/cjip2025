@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\BeritaResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\BeritaResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\BeritaResource;
+use App\Filament\Clusters\Cjip\Resources\BeritaResource;
 use Filament\Actions;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ViewRecord;

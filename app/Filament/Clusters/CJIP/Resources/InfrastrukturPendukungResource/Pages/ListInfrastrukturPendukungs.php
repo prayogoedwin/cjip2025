@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\InfrastrukturPendukungResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\InfrastrukturPendukungResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\InfrastrukturPendukungResource;
+use App\Filament\Clusters\Cjip\Resources\InfrastrukturPendukungResource;
 use Filament\Actions;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ListRecords;

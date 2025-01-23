@@ -8,7 +8,9 @@ use Filament\Resources\Concerns\Translatable;
 
 class Cjip extends Cluster
 {
-    use Translatable, HasPageShield;
-    protected static ?int $navigationSort = 3;
+    use HasPageShield;
+    use Translatable;
+
+    protected static ?int $navigationSort = 1;
     protected static ?string $navigationGroup = 'Website';
 }

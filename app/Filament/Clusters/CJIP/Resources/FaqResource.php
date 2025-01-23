@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\FaqResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\FaqResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\FaqResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\FaqResource\RelationManagers;
 use App\Models\Cjip\Faq;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -22,7 +22,7 @@ class FaqResource extends Resource
     use Translatable;
     protected static ?string $model = Faq::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $recordTitleAttribute = 'nama';
 

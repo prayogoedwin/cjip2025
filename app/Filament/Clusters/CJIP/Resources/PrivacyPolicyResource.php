@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\PrivacyPolicyResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\PrivacyPolicyResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\PrivacyPolicyResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\PrivacyPolicyResource\RelationManagers;
 use App\Models\Cjip\PrivacyPolicy;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -24,7 +24,7 @@ class PrivacyPolicyResource extends Resource
     use Translatable;
     protected static ?string $model = PrivacyPolicy::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $navigationLabel = 'Privacy Policy';
 

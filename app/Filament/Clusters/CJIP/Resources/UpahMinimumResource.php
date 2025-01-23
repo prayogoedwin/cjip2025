@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\UpahMinimumResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\UpahMinimumResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\UpahMinimumResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\UpahMinimumResource\RelationManagers;
 use App\Models\Cjip\UpahMinimum;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -25,7 +25,7 @@ class UpahMinimumResource extends Resource
 {
     protected static ?string $model = UpahMinimum::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $recordTitleAttribute = 'tahun';
 

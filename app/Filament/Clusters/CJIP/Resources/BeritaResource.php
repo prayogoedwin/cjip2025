@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\BeritaResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\BeritaResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\BeritaResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\BeritaResource\RelationManagers;
 use App\Models\Cjip\Berita;
 use App\Models\Cjip\Category;
 use Carbon\Carbon;
@@ -41,7 +41,7 @@ class BeritaResource extends Resource
     use Translatable;
     protected static ?string $model = Berita::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
     protected static ?string $navigationLabel = 'Berita';
 
     protected static ?string $recordTitleAttribute = 'title';

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\BiayaListrikResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\BiayaListrikResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\BiayaListrikResource;
+use App\Filament\Clusters\Cjip\Resources\BiayaListrikResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 

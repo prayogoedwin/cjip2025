@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\ProfileKabkotaResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\ProfileKabkotaResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\ProfileKabkotaResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\ProfileKabkotaResource\RelationManagers;
 use App\Models\Cjip\ProfileKabkota;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -35,7 +35,7 @@ class ProfileKabkotaResource extends Resource
     use Translatable;
     protected static ?string $model = ProfileKabkota::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $navigationLabel = 'Profil Kabupaten/Kota';
 

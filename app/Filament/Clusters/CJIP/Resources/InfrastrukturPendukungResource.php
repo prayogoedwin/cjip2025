@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\InfrastrukturPendukungResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\InfrastrukturPendukungResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\InfrastrukturPendukungResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\InfrastrukturPendukungResource\RelationManagers;
 use App\Models\Cjip\InfrastrukturPendukung;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -32,7 +32,7 @@ class InfrastrukturPendukungResource extends Resource
     use Translatable;
     protected static ?string $model = InfrastrukturPendukung::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $recordTitleAttribute = 'nama';
 

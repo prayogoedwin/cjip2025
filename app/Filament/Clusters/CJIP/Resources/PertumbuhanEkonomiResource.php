@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\PertumbuhanEkonomiResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\PertumbuhanEkonomiResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\PertumbuhanEkonomiResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\PertumbuhanEkonomiResource\RelationManagers;
 use App\Models\Cjip\PertumbuhanEkonomi;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -25,7 +25,7 @@ class PertumbuhanEkonomiResource extends Resource
 {
     protected static ?string $model = PertumbuhanEkonomi::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $recordTitleAttribute = 'tahun';
 

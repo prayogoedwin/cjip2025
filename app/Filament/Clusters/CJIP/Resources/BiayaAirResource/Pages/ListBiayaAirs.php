@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\BiayaAirResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\BiayaAirResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\BiayaAirResource;
+use App\Filament\Clusters\Cjip\Resources\BiayaAirResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 

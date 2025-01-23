@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\FaqResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\FaqResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\FaqResource;
+use App\Filament\Clusters\Cjip\Resources\FaqResource;
 use Filament\Actions;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\EditRecord;

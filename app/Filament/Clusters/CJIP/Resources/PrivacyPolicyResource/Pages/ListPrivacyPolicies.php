@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\PrivacyPolicyResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\PrivacyPolicyResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\PrivacyPolicyResource;
+use App\Filament\Clusters\Cjip\Resources\PrivacyPolicyResource;
 use Filament\Actions;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ListRecords;

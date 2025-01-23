@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\O3MettingResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\O3MettingResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\O3MettingResource;
+use App\Filament\Clusters\Cjip\Resources\O3MettingResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 

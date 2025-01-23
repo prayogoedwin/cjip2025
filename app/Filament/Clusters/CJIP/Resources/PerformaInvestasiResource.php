@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources;
+namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\PerformaInvestasiResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\PerformaInvestasiResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\PerformaInvestasiResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\PerformaInvestasiResource\RelationManagers;
 use App\Models\Cjip\PerformaInvestasi;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -23,7 +23,7 @@ class PerformaInvestasiResource extends Resource
 {
     protected static ?string $model = PerformaInvestasi::class;
 
-    protected static ?string $navigationGroup = 'CJIP';
+    protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $recordTitleAttribute = 'tahun';
 
