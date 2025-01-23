@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\PermohonanIsentif\Resources\SinidaResource\Pages;
+namespace App\Filament\Clusters\PermohonanInsentif\Resources\SinidaResource\Pages;
 
-use App\Filament\Clusters\PermohonanIsentif\Resources\SinidaResource;
+use App\Filament\Clusters\PermohonanInsentif\Resources\SinidaResource;
 use App\Models\Sinida\TemplateEmail;
 use App\Services\EmailConfigService;
 use Filament\Actions;

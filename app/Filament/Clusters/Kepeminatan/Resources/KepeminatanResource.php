@@ -42,7 +42,7 @@ class KepeminatanResource extends Resource
 {
     protected static ?string $model = modelKepeminatan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-squares-2x2';
 
     protected static ?string $navigationLabel = 'Kepeminatan';
 

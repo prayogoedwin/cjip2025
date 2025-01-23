@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Filament\Clusters\PermohonanIsentif\Resources;
+namespace App\Filament\Clusters\PermohonanInsentif\Resources;
 
 use App\Filament\Clusters\PermohonanInsentif;
-use App\Filament\Clusters\PermohonanIsentif;
-use App\Filament\Clusters\PermohonanIsentif\Resources\SinidaResource\Pages;
+use App\Filament\Clusters\PermohonanInsentif\Resources\SinidaResource\Pages;
 use App\Filament\Clusters\PermohonanIsentif\Resources\SinidaResource\RelationManagers;
 use App\Models\Sinida\Pns;
 use App\Models\Sinida\Sinida;
@@ -36,7 +35,7 @@ class SinidaResource extends Resource
 {
     protected static ?string $model = Sinida::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-squares-2x2';
 
     protected static ?string $navigationLabel = 'Sinida';
 
@@ -186,7 +185,7 @@ class SinidaResource extends Resource
                 TextColumn::make('user.no_hp')->wrap()->searchable()->label('No. Telepon')->sortable()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('user.userperusahaan.nama_perusahaan')->wrap()->searchable()->label('Nama Perusahaan'),
                 TextColumn::make('user.userperusahaan.alamat_perusahaan')->wrap()->searchable()->label('Alamat Perusahaan'),
-                TextColumn::make('status_template.subject')->wrap()->searchable(),
+                TextColumn::make('status_template.subject')->wrap()->searchable()->color('primary')->label('Status Pengajuan'),
                 TextColumn::make('created_at')->date('d-m-Y')->label('Tanggal Pengajuan')->sortable(),
             ])->defaultSort('created_at', 'desc')
             ->filters([
