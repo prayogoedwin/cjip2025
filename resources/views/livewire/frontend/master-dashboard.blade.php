@@ -263,12 +263,12 @@
                     </button>
                     <ul id="dropdown-isentif" class="hidden py-2 space-y-2">
                         <li>
-                            <a href="#"
+                            <a href="{{ route('dashboard.sinida') }}"
                                 class="flex items-center @if (request()->is('dashboard/sinida')) text-green-700 @else text-black @endif w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Form
                                 Pengajuan</a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="{{ route('dashboard.riwayat-sinida') }}"
                                 class="flex items-center @if (request()->is('dashboard/riwayat-sinida')) text-green-700 @else text-black @endif w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Riwayat
                                 Pengajuan</a>
                         </li>
