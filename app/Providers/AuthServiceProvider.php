@@ -37,6 +37,10 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Cjip\PrivacyPolicy' => 'App\Policies\Cjip\PrivacyPolicyPolicy',
         'App\Models\Cjip\Slider' => 'App\Policies\Cjip\SliderPolicy',
 
+        'App\Models\Cjip\JenisPpp' => 'App\Policies\Cjip\JenisPppPolicy',
+        'App\Models\Cjibf\CjibfRegisterO3m' => 'App\Policies\Cjibf\CjibfRegisterO3mPolicy',
+        'App\Models\Cjip\ProfileKabkota' => 'App\Policies\Cjip\ProfileKabkotaPolicy',
+
         'App\Models\SiMike\Proyek' => 'App\Policies\SiMike\ProyekPolicy',
         'App\Models\SiMike\RulesSimike' => 'App\Policies\SiMike\RulesSimikePolicy',
 

@@ -16,9 +16,12 @@ class Authkepeminatan
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->roles[0]->name == 'perusahaan') {
+        $userRoles = Auth::user()->roles->pluck('name')->toArray();
+
+        if (in_array('perusahaan', $userRoles) || in_array('role_lain', $userRoles)) {
             return $next($request);
         }
-        return  redirect('/');
+
+        return redirect('/');
     }
 }

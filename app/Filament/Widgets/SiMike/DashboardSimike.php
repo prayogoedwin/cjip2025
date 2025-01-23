@@ -20,10 +20,9 @@ use Illuminate\Contracts\View\View;
 use Filament\Widgets\Widget;
 use Livewire\Component;
 
-class DashboardSimike extends StatsOverviewWidget implements HasForms
+class DashboardSimike extends Widget implements HasForms
 {
     use HasWidgetShield;
-
 
     use InteractsWithForms;
     protected static ?int $sort = 2;
@@ -60,13 +59,13 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
         $admin;
     public $start, $end, $tanggal_terbit_oss;
 
-    public static function canView(): bool
-    {
-        if (auth()->user()->hasRole(['admin_cjip', 'admin_promosi', 'admin_ki', 'perusahaan', 'bapeda'])) {
-            return false;
-        }
-        return true;
-    }
+    // public static function canView(): bool
+    // {
+    //     if (auth()->user()->hasRole(['admin_cjip', 'admin_promosi', 'admin_ki', 'bapeda'])) {
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
 
     protected function getFormSchema(): array
@@ -320,5 +319,4 @@ class DashboardSimike extends StatsOverviewWidget implements HasForms
 
         return view('filament.widgets.simike.dashboard-simike', compact('tanggal', 'tahun', 'triwulan', 'simike', 'nib'));
     }
-
 }
