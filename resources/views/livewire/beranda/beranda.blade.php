@@ -59,7 +59,7 @@
                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
                         Kemitraan
                     </a>
-                    <a href="#"
+                    <a href="{{ route('dashboard.sinida') }}"
                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
                         Permohonan Insentif
                     </a>
@@ -73,7 +73,7 @@
                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
                         Kemitraan
                     </a>
-                    <a href="#"
+                    <a href="{{ url('/login?rdr=sinida') }}"
                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
                         Permohonan Insentif
                     </a>

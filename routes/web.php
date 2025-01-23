@@ -27,6 +27,7 @@ use App\Livewire\Frontend\Kepeminatan\Surat\DownloadLoi;
 use App\Livewire\Frontend\Kepeminatan\SuratKepeminatan;
 use App\Livewire\Frontend\MasterDashboard;
 use App\Livewire\Frontend\Sinida\RiwayatPengajuan;
+use App\Livewire\Frontend\Sinida\Surat\PaktaIntegritas;
 use App\Livewire\Frontend\Sinida\SuratPengajuan;
 use App\Livewire\Kawasan\DetailKawasan;
 use App\Livewire\Kawasan\Kawasan;
@@ -115,7 +116,7 @@ Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(functio
     // Sinida
     Route::get('sinida', SuratPengajuan::class)->name('dashboard.sinida');
     Route::get('riwayat-sinida', RiwayatPengajuan::class)->name('dashboard.riwayat-sinida');
-    // Route::get('pakta-integritas', PaktaIntegritas::class)->name('pakta-integritas');
+    Route::get('pakta-integritas', PaktaIntegritas::class)->name('pakta-integritas');
     // Route::get('pernyataan-tidak-menerima-intensif', PernyataanTidakMenerimaInsentif::class)->name('pernyataan-tidak-menerima-intensif');
 });
 Route::get('download-loi/{id}', DownloadLoi::class)->name('download-loi');
