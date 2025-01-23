@@ -8,6 +8,8 @@ use App\Filament\Clusters\PermohonanIsentif\Resources\SinidaResource\Pages;
 use App\Filament\Clusters\PermohonanIsentif\Resources\SinidaResource\RelationManagers;
 use App\Models\Sinida\Pns;
 use App\Models\Sinida\Sinida;
+use App\Models\User;
+use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -21,7 +23,9 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -176,14 +180,54 @@ class SinidaResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')->wrap()->searchable(),
-                TextColumn::make('status_template.subject')->wrap()->searchable()
-            ])
+                TextColumn::make('user.name')->wrap()->searchable()->label('Nama Pemohon'),
+                TextColumn::make('user.jabatan')->wrap()->searchable()->label('Jabatan'),
+                TextColumn::make('user.email')->wrap()->searchable()->label('Email')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('user.no_hp')->wrap()->searchable()->label('No. Telepon')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('user.userperusahaan.nama_perusahaan')->wrap()->searchable()->label('Nama Perusahaan'),
+                TextColumn::make('user.userperusahaan.alamat_perusahaan')->wrap()->searchable()->label('Alamat Perusahaan'),
+                TextColumn::make('status_template.subject')->wrap()->searchable(),
+                TextColumn::make('created_at')->date('d-m-Y')->label('Tanggal Pengajuan')->sortable(),
+            ])->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('created_from')->label('Dari Tanggal'),
+                        DatePicker::make('created_until')->label('Sampai Tanggal'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Lihat')->icon('heroicon-o-eye'),
+                ActionGroup::make([
+                    Action::make('sk gubernur')
+                        ->url(fn(Sinida $record): string => route('sk-insentif-gubernur', $record))
+                        ->color('blue')
+                        ->icon('heroicon-o-arrow-down-tray')
+                        ->openUrlInNewTab(),
+                    Action::make('sk sekda')
+                        ->url(fn(Sinida $record): string => route('sk-insentif-sekda', $record))
+                        ->color('blue')
+                        ->icon('heroicon-o-arrow-down-tray')
+                        ->openUrlInNewTab(),
+                    Action::make('sk kepala dpm')
+                        ->url(fn(Sinida $record): string => route('sk-insentif-dpm', $record))
+                        ->color('blue')
+                        ->icon('heroicon-o-arrow-down-tray')
+                        ->openUrlInNewTab(),
+                ])
+                    ->label('Download Dokumen SK')
+                    ->color('primary')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

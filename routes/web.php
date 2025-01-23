@@ -26,6 +26,9 @@ use App\Livewire\Frontend\Kepeminatan\BerandaPengajuan;
 use App\Livewire\Frontend\Kepeminatan\Surat\DownloadLoi;
 use App\Livewire\Frontend\Kepeminatan\SuratKepeminatan;
 use App\Livewire\Frontend\MasterDashboard;
+use App\Livewire\Frontend\Sinida\Admin\SkInsentifGubernur;
+use App\Livewire\Frontend\Sinida\Admin\SkInsentifKepalaDpm;
+use App\Livewire\Frontend\Sinida\Admin\SkInsentifSekda;
 use App\Livewire\Frontend\Sinida\RiwayatPengajuan;
 use App\Livewire\Frontend\Sinida\Surat\PaktaIntegritas;
 use App\Livewire\Frontend\Sinida\SuratPengajuan;
@@ -87,8 +90,14 @@ Route::get('kepeminatan', BerandaPengajuan::class)->name('pengajuan.kepeminatan'
 Route::get('/success', function () {
     return view('success');
 });
+
 Route::get('product-all', ProductList::class)->name('product');
 Route::get('product/{slug}', DetailProduct::class)->name('product.detail');
+
+Route::get('sk-intensif-gubernur/{record}', SkInsentifGubernur::class)->name('sk-insentif-gubernur');
+Route::get('sk-intensif-sekda/{record}', SkInsentifSekda::class)->name('sk-insentif-sekda');
+Route::get('sk-kepala-dpm/{record}', SkInsentifKepalaDpm::class)->name('sk-insentif-dpm');
+
 
 Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(function () {
 

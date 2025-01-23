@@ -1,6 +1,6 @@
 @extends('livewire.frontend.master-dashboard')
 @section('content-pengguna')
-    <div class="flex flex-col rounded-2xl w-[800px] bg-[#ffffff] mb-3">
+    <div class="flex flex-col rounded-2xl w-full bg-[#ffffff] mb-3">
         <h2 class="text-lg font-semibold mb-4">Form Pengajuan</h2>
         <div class="flex flex-row justify-between">
             <form wire:submit.prevent="cariNib">
@@ -143,7 +143,7 @@
     </div>
 
     @if ($uploadSection)
-        <div class="flex flex-col rounded-2xl w-[800px] bg-[#ffffff]">
+        <div class="flex flex-col rounded-2xl w-full bg-[#ffffff]">
             <div class="items-center">
                 <form wire:submit.prevent="store" enctype="multipart/form-data">
                     <div class="mb-3">
