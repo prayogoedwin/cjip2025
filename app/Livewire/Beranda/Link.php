@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Beranda;
 
+use App\Models\Cjip\Partner;
 use Livewire\Component;
 use Illuminate\Support\Facades\Session;
 
@@ -23,6 +24,8 @@ class Link extends Component
 
     public function render()
     {
+        $partners = Partner::orderBy('created_at', 'DESC')->get();
+
         if (Session::get('lang')) {
             if (is_array(Session::get('lang'))) {
                 $this->locale = Session::get('lang')[0];
@@ -32,6 +35,6 @@ class Link extends Component
         } else {
             $this->locale = 'id';
         }
-        return view('livewire.beranda.link');
+        return view('livewire.beranda.link', compact('partners'));
     }
 }

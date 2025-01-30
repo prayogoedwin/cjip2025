@@ -1,4 +1,18 @@
 <div>
+    <!--Partner -->
+    <section class="py-6 border-t border-gray-100 inset-0 bg-gray-500">
+        <div class="relative container">
+            <div class="grid md:grid-cols-6 grid-cols-2 justify-center gap-[30px] items-center">
+                @foreach ($partners as $partner)
+                    <a href="{{ $partner->url }}" target="_blank" class="mx-auto py-4">
+                        <img src="{{ asset('storage/' . $partner->logo) }}" class="partner-logo h-10" alt="">
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <!--Partner -->
+
     <section class="relative table w-full md:py-16 py-16 lg:py-16 bg-no-repeat bg-center bg-cover jarallax" data-jarallax
         data-speed="0.5" style="background: url('{{ asset('images/banner.jpg') }}') center">
         <div class="absolute inset-0 bg-slate-900/70"></div>
@@ -13,4 +27,17 @@
             </div>
         </div>
     </section>
+
+    <style>
+        .partner-logo {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .partner-logo:hover {
+            transform: translateY(-5px);
+            /* Efek timbul */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            /* Efek bayangan */
+        }
+    </style>
 </div>

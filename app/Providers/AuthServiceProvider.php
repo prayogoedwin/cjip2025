@@ -36,6 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Cjip\PertumbuhanEkonomi' => 'App\Policies\Cjip\PertumbuhanEkonomiPolicy',
         'App\Models\Cjip\PrivacyPolicy' => 'App\Policies\Cjip\PrivacyPolicyPolicy',
         'App\Models\Cjip\Slider' => 'App\Policies\Cjip\SliderPolicy',
+        'App\Models\Cjip\Partner' => 'App\Policies\Cjip\PartnerPolicy',
 
         'App\Models\Cjip\JenisPpp' => 'App\Policies\Cjip\JenisPppPolicy',
         'App\Models\Cjibf\CjibfRegisterO3m' => 'App\Policies\Cjibf\CjibfRegisterO3mPolicy',
