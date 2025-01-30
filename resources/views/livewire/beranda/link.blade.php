@@ -1,11 +1,11 @@
 <div>
     <!--Partner -->
-    <section class="py-6 border-t border-gray-100 inset-0 bg-gray-500">
+    <section class="py-6 border-t border-gray-100 inset-0 bg-gray-400">
         <div class="relative container">
             <div class="grid md:grid-cols-6 grid-cols-2 justify-center gap-[30px] items-center">
                 @foreach ($partners as $partner)
                     <a href="{{ $partner->url }}" target="_blank" class="mx-auto py-4">
-                        <img src="{{ asset('storage/' . $partner->logo) }}" class="partner-logo h-10" alt="">
+                        <img src="{{ asset('storage/' . $partner->logo) }}" class="partner-logo h-16" alt="">
                     </a>
                 @endforeach
             </div>
