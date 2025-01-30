@@ -9,7 +9,7 @@ export default {
     "./resources/**/*.blade.php",
     'node_modules/preline/dist/*.js',
     './src/**/*.{html,js}',
-    '<path-to-vendor>/awcodes/filament-tiptap-editor/resources/**/*.blade.php',
+    // '<path-to-vendor>/awcodes/filament-tiptap-editor/resources/**/*.blade.php',
   ],
 
   theme: {
