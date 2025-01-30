@@ -1,20 +1,29 @@
 <div>
-    <!--Partner -->
-    <section class="py-6 border-t border-gray-100 inset-0 bg-gray-400">
-        <div class="relative container">
-            <div class="grid md:grid-cols-6 grid-cols-2 justify-center gap-[30px] items-center">
-                @foreach ($partners as $partner)
-                    <a href="{{ $partner->url }}" target="_blank" class="mx-auto py-4">
-                        <img src="{{ asset('storage/' . $partner->logo) }}" class="partner-logo h-16" alt="">
-                    </a>
-                @endforeach
+    <!-- Start Section-->
+    <section class="relative md:py-10 py-10 bg-gray-50 dark:bg-slate-800">
+        <div class="container relative">
+            <div class="grid grid-cols-1 relative">
+                <div class="tiny-five-item">
+                    @foreach ($partners as $partner)
+                        <div class="tiny-slide">
+                            <a href="{{ $partner->url }}">
+                                <div
+                                    class="px-3 py-10 rounded-md shadow dark:shadow-gray-800 group text-center bg-white dark:bg-slate-900 hover:bg-indigo-600/5 dark:hover:bg-indigo-600/5 duration-500 m-2">
+                                    <img src="{{ asset('storage/' . $partner->logo) }}" target="_blank"
+                                        class="h-16 bg-cover flex align-middle justify-center items-center mx-auto"
+                                        alt="">
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </section>
-    <!--Partner -->
+    <!-- End Section-->
 
-    <section class="relative table w-full md:py-16 py-16 lg:py-16 bg-no-repeat bg-center bg-cover jarallax" data-jarallax
-        data-speed="0.5" style="background: url('{{ asset('images/banner.jpg') }}') center">
+    <section class="relative table w-full md:py-16 py-16 lg:py-16 bg-no-repeat bg-center bg-cover jarallax"
+        data-jarallax data-speed="0.5" style="background: url('{{ asset('images/banner.jpg') }}') center">
         <div class="absolute inset-0 bg-slate-900/70"></div>
         <div class="container relative">
             <div class="grid grid-cols-1 pb-2 text-center">
@@ -27,17 +36,4 @@
             </div>
         </div>
     </section>
-
-    <style>
-        .partner-logo {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .partner-logo:hover {
-            transform: translateY(-5px);
-            /* Efek timbul */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            /* Efek bayangan */
-        }
-    </style>
 </div>
