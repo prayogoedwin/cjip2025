@@ -16,5 +16,17 @@ return [
 
     'industry' => 'Kawasan Industri',
 
+    'pma' => 'PMA',
+    'pmdn' => 'PMDN',
 
+    'infrastruktur' => 'infrastruktur',
+    'province_road' => 'Jalan Provinsi',
+    'province_bridge' => 'Jembatan Provinsi',
+
+    'agriculture_and_mining' => 'Komoditas',
+    'horticulture' => 'Holtikultura',
+    'crops' => 'Tanaman Pangan',
+    'farm' => 'Peternakan',
+    'plantation' => 'Perkebunan',
+    'fishery' => 'Perikanan'
 ];

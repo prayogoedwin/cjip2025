@@ -17,7 +17,7 @@ class BpsService
         $label = $response['var'][0]['label'];
 
         $currentYear = date('Y');
-        $previousYear = $currentYear - 1;
+        $previousYear = $currentYear - 2;
 
         $tahunArray = [];
         foreach ($tahun as $item) {
@@ -86,7 +86,7 @@ class BpsService
         $label = $response['var'][0]['label'];
 
         $currentYear = date('Y');
-        $previousYear = $currentYear - 1;
+        $previousYear = $currentYear - 2;
 
         $tahunArray = [];
         foreach ($tahun as $item) {

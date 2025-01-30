@@ -14,6 +14,18 @@ return [
     "strategi" => "National Strategic Project",
 
     'industry' => 'Industrial Area',
+    'pma' => 'PMA',
+    'pmdn' => 'PMDN',
 
+    'infrastruktur' => 'Infrastructure',
+    'province_road' => 'Province Road',
+    'province_bridge' => 'Province Bridge',
+
+    'agriculture_and_mining' => 'Comodity',
+    'horticulture' => 'Horticulture',
+    'crops' => 'Crops',
+    'farm' => 'Farm',
+    'plantation' => 'Plantation',
+    'fishery' => 'Fishery'
 
 ];

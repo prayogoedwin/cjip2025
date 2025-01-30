@@ -7,10 +7,11 @@
     <meta name="application-name" content="{{ config('app.name') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>{{ config('app.name') }}</title>
-
-    <link rel="shortcut icon" href="{{ asset('images/cjip-small.png') }}">
+    <title>Cjip - Peta Investasi</title>
+    <meta name="author" content="dpmptspprovjateng" />
+    <meta name="website" content="https://web.dpmptsp.jatengprov.go.id/" />
+    <meta name="email" content="cjibf.jateng@gmail.com" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" />
 
     <style>
         [x-cloak] {
@@ -114,10 +115,9 @@
 
         gtag('config', 'UA-143558094-1');
     </script>
-
-    @filamentStyles
     @stack('css')
-    @vite('resources/css/app.css')
+    {{-- <link rel="stylesheet" href="{{ mix('/css/app.css') }}" /> --}}
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="antialiased">
@@ -128,14 +128,14 @@
 
     @filamentScripts
     @stack('js')
-    @vite('resources/js/app.js')
+    {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 
     <script src="{{ asset('map/data/bataskabkota.js') }}"></script>
     <script src="{{ asset('map/data/jawatengah.js') }}"></script>
     <script src="{{ asset('map/data/kecamatan.js') }}"></script>
-    <script src="{{ asset('map/data/jalansemarang.js') }}"></script>
+    <script src="{{ asset('map/data/jalan_provinsi.js') }}"></script>
 
     @isset($locations)
         <script>
@@ -192,7 +192,48 @@
                 iconSize: [40, 40], // size of the icon
                 shadowSize: [50, 64],
             });
+            var Icon4 = L.icon({
+                iconUrl: '/map/pma.png',
+                iconSize: [50, 50], // size of the icon
+                shadowSize: [50, 64],
+            });
+            var Icon5 = L.icon({
+                iconUrl: '/map/pmdn.png',
+                iconSize: [50, 50], // size of the icon
+                shadowSize: [50, 64],
+            });
 
+            var Icon3 = L.icon({
+                iconUrl: '/map/jembatan.png',
+                iconSize: [50, 50], // size of the icon
+                shadowSize: [50, 64],
+            });
+
+            var Icon6 = L.icon({
+                iconUrl: '/map/holtikultura.png',
+                iconSize: [50, 50], // size of the icon
+                shadowSize: [50, 64],
+            });
+            var Icon7 = L.icon({
+                iconUrl: '/map/tanaman_pangan.png',
+                iconSize: [50, 50], // size of the icon
+                shadowSize: [50, 64],
+            });
+            var Icon8 = L.icon({
+                iconUrl: '/map/peternakan.png',
+                iconSize: [50, 50], // size of the icon
+                shadowSize: [50, 64],
+            });
+            var Icon9 = L.icon({
+                iconUrl: '/map/perkebunan.png',
+                iconSize: [50, 50], // size of the icon
+                shadowSize: [50, 64],
+            });
+            var Icon10 = L.icon({
+                iconUrl: '/map/perikanan.png',
+                iconSize: [50, 50], // size of the icon
+                shadowSize: [50, 64],
+            });
             // ====================================================
 
             // ================= marker ready to over =====================
@@ -302,6 +343,17 @@
 
             // button marker
             document.getElementById('markerButton').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
                 if (map.hasLayer(markersReady)) {
                     map.removeLayer(markersReady);
                 } else {
@@ -416,6 +468,17 @@
 
             // button marker
             document.getElementById('markerButton4').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
                 if (map.hasLayer(markersStrategi)) {
                     map.removeLayer(markersStrategi);
                 } else {
@@ -531,6 +594,17 @@
             <?php } ?>
 
             document.getElementById('markerButton2').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
                 if (map.hasLayer(markersProspective)) {
                     map.removeLayer(markersProspective);
                 } else {
@@ -645,6 +719,17 @@
             <?php } ?>
 
             document.getElementById('markerButton3').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
                 if (map.hasLayer(markersPotential)) {
                     map.removeLayer(markersPotential);
                 } else {
@@ -728,6 +813,17 @@
             <?php } ?>
 
             document.getElementById('markerkawasan').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
                 if (map.hasLayer(markersKawasan)) {
                     map.removeLayer(markersKawasan);
                 } else {
@@ -735,6 +831,663 @@
                 }
             });
             // ====================================================
+
+            // ================= marker pma =======================
+            var markersPma = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true
+            });
+
+            <?php foreach ($pma as $map) { ?>
+            var redirect =
+                '<a href="<?= url('daftar-pma-pmdn/' . $map->kab_kota_id . '/PMA') ?>" target="_blank" class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">Lihat Daftar PMA</a>';
+
+            var popupkawasan =
+                '<div class="">' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Jumlah PMA :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->total ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Lokasi :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->nama ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '</div>' +
+                redirect;
+
+            var kawasanOptions = {
+                'maxWidth': '600',
+                'width': '600',
+                'className': 'popupCustom'
+            };
+
+            var kawasans = L.marker([<?= $map->lat ?>, <?= $map->lng ?>], {
+                    icon: Icon4,
+                    draggable: false,
+                    shadow: true
+                })
+                .bindPopup(popupkawasan, kawasanOptions);
+
+            markersPma.addLayer(kawasans);
+            <?php } ?>
+
+            document.getElementById('markerpma').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+                if (map.hasLayer(markersPma)) {
+                    map.removeLayer(markersPma);
+                } else {
+                    map.addLayer(markersPma);
+                }
+            });
+
+            // ================= marker pmdn =======================
+            var markersPmdn = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true
+            });
+
+            <?php foreach ($pmdn as $map) { ?>
+            var redirect =
+                '<a href="<?= url('daftar-pma-pmdn/' . $map->kab_kota_id . '/PMDN') ?>" target="blank" class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">Lihat Daftar PMDN</a>';
+
+            var popupkawasan =
+                '<div class="">' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Jumlah PMDN :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->total ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Lokasi :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->nama ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '</div>' +
+                redirect;
+
+            var kawasanOptions = {
+                'maxWidth': '600',
+                'width': '600',
+                'className': 'popupCustom'
+            };
+
+            var kawasans = L.marker([<?= $map->lat ?>, <?= $map->lng ?>], {
+                    icon: Icon5,
+                    draggable: false,
+                    shadow: true
+                })
+                .bindPopup(popupkawasan, kawasanOptions);
+
+            markersPmdn.addLayer(kawasans);
+            <?php } ?>
+
+            document.getElementById('markerpmdn').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+                if (map.hasLayer(markersPmdn)) {
+                    map.removeLayer(markersPmdn);
+                } else {
+                    map.addLayer(markersPmdn);
+                }
+            });
+
+
+            // ================= marker jembatan =======================
+            var markersJembatan = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true
+            });
+
+            <?php foreach ($jembatans as $map) { 
+                $latitude = floatval($map['geometry']['coordinates'][1]);
+                $longitude = floatval($map['geometry']['coordinates'][0]);
+            ?>
+            // var redirect =
+            //     '<a href="#" target="blank" class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">Lihat Daftar PMDN</a>';
+
+            var popupkawasan =
+                '<div class="">' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Nama Jembatan :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong><?= $map['properties']['nama'] ?></strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Unker :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong><?= $map['properties']['unker'] ?></strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '</div>'
+            // +
+            // redirect
+            ;
+
+            var kawasanOptions = {
+                'maxWidth': '600',
+                'width': '600',
+                'className': 'popupCustom'
+            };
+
+            var kawasans = L.marker([<?= $latitude ?>, <?= $longitude ?>], {
+                    icon: Icon3,
+                    draggable: false,
+                    shadow: true
+                })
+                .bindPopup(popupkawasan, kawasanOptions);
+
+            markersJembatan.addLayer(kawasans);
+            <?php } ?>
+
+            document.getElementById('jembatanprovinsi').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+                event.preventDefault();
+                if (map.hasLayer(markersJembatan)) {
+                    map.removeLayer(markersJembatan);
+                } else {
+                    map.addLayer(markersJembatan);
+                }
+            });
+
+
+            // ================= marker holtikultura =======================
+            var markersHoltikultura = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true
+            });
+
+            <?php foreach ($holtikulturas['data'] as $map) { ?>
+
+            var popupkawasan =
+                '<div class="">' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Kabupaten :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map['kabupaten'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Tahun :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $holtikulturas['tahun'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Sumber :</span>' +
+                '<a target="_blank" href="https://jateng.bps.go.id/indicator/56/<?= $holtikulturas['kode'] ?>/1/produksi-buah-buahan-menurut-jenis-tanaman-dan-kabupaten-kota-di-provinsi-jawa-tengah.html" class="">' +
+                '<span class="control-label col-lg-10"><strong> BPS </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>';
+
+            <?php foreach ($map['komoditi'] as $komoditi) { ?>
+            popupkawasan +=
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Komoditi :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $komoditi['nama'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Jumlah :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $komoditi['value'] . ' ' . $map['satuan'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>';
+            <?php } ?>
+
+            popupkawasan += '</div>';
+
+            var kawasanOptions = {
+                'maxWidth': '600',
+                'width': '600',
+                'className': 'popupCustom'
+            };
+
+            var kawasans = L.marker([<?= $map['lat'] ?>, <?= $map['lng'] ?>], {
+                    icon: Icon6,
+                    draggable: false,
+                    shadow: true
+                })
+                .bindPopup(popupkawasan, kawasanOptions);
+
+            markersHoltikultura.addLayer(kawasans);
+            <?php } ?>
+
+            document.getElementById('holtikultura').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+                event.preventDefault();
+                if (map.hasLayer(markersHoltikultura)) {
+                    map.removeLayer(markersHoltikultura);
+                } else {
+                    map.addLayer(markersHoltikultura);
+                }
+            });
+
+            // ================= marker tanamanPangan =======================
+            var markerstanamanPangan = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true
+            });
+
+            <?php foreach ($tanamanPangans['data'] as $map) { ?>
+
+            var popupkawasan =
+                '<div class=" grid-cols-2">' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $tanamanPangans['label'] ?></strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Kabupaten :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map['kabupaten'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Tahun :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $tanamanPangans['tahun'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Sumber :</span>' +
+                '<a target="_blank" href="https://jateng.bps.go.id/indicator/56/<?= $tanamanPangans['kode'] ?>/1/luas-panen-produksi-dan-produktivitas-padi-menurut-kabupaten-kota-di-provinsi-jawa-tengah.html" class="">' +
+                '<span class="control-label col-lg-10"><strong> BPS </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>';
+
+            <?php foreach ($map['komoditi'] as $tanaman_pangan) { ?>
+            popupkawasan +=
+                '<div class=" grid-cols-2">' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $tanaman_pangan['nama'] ?> : <?= $tanaman_pangan['value'] ?></strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>';
+            <?php } ?>
+
+            popupkawasan += '</div>';
+
+            var kawasanOptions = {
+                'maxWidth': '600',
+                'width': '600',
+                'className': 'popupCustom'
+            };
+
+            var lat = <?= $map['lat'] ?? 'null' ?>;
+            var lng = <?= $map['lng'] ?? 'null' ?>;
+
+            if (lat !== null && lng !== null) {
+                var kawasans = L.marker([lat, lng], {
+                    icon: Icon7,
+                    draggable: false,
+                    shadow: true
+                }).bindPopup(popupkawasan, kawasanOptions);
+
+                markerstanamanPangan.addLayer(kawasans);
+            }
+            <?php } ?>
+
+            document.getElementById('tanamanPangan').addEventListener('click', function(event) {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+                event.preventDefault();
+                if (map.hasLayer(markerstanamanPangan)) {
+                    map.removeLayer(markerstanamanPangan);
+                } else {
+                    map.addLayer(markerstanamanPangan);
+                }
+            });
+
+
+            // ================= marker peternakan =======================
+            var markersPeternakan = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true
+            });
+
+            <?php foreach ($peternakans['data'] as $map) { ?>
+
+            var popupkawasan =
+                '<div class=" grid-cols-2">' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $peternakans['label'] ?></strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Kabupaten :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map['kabupaten'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Tahun :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $peternakans['tahun'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Sumber :</span>' +
+                '<a target="_blank" href="https://jateng.bps.go.id/indicator/56/<?= $peternakans['kode'] ?>/1/produksi-kulit-menurut-jenis-ternak-dan-kabupaten-kota-di-provinsi-jawa-tengah.html" class="">' +
+                '<span class="control-label col-lg-10"><strong> BPS </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>';
+
+            <?php foreach ($map['komoditi'] as $komoditi) { ?>
+            popupkawasan +=
+                '<div class=" grid-cols-2">' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $komoditi['nama'] ?> : <?= $komoditi['value'] . ' ' . $map['satuan'] ?></strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>';
+            <?php } ?>
+
+            popupkawasan += '</div>';
+
+            var kawasanOptions = {
+                'maxWidth': '600',
+                'width': '600',
+                'className': 'popupCustom'
+            };
+
+            var lat = <?= $map['lat'] ?? 'null' ?>;
+            var lng = <?= $map['lng'] ?? 'null' ?>;
+
+            if (lat !== null && lng !== null) {
+                var kawasans = L.marker([lat, lng], {
+                    icon: Icon8,
+                    draggable: false,
+                    shadow: true
+                }).bindPopup(popupkawasan, kawasanOptions);
+
+                markersPeternakan.addLayer(kawasans);
+            }
+            <?php } ?>
+
+            document.getElementById('peternakan').addEventListener('click', function(event) {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+                event.preventDefault();
+                if (map.hasLayer(markersPeternakan)) {
+                    map.removeLayer(markersPeternakan);
+                } else {
+                    map.addLayer(markersPeternakan);
+                }
+            });
+
+
+            // ================= marker perkebunan =======================
+            var markersPerkebunan = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true
+            });
+
+            <?php foreach ($perkebunans['data'] as $map) { ?>
+
+            var popupkawasan =
+                '<div class=" grid-cols-2">' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $perkebunans['label'] ?></strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Kabupaten :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map['kabupaten'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Sumber :</span>' +
+                '<a target="_blank" href="https://jateng.bps.go.id/indicator/56/<?= $perkebunans['kode'] ?>/1/produksi-perkebunan-rakyat-menurut-jenis-tanaman-dan-kabupaten-kota-di-provinsi-jawa-tengah.html" class="">' +
+                '<span class="control-label col-lg-10"><strong> BPS </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>';
+
+            <?php foreach ($map['komoditi'] as $komoditi) { ?>
+            popupkawasan +=
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Komoditi :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $komoditi['nama'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Jumlah :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $komoditi['value'] . ' ' . $map['satuan'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>';
+            <?php } ?>
+
+            popupkawasan += '</div>';
+
+            var kawasanOptions = {
+                'maxWidth': '600',
+                'width': '600',
+                'className': 'popupCustom'
+            };
+
+            var kawasans = L.marker([<?= $map['lat'] ?>, <?= $map['lng'] ?>], {
+                    icon: Icon9,
+                    draggable: false,
+                    shadow: true
+                })
+                .bindPopup(popupkawasan, kawasanOptions);
+
+            markersPerkebunan.addLayer(kawasans);
+            <?php } ?>
+
+            document.getElementById('perkebunan').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+                event.preventDefault();
+                if (map.hasLayer(markersPerkebunan)) {
+                    map.removeLayer(markersPerkebunan);
+                } else {
+                    map.addLayer(markersPerkebunan);
+                }
+            });
+
+
+            // ================= marker perikanan =======================
+            var markersPerikanan = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true
+            });
+
+            <?php foreach ($perikanans['data'] as $map) { ?>
+
+            var popupkawasan =
+                '<div class=" grid-cols-2">' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $perikanans['label'] ?></strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Kabupaten :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map['kabupaten'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Tahun :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $perikanans['tahun'] ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Sumber :</span>' +
+                '<a target="_blank" href="https://jateng.bps.go.id/indicator/56/<?= $perikanans['kode'] ?>/1/jumlah-perahu-menurut-kategori-perahu-dan-kabupaten-kota-di-provinsi-jawa-tengah.html" class="">' +
+                '<span class="control-label col-lg-10"><strong> BPS </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>';
+
+            <?php foreach ($map['komoditi'] as $komoditi) { ?>
+            popupkawasan +=
+                '<div class=" grid-cols-2">' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $komoditi['nama'] ?> : <?= $komoditi['value'] . ' ' . $map['satuan'] ?></strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>';
+            <?php } ?>
+
+            popupkawasan += '</div>';
+
+            var kawasanOptions = {
+                'maxWidth': '600',
+                'width': '600',
+                'className': 'popupCustom'
+            };
+
+            var lat = <?= $map['lat'] ?? 'null' ?>;
+            var lng = <?= $map['lng'] ?? 'null' ?>;
+
+            if (lat !== null && lng !== null) {
+                var kawasans = L.marker([lat, lng], {
+                    icon: Icon10,
+                    draggable: false,
+                    shadow: true
+                }).bindPopup(popupkawasan, kawasanOptions);
+
+                markersPerikanan.addLayer(kawasans);
+            }
+            <?php } ?>
+
+            document.getElementById('perikanan').addEventListener('click', function(event) {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+                event.preventDefault();
+                if (map.hasLayer(markersPerikanan)) {
+                    map.removeLayer(markersPerikanan);
+                } else {
+                    map.addLayer(markersPerikanan);
+                }
+            });
+
+
+
+
+
+
 
             // ================= load geojson =====================
 
@@ -757,6 +1510,18 @@
             });
 
             document.getElementById('markerbataskota').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+
                 if (map.hasLayer(bataskota)) {
                     map.removeLayer(bataskota);
                 } else {
@@ -784,10 +1549,63 @@
             });
 
             document.getElementById('kecamatan').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
                 if (map.hasLayer(kecamatan)) {
                     map.removeLayer(kecamatan);
                 } else {
                     map.addLayer(kecamatan);
+                }
+            });
+
+
+            // jalan provinsi
+            var jalanprovince = L.geoJSON(jalanprovinsi, {
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup('<b>NAMA JALAN PROVINSI : </b>' +
+                        feature.properties.Nm_Ruas)
+                },
+                style: function(feature) {
+                    city = feature.properties.Nm_Ruas;
+                    return {
+                        fillColor: "gray",
+                        fillOpacity: 0.2,
+                        color: "yellow",
+                        dashArray: '2',
+                        weight: 3,
+                        opacity: 1
+                    }
+                }
+            });
+
+            document.getElementById('jalanprovinsi').addEventListener('click', function() {
+                event.preventDefault();
+
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+
+                if (map.hasLayer(jalanprovince)) {
+                    map.removeLayer(jalanprovince);
+                } else {
+                    map.addLayer(jalanprovince);
                 }
             });
 
@@ -810,16 +1628,6 @@
                 }
             }).addTo(map);
 
-            // jalan semarang
-            var jalansemarang = L.geoJSON(jalansemarang);
-
-            document.getElementById('jalansemarang').addEventListener('click', function() {
-                if (map.hasLayer(jalansemarang)) {
-                    map.removeLayer(jalansemarang);
-                } else {
-                    map.addLayer(jalansemarang);
-                }
-            });
 
 
             // Base Maps

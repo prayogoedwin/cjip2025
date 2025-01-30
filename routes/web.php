@@ -72,7 +72,7 @@ Route::get('peluang-investasi/{id}', DetailProyek::class)->name('detail_investas
 Route::get('sektor', Sektor::class)->name('sektor');
 // Route::get('profil-kabkota/{id}', ProfilKabKota::class)->name('profil_kabkota');
 
-Route::get('lokasi', Peta::class)->name('peta');
+Route::get('peta-investasi', Peta::class)->name('peta');
 
 Route::get('cjibf', Dashboard::class)->name('cjibf');
 
