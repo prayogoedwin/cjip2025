@@ -37,10 +37,10 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Cjip\PrivacyPolicy' => 'App\Policies\Cjip\PrivacyPolicyPolicy',
         'App\Models\Cjip\Slider' => 'App\Policies\Cjip\SliderPolicy',
         'App\Models\Cjip\Partner' => 'App\Policies\Cjip\PartnerPolicy',
-
-        'App\Models\Cjip\JenisPpp' => 'App\Policies\Cjip\JenisPppPolicy',
-        'App\Models\Cjibf\CjibfRegisterO3m' => 'App\Policies\Cjibf\CjibfRegisterO3mPolicy',
         'App\Models\Cjip\ProfileKabkota' => 'App\Policies\Cjip\ProfileKabkotaPolicy',
+        'App\Models\Cjip\JenisPpp' => 'App\Policies\Cjip\JenisPppPolicy',
+
+        'App\Models\Cjibf\CjibfRegisterO3m' => 'App\Policies\Cjibf\CjibfRegisterO3mPolicy',
 
         'App\Models\SiMike\Proyek' => 'App\Policies\SiMike\ProyekPolicy',
         'App\Models\SiMike\RulesSimike' => 'App\Policies\SiMike\RulesSimikePolicy',
@@ -48,6 +48,9 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\SiRusa\Bap' => 'App\Policies\SiRusa\BapPolicy',
         'App\Models\SiRusa\Nib' => 'App\Policies\SiRusa\NibPolicy',
         'App\Models\SiRusa\Rilis' => 'App\Policies\SiRusa\RilisPolicy',
+
+        'App\Models\Kepeminatan\Smtp' => 'App\Policies\Kepeminatan\SmtpPolicy',
+        'App\Models\Kepeminatan\TemplateEmail' => 'App\Policies\Kepeminatan\TemplateEmailPolicy',
 
 
     ];
