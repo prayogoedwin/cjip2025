@@ -74,13 +74,13 @@ class DaftarPmaPmdn extends Component implements HasForms, HasTable
                     ])
             ])
             ->filters([
-                // Filter tambahan bisa ditambahkan di sini jika perlu
+                //
             ])
             ->actions([
-                // Actions tambahan bisa ditambahkan di sini jika perlu
+                //
             ])
             ->bulkActions([
-                // Bulk actions bisa ditambahkan di sini jika perlu
+                //
             ]);
     }
     public function render()
