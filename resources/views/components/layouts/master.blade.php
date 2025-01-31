@@ -20,7 +20,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('images/cjip-small.png') }}">
 
     <link
         href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"

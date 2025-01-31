@@ -11,7 +11,7 @@
     <meta name="author" content="dpmptspprovjateng" />
     <meta name="website" content="https://web.dpmptsp.jatengprov.go.id/" />
     <meta name="email" content="cjibf.jateng@gmail.com" />
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('images/cjip-small.png') }}">
 
     <style>
         [x-cloak] {

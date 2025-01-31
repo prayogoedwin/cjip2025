@@ -20,7 +20,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('images/cjip-small.png') }}">
 
     <!-- Css -->
     <link href="{{ asset('assets/libs/tobii/css/tobii.min.css') }}" rel="stylesheet">
