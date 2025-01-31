@@ -16,6 +16,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -168,6 +169,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('nip')
                     ->label('Nik/Nip')
                     ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->extraAttributes([
                         'class' => 'mt-2 text-grey-300 dark:text-grey-300 text-md'
                     ]),
@@ -176,14 +178,19 @@ class UserResource extends Resource
                     ->icon('heroicon-m-envelope')
                     ->searchable()
                     ->wrap(),
+                Tables\Columns\TextColumn::make('no_hp')
+                    ->copyable()
+                    ->icon('heroicon-m-phone')
+                    ->searchable()
+                    ->wrap(),
                 Tables\Columns\TextColumn::make('kabkota.nama')
                     ->searchable()
-                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->wrap(),
                 Tables\Columns\TextColumn::make('userkawasan.nama')
                     ->label('Kawasan Industri')
                     ->searchable()
-                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->wrap(),
                 Tables\Columns\TagsColumn::make('roles.name')->searchable()
                     ->extraAttributes([
@@ -196,8 +203,11 @@ class UserResource extends Resource
                 SelectFilter::make('kabkota_id')->label('Kabupaten/Kota')->relationship('kabkota', 'nama'),
             ])
             ->actions([
-                Impersonate::make(), // <--- 
-                Tables\Actions\EditAction::make(),
+                Impersonate::make()->iconButton(),
+                ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -5,6 +5,7 @@ namespace App\Filament\Pages\SiRusa;
 use App\Models\SiMike\Proyek;
 use App\Models\SiRusa\Nib;
 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\DatePicker;
 use Filament\Pages\Page;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\DB;
 
 class DataPerusahaan extends Page implements HasForms, HasTable
 {
-
+    use HasPageShield;
     use InteractsWithTable;
     use InteractsWithForms;
     protected static ?string $navigationGroup = 'Si-Rusa';
