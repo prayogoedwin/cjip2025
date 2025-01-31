@@ -2,7 +2,7 @@
 
 namespace App\Models\SiRusa;
 
-use App\Models\General\Kabkota;
+use App\Models\Cjip\Kabkota;
 use App\Models\SiMike\Proyek;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -49,7 +49,7 @@ class Rilis extends Model
 
 
     public function kabkota(): BelongsTo{
-        return $this->belongsTo(Kabkota::class);
+        return $this->belongsTo(Kabkota::class, 'kab_kota_id');
     }
 
     public function proyek(): BelongsTo{

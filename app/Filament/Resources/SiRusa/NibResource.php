@@ -5,6 +5,7 @@ namespace App\Filament\Resources\SiRusa;
 use App\Filament\Resources\SiRusa\NibResource\Pages;
 use App\Filament\Resources\SiRusa\NibResource\RelationManagers;
 use App\Models\SiRusa\Nib;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
@@ -104,11 +105,16 @@ class NibResource extends Resource
                     ->searchable()
             ])
             ->filters([
+
                 Filter::make('created_at')
                     ->form([
                         Grid::make()->schema([
-                            Forms\Components\DatePicker::make('terbit_from')->label('Tanggal Awal')->placeholder('Awal'),
-                            Forms\Components\DatePicker::make('terbit_until')->label('Tanggal Akhir')->placeholder('Akhir'),
+                            Forms\Components\DatePicker::make('terbit_from')
+                                ->label('Tanggal Awal')
+                                ->placeholder('Awal'),
+                            Forms\Components\DatePicker::make('terbit_until')
+                                ->label('Tanggal Akhir')
+                                ->placeholder('Akhir'),
                         ])->columns(2),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
@@ -122,6 +128,7 @@ class NibResource extends Resource
                                 fn(Builder $query, $date): Builder => $query->whereDate('day_of_tanggal_terbit_oss', '<=', $date),
                             );
                     }),
+
                 Tables\Filters\SelectFilter::make('status_penanaman_modal')
                     ->label('Status Penanaman Modal')
                     ->searchable()
@@ -129,29 +136,30 @@ class NibResource extends Resource
                         'PMA' => 'PMA',
                         'PMDN' => 'PMDN',
                     ]),
+                // Optimized uraian_jenis_perusahaan filter
                 SelectFilter::make('uraian_jenis_perusahaan')
                     ->label('Uraian Jenis Perusahaan')
                     ->multiple()
                     ->options(function () {
-                        $uraian_jenis_perusahaan = Nib::all()->pluck('uraian_jenis_perusahaan')->toArray();
-                        $uraian_jenis_perusahaan = array_combine($uraian_jenis_perusahaan, $uraian_jenis_perusahaan);
-                        return $uraian_jenis_perusahaan;
+                        // Fetch distinct values for uraian_jenis_perusahaan
+                        return Nib::distinct()->pluck('uraian_jenis_perusahaan', 'uraian_jenis_perusahaan')->toArray();
                     }),
-                Tables\Filters\SelectFilter::make('kab_kota')->label('Kabupaten/Kota')
+
+                // Optimized kab_kota filter
+                SelectFilter::make('kab_kota')
+                    ->label('Kabupaten/Kota')
                     ->options(function () {
-                        $nib = Nib::all()->pluck('kab_kota')->toArray();
-                        $nib = array_combine($nib, $nib);
-                        return $nib;
+                        // Fetch distinct values for kab_kota
+                        return Nib::distinct()->pluck('kab_kota', 'kab_kota')->toArray();
                     })
                     ->searchable()
                     ->multiple()
                     ->visible(function () {
-                        if (auth()->user()->hasRole('kabkota')) {
-                            return false;
-                        }
-                        return true;
+                        // Visibility based on user role
+                        return !auth()->user()->hasRole('kabkota');
                     }),
-            ], layout: \Filament\Tables\Enums\FiltersLayout::AboveContent, )
+
+            ], layout: \Filament\Tables\Enums\FiltersLayout::AboveContent,)
             ->filtersFormColumns(4)
             ->headerActions([
                 ExportAction::make()->exports([

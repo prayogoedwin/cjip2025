@@ -10,6 +10,7 @@ use App\Livewire\Faq\Faq;
 use App\Livewire\Frontend\Auth\Login;
 use App\Livewire\Frontend\Auth\Profile;
 use App\Livewire\Frontend\Auth\Register;
+use App\Livewire\Frontend\DaftarPmaPmdn;
 use App\Livewire\Frontend\Dashboard as FrontendDashboard;
 use App\Livewire\Frontend\Kemitraan\Minat\DetailMinatKeluar;
 use App\Livewire\Frontend\Kemitraan\Minat\DetailMinatMasuk;
@@ -60,23 +61,17 @@ Route::get('lang/{language}', [LocalizationController::class, 'switch'])->name('
 Route::get('/', Beranda::class)->name('beranda');
 Route::get('profil-jateng', Profil::class)->name('profil_jateng');
 Route::get('profil-kabkota/{id}', DetailProfil::class)->name('profil_kabkota');
-
 Route::get('berita', Berita::class)->name('berita');
 Route::get('detail-berita/{slug}', DetailBerita::class)->name('detail_berita');
-
 Route::get('kawasan-industri', Kawasan::class)->name('kawasan');
 Route::get('detail-kawasan-industri/{id}', DetailKawasan::class)->name('detail_kawasan');
-
 Route::get('peluang-investasi', Proyek::class)->name('peluang_investasi');
 Route::get('peluang-investasi/{id}', DetailProyek::class)->name('detail_investasi');
 Route::get('sektor', Sektor::class)->name('sektor');
-// Route::get('profil-kabkota/{id}', ProfilKabKota::class)->name('profil_kabkota');
-
 Route::get('peta-investasi', Peta::class)->name('peta');
-
 Route::get('cjibf', Dashboard::class)->name('cjibf');
-
 Route::get('panduan-investasi', Faq::class)->name('faq');
+// Route::get('profil-kabkota/{id}', ProfilKabKota::class)->name('profil_kabkota');
 
 Route::get('/loi', function () {
     return view('templates.loi');
@@ -91,9 +86,11 @@ Route::get('/success', function () {
     return view('success');
 });
 
+//kemitraan
 Route::get('product-all', ProductList::class)->name('product');
 Route::get('product/{slug}', DetailProduct::class)->name('product.detail');
 
+// sinida
 Route::get('sk-intensif-gubernur/{record}', SkInsentifGubernur::class)->name('sk-insentif-gubernur');
 Route::get('sk-intensif-sekda/{record}', SkInsentifSekda::class)->name('sk-insentif-sekda');
 Route::get('sk-kepala-dpm/{record}', SkInsentifKepalaDpm::class)->name('sk-insentif-dpm');
@@ -129,3 +126,4 @@ Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(functio
     // Route::get('pernyataan-tidak-menerima-intensif', PernyataanTidakMenerimaInsentif::class)->name('pernyataan-tidak-menerima-intensif');
 });
 Route::get('download-loi/{id}', DownloadLoi::class)->name('download-loi');
+Route::get('daftar-pma-pmdn/{id}/{status}', DaftarPmaPmdn::class);

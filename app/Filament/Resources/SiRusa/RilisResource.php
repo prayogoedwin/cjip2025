@@ -16,6 +16,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -119,14 +120,14 @@ class RilisResource extends Resource
                     ->searchable(),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('tahun')
-                    ->options([
-                        2023 => '2023',
-                        2022 => '2022',
-                        2021 => '2021',
-                        2020 => '2020',
-                    ])
-                    ->default(now()->year),
+                SelectFilter::make('tahun')
+                    ->default(Carbon::now()->year)
+                    ->searchable()
+                    ->options(function () {
+                        $currentYear = Carbon::now()->year;
+                        $years = range($currentYear, $currentYear - 5);
+                        return array_combine($years, $years);
+                    }),
                 Tables\Filters\SelectFilter::make('triwulan')
                     ->options([
                         1 => '1',

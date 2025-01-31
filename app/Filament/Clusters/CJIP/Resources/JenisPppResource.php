@@ -20,7 +20,7 @@ class JenisPppResource extends Resource
 {
     protected static ?string $model = JenisPpp::class;
 
-    protected static ?string $navigationGroup = 'Cjip';
+    protected static ?string $navigationGroup = 'Setting';
 
     protected static ?string $navigationLabel = 'Jenis PPP';
 
