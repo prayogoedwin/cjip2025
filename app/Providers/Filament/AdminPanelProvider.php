@@ -61,7 +61,7 @@ class AdminPanelProvider extends PanelProvider
                 // ...
             ])
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#16a34a',
             ])
             ->plugin(new Lockscreen())
             ->plugins([
@@ -82,7 +82,7 @@ class AdminPanelProvider extends PanelProvider
                         'sm' => 2,
                     ]),
                 SpotlightPlugin::make(),
-                FilamentProgressbarPlugin::make()->color('#fbbf24'),
+                FilamentProgressbarPlugin::make()->color('#16a34a'),
                 SpatieLaravelTranslatablePlugin::make()->defaultLocales(['id', 'en']),
                 FilamentLoggerPlugin::make(),
                 FilamentApexChartsPlugin::make(),
