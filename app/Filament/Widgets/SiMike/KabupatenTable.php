@@ -4,6 +4,7 @@ namespace App\Filament\Widgets\Simike;
 
 use App\Models\SiMike\Proyek;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use Filament\Tables\Columns\Summarizers\Sum;
 
 class KabupatenTable extends BaseWidget
 {
@@ -50,13 +52,13 @@ class KabupatenTable extends BaseWidget
         // dd(range(Carbon::now()->year, Carbon::now()->subYear(5)->year));
     }
 
-    public function mount()
-    {
-        // dd(auth()->user()->kabkota_id);
-        //DEAFULT FILTERS
-        $this->tahun = now()->year;
-        // $this->uraian_skala_usaha = 'Usaha Mikro';
-    }
+    // public function mount()
+    // {
+    //     // dd(auth()->user()->kabkota_id);
+    //     //DEAFULT FILTERS
+    //     $this->tahun = now()->year;
+    //     $this->uraian_skala_usaha = 'Usaha Mikro';
+    // }
 
     public static function canView(): bool
     {
@@ -144,8 +146,6 @@ class KabupatenTable extends BaseWidget
                         ->groupBy('nib')
                         ->get()
                         ->count();
-
-                    // Format the count as number
                     return number_format($count, 0, ',', ',');
                 })
                 ->sortable(),
@@ -163,6 +163,7 @@ class KabupatenTable extends BaseWidget
                     return 'Rp. ' . number_format($state);
                 })
                 ->sortable(),
+
             // Tables\Columns\TextColumn::make('jumlah_proyek_anomaly')
             //     ->label('Jumlah Proyek Anomaly')
             //     ->formatStateUsing(function ($state) {

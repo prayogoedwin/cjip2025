@@ -17,9 +17,6 @@ use Filament\Pages\Page;
 class KabupatenTable extends Page
 {
     use HasPageShield;
-
-    // protected static ?string $navigationIcon = 'heroicon-o-table-cells';
-
     protected static ?string $navigationLabel = "Rekap Kabupaten/Kota";
     protected static ?string $pluralModelLabel = 'Rekap Kabupaten/Kota';
     protected static ?int $navigationSort = 1;
@@ -34,19 +31,16 @@ class KabupatenTable extends Page
         $uraian_skala_usaha,
         $kecamatan_usaha,
         $start, $end, $tanggal_terbit_oss,
-
         $superadmin;
 
     public function submit()
     {
         $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
-
         $this->tahun = $this->form->getState()['tahun'];
         $this->triwulan = $this->form->getState()['triwulan'];
         if (auth()->user()->hasRole('kabkota')) {
             $this->kabkota = auth()->user()->kabkota->id;
         } else {
-
             $this->kabkota = $this->form->getState()['kabkota'];
         }
         $this->sektor = $this->form->getState()['sektor'];
@@ -59,12 +53,12 @@ class KabupatenTable extends Page
 
         //dd($this->uraian_skala_usaha);
         //\dd([is_null($this->triwulan), empty($this->triwulan)]);
-
         //\dd($this->triwulan);
+        
         $this->dispatch(
             'filterUpdated',
             ['tanggal' => $this->tanggal_terbit_oss],
-            ['tahun' => $this->tahun],
+            ['tahun' => $this->tahun],  
             ['triwulan' => $this->triwulan],
             ['kabkota' => $this->kabkota],
             ['sektor' => $this->sektor],
@@ -75,10 +69,10 @@ class KabupatenTable extends Page
 
     public function mount()
     {
+        $this->tahun = now()->subYear(1)->year;
+        // $this->uraian_skala_usaha = ['Usaha Mikro'];
         // dd(auth()->user()->kabkota_id);
         //DEAFULT FILTERS
-        $this->tahun = now()->year;
-        // $this->uraian_skala_usaha = 'Usaha Mikro';
     }
 
     protected function getFormSchema(): array
@@ -89,15 +83,12 @@ class KabupatenTable extends Page
                     'sm' => 1,
                     'xl' => 1,
                 ])->schema([
-                    Select::make('uraian_skala_usaha')
-                        ->label('Skala Usaha')
-                        ->options([
-                            'Usaha Mikro' => 'Usaha Mikro',
-                            'Usaha Kecil' => 'Usaha Kecil',
-                            // 'Usaha Menengah' => 'Usaha Menengah',
-                            // 'Usaha Besar' => 'Usaha Besar',
-                        ])
-                        ->default($this->uraian_skala_usaha),
+                    Select::make('tahun')->default(Carbon::now()->year)
+                        ->options(function () {
+                            $years = range(Carbon::now()->year, Carbon::now()->subYear(5)->year);
+                            return array_combine(array_values($years), array_values($years));
+                        })->default(Carbon::now(0)->year)->required(),
+
                     Fieldset::make('Tanggal Terbit Oss')
                         ->schema([
                             Grid::make()->schema([
@@ -116,17 +107,21 @@ class KabupatenTable extends Page
                             ])->columns(2),
                         ]),
                 ]),
+
                 Grid::make([
                     'sm' => 2,
                     'xl' => 2,
                 ])
                     ->schema([
-                        Select::make('tahun')->default(Carbon::now()->year)
-                            ->options(function () {
-                                $years = range(Carbon::now()->year, Carbon::now()->subYear(5)->year);
-                                //dd($years);
-                                return array_combine(array_values($years), array_values($years));
-                            })->default(Carbon::now(0)->year)->required(),
+                        Select::make('uraian_skala_usaha')
+                            ->label('Skala Usaha')
+                            ->options([
+                                'Usaha Mikro' => 'Usaha Mikro',
+                                'Usaha Kecil' => 'Usaha Kecil',
+                                // 'Usaha Menengah' => 'Usaha Menengah',
+                                // 'Usaha Besar' => 'Usaha Besar',
+                            ])
+                            ->default($this->uraian_skala_usaha),
 
                         Select::make('triwulan')
                             ->options([
@@ -149,7 +144,6 @@ class KabupatenTable extends Page
                                 }
                                 return null;
                             }),
-
 
                         Select::make('kabkota')->label('Kabupaten/Kota')
                             ->options(Kabkota::all()->pluck('nama', 'id'))
@@ -175,6 +169,7 @@ class KabupatenTable extends Page
                                 }
                                 return false;
                             }),
+
                         Select::make('sektor')->label('Kategori')
                             ->options(Sektor::groupBy('sektor')->pluck('sektor', 'id'))
                             ->searchable(),
