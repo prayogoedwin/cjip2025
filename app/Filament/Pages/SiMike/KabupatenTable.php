@@ -69,7 +69,7 @@ class KabupatenTable extends Page
 
     public function mount()
     {
-        $this->tahun = now()->subYear(1)->year;
+        $this->tahun = now()->year;
         // $this->uraian_skala_usaha = ['Usaha Mikro'];
         // dd(auth()->user()->kabkota_id);
         //DEAFULT FILTERS
