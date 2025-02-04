@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages\SiMike;
 
-use App\Filament\Widgets\SiMike\KabupatenTable as SiMikeKabupatenTable;
+use App\Filament\Widgets\Simike\KabupatenTable as SiMikeKabupatenTable;
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\Sektor;
 use App\Models\SiMike\Proyek;
@@ -40,7 +40,7 @@ class KabupatenTable extends Page
     public function submit()
     {
         $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
-        // dd(range(Carbon::now()->year, Carbon::now()->subYear(5)->year));
+
         $this->tahun = $this->form->getState()['tahun'];
         $this->triwulan = $this->form->getState()['triwulan'];
         if (auth()->user()->hasRole('kabkota')) {
@@ -61,16 +61,16 @@ class KabupatenTable extends Page
         //\dd([is_null($this->triwulan), empty($this->triwulan)]);
 
         //\dd($this->triwulan);
-        // $this->emit(
-        //     'filterUpdated',
-        //     ['tahun' => $this->tahun],
-        //     ['triwulan' => $this->triwulan],
-        //     ['kabkota' => $this->kabkota],
-        //     ['sektor' => $this->sektor],
-        //     ['uraian_skala_usaha' => $this->uraian_skala_usaha],
-        //     ['kecamatan_usaha' => $this->kecamatan_usaha]
-
-        // );
+        $this->dispatch(
+            'filterUpdated',
+            ['tanggal' => $this->tanggal_terbit_oss],
+            ['tahun' => $this->tahun],
+            ['triwulan' => $this->triwulan],
+            ['kabkota' => $this->kabkota],
+            ['sektor' => $this->sektor],
+            ['uraian_skala_usaha' => $this->uraian_skala_usaha],
+            ['kecamatan_usaha' => $this->kecamatan_usaha]
+        );
     }
 
     public function mount()

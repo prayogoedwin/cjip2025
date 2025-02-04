@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Widgets\SiMike;
+namespace App\Filament\Widgets\Simike;
 
 use App\Models\SiMike\Proyek;
 use Filament\Tables;
@@ -117,15 +117,15 @@ class KabupatenTable extends BaseWidget
                     return true;
                 }),
 
-            Tables\Columns\TextColumn::make('kecamatan_usaha')
-                ->searchable()
-                ->wrap()
-                ->visible(function () {
-                    if (auth()->user()->hasRole('kabkota')) {
-                        return true;
-                    }
-                    return false;
-                }),
+            // Tables\Columns\TextColumn::make('kecamatan_usaha')
+            //     ->searchable()
+            //     ->wrap()
+            //     ->visible(function () {
+            //         if (auth()->user()->hasRole('kabkota')) {
+            //             return true;
+            //         }
+            //         return false;
+            //     }),
 
             Tables\Columns\TextColumn::make('proyek')
                 ->label('Jumlah Proyek')
