@@ -24,6 +24,7 @@ use App\Http\Controllers\api\{
     Configcontroller,
     Infrastrukturcontroller
 };
+use App\Http\Controllers\api\v2\SatuData\RilisApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -179,7 +180,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
     Route::post('logout', [Authcontroller::class, 'logout']);
-
 });
 
 Route::group(['middleware' => ['auth.basic']], function () {
@@ -205,6 +205,20 @@ Route::group(['middleware' => ['auth.basic']], function () {
     Route::get('/rilis', [\App\Http\Controllers\api\v2\RilisController::class, 'index']);
     Route::get('/bap-rilis', [\App\Http\Controllers\api\v2\RilisController::class, 'bapRilis']); // with request
 
+    // SIMIKE
+    Route::post('/simike-import', [\App\Http\Controllers\api\v2\SimikeController::class, 'import']);
+    Route::get('/simike-import-status/{batchId}', [\App\Http\Controllers\api\v2\SimikeController::class, 'checkImportStatus']);
 });
 
+Route::middleware(['sanctum_auth'])->group(function () {
+    Route::get('/pmdn-sektor', [RilisApiController::class, 'pmdnSektor'])->middleware(['auth', 'sanctum']);
+    Route::get('/pmdn-kabkota', [RilisApiController::class, 'pmdnKabkota'])->middleware(['auth', 'sanctum']);
+    Route::get('/pma-sektor', [RilisApiController::class, 'pmaSektor'])->middleware(['auth', 'sanctum']);
+    Route::get('/pma-kabkota', [RilisApiController::class, 'pmaKabkota'])->middleware(['auth', 'sanctum']);
+    Route::get('/pma-negara', [RilisApiController::class, 'pmaNegara'])->middleware(['auth', 'sanctum']);
+    Route::get('/tenaga-kerja', [RilisApiController::class, 'tenagaKerja'])->middleware(['auth', 'sanctum']);
 
+    Route::get('/kawasan-industri', [\App\Http\Controllers\api\v2\SatuData\KawasanIndustriApiController::class, 'index'])->middleware(['auth', 'sanctum']);
+
+    Route::get('/e-makaryo/nib', [\App\Http\Controllers\api\v2\EMakaryo\PerusahaanController::class, 'index'])->middleware(['auth', 'sanctum']);
+});
