@@ -89,7 +89,8 @@ class ListProyeks extends ListRecords
                     Grid::make()->schema([
                         DatePicker::make('periode_start')
                             ->label('Periode Data (mulai)')
-                            ->helperText('Sesuaikan dengan *Tanggal Awal* saat mengunduh data OSS'),
+                            ->helperText('Sesuaikan dengan *Tanggal Awal* saat mengunduh data OSS')
+                            ->default(Carbon::now()->subMonth()->startOfMonth()),
                         DatePicker::make('periode_end')
                             ->label('Periode Data (akhir)')
                             ->helperText('Sesuaikan dengan *Tanggal Akhir* saat mengunduh data OSS'),
