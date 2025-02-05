@@ -16,6 +16,9 @@ use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\Summarizers\Count;
+use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -334,6 +337,11 @@ class ProyekResource extends Resource
                     ->label('Rencana Nilai Investasi')
                     ->formatStateUsing(fn(float $state): string => "Rp. " . number_format($state, 0, ',', '.'))
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('jumlah_investasi')
+                    ->summarize(Sum::make()
+                        ->label('Total Nilai Investasi')
+                        ->formatStateUsing(fn(float $state): string => "Rp. " . number_format($state, 0, ',', '.'))),
 
                 // Tables\Columns\TextColumn::make('pembelian_pematangan_tanah')
                 //     ->label('Pembelian Pematangan Tanah')
