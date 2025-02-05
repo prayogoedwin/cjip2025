@@ -32,9 +32,9 @@ class ReportSimike extends Page implements HasForms, HasTable
     {
         return $table
             ->query(Report::query()
-                // ->join('users', 'reports.user_id', '=', 'users.id')
-                // ->distinct()  // Menambahkan distinct untuk menghindari duplikasi
-                // ->groupBy('users.id')
+                ->join('users', 'reports.user_id', '=', 'users.id')
+                ->distinct()  // Menambahkan distinct untuk menghindari duplikasi
+                ->groupBy('users.id')
                 )
             ->columns([
                 TextColumn::make('user.kabkota.nama')->label('Nama User')->searchable(),

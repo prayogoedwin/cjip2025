@@ -152,20 +152,20 @@ class DashboardSimike extends Widget implements HasForms
                                 }
                                 return true;
                             }),
-                        // Select::make('kecamatan_usaha')->label('Kecamatan Usaha')
-                        //     ->searchable()
-                        //     ->options(function () {
-                        //         $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
-                        //             ->pluck('kecamatan_usaha')->toArray();
-                        //         $kec_usaha = array_combine($kec_usahas, $kec_usahas);
-                        //         return $kec_usaha;
-                        //     })
-                        //     ->visible(function () {
-                        //         if (auth()->user()->hasRole('kabkota')) {
-                        //             return true;
-                        //         }
-                        //         return false;
-                        //     }),
+                        Select::make('kecamatan_usaha')->label('Kecamatan Usaha')
+                            ->searchable()
+                            ->options(function () {
+                                $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
+                                    ->pluck('kecamatan_usaha')->toArray();
+                                $kec_usaha = array_combine($kec_usahas, $kec_usahas);
+                                return $kec_usaha;
+                            })
+                            ->visible(function () {
+                                if (auth()->user()->hasRole('kabkota')) {
+                                    return true;
+                                }
+                                return false;
+                            }),
                         Select::make('sektor')->label('Kategori')
                             ->options(Sektor::groupBy('sektor')->pluck('sektor', 'id'))
                             ->searchable()
@@ -177,12 +177,13 @@ class DashboardSimike extends Widget implements HasForms
 
     public function submit()
     {
-        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
-
+        if ($this->start && $this->end) {
+            $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+        } else {
+            $this->tanggal_terbit_oss = null;
+        }
         $this->tahun = $this->form->getState()['tahun'];
-
         $this->triwulan = $this->form->getState()['triwulan'];
-
         if (auth()->user()->hasRole('kabkota')) {
             $this->kabkota = auth()->user()->kabkota->id;
         } else {
@@ -198,75 +199,27 @@ class DashboardSimike extends Widget implements HasForms
             // $this->kecamatan_usaha = $this->form->getState()['kecamatan_usaha'];
         }
 
-        // $this->emit(
-        //     'filterUpdated',
-        //     ['tanggal' => $this->tanggal_terbit_oss],
-        //     ['tahun' => $this->tahun],
-        //     ['triwulan' => $this->triwulan],
-        //     ['kabkota' => $this->kabkota],
-        //     ['kabkota' => $this->superadmin],
-        //     ['sektor' => $this->sektor],
-        //     ['uraian_skala_usaha' => $this->uraian_skala_usaha],
-        //     ['kecamatan_usaha' => $this->kecamatan_usaha]
-        // );
+        $this->dispatch(
+            'filterUpdated',
+            ['tanggal' => $this->tanggal_terbit_oss],
+            ['tahun' => $this->tahun],
+            ['triwulan' => $this->triwulan],
+            ['kabkota' => $this->kabkota],
+            ['kabkota' => $this->superadmin],
+            ['sektor' => $this->sektor],
+            ['uraian_skala_usaha' => $this->uraian_skala_usaha],
+            ['kecamatan_usaha' => $this->kecamatan_usaha]
+        );
     }
 
     public function mount()
     {
-
         // DEAFULT FILTERS TAHUN
         $this->tahun = now()->year;
-
-        // DEFAULT FILTER DATERANGE TANGGAL TERBIT OSS
-        // $this->start = Carbon::now()->startOfYear()->format('d M Y');
-        // $this->end = Carbon::now()->format('d M Y');
-        // $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
-        // $this->emit('filterTable', $this->tanggal_terbit_oss);
-
-        // DEFAULT FILTER SKALA USAHA
-        // $this->uraian_skala_usaha = 'Usaha Mikro';
-
-        // DEFAULT FILTER TRIWULAN
-        // $bulan_ini = Carbon::now()->month;
-        // if ($bulan_ini <= 3) {
-        //     $this->triwulan = 1;
-        // } elseif ($bulan_ini > 3 && $bulan_ini <= 6) {
-        //     $this->triwulan = 2;
-        // } elseif ($bulan_ini > 6 && $bulan_ini <= 9) {
-        //     $this->triwulan = 3;
-        // } else {
-        //     $this->triwulan = 4;
-        // }
     }
 
     public function render(): View
     {
-
-        /*$kabs = Kabkota::all();
-        $kabsNib = [];
-        $this->nib = Proyek::where('tahun', 2022)->where('uraian_skala_usaha', 'Usaha Mikro')->where('is_anomaly', false)->groupBy(['nib', 'kab_kota_id'])->get()->count();
-        \dd($this->nib);
-        $this->nib = Proyek::filterMikro(2022, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)->groupBy('nib')->get()->count();
-        \dd($this->nib);
-        foreach ($kabs as $kab){
-            $this->nib = Proyek::filterMikro(2022, $this->triwulan, $kab->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)->groupBy('nib')->get()->count();
-            $kabsNib[] = [
-                $kab->nama,
-                $this->nib
-            ];
-        }
-        \dd($kabsNib);*/
-
-        //\dd($this->simike->count());
-        //DEFAULT DATA
-        //admin kabkota
-        //DB::enableQueryLog(); // Enable query log
-        //dd(auth()->user());
-
-        //\dd($test);
-        //\dd($test['PMDN']->proyeks_non_micro_count->proyeks_non_micro_sum_jumlah_investasi);
-
-        //DB::connection()->enableQueryLog();
         if (auth()->user()->hasRole('kabkota')) {
             $this->simike = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
                 ->first();

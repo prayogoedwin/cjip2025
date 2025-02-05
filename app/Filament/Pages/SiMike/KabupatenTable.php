@@ -36,7 +36,11 @@ class KabupatenTable extends Page
 
     public function submit()
     {
-        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+        if ($this->start && $this->end) {
+            $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+        } else {
+            $this->tanggal_terbit_oss = null;
+        }
         $this->tahun = $this->form->getState()['tahun'];
         $this->triwulan = $this->form->getState()['triwulan'];
         if (auth()->user()->hasRole('kabkota')) {
