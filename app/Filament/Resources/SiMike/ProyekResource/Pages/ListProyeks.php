@@ -41,7 +41,7 @@ class ListProyeks extends ListRecords
         return [
             Action::make('import')
                 ->modalHeading('Form Import Data Proyek')
-                ->modalSubheading('Import Data Proyek Unduhan OSS Perbulan')
+                ->modalSubheading('Import Data Proyek Unduhan OSS *Perbulan')
                 ->action(function (array $data): void {
                     // dd($data);
 
