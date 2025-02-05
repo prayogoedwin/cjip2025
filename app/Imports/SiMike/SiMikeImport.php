@@ -156,6 +156,9 @@ class SiMikeImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
 
         // =================================================
 
+        if (($total = 0) && ($user['uraian_skala_usaha'] === ['Usaha Mikro','Usaha Kecil'])) {
+            $user['dikecualikan'] = false;
+        }
         if (($total > 1000000000) && ($user['uraian_skala_usaha'] === 'Usaha Mikro')) {
             $user['dikecualikan'] = true;
         }

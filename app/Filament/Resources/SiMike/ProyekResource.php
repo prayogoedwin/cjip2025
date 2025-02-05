@@ -459,8 +459,8 @@ class ProyekResource extends Resource
                         ->form([
                             Fieldset::make('Tanggal Terbit Oss')
                                 ->schema([
-                                    DatePicker::make('created_from')->label('Tanggal Awal')->disableLabel()->placeholder('Awal'),
-                                    DatePicker::make('created_until')->label('Tanggal Akhir')->disableLabel()->placeholder('Akhir'),
+                                    DatePicker::make('created_from')->label('Tanggal Awal')->hiddenLabel()->placeholder('Awal'),
+                                    DatePicker::make('created_until')->label('Tanggal Akhir')->hiddenLabel()->placeholder('Akhir'),
                                 ])
                         ])
                         ->query(function (Builder $query, array $data): Builder {
@@ -474,26 +474,26 @@ class ProyekResource extends Resource
                                     fn(Builder $query, $date): Builder => $query->whereDate('tanggal_terbit_oss', '<=', $date),
                                 );
                         }),
-                    Filter::make('created_at')
-                        ->form([
-                            Fieldset::make('Periode Import')
-                                ->schema([
-                                    Forms\Components\DatePicker::make('periode_start')
-                                        ->disableLabel()->placeholder('Awal'),
-                                    Forms\Components\DatePicker::make('periode_end')->disableLabel()->placeholder('Akhir'),
-                                ])->columns(2),
-                        ])
-                        ->query(function (Builder $query, array $data): Builder {
-                            return $query
-                                ->when(
-                                    $data['periode_start'],
-                                    fn(Builder $query, $date): Builder => $query->whereDate('periode_start', '>=', $date),
-                                )
-                                ->when(
-                                    $data['periode_end'],
-                                    fn(Builder $query, $date): Builder => $query->whereDate('periode_end', '<=', $date),
-                                );
-                        }),
+                    // Filter::make('created_at')
+                    //     ->form([
+                    //         Fieldset::make('Periode Import')
+                    //             ->schema([
+                    //                 Forms\Components\DatePicker::make('periode_start')
+                    //                     ->disableLabel()->placeholder('Awal'),
+                    //                 Forms\Components\DatePicker::make('periode_end')->disableLabel()->placeholder('Akhir'),
+                    //             ])->columns(2),
+                    //     ])
+                    //     ->query(function (Builder $query, array $data): Builder {
+                    //         return $query
+                    //             ->when(
+                    //                 $data['periode_start'],
+                    //                 fn(Builder $query, $date): Builder => $query->whereDate('periode_start', '>=', $date),
+                    //             )
+                    //             ->when(
+                    //                 $data['periode_end'],
+                    //                 fn(Builder $query, $date): Builder => $query->whereDate('periode_end', '<=', $date),
+                    //             );
+                    //     }),
 
                     Tables\Filters\SelectFilter::make('tahun')
                         ->options(function () {
@@ -542,28 +542,28 @@ class ProyekResource extends Resource
                             return true;
                         }),
 
-                    // SelectFilter::make('kecamatan_usaha')
-                    //     ->label('Kecamatan Usaha')
-                    //     ->searchable()
-                    //     ->multiple()
-                    //     ->default(function () {
-                    //         if (auth()->user()->kabkota->id) {
-                    //             return true;
-                    //         }
-                    //         return false;
-                    //     })
-                    //     ->options(function () {
-                    //         $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
-                    //             ->pluck('kecamatan_usaha')->toArray();
-                    //         $kec_usaha = array_combine($kec_usahas, $kec_usahas);
-                    //         return $kec_usaha;
-                    //     })
-                    //     ->visible(function () {
-                    //         if (auth()->user()->hasRole('kabkota')) {
-                    //             return true;
-                    //         }
-                    //         return false;
-                    //     }),
+                    SelectFilter::make('kecamatan_usaha')
+                        ->label('Kecamatan Usaha')
+                        ->searchable()
+                        ->multiple()
+                        ->default(function () {
+                            if (auth()->user()->kabkota->id) {
+                                return true;
+                            }
+                            return false;
+                        })
+                        ->options(function () {
+                            $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
+                                ->pluck('kecamatan_usaha')->toArray();
+                            $kec_usaha = array_combine($kec_usahas, $kec_usahas);
+                            return $kec_usaha;
+                        })
+                        ->visible(function () {
+                            if (auth()->user()->hasRole('kabkota')) {
+                                return true;
+                            }
+                            return false;
+                        }),
 
                     SelectFilter::make('kbli')
                         ->label('KBLI')
@@ -646,7 +646,7 @@ class ProyekResource extends Resource
                             return true;
                         }),
                 ],
-                layout: FiltersLayout::AboveContent
+                // layout: FiltersLayout::AboveContent
             )
             ->actions([
                 Tables\Actions\EditAction::make(),

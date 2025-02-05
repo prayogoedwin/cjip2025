@@ -13,6 +13,7 @@ use Filament\Actions;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Notifications\Notification;
@@ -80,25 +81,20 @@ class ListProyeks extends ListRecords
                         ->send();
                 })
                 ->form([
-                    Select::make('rules_id')->label('Rules')
+                    Hidden::make('rules_id')->label('Rules')
                         ->label('Sumber Data')
-                        ->options(function () {
-                            $rules = RulesSimike::pluck('nama', 'id');
-                            return $rules;
-                        })
                         ->default(function () {
                             return RulesSimike::where('is_active', true)->first()->id;
                         }),
                     Grid::make()->schema([
                         DatePicker::make('periode_start')
                             ->label('Periode Data (mulai)')
-                            ->placeholder('Sesuaikan dengan periode start unduhan OSS'),
+                            ->helperText('Sesuaikan dengan *Tanggal Awal* saat mengunduh data OSS'),
                         DatePicker::make('periode_end')
                             ->label('Periode Data (akhir)')
-                            ->placeholder('Sesuaikan dengan periode end unduhan OSS'),
+                            ->helperText('Sesuaikan dengan *Tanggal Akhir* saat mengunduh data OSS'),
                     ])->columns(2),
                     Grid::make()->schema([
-
                         Select::make('tahun')
                             ->options(function () {
                                 $years = range(Carbon::now()->year, Carbon::now()->subYear(5)->year);
@@ -106,6 +102,7 @@ class ListProyeks extends ListRecords
                                 //dd(array_combine($years, $years));
                                 return array_combine($years, $years);
                             })
+                            ->helperText('Isikan *Tahun* dengan data yang diunduh')
                             ->default(Carbon::now()->year)
                             ->required(),
                         Select::make('triwulan')
@@ -115,6 +112,7 @@ class ListProyeks extends ListRecords
                                 3 => 'III',
                                 4 => 'IV',
                             ])
+                            ->helperText('Isikan *Triwulan* dengan data yang diunduh')
                             ->default(function () {
                                 $bulan_ini = Carbon::now()->month;
                                 if ($bulan_ini <= 3) {
@@ -132,7 +130,6 @@ class ListProyeks extends ListRecords
                     ])->columns(2),
 
                     FileUpload::make('file')
-                        // ->preserveFilenames()
                         ->getUploadedFileNameForStorageUsing(
                             fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
                                 ->prepend(Carbon::now()->subMonth()->format('M Y') . '_'),
@@ -151,7 +148,7 @@ class ListProyeks extends ListRecords
     protected function getTableQuery(): Builder
     {
         if (auth()->user()->hasRole('kabkota')) {
-            return parent::getTableQuery()->where('kab_kota_id', auth()->user()->kabkota->id)->where('uraian_skala_usaha', 'Usaha Mikro');
+            return parent::getTableQuery()->where('kab_kota_id', auth()->user()->kabkota->id)->where('dikecualikan', 0)->where('is_mapping', 1);
         }
         return parent::getTableQuery();
     }

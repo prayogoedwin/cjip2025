@@ -38,6 +38,7 @@ class ImportSiMike implements ShouldQueue
     /**
      * Execute the job.
      */
+
     public function handle()
     {
         Log::info('ImportSimike job started');
@@ -48,27 +49,32 @@ class ImportSiMike implements ShouldQueue
         Log::info('Period start: ' . $this->mulai);
         Log::info('Period end: ' . $this->akhir);
         Log::info('Rules ID: ' . $this->rules_id);
+
         try {
             Excel::import(new SiMikeImport($this->kabkota, $this->tahun, $this->triwulan, $this->user, $this->mulai, $this->akhir, $this->rules_id), $this->file);
         } catch (ValidationException $e) {
             $failures = $e->failures();
 
             foreach ($failures as $failure) {
+                $recipient = auth()->user();
 
                 Notification::make()
-                    ->view('filament.resources.si-mike.notifications.notifications')
-                    ->title('Importing Si Mike')
+                    ->title('Import Failed')
                     ->body(
-                        'Proses **IMPORT** data **SIMIKE**
-                        gagal. ' .
-                            $failure->row() .
-                            $failure->attribute() .
-                            $failure->errors() .
-                            $failure->values()
+                        'Importing SIMIKE data failed at row ' . $failure->row() . '. ' .
+                            'Error in ' . $failure->attribute() . ': ' .
+                            implode(', ', $failure->errors()) . ' Values: ' .
+                            implode(', ', $failure->values())
                     )
                     ->danger()
-                    ->send();
+                    ->sendToDatabase($recipient);
             }
+
+            Notification::make()
+                ->title('Import Failed')
+                ->body('Cek kembali dengan file yang anda upload, Pastikan formatnya sesuai.')
+                ->danger()
+                ->send();
         }
     }
 }
