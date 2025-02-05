@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 
 class ReportSimike extends Page implements HasForms, HasTable
 {
-    // use HasPageShield;
+    use HasPageShield;
     use InteractsWithTable;
     use InteractsWithForms;
     protected static ?string $navigationLabel = "Report Simike";

@@ -18,7 +18,9 @@ use Filament\Tables\Columns\Summarizers\Sum;
 class KabupatenTable extends BaseWidget
 {
     protected int|string|array $columnSpan = 'full';
-
+    protected static ?string $navigationLabel = "Rekap Kabupaten/Kota";
+    protected static ?string $label = 'Rekap Kabupaten/Kota';
+    protected static ?string $pluralLabel = 'Rekap Kabupaten/Kota';
     protected static bool $isLazy = false;
 
     //FILTERS

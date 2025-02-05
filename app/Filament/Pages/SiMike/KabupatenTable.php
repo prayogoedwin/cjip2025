@@ -18,7 +18,8 @@ class KabupatenTable extends Page
 {
     use HasPageShield;
     protected static ?string $navigationLabel = "Rekap Kabupaten/Kota";
-    protected static ?string $pluralModelLabel = 'Rekap Kabupaten/Kota';
+    protected static ?string $label = 'Rekap Kabupaten/Kota';
+    protected static ?string $pluralLabel = 'Rekap Kabupaten/Kota';
     protected static ?int $navigationSort = 1;
     protected static ?string $navigationGroup = "Graph";
     protected static string $view = 'filament.pages.si-mike.kabupaten-table';
@@ -54,11 +55,11 @@ class KabupatenTable extends Page
         //dd($this->uraian_skala_usaha);
         //\dd([is_null($this->triwulan), empty($this->triwulan)]);
         //\dd($this->triwulan);
-        
+
         $this->dispatch(
             'filterUpdated',
             ['tanggal' => $this->tanggal_terbit_oss],
-            ['tahun' => $this->tahun],  
+            ['tahun' => $this->tahun],
             ['triwulan' => $this->triwulan],
             ['kabkota' => $this->kabkota],
             ['sektor' => $this->sektor],
