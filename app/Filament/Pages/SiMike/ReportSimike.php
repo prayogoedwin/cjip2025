@@ -31,11 +31,12 @@ class ReportSimike extends Page implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(Report::query()
-                ->join('users', 'reports.user_id', '=', 'users.id')
-                ->distinct()  // Menambahkan distinct untuk menghindari duplikasi
-                ->groupBy('users.id')
-                )
+            ->query(
+                Report::query()
+                    ->join('users', 'reports.user_id', '=', 'users.id')
+                    ->distinct()
+                    ->groupBy('users.id')
+            )
             ->columns([
                 TextColumn::make('user.kabkota.nama')->label('Nama User')->searchable(),
 
@@ -43,18 +44,17 @@ class ReportSimike extends Page implements HasForms, HasTable
                 TextColumn::make('bulan_januari')
                     ->label('Januari')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 1 ? 'Sudah' : 'Belum'; // Sesuaikan dengan data yang relevan
+                        return $record->bulan == 1 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
-                        // Tentukan warna berdasarkan kondisi
-                        return $state === 'Sudah' ? 'success' : 'danger'; // Hijau untuk sudah, Merah untuk belum
+                        return $state === 'Sudah' ? 'success' : 'danger';
                     }),
 
                 // Kolom untuk bulan Februari
                 TextColumn::make('bulan_februari')
                     ->label('Februari')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 2 ? 'Sudah' : 'Belum';
+                        return $record->bulan == 2 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
                         return $state === 'Sudah' ? 'success' : 'danger';
@@ -64,7 +64,7 @@ class ReportSimike extends Page implements HasForms, HasTable
                 TextColumn::make('bulan_maret')
                     ->label('Maret')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 3 ? 'Sudah' : 'Belum';
+                        return $record->bulan == 3 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
                         return $state === 'Sudah' ? 'success' : 'danger';
@@ -74,7 +74,7 @@ class ReportSimike extends Page implements HasForms, HasTable
                 TextColumn::make('bulan_april')
                     ->label('April')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 4 ? 'Sudah' : 'Belum';
+                        return $record->bulan == 4 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
                         return $state === 'Sudah' ? 'success' : 'danger';
@@ -84,7 +84,7 @@ class ReportSimike extends Page implements HasForms, HasTable
                 TextColumn::make('bulan_mei')
                     ->label('Mei')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 5 ? 'Sudah' : 'Belum';
+                        return $record->bulan == 5 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
                         return $state === 'Sudah' ? 'success' : 'danger';
@@ -94,7 +94,7 @@ class ReportSimike extends Page implements HasForms, HasTable
                 TextColumn::make('bulan_juni')
                     ->label('Juni')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 6 ? 'Sudah' : 'Belum';
+                        return $record->bulan == 6 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
                         return $state === 'Sudah' ? 'success' : 'danger';
@@ -104,7 +104,7 @@ class ReportSimike extends Page implements HasForms, HasTable
                 TextColumn::make('bulan_juli')
                     ->label('Juli')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 7 ? 'Sudah' : 'Belum';
+                        return $record->bulan == 7 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
                         return $state === 'Sudah' ? 'success' : 'danger';
@@ -114,7 +114,7 @@ class ReportSimike extends Page implements HasForms, HasTable
                 TextColumn::make('bulan_agustus')
                     ->label('Agustus')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 8 ? 'Sudah' : 'Belum';
+                        return $record->bulan == 8 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
                         return $state === 'Sudah' ? 'success' : 'danger';
@@ -124,7 +124,7 @@ class ReportSimike extends Page implements HasForms, HasTable
                 TextColumn::make('bulan_september')
                     ->label('September')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 9 ? 'Sudah' : 'Belum';
+                        return $record->bulan == 9 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
                         return $state === 'Sudah' ? 'success' : 'danger';
@@ -134,7 +134,7 @@ class ReportSimike extends Page implements HasForms, HasTable
                 TextColumn::make('bulan_oktober')
                     ->label('Oktober')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 10 ? 'Sudah' : 'Belum';
+                        return $record->bulan == 10 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
                         return $state === 'Sudah' ? 'success' : 'danger';
@@ -144,7 +144,7 @@ class ReportSimike extends Page implements HasForms, HasTable
                 TextColumn::make('bulan_november')
                     ->label('November')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 11 ? 'Sudah' : 'Belum';
+                        return $record->bulan == 11 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
                         return $state === 'Sudah' ? 'success' : 'danger';
@@ -154,7 +154,7 @@ class ReportSimike extends Page implements HasForms, HasTable
                 TextColumn::make('bulan_desember')
                     ->label('Desember')
                     ->getStateUsing(function ($record) {
-                        return $record->bulan == 12 ? 'Sudah' : 'Belum';
+                        return $record->bulan == 12 ? 'Sudah' : '-';
                     })
                     ->color(function ($state) {
                         return $state === 'Sudah' ? 'success' : 'danger';
@@ -177,12 +177,4 @@ class ReportSimike extends Page implements HasForms, HasTable
                 // ...
             ]);
     }
-
-
-    // protected function getFooterWidgets(): array
-    // {
-    //     return [
-    //         Report::class
-    //     ];
-    // }
 }

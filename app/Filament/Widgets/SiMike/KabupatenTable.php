@@ -43,7 +43,6 @@ class KabupatenTable extends BaseWidget
 
     public function updateFilter($tanggal_terbit_oss, $tahun, $triwulan, $kabkota, $sektor, $uraian_skala_usaha, $kecamatan_usaha)
     {
-        //dd([$tahun, $triwulan, $kabkota, $sektor, $uraian_skala_usaha]);
         $this->tanggal_terbit_oss = $tanggal_terbit_oss['tanggal'];
         $this->tahun = $tahun['tahun'];
         $this->triwulan = $triwulan['triwulan'];
@@ -51,20 +50,10 @@ class KabupatenTable extends BaseWidget
         $this->sektor = $sektor['sektor'];
         $this->uraian_skala_usaha = $uraian_skala_usaha['uraian_skala_usaha'];
         $this->kecamatan_usaha = $kecamatan_usaha['kecamatan_usaha'];
-        // dd(range(Carbon::now()->year, Carbon::now()->subYear(5)->year));
     }
-
-    // public function mount()
-    // {
-    //     // dd(auth()->user()->kabkota_id);
-    //     //DEAFULT FILTERS
-    //     $this->tahun = now()->year;
-    //     $this->uraian_skala_usaha = 'Usaha Mikro';
-    // }
 
     public static function canView(): bool
     {
-        /*return auth()->user()->hasRole('kabkota');*/
         if (URL::current() == \url('/admin')) {
             return false;
         }
@@ -140,7 +129,6 @@ class KabupatenTable extends BaseWidget
             Tables\Columns\TextColumn::make('kabkota.id')
                 ->label('Jumlah NIB')
                 ->formatStateUsing(function ($state) {
-                    // dd($state);
                     $count = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
                         ->where('dikecualikan', 0)
                         ->where('is_mapping', 1)
@@ -165,20 +153,6 @@ class KabupatenTable extends BaseWidget
                     return 'Rp. ' . number_format($state);
                 })
                 ->sortable(),
-
-            // Tables\Columns\TextColumn::make('jumlah_proyek_anomaly')
-            //     ->label('Jumlah Proyek Anomaly')
-            //     ->formatStateUsing(function ($state) {
-            //         return number_format($state);
-            //     }),
-
-            // Tables\Columns\TextColumn::make('total_anomaly')
-            //     ->label('Rencana Nilai Investasi Anomaly')
-            //     ->description('Sudah Dikurangi Tanah dan Bangunan')
-            //     ->formatStateUsing(function ($state) {
-            //         return 'Rp. ' . number_format($state);
-            //     })
-            //     ->sortable(),
         ];
     }
 

@@ -56,10 +56,6 @@ class KabupatenTable extends Page
             // $this->kecamatan_usaha = $this->form->getState()['kecamatan_usaha'];
         }
 
-        //dd($this->uraian_skala_usaha);
-        //\dd([is_null($this->triwulan), empty($this->triwulan)]);
-        //\dd($this->triwulan);
-
         $this->dispatch(
             'filterUpdated',
             ['tanggal' => $this->tanggal_terbit_oss],
@@ -75,9 +71,6 @@ class KabupatenTable extends Page
     public function mount()
     {
         $this->tahun = now()->year;
-        // $this->uraian_skala_usaha = ['Usaha Mikro'];
-        // dd(auth()->user()->kabkota_id);
-        //DEAFULT FILTERS
     }
 
     protected function getFormSchema(): array
@@ -123,8 +116,6 @@ class KabupatenTable extends Page
                             ->options([
                                 'Usaha Mikro' => 'Usaha Mikro',
                                 'Usaha Kecil' => 'Usaha Kecil',
-                                // 'Usaha Menengah' => 'Usaha Menengah',
-                                // 'Usaha Besar' => 'Usaha Besar',
                             ])
                             ->default($this->uraian_skala_usaha),
 

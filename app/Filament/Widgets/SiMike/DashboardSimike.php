@@ -59,15 +59,6 @@ class DashboardSimike extends Widget implements HasForms
         $admin;
     public $start, $end, $tanggal_terbit_oss;
 
-    // public static function canView(): bool
-    // {
-    //     if (auth()->user()->hasRole(['admin_cjip', 'admin_promosi', 'admin_ki', 'bapeda'])) {
-    //         return false;
-    //     }
-    //     return true;
-    // }
-
-
     protected function getFormSchema(): array
     {
         return [
@@ -115,8 +106,6 @@ class DashboardSimike extends Widget implements HasForms
                             ->options([
                                 'Usaha Mikro' => 'Usaha Mikro',
                                 'Usaha Kecil' => 'Usaha Kecil',
-                                // 'Usaha Menengah' => 'Usaha Menengah',
-                                // 'Usaha Besar' => 'Usaha Besar',
                             ])
                             ->default($this->uraian_skala_usaha),
 
@@ -227,8 +216,7 @@ class DashboardSimike extends Widget implements HasForms
             $this->simike = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
                 ->first();
         }
-        //\dd($queries);
-        //\dd($this->simike);
+
         if (auth()->user()->hasRole('kabkota')) {
             $this->nib = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
                 ->groupBy('nib')
@@ -260,9 +248,6 @@ class DashboardSimike extends Widget implements HasForms
                 ->get()
                 ->count();
         }
-
-
-        //\dd($this->simike);
 
         $tanggal = $this->tanggal_terbit_oss;
         $tahun = $this->tahun;
