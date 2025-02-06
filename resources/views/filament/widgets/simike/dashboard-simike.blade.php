@@ -9,7 +9,7 @@
     </div>
     <x-filament::section collapsible collapsed icon="heroicon-o-magnifying-glass" icon-color="primary">
         <x-slot name="heading">
-            Filter Dashboard Simike
+            Filter Dashboard Si-Mike
         </x-slot>
         <form wire:submit.prevent="submit">
             {{ $this->form }}

@@ -4,6 +4,7 @@ namespace App\Filament\Resources\SiMike\ProyekResource\Pages;
 
 use App\Filament\Resources\SiMike\ProyekResource;
 use App\Filament\Resources\SiMike\ProyekResource\Widgets\LastImportSimike;
+use App\Filament\Widgets\Simike\DashboardSimike;
 use App\Jobs\ImportSimikeAdmin;
 use App\Jobs\SiMike\ImportSiMike;
 use App\Models\Simike\Report;
@@ -32,6 +33,7 @@ class ListProyeks extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
+            DashboardSimike::class,
             LastImportSimike::class,
         ];
     }
