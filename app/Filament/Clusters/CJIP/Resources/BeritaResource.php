@@ -165,7 +165,7 @@ class BeritaResource extends Resource
                             ]),
                         TextColumn::make('body')
                             ->searchable()
-                            ->words(50)
+                            ->words(25)
                             // ->html()
                             ->formatStateUsing(fn(string $state) => strip_tags($state))
                             ->extraAttributes([
@@ -181,11 +181,29 @@ class BeritaResource extends Resource
                                     'class' => 'mt-2 text-primary-500 dark:text-primary-500 text-xs italic'
                                 ])
                             ]),
-                            IconColumn::make('status')
-                                ->boolean()
+                            TextColumn::make('status')
                                 ->alignRight()
+                                ->badge()
+                                ->formatStateUsing(function ($state) {
+                                    return match ($state) {
+                                        1 => 'Published',
+                                        0 => 'UnPublished',
+                                        null => 'Review',
+                                        default => 'Unknown',
+                                    };
+                                })
+                                ->colors([
+                                    'success' => 1,
+                                    'danger' => 0,
+                                    'warning' => null,
+                                ])
+                                ->icons([
+                                    'heroicon-s-check-circle' => 1,
+                                    'heroicon-s-x-circle' => 0,
+                                    'heroicon-s-document' => null,
+                                ])
                                 ->extraAttributes([
-                                    'class' => 'mt-2 text-gray-500 dark:text-gray-300 text-xs'
+                                    'class' => 'mt-2 text-sm text-justify'
                                 ]),
                         ])
                     ]),

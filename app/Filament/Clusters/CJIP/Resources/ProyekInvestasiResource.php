@@ -27,6 +27,7 @@ use Filament\Tables\Columns\Layout\Grid;
 use Filament\Tables\Columns\Layout\Panel;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\Filter;
@@ -421,13 +422,17 @@ class ProyekInvestasiResource extends Resource
                                 ->extraAttributes([
                                     'class' => 'mt-2 text-gray-500 dark:text-gray-300 text-md font-bold'
                                 ]),
-                            BadgeColumn::make('status')
+                            TextColumn::make('status')
                                 ->alignRight()
-                                // ->enum([
-                                //     '1' => 'Published',
-                                //     '0' => 'UnPublished',
-                                //     null => 'Review',
-                                // ])
+                                ->badge()
+                                ->formatStateUsing(function ($state) {
+                                    return match ($state) {
+                                        1 => 'Published',
+                                        0 => 'UnPublished',
+                                        null => 'Review',
+                                        default => 'Unknown',
+                                    };
+                                })
                                 ->colors([
                                     'success' => 1,
                                     'danger' => 0,
@@ -440,12 +445,12 @@ class ProyekInvestasiResource extends Resource
                                 ])
                                 ->extraAttributes([
                                     'class' => 'mt-2 text-sm text-justify'
-                                ])
+                                ]),
                         ]),
                         TextColumn::make('latar_belakang')
                             ->sortable()
                             ->html()
-                            ->limit(200)
+                            ->limit(100)
                             ->extraAttributes([
                                 'class' => 'mt-2 text-gray-500 dark:text-gray-300 text-xs text-justify'
                             ]),
@@ -472,26 +477,31 @@ class ProyekInvestasiResource extends Resource
                                     'class' => 'text-gray-500 dark:text-gray-300 text-xs italic mt-1'
                                 ]),
                         ]),
-                        TextColumn::make('market.nama')
-                            ->alignLeft()
-                            ->icon('heroicon-s-shopping-cart')->iconPosition('before')
-                            ->sortable()->searchable()
-                            ->extraAttributes([
-                                'class' => 'text-gray-500 dark:text-gray-300 text-xs italic'
-                            ]),
-                        ToggleColumn::make(name: 'is_cjibf')
-                            ->onIcon('heroicon-s-check-circle')
-                            ->offIcon('heroicon-s-x-circle')
-                            ->onColor('success')
-                            ->offColor('danger')
-                            ->extraAttributes([
-                                'class' => 'w-sm mt-2 dark:text-gray-300 text-xs text-right'
-                            ])->visible(function () {
-                                if (auth()->user()->hasRole('admin_cjip')) {
-                                    return false;
-                                }
-                                return true;
-                            })
+                        Split::make([
+                            TextColumn::make('market.nama')
+                                ->alignLeft()
+                                ->icon('heroicon-s-shopping-cart')->iconPosition('before')
+                                ->sortable()->searchable()
+                                ->extraAttributes([
+                                    'class' => 'text-gray-500 dark:text-gray-300 text-xs italic'
+                                ]),
+                            ToggleColumn::make(name: 'is_cjibf')
+                                ->onIcon('heroicon-s-check-circle')
+                                ->offIcon('heroicon-s-x-circle')
+                                ->onColor('success')
+                                ->label('CJIBF')
+                                ->alignRight()
+                                ->offColor('danger')
+                                ->extraAttributes([
+                                    'class' => 'dark:text-gray-300'
+                                ])->visible(function () {
+                                    if (auth()->user()->hasRole('admin_cjip')) {
+                                        return false;
+                                    }
+                                    return true;
+                                }),
+                        ])
+
                     ]),
 
                 ]),

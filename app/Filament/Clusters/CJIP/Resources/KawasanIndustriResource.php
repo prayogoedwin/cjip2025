@@ -676,13 +676,17 @@ class KawasanIndustriResource extends Resource
                                 ->extraAttributes([
                                     'class' => 'text-gray-500 dark:text-gray-300 text-md font-bold'
                                 ]),
-                            BadgeColumn::make('status')
+                            TextColumn::make('status')
                                 ->alignRight()
-                                // ->enum([
-                                //     '1' => 'Published',
-                                //     '0' => 'UnPublished',
-                                //     null => 'Review',
-                                // ])
+                                ->badge()
+                                ->formatStateUsing(function ($state) {
+                                    return match ($state) {
+                                        1 => 'Published',
+                                        0 => 'UnPublished',
+                                        null => 'Review',
+                                        default => 'Unknown',
+                                    };
+                                })
                                 ->colors([
                                     'success' => 1,
                                     'danger' => 0,
@@ -695,7 +699,7 @@ class KawasanIndustriResource extends Resource
                                 ])
                                 ->extraAttributes([
                                     'class' => 'mt-2 text-sm text-justify'
-                                ])
+                                ]),
                         ]),
                         TextColumn::make('perusahaan')->wrap()->label('Profil Perusahaan')
                             ->html()
