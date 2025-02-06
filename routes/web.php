@@ -1,5 +1,6 @@
 <?php
 
+use App\Filament\Pages\Kemitraan\DetailMinat;
 use App\Http\Controllers\LocalizationController;
 use App\Livewire\Base\Maps;
 use App\Livewire\Beranda\Beranda;
@@ -12,6 +13,7 @@ use App\Livewire\Frontend\Auth\Profile;
 use App\Livewire\Frontend\Auth\Register;
 use App\Livewire\Frontend\DaftarPmaPmdn;
 use App\Livewire\Frontend\Dashboard as FrontendDashboard;
+use App\Livewire\Frontend\Kemitraan\Admin\FormKemitraan;
 use App\Livewire\Frontend\Kemitraan\Minat\DetailMinatKeluar;
 use App\Livewire\Frontend\Kemitraan\Minat\DetailMinatMasuk;
 use App\Livewire\Frontend\Kemitraan\Minat\MinatKeluar;
@@ -94,6 +96,9 @@ Route::get('product/{slug}', DetailProduct::class)->name('product.detail');
 Route::get('sk-intensif-gubernur/{record}', SkInsentifGubernur::class)->name('sk-insentif-gubernur');
 Route::get('sk-intensif-sekda/{record}', SkInsentifSekda::class)->name('sk-insentif-sekda');
 Route::get('sk-kepala-dpm/{record}', SkInsentifKepalaDpm::class)->name('sk-insentif-dpm');
+
+Route::get('/peminat-product/{id}', DetailMinat::class)->name('peminat-product.show');
+Route::get('kemitraan-form/{record}', FormKemitraan::class)->name('form-kemitraan');
 
 
 Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(function () {

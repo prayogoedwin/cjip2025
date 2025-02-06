@@ -18,14 +18,14 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\Action;
-
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PeminatProductResource extends Resource
 {
     protected static ?string $model = PeminatProduct::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
 
     protected static ?string $navigationLabel = 'Peminat Produk';
 
@@ -44,14 +44,18 @@ class PeminatProductResource extends Resource
                 Toggle::make('status')
             ]);
     }
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('userPeminat.name')->label('Nama Peminat Produk')->searchable(),
-                TextColumn::make('product.user.name')->label('Nama Pemilik Produk')->searchable(),
-                TextColumn::make('product.name')->label('Nama Produk')->searchable(),
+                TextColumn::make('userPeminat.name')->label('Nama Peminat Produk')->wrap()->searchable(),
+                TextColumn::make('product.user.name')->label('Nama Pemilik Produk')->wrap()->searchable(),
+                TextColumn::make('product.name')->label('Nama Produk')->searchable()->wrap(),
                 // TextColumn::make('product.slug'),
                 ToggleColumn::make('status')->label('Verifikasi'),
                 TextInputColumn::make('rencana_nilai_pekerjaan')->rules(['numeric'])
@@ -61,15 +65,16 @@ class PeminatProductResource extends Resource
             ])
             ->actions([
                 Action::make('detail')
-                    ->label('Detail Minat')
-                    // ->url(fn(PeminatProduct $record) => route('peminat-product.show', $record->id))
+                    ->label('Lihat')
+                    ->url(fn(PeminatProduct $record) => route('peminat-product.show', $record->id))
                     ->color('primary')
                     ->icon('heroicon-s-eye'),
+
                 Action::make('download-form')
-                    ->label('Download Form')
-                    // ->url(fn(PeminatProduct $record) => route('form-kemitraan', $record->id))
+                    ->label('Form')
+                    ->url(fn(PeminatProduct $record) => route('form-kemitraan', $record->id))
                     ->color('primary')
-                    ->icon('heroicon-s-arrow-down-tray')
+                    ->icon('heroicon-s-document-text')
                     ->openUrlInNewTab()
                     ->visible(fn(PeminatProduct $record) => $record->status == 1),
             ])
@@ -92,7 +97,7 @@ class PeminatProductResource extends Resource
         return [
             'index' => Pages\ListPeminatProducts::route('/'),
             'create' => Pages\CreatePeminatProduct::route('/create'),
-            'edit' => Pages\EditPeminatProduct::route('/{record}/edit'),
+            // 'edit' => Pages\EditPeminatProduct::route('/{record}/edit'),
         ];
     }
 }
