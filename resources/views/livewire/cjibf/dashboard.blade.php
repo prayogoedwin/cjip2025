@@ -46,7 +46,9 @@
         </div>
     </div>
 
-    <div>
+    @livewire('cjibf.proyek')
+
+    {{-- <div>
         <div class="container py-2">
             @livewire(\App\Livewire\Widgets\LoiSumNilai::class)
 
@@ -66,6 +68,6 @@
         <div class="container mb-5 mt-5">
             @livewire(\App\Filament\Widgets\LoiByCountry::class)
         </div>
-    </div>
+    </div> --}}
     <!-- End Hero -->
 </div>
