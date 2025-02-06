@@ -14,6 +14,7 @@ class ProductDetail extends Component
     public $imageProduct;
     public $show = true;
     public $imageMain;
+    public $isOpen = false;
     public $title;
     public $showAcc = false;
     public $isOwner = false;
@@ -58,6 +59,18 @@ class ProductDetail extends Component
         Auth::logout();
 
         return Redirect::to('/');
+    }
+
+    protected $listeners = ['showModal'];
+
+    public function showModal()
+    {
+        $this->isOpen = true;
+    }
+
+    public function closeModal()
+    {
+        $this->isOpen = false;
     }
     public function render()
     {

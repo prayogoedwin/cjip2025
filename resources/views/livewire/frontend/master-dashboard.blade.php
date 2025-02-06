@@ -123,7 +123,7 @@
                         </svg>
 
                         <span
-                            class="flex-1 ms-3 @if (request()->is('dashboard/profile')) text-green-700  @else text-black dark:text-gray-300 @endif">Profile</span>
+                            class="flex-1 ms-3 @if (request()->is('dashboard/profile')) text-green-700  @else text-black dark:text-gray-300 @endif">Profil</span>
                     </a>
                 </li>
                 <li>

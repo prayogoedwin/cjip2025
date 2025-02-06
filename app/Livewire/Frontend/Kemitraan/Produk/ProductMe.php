@@ -12,11 +12,24 @@ class ProductMe extends Component
 {
     use WithPagination;
     public $title = 'Produk Saya';
+    public $isOpen = false;
     public function logout()
     {
         Auth::logout();
 
         return Redirect::to('/');
+    }
+
+    protected $listeners = ['showModal'];
+
+    public function showModal()
+    {
+        $this->isOpen = true;
+    }
+
+    public function closeModal()
+    {
+        $this->isOpen = false;
     }
     public function render()
     {
