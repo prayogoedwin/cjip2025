@@ -33,7 +33,7 @@ class ListProyeks extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            DashboardSimike::class,
+            // DashboardSimike::class,
             LastImportSimike::class,
         ];
     }
