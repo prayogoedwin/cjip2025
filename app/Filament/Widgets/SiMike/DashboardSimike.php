@@ -150,18 +150,15 @@ class DashboardSimike extends Widget implements HasForms
                             ->searchable()
                             ->options(function () {
                                 $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
-                                    ->whereNotNull('kecamatan_usaha') // Pastikan tidak ada nilai null
+                                    ->whereNotNull('kecamatan_usaha')
                                     ->pluck('kecamatan_usaha')
-                                    ->filter() // Hapus nilai kosong jika ada
+                                    ->filter()
                                     ->toArray();
-
-                                // Pastikan array tidak kosong sebelum menggunakan array_combine
                                 if (!empty($kec_usahas)) {
                                     $kec_usaha = array_combine($kec_usahas, $kec_usahas);
                                 } else {
-                                    $kec_usaha = []; // Kembalikan array kosong jika tidak ada data
+                                    $kec_usaha = [];
                                 }
-
                                 return $kec_usaha;
                             })
                             ->visible(fn() => auth()->user()->hasRole('kabkota')),

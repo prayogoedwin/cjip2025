@@ -1,4 +1,4 @@
-<x-filament::widget>
+<x-filament-widgets::widget>
     <div class="relative py-5 mb-5">
         <div class="absolute inset-0 flex items-center" aria-hidden="true">
             <div class="w-full border-t border-gray-300"></div>
@@ -127,4 +127,4 @@
             </div>
         </div>
     </x-filament::section>
-</x-filament::widget>
+</x-filament-widgets::widget>
