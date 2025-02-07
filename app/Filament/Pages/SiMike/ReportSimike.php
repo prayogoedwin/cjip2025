@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages\SiMike;
 
-use App\Models\Simike\Report;
+use App\Models\SiMike\Report;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Carbon\Carbon;
 use Dompdf\FrameDecorator\Text;
