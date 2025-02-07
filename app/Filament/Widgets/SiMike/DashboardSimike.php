@@ -141,20 +141,26 @@ class DashboardSimike extends Widget implements HasForms
                                 }
                                 return true;
                             }),
-                        // Select::make('kecamatan_usaha')->label('Kecamatan Usaha')
-                        //     ->searchable()
-                        //     ->options(function () {
-                        //         $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
-                        //             ->pluck('kecamatan_usaha')->toArray();
-                        //         $kec_usaha = array_combine($kec_usahas, $kec_usahas);
-                        //         return $kec_usaha;
-                        //     })
-                        //     ->visible(function () {
-                        //         if (auth()->user()->hasRole('kabkota')) {
-                        //             return true;
-                        //         }
-                        //         return false;
-                        //     }),
+                        Select::make('kecamatan_usaha')->label('Kecamatan Usaha')
+                            ->searchable()
+                            ->options(function () {
+                                $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
+                                    ->whereNotNull('kecamatan_usaha') // Pastikan tidak ada nilai null
+                                    ->pluck('kecamatan_usaha')
+                                    ->filter() // Hapus nilai kosong jika ada
+                                    ->toArray();
+
+                                // Pastikan array tidak kosong sebelum menggunakan array_combine
+                                if (!empty($kec_usahas)) {
+                                    $kec_usaha = array_combine($kec_usahas, $kec_usahas);
+                                } else {
+                                    $kec_usaha = []; // Kembalikan array kosong jika tidak ada data
+                                }
+
+                                return $kec_usaha;
+                            })
+                            ->visible(fn() => auth()->user()->hasRole('kabkota')),
+
                         Select::make('sektor')->label('Kategori')
                             ->options(Sektor::groupBy('sektor')->pluck('sektor', 'id'))
                             ->searchable()

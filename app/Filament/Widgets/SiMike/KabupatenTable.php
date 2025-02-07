@@ -69,11 +69,11 @@ class KabupatenTable extends BaseWidget
                     DB::raw('MIN(id_proyek) as id_proyek'),
                     DB::raw('count(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE 0 END) as `proyek`'),
                     DB::raw('count(dikecualikan or null) as `jumlah_proyek_anomaly`'),
-                    DB::raw('sum(CASE WHEN dikecualikan = "0" THEN jumlah_investasi ELSE 0 END) as `total`'),
+                    DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as `total`'),
                     DB::raw('sum(CASE WHEN dikecualikan = "1" THEN total_investasi ELSE 0 END) as `total_anomaly`'),
                     DB::raw('count(nib) as nib_count'),
-                    DB::raw('sum(CASE WHEN dikecualikan = "0" THEN tki ELSE 0 END) as `count_tki`'),
-                    DB::raw('sum(CASE WHEN dikecualikan = "0" THEN tka ELSE 0 END) as `count_tka`'),
+                    DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tki ELSE 0 END) as `count_tki`'),
+                    DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tka ELSE 0 END) as `count_tka`'),
                 )
                 // ->orderByDesc('total')
                 ->groupBy('kecamatan_usaha');
@@ -110,15 +110,15 @@ class KabupatenTable extends BaseWidget
                     return true;
                 }),
 
-            // Tables\Columns\TextColumn::make('kecamatan_usaha')
-            //     ->searchable()
-            //     ->wrap()
-            //     ->visible(function () {
-            //         if (auth()->user()->hasRole('kabkota')) {
-            //             return true;
-            //         }
-            //         return false;
-            //     }),
+            Tables\Columns\TextColumn::make('kecamatan_usaha')
+                ->searchable()
+                ->wrap()
+                ->visible(function () {
+                    if (auth()->user()->hasRole('kabkota')) {
+                        return true;
+                    }
+                    return false;
+                }),
 
             Tables\Columns\TextColumn::make('proyek')
                 ->label('Jumlah Proyek')
