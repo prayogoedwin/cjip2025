@@ -68,15 +68,20 @@ class DashboardSimike extends Widget implements HasForms
                     'xl' => 1,
                 ])->schema([
 
+                    // Select::make('tahun')
+                    //     ->default(now()->year)
+                    //     ->searchable()
+                    //     ->required()
+                    //     ->options(fn() => array_combine(
+                    //         $years = range(now()->year, now()->year - 5),
+                    //         $years
+                    //     )),
                     Select::make('tahun')
-                        ->default(Carbon::now()->year)
-                        ->searchable()
-                        ->required()
-                        ->options(function () {
-                            $currentYear = Carbon::now()->year;
-                            $years = range($currentYear, $currentYear - 5);
-                            return array_combine($years, $years);
-                        }),
+                        ->options([
+                            '2025' => '2025',
+                            '2024' => '2024',
+                            '2023' => '2023',
+                        ]),
                     Fieldset::make('Tanggal Terbit Oss')
                         ->schema([
                             Grid::make()->schema([

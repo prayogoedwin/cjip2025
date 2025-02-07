@@ -81,11 +81,20 @@ class KabupatenTable extends Page
                     'sm' => 1,
                     'xl' => 1,
                 ])->schema([
-                    Select::make('tahun')->default(Carbon::now()->year)
-                        ->options(function () {
-                            $years = range(Carbon::now()->year, Carbon::now()->subYear(5)->year);
-                            return array_combine(array_values($years), array_values($years));
-                        })->default(Carbon::now(0)->year)->required(),
+                    // Select::make('tahun')
+                    //     ->default(now()->year)
+                    //     ->searchable()
+                    //     ->required()
+                    //     ->options(fn() => array_combine(
+                    //         $years = range(now()->year, now()->year - 5),
+                    //         $years
+                    //     )),
+                    Select::make('tahun')
+                        ->options([
+                            '2025' => '2025',
+                            '2024' => '2024',
+                            '2023' => '2023',
+                        ]),
 
                     Fieldset::make('Tanggal Terbit Oss')
                         ->schema([
