@@ -7,7 +7,7 @@ use App\Filament\Resources\SiMike\ProyekResource\Widgets\LastImportSimike;
 use App\Filament\Widgets\Simike\DashboardSimike;
 use App\Jobs\ImportSimikeAdmin;
 use App\Jobs\SiMike\ImportSiMike;
-use App\Models\Simike\Report;
+use App\Models\SiMike\Report;
 use App\Models\SiMike\RulesSimike;
 use Carbon\Carbon;
 use Filament\Actions;
