@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Simike;
+namespace App\Models\SiMike;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
