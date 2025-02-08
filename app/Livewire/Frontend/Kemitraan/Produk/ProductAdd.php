@@ -5,6 +5,7 @@ namespace App\Livewire\Frontend\Kemitraan\Produk;
 use App\Models\Kemitraan\Product;
 use App\Models\Kemitraan\ProductGallery;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -50,10 +51,9 @@ class ProductAdd extends Component implements HasForms
                     ->reactive()
                     ->afterStateUpdated(fn($set, ?string $state) => $set('slug', Str::slug($state))),
 
-                TextInput::make('slug')
+                Hidden::make('slug')
                     ->label('Slug Produk')
-                    ->required()
-                    ->hidden(),
+                    ->required(),
 
                 MarkdownEditor::make('description')
                     ->label('Deskripsi')
