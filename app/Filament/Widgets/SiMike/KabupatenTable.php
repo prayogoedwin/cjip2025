@@ -60,10 +60,18 @@ class KabupatenTable extends BaseWidget
         return true;
     }
 
-    protected function getTableQuery(): Builder
+    public function table(Table $table): Table
     {
         if (auth()->user()->hasRole('kabkota')) {
-            return Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+            $query = Proyek::filterMikro(
+                $this->tanggal_terbit_oss,
+                $this->tahun,
+                $this->triwulan,
+                auth()->user()->kabkota->id,
+                $this->sektor,
+                $this->uraian_skala_usaha,
+                $this->kecamatan_usaha
+            )
                 ->select(
                     DB::raw('*'),
                     DB::raw('MIN(id_proyek) as id_proyek'),
@@ -73,12 +81,19 @@ class KabupatenTable extends BaseWidget
                     DB::raw('sum(CASE WHEN dikecualikan = "1" THEN total_investasi ELSE 0 END) as `total_anomaly`'),
                     DB::raw('count(nib) as nib_count'),
                     DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tki ELSE 0 END) as `count_tki`'),
-                    DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tka ELSE 0 END) as `count_tka`'),
+                    DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tka ELSE 0 END) as `count_tka`')
                 )
-                // ->orderByDesc('total')
                 ->groupBy('kecamatan_usaha');
         } else {
-            return Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+            $query = Proyek::filterMikro(
+                $this->tanggal_terbit_oss,
+                $this->tahun,
+                $this->triwulan,
+                $this->kabkota,
+                $this->sektor,
+                $this->uraian_skala_usaha,
+                $this->kecamatan_usaha
+            )
                 ->select(
                     DB::raw('*'),
                     DB::raw('MIN(id_proyek) as id_proyek'),
@@ -91,69 +106,68 @@ class KabupatenTable extends BaseWidget
                     DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tki ELSE 0 END) as `count_tki`'),
                     DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tka ELSE 0 END) as `count_tka`'),
                     DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN tki ELSE 0 END) as `count_tki_anomaly`'),
-                    DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN tka ELSE 0 END) as `count_tka_anomaly`'),
+                    DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN tka ELSE 0 END) as `count_tka_anomaly`')
                 )
-                // ->orderByDesc('total')
                 ->groupBy('kab_kota_id');
         }
-    }
-    protected function getTableColumns(): array
-    {
-        return [
-            Tables\Columns\TextColumn::make('kabkota.nama')
-                ->searchable()
-                ->wrap()
-                ->visible(function () {
-                    if (auth()->user()->hasRole('kabkota')) {
-                        return false;
-                    }
-                    return true;
-                }),
-
-            Tables\Columns\TextColumn::make('kecamatan_usaha')
-                ->searchable()
-                ->wrap()
-                ->visible(function () {
-                    if (auth()->user()->hasRole('kabkota')) {
+        return $table
+            ->heading('')
+            ->query($query)
+            ->paginated(false)
+            ->headerActions([
+                ExportAction::make()->exports([
+                    ExcelExport::make('table')
+                        ->fromTable()
+                        ->withFilename(date('d-M-Y') . ' - Rekap Data Simike')
+                        ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
+                ])
+                    ->button()
+                    ->color('success')
+            ])
+            ->columns([
+                Tables\Columns\TextColumn::make('kabkota.nama')
+                    ->searchable()
+                    ->label('Kabupaten/Kota')
+                    ->wrap()
+                    ->visible(function () {
+                        if (auth()->user()->hasRole('kabkota')) {
+                            return false;
+                        }
                         return true;
-                    }
-                    return false;
-                }),
+                    }),
+                Tables\Columns\TextColumn::make('proyek')
+                    ->label('Jumlah Proyek')
+                    ->formatStateUsing(function ($state) {
+                        return number_format($state);
+                    })->sortable(),
+                Tables\Columns\TextColumn::make('kabkota.id')
+                    ->label('Jumlah NIB')
+                    ->formatStateUsing(function ($state) {
+                        $count = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+                            ->where('dikecualikan', 0)
+                            ->where('is_mapping', 1)
+                            ->where('kab_kota_id', $state)
+                            ->groupBy('nib')
+                            ->get()
+                            ->count();
+                        return number_format($count, 0, ',', ',');
+                    })
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('count_tki')
+                    ->label('Jumlah Naker')
+                    ->formatStateUsing(function ($state, Model $record) {
+                        return number_format($state + $record->count_tka);
+                    })->sortable(),
 
-            Tables\Columns\TextColumn::make('proyek')
-                ->label('Jumlah Proyek')
-                ->formatStateUsing(function ($state) {
-                    return number_format($state);
-                })->sortable(),
+                Tables\Columns\TextColumn::make('total')
+                    ->label('Rencana Nilai Investasi')
+                    ->description('Sesuai Dengan Parameter BKPM')
+                    ->formatStateUsing(function ($state) {
+                        return 'Rp. ' . number_format($state);
+                    })
+                    ->sortable(),
 
-            Tables\Columns\TextColumn::make('kabkota.id')
-                ->label('Jumlah NIB')
-                ->formatStateUsing(function ($state) {
-                    $count = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
-                        ->where('dikecualikan', 0)
-                        ->where('is_mapping', 1)
-                        ->where('kab_kota_id', $state)
-                        ->groupBy('nib')
-                        ->get()
-                        ->count();
-                    return number_format($count, 0, ',', ',');
-                })
-                ->sortable(),
-
-            Tables\Columns\TextColumn::make('count_tki')
-                ->label('Jumlah Naker')
-                ->formatStateUsing(function ($state, Model $record) {
-                    return number_format($state + $record->count_tka);
-                })->sortable(),
-
-            Tables\Columns\TextColumn::make('total')
-                ->label('Rencana Nilai Investasi')
-                ->description('Sesuai Dengan Parameter BKPM')
-                ->formatStateUsing(function ($state) {
-                    return 'Rp. ' . number_format($state);
-                })
-                ->sortable(),
-        ];
+            ]);
     }
 
     protected function getTableHeaderActions(): array

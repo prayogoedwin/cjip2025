@@ -110,13 +110,7 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-
             ->navigationGroups([
-                NavigationGroup::make()
-                    ->label('Graph')
-                    ->icon('heroicon-o-presentation-chart-bar')
-                    ->collapsed()
-                    ->collapsible(),
                 NavigationGroup::make()
                     ->label('Super Admin')
                     ->icon('heroicon-o-cog-8-tooth')
@@ -125,6 +119,11 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make('Website')
                     ->label('Website')
                     ->icon('heroicon-s-computer-desktop')
+                    ->collapsed()
+                    ->collapsible(),
+                NavigationGroup::make()
+                    ->label('Graph')
+                    ->icon('heroicon-o-presentation-chart-bar')
                     ->collapsed()
                     ->collapsible(),
                 NavigationGroup::make()

@@ -19,9 +19,10 @@ class KabupatenTable extends Page
     use HasPageShield;
     protected static ?string $navigationLabel = "Rekap Kabupaten/Kota";
     protected static ?string $label = 'Rekap Kabupaten/Kota';
+    protected static ?string $title = 'Rekap Kabupaten/Kota';
     protected static ?string $pluralLabel = 'Rekap Kabupaten/Kota';
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationGroup = "Graph";
+    protected static ?string $navigationGroup = "Si-Mike";
     protected static string $view = 'filament.pages.si-mike.kabupaten-table';
 
     public $tahun,
