@@ -7,7 +7,7 @@
                     <div class="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
                         <div class="lg:col-span-6 md:col-span-12">
                             <a href="{{ route('beranda') }}" class="focus:outline-none mb-2">
-                                <img src="{{ asset('images/logo.png') }}" alt="">
+                                <img src="{{ asset('images/logo-footer.png') }}" alt="">
                             </a>
                             <h5 class="mt-6 tracking-[1px] text-gray-100 font-normal uppercase ">
                                 {{ __('navbar.contact', [], $locale) }}<span class="font-bold"> Dinas Penanaman
