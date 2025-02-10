@@ -15,6 +15,8 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use Illuminate\Support\Facades\DB;
 
 class ReportSimike extends Page implements HasForms, HasTable
@@ -22,20 +24,24 @@ class ReportSimike extends Page implements HasForms, HasTable
     use HasPageShield;
     use InteractsWithTable;
     use InteractsWithForms;
-    protected static ?string $navigationLabel = "Report Simike";
-    protected static ?string $pluralModelLabel = 'Report Simike";';
+    protected static ?string $navigationLabel = "Report Import";
+    protected static ?string $pluralModelLabel = 'Report Import';
+    protected static ?string $title = "Report Import";
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationGroup = "Graph";
+    protected static ?string $navigationGroup = "Si-Mike";
     protected static string $view = 'filament.pages.si-mike.report-simike';
 
     public function table(Table $table): Table
     {
         return $table
+            ->paginated([35, 'all'])
+            ->defaultPaginationPageOption(35)
+            // ->paginated(false)
             ->query(
                 Report::query()
                     ->join('users', 'reports.user_id', '=', 'users.id')
-                    ->leftJoin('kabkotas', 'kabkotas.id', '=', 'users.kabkota_id') // Assuming the kabkota relation is a foreign key `kabkota_id`
-                    ->select('users.id', 'kabkotas.nama as kabkota_nama') // Select kabkota's name as kabkota_nama
+                    ->leftJoin('kabkotas', 'kabkotas.id', '=', 'users.kabkota_id')
+                    ->select('users.id', 'kabkotas.nama as kabkota_nama')
                     ->addSelect(DB::raw('
                     MAX(CASE WHEN reports.bulan = 1 THEN "Sudah" ELSE "-" END) as bulan_januari,
                     MAX(CASE WHEN reports.bulan = 2 THEN "Sudah" ELSE "-" END) as bulan_februari,
@@ -50,12 +56,11 @@ class ReportSimike extends Page implements HasForms, HasTable
                     MAX(CASE WHEN reports.bulan = 11 THEN "Sudah" ELSE "-" END) as bulan_november,
                     MAX(CASE WHEN reports.bulan = 12 THEN "Sudah" ELSE "-" END) as bulan_desember
                 '))
-                    ->groupBy('users.id', 'kabkotas.nama') // Group by user id and kabkota nama
+                    ->groupBy('users.id', 'kabkotas.nama')
             )
             ->columns([
-                TextColumn::make('kabkota_nama') // Show kabkota's name
-                    ->label('Nama Kabkota')
-                    ->searchable(),
+                TextColumn::make('kabkota_nama')
+                    ->label('Nama Kabkota'),
 
                 $this->getMonthColumn('bulan_januari', 'Januari'),
                 $this->getMonthColumn('bulan_februari', 'Februari'),
@@ -80,11 +85,21 @@ class ReportSimike extends Page implements HasForms, HasTable
                         return array_combine($years, $years);
                     })
             ])
+            ->headerActions([
+                ExportAction::make()->exports([
+                    ExcelExport::make('table')
+                        ->fromTable()
+                        ->withFilename(date('d-M-Y') . ' - Report Import Simike')
+                        ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
+                ])
+                    ->button()
+                    ->color('success')
+            ])
             ->actions([
-                // Define actions (if needed)
+                // ...
             ])
             ->bulkActions([
-                // Define bulk actions (if needed)
+                // ...
             ]);
     }
 
@@ -93,7 +108,7 @@ class ReportSimike extends Page implements HasForms, HasTable
         return TextColumn::make($columnName)
             ->label($monthName)
             ->getStateUsing(function ($record) use ($columnName) {
-                return $record->$columnName; // Access the pre-aggregated value
+                return $record->$columnName;
             })
             ->color(function ($state) {
                 return $state === 'Sudah' ? 'success' : 'danger';
