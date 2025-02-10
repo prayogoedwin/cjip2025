@@ -29,6 +29,7 @@ use Filament\Tables\Columns\Layout\Grid;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Builder;
@@ -43,7 +44,6 @@ class BeritaResource extends Resource
 
     protected static ?string $navigationGroup = 'Cjip';
     protected static ?string $navigationLabel = 'Berita';
-
     protected static ?string $recordTitleAttribute = 'title';
     protected static ?string $pluralLabel = 'Berita';
     protected static ?string $cluster = Cjip::class;
@@ -159,7 +159,6 @@ class BeritaResource extends Resource
                     Stack::make([
                         TextColumn::make('title')
                             ->searchable()
-                            ->sortable()
                             ->extraAttributes([
                                 'class' => 'mt-2 text-gray-500 dark:text-gray-300 text-md font-bold'
                             ]),
@@ -173,7 +172,7 @@ class BeritaResource extends Resource
                             ]),
                         Split::make([
                             Stack::make([
-                                TextColumn::make('created_at')->date()->color('primary')->sortable()
+                                TextColumn::make('created_at')->date()->color('primary')
                                     ->extraAttributes([
                                         'class' => 'mt-2 text-primary-500 dark:text-primary-500 text-xs'
                                     ]),
