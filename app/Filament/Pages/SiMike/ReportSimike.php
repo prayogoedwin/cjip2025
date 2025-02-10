@@ -34,131 +34,41 @@ class ReportSimike extends Page implements HasForms, HasTable
             ->query(
                 Report::query()
                     ->join('users', 'reports.user_id', '=', 'users.id')
-                    ->distinct()
-                    ->groupBy('users.id')
+                    ->leftJoin('kabkotas', 'kabkotas.id', '=', 'users.kabkota_id') // Assuming the kabkota relation is a foreign key `kabkota_id`
+                    ->select('users.id', 'kabkotas.nama as kabkota_nama') // Select kabkota's name as kabkota_nama
+                    ->addSelect(DB::raw('
+                    MAX(CASE WHEN reports.bulan = 1 THEN "Sudah" ELSE "-" END) as bulan_januari,
+                    MAX(CASE WHEN reports.bulan = 2 THEN "Sudah" ELSE "-" END) as bulan_februari,
+                    MAX(CASE WHEN reports.bulan = 3 THEN "Sudah" ELSE "-" END) as bulan_maret,
+                    MAX(CASE WHEN reports.bulan = 4 THEN "Sudah" ELSE "-" END) as bulan_april,
+                    MAX(CASE WHEN reports.bulan = 5 THEN "Sudah" ELSE "-" END) as bulan_mei,
+                    MAX(CASE WHEN reports.bulan = 6 THEN "Sudah" ELSE "-" END) as bulan_juni,
+                    MAX(CASE WHEN reports.bulan = 7 THEN "Sudah" ELSE "-" END) as bulan_juli,
+                    MAX(CASE WHEN reports.bulan = 8 THEN "Sudah" ELSE "-" END) as bulan_agustus,
+                    MAX(CASE WHEN reports.bulan = 9 THEN "Sudah" ELSE "-" END) as bulan_september,
+                    MAX(CASE WHEN reports.bulan = 10 THEN "Sudah" ELSE "-" END) as bulan_oktober,
+                    MAX(CASE WHEN reports.bulan = 11 THEN "Sudah" ELSE "-" END) as bulan_november,
+                    MAX(CASE WHEN reports.bulan = 12 THEN "Sudah" ELSE "-" END) as bulan_desember
+                '))
+                    ->groupBy('users.id', 'kabkotas.nama') // Group by user id and kabkota nama
             )
             ->columns([
-                TextColumn::make('user.kabkota.nama')->label('Nama User')->searchable(),
+                TextColumn::make('kabkota_nama') // Show kabkota's name
+                    ->label('Nama Kabkota')
+                    ->searchable(),
 
-                // Kolom untuk bulan Januari
-                TextColumn::make('bulan_januari')
-                    ->label('Januari')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 1 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
-
-                // Kolom untuk bulan Februari
-                TextColumn::make('bulan_februari')
-                    ->label('Februari')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 2 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
-
-                // Kolom untuk bulan Maret
-                TextColumn::make('bulan_maret')
-                    ->label('Maret')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 3 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
-
-                // Kolom untuk bulan April
-                TextColumn::make('bulan_april')
-                    ->label('April')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 4 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
-
-                // Kolom untuk bulan Mei
-                TextColumn::make('bulan_mei')
-                    ->label('Mei')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 5 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
-
-                // Kolom untuk bulan Juni
-                TextColumn::make('bulan_juni')
-                    ->label('Juni')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 6 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
-
-                // Kolom untuk bulan Juli
-                TextColumn::make('bulan_juli')
-                    ->label('Juli')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 7 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
-
-                // Kolom untuk bulan Agustus
-                TextColumn::make('bulan_agustus')
-                    ->label('Agustus')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 8 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
-
-                // Kolom untuk bulan September
-                TextColumn::make('bulan_september')
-                    ->label('September')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 9 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
-
-                // Kolom untuk bulan Oktober
-                TextColumn::make('bulan_oktober')
-                    ->label('Oktober')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 10 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
-
-                // Kolom untuk bulan November
-                TextColumn::make('bulan_november')
-                    ->label('November')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 11 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
-
-                // Kolom untuk bulan Desember
-                TextColumn::make('bulan_desember')
-                    ->label('Desember')
-                    ->getStateUsing(function ($record) {
-                        return $record->bulan == 12 ? 'Sudah' : '-';
-                    })
-                    ->color(function ($state) {
-                        return $state === 'Sudah' ? 'success' : 'danger';
-                    }),
+                $this->getMonthColumn('bulan_januari', 'Januari'),
+                $this->getMonthColumn('bulan_februari', 'Februari'),
+                $this->getMonthColumn('bulan_maret', 'Maret'),
+                $this->getMonthColumn('bulan_april', 'April'),
+                $this->getMonthColumn('bulan_mei', 'Mei'),
+                $this->getMonthColumn('bulan_juni', 'Juni'),
+                $this->getMonthColumn('bulan_juli', 'Juli'),
+                $this->getMonthColumn('bulan_agustus', 'Agustus'),
+                $this->getMonthColumn('bulan_september', 'September'),
+                $this->getMonthColumn('bulan_oktober', 'Oktober'),
+                $this->getMonthColumn('bulan_november', 'November'),
+                $this->getMonthColumn('bulan_desember', 'Desember'),
             ])
             ->filters([
                 SelectFilter::make('tahun')
@@ -171,10 +81,22 @@ class ReportSimike extends Page implements HasForms, HasTable
                     })
             ])
             ->actions([
-                // ...
+                // Define actions (if needed)
             ])
             ->bulkActions([
-                // ...
+                // Define bulk actions (if needed)
             ]);
+    }
+
+    private function getMonthColumn($columnName, $monthName)
+    {
+        return TextColumn::make($columnName)
+            ->label($monthName)
+            ->getStateUsing(function ($record) use ($columnName) {
+                return $record->$columnName; // Access the pre-aggregated value
+            })
+            ->color(function ($state) {
+                return $state === 'Sudah' ? 'success' : 'danger';
+            });
     }
 }
