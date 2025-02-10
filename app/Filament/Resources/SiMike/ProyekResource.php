@@ -297,7 +297,8 @@ class ProyekResource extends Resource
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->wrap(),
-                Tables\Columns\TextColumn::make('sektor')->label('Kategori')->searchable()->wrap()
+                Tables\Columns\TextColumn::make('sektor')
+                    ->label('Kategori')->searchable()->wrap()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\BadgeColumn::make('uraian_skala_usaha')
                     ->colors([
@@ -461,6 +462,7 @@ class ProyekResource extends Resource
                     ->button()
                     ->color('success')
             ])
+            ->striped()
             ->filters(
                 [
                     Filter::make('tanggal_terbit_oss')
