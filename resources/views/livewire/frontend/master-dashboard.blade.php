@@ -30,7 +30,7 @@
                 </div>
                 <div class="flex items-center">
                     <div class="flex items-center ms-3">
-                        <li class="inline mb-0 mr-1" wire:ignore>
+                        {{-- <li class="inline mb-0 mr-1" wire:ignore>
                             <a href="#" id="theme-toggle" type="button"
                                 class="inline-flex items-center  justify-center tracking-wide align-middle text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2.5">
                                 <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor"
@@ -44,7 +44,7 @@
                                         fill-rule="evenodd" clip-rule="evenodd"></path>
                                 </svg>
                             </a>
-                        </li>
+                        </li> --}}
                         <div>
                             <button type="button"
                                 class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -300,7 +300,7 @@
     </div>
 
     @push('js')
-        <script>
+        {{-- <script>
             // On page load or when changing themes, best to add inline in `head` to avoid FOUC
             if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
                     '(prefers-color-scheme: dark)').matches)) {
@@ -350,23 +350,6 @@
                     }
                 }
 
-            });
-        </script>
-
-        {{-- <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var profileMenuButton = document.getElementById('profileMenuButton');
-                var profileMenu = document.getElementById('profileMenu');
-
-                profileMenuButton.addEventListener('click', function() {
-                    profileMenu.classList.toggle('hidden');
-                });
-
-                window.addEventListener('click', function(event) {
-                    if (!profileMenuButton.contains(event.target) && !profileMenu.contains(event.target)) {
-                        profileMenu.classList.add('hidden');
-                    }
-                });
             });
         </script> --}}
     @endpush
