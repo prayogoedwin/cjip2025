@@ -17,7 +17,7 @@
             <!-- End Title -->
 
             <div class="mt-2 max-w-3xl text-center mx-auto">
-                <p class="text-lg text-gray-600 dark:text-gray-400">{{ __('kawasan.deskripsi', [], $locale) }}</p>
+                {{-- <p class="text-lg text-gray-600 dark:text-gray-400">{{ __('kawasan.deskripsi', [], $locale) }}</p> --}}
             </div>
         </div>
     </div>
