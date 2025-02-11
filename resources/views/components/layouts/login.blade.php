@@ -30,13 +30,13 @@
     <link href="{{ asset('assets/libs/%40iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/icons.min.css') }}" />
 
-    <link rel="stylesheet" href="{{ asset('assets/css/tailwind.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/tailwind1.min.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-nunito text-base text-black dark:text-white dark:bg-slate-900"
+<body class="antialiased font-nunito text-base text-black dark:text-white dark:bg-slate-900"
     style="background-image: url('https://preline.co/assets/svg/examples/polygon-bg-element.svg'); background-repeat: no-repeat; background-size: cover;">
 
     <main>

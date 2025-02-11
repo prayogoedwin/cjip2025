@@ -70,7 +70,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="inline mb-0" wire:ignore>
+                {{-- <li class="inline mb-0" wire:ignore>
                     <a href="#" id="theme-toggle" type="button"
                         class="inline-flex items-center  justify-center tracking-wide align-middle text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2.5">
                         <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -84,7 +84,7 @@
                                 fill-rule="evenodd" clip-rule="evenodd"></path>
                         </svg>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="inline mb-0">
                     <div class="relative inline-block">
@@ -179,7 +179,7 @@
         </div>
     </nav>
     @push('js')
-        <script>
+        {{-- <script>
             // On page load or when changing themes, best to add inline in `head` to avoid FOUC
             if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
                     '(prefers-color-scheme: dark)').matches)) {
@@ -187,8 +187,8 @@
             } else {
                 document.documentElement.classList.remove('dark')
             }
-        </script>
-        <script>
+        </script> --}}
+        {{-- <script>
             var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
             var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
@@ -246,6 +246,6 @@
                     }
                 });
             });
-        </script>
+        </script> --}}
     @endpush
 </div>
