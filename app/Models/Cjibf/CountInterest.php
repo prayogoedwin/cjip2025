@@ -2,8 +2,8 @@
 
 namespace App\Models\Cjibf;
 
-use App\Models\Investasi\KawasanIndustri;
-use App\Models\Investasi\ProyekInvestasi;
+use App\Models\Cjip\KawasanIndustri;
+use App\Models\Cjip\ProyekInvestasi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,8 +22,8 @@ class CountInterest extends Model
     {
         return $this->belongsTo(KawasanIndustri::class, 'proyek_id');
     }
-    public function manual()
-    {
-        return $this->belongsTo(ManualProjects::class, 'proyek_id');
-    }
+    // public function manual()
+    // {
+    //     return $this->belongsTo(ManualProjects::class, 'proyek_id');
+    // }
 }
