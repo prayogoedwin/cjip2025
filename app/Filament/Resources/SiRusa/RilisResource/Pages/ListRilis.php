@@ -4,6 +4,7 @@ namespace App\Filament\Resources\SiRusa\RilisResource\Pages;
 
 use App\Events\AfterRilisProcessed;
 use App\Filament\Resources\SiRusa\RilisResource;
+use App\Filament\Resources\SiRusa\RilisResource\Widgets\LastImportRilis;
 use App\Jobs\SiRusa\ImportRilis;
 use App\Models\SiMike\Proyek;
 use App\Models\SiRusa\ReportRilis;
@@ -230,6 +231,7 @@ class ListRilis extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
+            LastImportRilis::class
             // FilterWidget::class,
             // PmaPmdnPieChart::class,
             // NakerPmaPmdnPieChart::class,
