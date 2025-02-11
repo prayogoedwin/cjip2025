@@ -4,9 +4,11 @@ namespace App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource\Pages;
 
 use App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource;
 use App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource\Widgets\QuickReportKepeminatan;
+use App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource\Widgets\QuickReportKepeminatanByLokasi;
 use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Model;
 
 class ListKepeminatans extends ListRecords
 {
@@ -24,9 +26,11 @@ class ListKepeminatans extends ListRecords
                 ->color('primary'),
         ];
     }
+
     protected function getHeaderWidgets(): array
     {
         return [
+            // QuickReportKepeminatanByLokasi::class,
             QuickReportKepeminatan::class,
         ];
     }
