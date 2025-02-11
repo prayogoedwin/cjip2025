@@ -41,6 +41,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Cjip\JenisPpp' => 'App\Policies\Cjip\JenisPppPolicy',
 
         'App\Models\Cjibf\CjibfRegisterO3m' => 'App\Policies\Cjibf\CjibfRegisterO3mPolicy',
+        'App\Models\Cjibf\Event' => 'App\Policies\Cjip\EventPolicy',
 
         'App\Models\SiMike\Proyek' => 'App\Policies\SiMike\ProyekPolicy',
         'App\Models\SiMike\RulesSimike' => 'App\Policies\SiMike\RulesSimikePolicy',

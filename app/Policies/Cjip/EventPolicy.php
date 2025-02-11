@@ -15,7 +15,7 @@ class EventPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_cjip::event');
+        return $user->can('view_any_event');
     }
 
     /**
@@ -23,7 +23,7 @@ class EventPolicy
      */
     public function view(User $user, Event $event): bool
     {
-        return $user->can('view_cjip::event');
+        return $user->can('view_event');
     }
 
     /**
@@ -31,7 +31,7 @@ class EventPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_cjip::event');
+        return $user->can('create_event');
     }
 
     /**
@@ -39,7 +39,7 @@ class EventPolicy
      */
     public function update(User $user, Event $event): bool
     {
-        return $user->can('update_cjip::event');
+        return $user->can('update_event');
     }
 
     /**
@@ -47,7 +47,7 @@ class EventPolicy
      */
     public function delete(User $user, Event $event): bool
     {
-        return $user->can('delete_cjip::event');
+        return $user->can('delete_event');
     }
 
     /**
@@ -55,7 +55,7 @@ class EventPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_cjip::event');
+        return $user->can('delete_any_event');
     }
 
     /**
@@ -63,7 +63,7 @@ class EventPolicy
      */
     public function forceDelete(User $user, Event $event): bool
     {
-        return $user->can('force_delete_cjip::event');
+        return $user->can('force_delete_event');
     }
 
     /**
@@ -71,7 +71,7 @@ class EventPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_cjip::event');
+        return $user->can('force_delete_any_event');
     }
 
     /**
@@ -79,7 +79,7 @@ class EventPolicy
      */
     public function restore(User $user, Event $event): bool
     {
-        return $user->can('restore_cjip::event');
+        return $user->can('restore_event');
     }
 
     /**
@@ -87,7 +87,7 @@ class EventPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_cjip::event');
+        return $user->can('restore_any_event');
     }
 
     /**
@@ -95,7 +95,7 @@ class EventPolicy
      */
     public function replicate(User $user, Event $event): bool
     {
-        return $user->can('replicate_cjip::event');
+        return $user->can('replicate_event');
     }
 
     /**
@@ -103,6 +103,6 @@ class EventPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_cjip::event');
+        return $user->can('reorder_event');
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Models\Cjibf;
 
+use App\Models\Cjip\Kabkota;
+use App\Models\Cjip\Kawasan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use app\Models\General\Kabkota;
-use App\Models\Investasi\Kawasan;
 use app\Models\Investasi\ProyekInvestasi;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
