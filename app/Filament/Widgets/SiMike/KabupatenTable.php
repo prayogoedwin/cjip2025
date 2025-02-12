@@ -111,6 +111,7 @@ class KabupatenTable extends BaseWidget
                 ->groupBy('kab_kota_id');
         }
         return $table
+            ->striped()
             ->heading('')
             ->query($query)
             ->paginated(false)

@@ -230,7 +230,7 @@
                 }
 
             });
-        </script>
+        </script> --}}
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var profileMenuButton = document.getElementById('profileMenuButton');
@@ -246,6 +246,6 @@
                     }
                 });
             });
-        </script> --}}
+        </script>
     @endpush
 </div>

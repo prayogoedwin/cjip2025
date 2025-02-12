@@ -58,6 +58,7 @@ class ReportSimike extends Page implements HasForms, HasTable
                 '))
                     ->groupBy('users.id', 'kabkotas.nama')
             )
+            ->striped()
             ->columns([
                 TextColumn::make('kabkota_nama')
                     ->label('Nama Kabkota'),

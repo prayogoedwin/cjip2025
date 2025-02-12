@@ -36,8 +36,8 @@
     <link href="{{ asset('assets/libs/swiper/css/swiper.min.css') }}" rel="stylesheet">
     <!-- Main Css -->
     <link href="{{ asset('assets/libs/%40iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet">
-    {{-- <link href="{{ asset('assets/libs/%40mdi/font/css/materialdesignicons.min.css') }}" rel="stylesheet"
-        type="text/css"> --}}
+    <link href="{{ asset('assets/libs/%40mdi/font/css/materialdesignicons.min.css') }}" rel="stylesheet"
+        type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind1.min.css') }}">
 
     <style>

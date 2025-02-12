@@ -41,12 +41,12 @@
 
             <!-- swipper controls -->
             {{-- <div class="swiper-pagination"></div> --}}
-            <div
+            {{-- <div
                 class="swiper-button-next bg-transparent w-[35px] h-[35px] leading-[35px] -mt-[30px] bg-none border border-solid border-white/50 text-white hover:bg-green-600 hover:border-green-600 rounded-full text-center">
             </div>
             <div
                 class="swiper-button-prev bg-transparent w-[35px] h-[35px] leading-[35px] -mt-[30px] bg-none border border-solid border-white/50 text-white hover:bg-green-600 hover:border-green-600 rounded-full text-center">
-            </div>
+            </div> --}}
 
             <div
                 class="absolute gap-3 bottom-0 left-0 right-0 justify-center mb-4 z-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-4 w-full max-w-5xl mx-auto">

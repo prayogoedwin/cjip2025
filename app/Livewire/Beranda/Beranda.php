@@ -36,6 +36,6 @@ class Beranda extends Component
         } else {
             $this->locale = 'id';
         }
-        return view('livewire.beranda.beranda');
+        return view('livewire.beranda.beranda')->layout('components.layouts.app');
     }
 }
