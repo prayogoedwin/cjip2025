@@ -23,13 +23,13 @@
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
             @foreach ($products as $product)
-                <div class="blog relative rounded-md shadow-md dark:shadow-gray-700 overflow-hidden mb-4">
+                <div class="relative rounded-md shadow-md dark:shadow-gray-700 overflow-hidden mb-4">
                     <img src="{{ $product->gambar }}" alt="" class="object-cover"
                         style="height: 230px; width: 100%;">
 
                     <div class="content p-3">
                         <a href="{{ route('detail.product', $product->slug) }}"
-                            class="title h5 text-xl font-semibold hover:text-green-900 text-green-600 transition duration-500 text-justify">
+                            class="text-xl font-semibold hover:text-green-900 text-green-600 transition duration-500 text-justify">
                             {{ $product->name }}</a>
                         <p class="desc text-gray-500">
                             {!! Str::limit(str($product->description)->markdown()->sanitizeHtml(), 150) !!}
