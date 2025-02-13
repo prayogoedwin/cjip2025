@@ -148,12 +148,16 @@ class ListProyeks extends ListRecords
                 ->size('md')
         ];
     }
+    protected function paginateTableQuery(Builder $query): Paginator
+    {
+        return $query->simplePaginate(($this->getTableRecordsPerPage() === 'all') ? $query->count() : $this->getTableRecordsPerPage());
+    }
     protected function getTableQuery(): Builder
     {
         if (auth()->user()->hasRole('kabkota')) {
             return parent::getTableQuery()->where('kab_kota_id', auth()->user()->kabkota->id)->where('dikecualikan', 0)->where('is_mapping', 1);
         }
-        return parent::getTableQuery();
+        return parent::getTableQuery()->where('dikecualikan', 0)->where('is_mapping', 1);
     }
     public function storeReport(array $data)
     {

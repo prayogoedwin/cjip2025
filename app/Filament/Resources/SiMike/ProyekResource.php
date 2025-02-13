@@ -243,8 +243,6 @@ class ProyekResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->poll('10s')
-            ->deferLoading()
             ->recordCheckboxPosition(\Filament\Tables\Enums\RecordCheckboxPosition::BeforeCells)
             ->columns([
                 Tables\Columns\TextColumn::make('id_proyek')
@@ -322,20 +320,20 @@ class ProyekResource extends Resource
                     ->getStateUsing(function (Model $record) {
                         return $record->tki + $record->tka;
                     }),
-                Tables\Columns\IconColumn::make('dikecualikan')
-                    ->boolean()
-                    ->label('Dikecualikan')
-                    ->sortable()
-                    ->trueColor('danger')
-                    ->falseColor('success')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\IconColumn::make('is_mapping')
-                    ->boolean()
-                    ->label('Is Mapping')
-                    ->sortable()
-                    ->trueColor('danger')
-                    ->falseColor('success')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\IconColumn::make('dikecualikan')
+                //     ->boolean()
+                //     ->label('Dikecualikan')
+                //     ->sortable()
+                //     ->trueColor('danger')
+                //     ->falseColor('success')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\IconColumn::make('is_mapping')
+                //     ->boolean()
+                //     ->label('Is Mapping')
+                //     ->sortable()
+                //     ->trueColor('danger')
+                //     ->falseColor('success')
+                //     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('jumlah_investasi')
                     ->label('Rencana Nilai Investasi')
                     ->formatStateUsing(fn(float $state): string => "Rp. " . number_format($state, 0, ',', '.'))
@@ -544,9 +542,9 @@ class ProyekResource extends Resource
 
                     Tables\Filters\SelectFilter::make('kab_kota_id')
                         ->label('Kabupaten/Kota')
+                        ->relationship('kabkota', 'nama')
                         ->searchable()
                         ->placeholder('Pilih Kabupaten/Kota')
-                        ->relationship('kabkota', 'nama')
                         ->visible(function () {
                             if (auth()->user()->hasRole('kabkota')) {
                                 return false;
@@ -632,31 +630,31 @@ class ProyekResource extends Resource
                         }),
 
 
-                    Tables\Filters\SelectFilter::make('dikecualikan')->label('Dikecualikan')
-                        ->options([
-                            0 => 'Tidak Dikecualikan',
-                            1 => 'Dikecualikan',
-                        ])
-                        ->default('0')
-                        ->visible(function () {
-                            if (auth()->user()->hasRole('kabkota')) {
-                                return false;
-                            }
-                            return true;
-                        }),
+                    // Tables\Filters\SelectFilter::make('dikecualikan')->label('Dikecualikan')
+                    //     ->options([
+                    //         0 => 'Tidak Dikecualikan',
+                    //         1 => 'Dikecualikan',
+                    //     ])
+                    //     ->default('0')
+                    //     ->visible(function () {
+                    //         if (auth()->user()->hasRole('kabkota')) {
+                    //             return false;
+                    //         }
+                    //         return true;
+                    //     }),
 
-                    Tables\Filters\SelectFilter::make('is_mapping')->label('Is Mapping')
-                        ->options([
-                            0 => 'Tidak Mapping',
-                            1 => 'Mapping',
-                        ])
-                        ->default('1')
-                        ->visible(function () {
-                            if (auth()->user()->hasRole('kabkota')) {
-                                return false;
-                            }
-                            return true;
-                        }),
+                    // Tables\Filters\SelectFilter::make('is_mapping')->label('Is Mapping')
+                    //     ->options([
+                    //         0 => 'Tidak Mapping',
+                    //         1 => 'Mapping',
+                    //     ])
+                    //     ->default('1')
+                    //     ->visible(function () {
+                    //         if (auth()->user()->hasRole('kabkota')) {
+                    //             return false;
+                    //         }
+                    //         return true;
+                    //     }),
                 ],
                 layout: FiltersLayout::AboveContent
             )
