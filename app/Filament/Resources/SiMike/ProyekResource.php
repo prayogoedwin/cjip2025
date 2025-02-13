@@ -247,7 +247,7 @@ class ProyekResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id_proyek')
                     ->label('ID Proyek')
-                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nib')
                     ->copyable()
@@ -257,13 +257,13 @@ class ProyekResource extends Resource
                     ->label('Tanggal Pengajuan Proyek')
                     ->wrap()
                     // ->date('d M Y')
-                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tanggal_terbit_oss')
                     ->label('Tanggal Terbit OSS')
                     ->wrap()
                     ->date('d M Y')
-                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nama_perusahaan')
                     ->label('Nama Perusahaan')
@@ -275,7 +275,7 @@ class ProyekResource extends Resource
                 Tables\Columns\TextColumn::make('judul_kbli')
                     ->label('Judul KBLI')
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->wrap(),
                 Tables\Columns\TextColumn::make('kbli2digit.kbli_2digit')
                     ->label('KBLI 2Digit')
@@ -295,12 +295,13 @@ class ProyekResource extends Resource
                 Tables\Columns\TextColumn::make('klsektor_pembina')
                     ->label('K/L Sektor Pembina')
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->wrap(),
                 Tables\Columns\TextColumn::make('sektor')
                     ->label('Kategori')->searchable()->wrap()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\BadgeColumn::make('uraian_skala_usaha')
+                    ->toggleable(isToggledHiddenByDefault: false),
+                Tables\Columns\TextColumn::make('uraian_skala_usaha')
+                    ->badge()
                     ->colors([
                         'warning' => 'Usaha Menengah',
                         'success' => 'Usaha Besar',
@@ -390,25 +391,25 @@ class ProyekResource extends Resource
                     ->label('Nama User')
                     ->wrap()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('nomor_identitas_user')
                     ->label('Nomor Identitas User')
                     ->wrap()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('email')
                     ->wrap()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('alamat')
                     ->wrap()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('nomor_telp')
                     ->label('Nomor Telp')
                     ->wrap()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('uraian_status_penanaman_modal')
                     ->label('Status Penanaman Modal')
                     ->wrap()
@@ -433,12 +434,12 @@ class ProyekResource extends Resource
                     ->wrap()
                     ->label('Luas Tanah')
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('satuan_tanah')
                     ->wrap()
                     ->label('Satuan Tanah')
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('kabkota.nama')
                     ->wrap()
                     ->label('Kabupaten/Kota')

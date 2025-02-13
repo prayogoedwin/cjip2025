@@ -148,10 +148,7 @@ class ListProyeks extends ListRecords
                 ->size('md')
         ];
     }
-    protected function paginateTableQuery(Builder $query): Paginator
-    {
-        return $query->simplePaginate(($this->getTableRecordsPerPage() === 'all') ? $query->count() : $this->getTableRecordsPerPage());
-    }
+
     protected function getTableQuery(): Builder
     {
         if (auth()->user()->hasRole('kabkota')) {
