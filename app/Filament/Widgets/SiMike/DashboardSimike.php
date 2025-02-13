@@ -67,21 +67,14 @@ class DashboardSimike extends Widget implements HasForms
                     'sm' => 1,
                     'xl' => 1,
                 ])->schema([
-
-                    // Select::make('tahun')
-                    //     ->default(now()->year)
-                    //     ->searchable()
-                    //     ->required()
-                    //     ->options(fn() => array_combine(
-                    //         $years = range(now()->year, now()->year - 5),
-                    //         $years
-                    //     )),
                     Select::make('tahun')
-                        ->options([
-                            '2025' => '2025',
-                            '2024' => '2024',
-                            '2023' => '2023',
-                        ]),
+                        ->default(now()->year)
+                        ->searchable()
+                        ->required()
+                        ->options(fn() => array_combine(
+                            $years = range(now()->year, now()->year - 2),
+                            $years
+                        )),
                     Fieldset::make('Tanggal Terbit Oss')
                         ->schema([
                             Grid::make()->schema([
@@ -90,12 +83,14 @@ class DashboardSimike extends Widget implements HasForms
                                     ->disableLabel()
                                     ->placeholder('Awal')
                                     ->format('d M Y')
+                                    ->required()
                                     ->displayFormat('d M Y'),
                                 DatePicker::make('end')
                                     ->label('Tanggal Akhir')
                                     ->disableLabel()
                                     ->placeholder('Akhir')
                                     ->format('d M Y')
+                                    ->required()
                                     ->displayFormat('d M Y'),
                             ])->columns(2),
                         ])
