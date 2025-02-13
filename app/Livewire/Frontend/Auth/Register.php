@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Frontend\Auth;
 
-use App\Models\Role;
+// use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class Register extends Component
 {
@@ -46,7 +47,7 @@ class Register extends Component
         session()->flash('message', 'Your registration was successful. Go to the login page.');
 
         $this->loading = false;
-        $this->resetInputFields();
+        // $this->resetInputFields();
         if (Session::has('product_id')) {
             Auth::attempt(['email' => $this->email, 'password' => $this->password]);
             return redirect()->route('detail.product', Session::get('product_id'));
