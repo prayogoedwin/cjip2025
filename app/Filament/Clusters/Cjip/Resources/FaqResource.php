@@ -28,6 +28,8 @@ class FaqResource extends Resource
 
     protected static ?string $navigationLabel = 'FAQ';
 
+    protected static ?int $navigationSort = 13;
+
     protected static ?string $pluralLabel = 'FAQ';
 
     protected static ?string $cluster = Cjip::class;

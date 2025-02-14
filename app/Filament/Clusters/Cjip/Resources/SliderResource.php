@@ -32,12 +32,11 @@ class SliderResource extends Resource
     {
         return ['id', 'en'];
     }
-    protected static ?int $navigationSort = -1;
+    protected static ?int $navigationSort = 1;
     protected static ?string $model = Slider::class;
     protected static ?string $navigationGroup = 'Setting';
     protected static ?string $navigationLabel = 'Slider';
     protected static ?string $recordTitleAttribute = 'title';
-
     protected static ?string $pluralLabel = 'Slider';
     protected static ?string $cluster = Cjip::class;
 

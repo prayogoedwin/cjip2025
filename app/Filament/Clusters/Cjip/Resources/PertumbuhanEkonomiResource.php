@@ -31,6 +31,8 @@ class PertumbuhanEkonomiResource extends Resource
 
     protected static ?string $navigationLabel = 'Pertumbuhan Ekonomi';
 
+    protected static ?int $navigationSort = 5;
+
     protected static ?string $pluralLabel = 'Pertumbuhan Ekonomi';
 
     protected static ?string $cluster = Cjip::class;

@@ -49,6 +49,8 @@ class KawasanIndustriResource extends Resource
 
     protected static ?string $navigationLabel = 'Kawasan Industri';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $pluralLabel = 'Kawasan Industri';
     protected static ?string $cluster = Cjip::class;
 

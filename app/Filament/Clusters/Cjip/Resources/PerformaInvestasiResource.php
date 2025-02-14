@@ -29,6 +29,8 @@ class PerformaInvestasiResource extends Resource
 
     protected static ?string $navigationLabel = 'Performa Investasi';
 
+    protected static ?int $navigationSort = 6;
+
     protected static ?string $pluralLabel = 'Performa Investasi';
 
     protected static ?string $cluster = Cjip::class;

@@ -30,6 +30,8 @@ class BiayaListrikResource extends Resource
 
     protected static ?string $navigationLabel = 'Biaya Listrik';
 
+    protected static ?int $navigationSort = 10;
+
     protected static ?string $pluralLabel = 'Biaya Listrik';
 
     protected static ?string $cluster = Cjip::class;

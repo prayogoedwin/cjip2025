@@ -19,8 +19,8 @@ class EventResource extends Resource
 {
     protected static ?string $model = CjipEvent::class;
 
-    protected static ?string $navigationGroup = 'CJIBF';
-
+    protected static ?string $navigationGroup = 'Cjibf';
+    protected static ?int $navigationSort = 3;
     protected static ?string $cluster = Cjip::class;
 
     public static function form(Form $form): Form

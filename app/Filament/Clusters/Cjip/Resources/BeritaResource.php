@@ -45,6 +45,8 @@ class BeritaResource extends Resource
     protected static ?string $navigationGroup = 'Cjip';
     protected static ?string $navigationLabel = 'Berita';
     protected static ?string $recordTitleAttribute = 'title';
+
+    protected static ?int $navigationSort = 4;
     protected static ?string $pluralLabel = 'Berita';
     protected static ?string $cluster = Cjip::class;
 

@@ -29,6 +29,8 @@ class PendidikanResource extends Resource
 
     protected static ?string $navigationLabel = 'Pendidikan';
 
+    protected static ?int $navigationSort = 8;
+
     protected static ?string $pluralLabel = 'Pendidikan';
 
     protected static ?string $cluster = Cjip::class;

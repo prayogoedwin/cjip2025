@@ -28,6 +28,8 @@ class PrivacyPolicyResource extends Resource
 
     protected static ?string $navigationLabel = 'Privacy Policy';
 
+    protected static ?int $navigationSort = 12;
+
     protected static ?string $pluralLabel = 'Privacy Policy';
 
     protected static ?string $cluster = Cjip::class;

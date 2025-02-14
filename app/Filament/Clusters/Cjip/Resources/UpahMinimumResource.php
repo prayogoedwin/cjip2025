@@ -31,6 +31,8 @@ class UpahMinimumResource extends Resource
 
     protected static ?string $navigationLabel = 'Upah Minimum';
 
+    protected static ?int $navigationSort = 9;
+
     protected static ?string $pluralLabel = 'Upah Minimum';
 
     protected static ?string $cluster = Cjip::class;

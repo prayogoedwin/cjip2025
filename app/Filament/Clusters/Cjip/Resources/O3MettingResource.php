@@ -29,9 +29,11 @@ class O3MettingResource extends Resource
     protected static ?string $model = CjibfRegisterO3m::class;
     protected static ?string $cluster = Cjip::class;
 
-    protected static ?string $navigationGroup = 'CJIBF';
+    protected static ?string $navigationGroup = 'Cjibf';
 
     protected static ?string $navigationLabel = 'Register O3m';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $pluralLabel = 'Register O3m';
 

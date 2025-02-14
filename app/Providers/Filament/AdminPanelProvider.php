@@ -136,6 +136,9 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-squares-2x2')
                     ->collapsed()
                     ->collapsible(),
+
+
+
             ])
             ->authMiddleware([
                 Authenticate::class,

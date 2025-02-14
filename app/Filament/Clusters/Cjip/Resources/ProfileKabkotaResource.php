@@ -39,6 +39,8 @@ class ProfileKabkotaResource extends Resource
 
     protected static ?string $navigationLabel = 'Profil Kabupaten/Kota';
 
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $pluralLabel = 'Profil Kabupaten/Kota';
 
     protected static ?string $cluster = Cjip::class;

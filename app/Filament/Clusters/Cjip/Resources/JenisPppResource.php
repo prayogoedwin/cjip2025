@@ -24,6 +24,8 @@ class JenisPppResource extends Resource
 
     protected static ?string $navigationLabel = 'Jenis PPP';
 
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $pluralLabel = 'Jenis PPP';
 
     protected static ?string $cluster = Cjip::class;

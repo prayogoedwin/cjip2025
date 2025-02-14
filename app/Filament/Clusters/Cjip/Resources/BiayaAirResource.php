@@ -30,6 +30,8 @@ class BiayaAirResource extends Resource
 
     protected static ?string $navigationLabel = 'Biaya Air';
 
+    protected static ?int $navigationSort = 11;
+
     protected static ?string $pluralLabel = 'Biaya Air';
 
     protected static ?string $cluster = Cjip::class;
