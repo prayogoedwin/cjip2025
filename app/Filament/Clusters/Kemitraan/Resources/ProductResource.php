@@ -14,12 +14,18 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\Layout\Grid;
+use Filament\Tables\Columns\Layout\Panel;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
@@ -118,25 +124,78 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image_cover')->label('Cover Produk')->width(50),
-                TextColumn::make('name')->label('Nama Produk')->searchable()->sortable(),
-                TextColumn::make('description')->label('Deskripsi Produk')->searchable()->wrap()->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('user.name')->label('Pemilik Produk')->searchable(),
-                TextColumn::make('user.userperusahaan.nama_perusahaan')->label('Nama Perusahaan')->searchable(),
-                TextColumn::make('user.userperusahaan.alamat_perusahaan')->label('Alamat Perusahaan')->searchable()->wrap()->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')->label('Tanggal Update')->searchable()->date('d F Y')->wrap()->toggleable(isToggledHiddenByDefault: true),
+                Stack::make([
+                    ImageColumn::make('image_cover')->label('Cover Produk')
+                        ->height(150)
+                        ->getStateUsing(function (Model $record) {
+                            if ($record->image_cover) {
+                                $thumb = $record->image_cover;
+                                return $thumb;
+                            }
+                            return asset('images/no_image.jpeg');
+                        })
+                        ->height('150px')
+                        ->extraImgAttributes([
+                            'class' => 'object-cover h-cover rounded-t-xl w-full mb-2',
+                        ]),
+
+                    TextColumn::make('name')->label('Nama Produk')
+                        ->searchable()
+                        ->weight(FontWeight::Bold)
+                        ->extraAttributes([
+                            'class' => 'mb-2',
+                        ])
+                        ->sortable(),
+                    TextColumn::make('description')->label('Deskripsi Produk')
+                        ->tooltip(function (TextColumn $column): ?string {
+                            $state = $column->getState();
+
+                            if (strlen($state) <= $column->getCharacterLimit()) {
+                                return null;
+                            }
+
+                            // Only render the tooltip if the column content exceeds the length limit.
+                            return $state;
+                        })
+                        ->limit(100)
+                        ->searchable()
+                        ->wrap(),
+
+                    TextColumn::make('user.name')->label('Pemilik Produk')
+                        ->icon('heroicon-m-user-circle')
+                        ->searchable()
+                        ->extraAttributes([
+                            'class' => 'mt-2',
+                        ]),
+                    Split::make([
+                        TextColumn::make('user.userperusahaan.nama_perusahaan')->label('Nama Perusahaan')
+                            ->icon('heroicon-m-building-office')
+                            ->searchable()
+                            ->color('primary'),
+                        TextColumn::make('created_at')->label('Tanggal Update')->searchable()
+                            ->icon('heroicon-m-calendar')
+                            ->date('d M Y')
+                            ->wrap()
+                            ->alignRight(),
+                    ]),
+                ])
             ])->defaultSort('created_at', 'desc')
+            ->contentGrid([
+                'sm' => 1,
+                'md' => 2,
+                'lg' => 3
+            ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()->iconButton(),
+                Tables\Actions\ViewAction::make()->label('Lihat')->button()->icon('heroicon-m-eye'),
                 Tables\Actions\EditAction::make()->iconButton(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 
