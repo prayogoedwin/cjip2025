@@ -5,8 +5,12 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 
 use App\Policies\ActivityPolicy;
+use App\Policies\FolderPolicy;
+use App\Policies\MediaPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use TomatoPHP\FilamentLogger\Models\Activity;
+use TomatoPHP\FilamentMediaManager\Models\Folder;
+use TomatoPHP\FilamentMediaManager\Models\Media;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -52,6 +56,11 @@ class AuthServiceProvider extends ServiceProvider
 
         'App\Models\Kepeminatan\Smtp' => 'App\Policies\Kepeminatan\SmtpPolicy',
         'App\Models\Kepeminatan\TemplateEmail' => 'App\Policies\Kepeminatan\TemplateEmailPolicy',
+
+        'App\Models\Simike\Report' => 'App\Policies\Simike\ReportPolicy',
+
+        Folder::class => FolderPolicy::class,
+        Media::class => MediaPolicy::class
 
 
     ];

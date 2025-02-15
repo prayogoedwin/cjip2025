@@ -34,6 +34,7 @@ use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
 use Filament\Navigation\NavigationItem;
 use App\Filament\Pages\Dashboard as PagesDashboard;
 use TomatoPHP\FilamentLogger\FilamentLoggerPlugin;
+use TomatoPHP\FilamentMediaManager\FilamentMediaManagerPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -82,6 +83,7 @@ class AdminPanelProvider extends PanelProvider
                         'sm' => 2,
                     ]),
                 SpotlightPlugin::make(),
+                FilamentMediaManagerPlugin::make()->allowSubFolders()->allowUserAccess(),
                 FilamentProgressbarPlugin::make()->color('#16a34a'),
                 SpatieLaravelTranslatablePlugin::make()->defaultLocales(['id', 'en']),
                 FilamentLoggerPlugin::make(),
