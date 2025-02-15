@@ -17,6 +17,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,6 +32,15 @@ class UserResource extends Resource
     protected static ?string $navigationGroup = 'Super Admin';
 
     protected static ?int $navigationSort = -2;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::count() > 500 ? 'danger' : 'primary';
+    }
 
     public static function form(Form $form): Form
     {
@@ -199,10 +209,22 @@ class UserResource extends Resource
                     ]),
             ])->defaultSort('created_at', 'desc')
             ->filters([
-                SelectFilter::make('roles_id')->label('Roles')->relationship('roles', 'name'),
-                SelectFilter::make('user_kawasan_id')->label('User Kawasan')->relationship('userkawasan', 'nama'),
-                SelectFilter::make('kabkota_id')->label('Kabupaten/Kota')->relationship('kabkota', 'nama'),
-            ])
+                SelectFilter::make('roles_id')->label('Roles')
+                    ->relationship('roles', 'name')
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('user_kawasan_id')
+                    ->label('User Kawasan')
+                    ->relationship('userkawasan', 'nama')
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('kabkota_id')
+                    ->label('Kabupaten/Kota')
+                    ->relationship('kabkota', 'nama')
+                    ->searchable()
+                    ->preload(),
+            ], layout: FiltersLayout::AboveContent)
+            ->filtersFormColumns(3)
             ->actions([
                 Impersonate::make()->iconButton(),
                 ActionGroup::make([
