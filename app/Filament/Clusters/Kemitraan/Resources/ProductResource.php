@@ -16,6 +16,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\Layout\Grid;
 use Filament\Tables\Columns\Layout\Panel;
@@ -153,30 +154,33 @@ class ProductResource extends Resource
                             if (strlen($state) <= $column->getCharacterLimit()) {
                                 return null;
                             }
-
-                            // Only render the tooltip if the column content exceeds the length limit.
                             return $state;
                         })
                         ->limit(100)
                         ->searchable()
                         ->wrap(),
 
-                    TextColumn::make('user.name')->label('Pemilik Produk')
-                        ->icon('heroicon-m-user-circle')
-                        ->searchable()
-                        ->extraAttributes([
-                            'class' => 'mt-2',
-                        ]),
                     Split::make([
-                        TextColumn::make('user.userperusahaan.nama_perusahaan')->label('Nama Perusahaan')
-                            ->icon('heroicon-m-building-office')
+                        TextColumn::make('user.name')->label('Pemilik Produk')
+                            ->icon('heroicon-m-user-circle')
                             ->searchable()
-                            ->color('primary'),
+                            ->extraAttributes([
+                                'class' => 'mt-2',
+                            ]),
                         TextColumn::make('created_at')->label('Tanggal Update')->searchable()
                             ->icon('heroicon-m-calendar')
                             ->date('d M Y')
                             ->wrap()
                             ->alignRight(),
+                    ]),
+                    Split::make([
+                        TextColumn::make('user.userperusahaan.nama_perusahaan')->label('Nama Perusahaan')
+                            ->icon('heroicon-m-building-office')
+                            ->searchable()
+                            ->color('primary'),
+                        IconColumn::make('is_active')
+                            ->alignRight()
+                            ->boolean()
                     ]),
                 ])
             ])->defaultSort('created_at', 'desc')
@@ -189,8 +193,8 @@ class ProductResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()->label('Lihat')->button()->icon('heroicon-m-eye'),
-                Tables\Actions\EditAction::make()->iconButton(),
+                Tables\Actions\ViewAction::make()->label('Lihat Detail')->icon('heroicon-m-eye'),
+                // Tables\Actions\EditAction::make()->iconButton(),
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
