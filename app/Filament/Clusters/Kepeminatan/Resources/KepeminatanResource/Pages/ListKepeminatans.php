@@ -5,6 +5,7 @@ namespace App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource\Pages;
 use App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource;
 use App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource\Widgets\QuickReportKepeminatan;
 use App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource\Widgets\QuickReportKepeminatanByLokasi;
+use App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource\Widgets\QuickReportKepeminatanBySector;
 use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
@@ -30,8 +31,9 @@ class ListKepeminatans extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            // QuickReportKepeminatanByLokasi::class,
             QuickReportKepeminatan::class,
+            QuickReportKepeminatanBySector::class,
+            QuickReportKepeminatanByLokasi::class
         ];
     }
 }
