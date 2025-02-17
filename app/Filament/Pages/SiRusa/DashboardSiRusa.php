@@ -9,9 +9,9 @@ use Filament\Pages\Page;
 class DashboardSiRusa extends Page
 {
     use HasPageShield;
-    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
-    protected static ?string $navigationLabel = 'Si-Rusa';
+    protected static ?string $navigationLabel = 'Dashboard Si-Rusa';
     protected static ?string $title = 'Dashboard Si-Rusa';
+    protected static ?string $navigationGroup = 'Si-Rusa';
     protected static string $view = 'filament.pages.si-rusa.dashboard-si-rusa';
 
     protected function getHeaderWidgets(): array

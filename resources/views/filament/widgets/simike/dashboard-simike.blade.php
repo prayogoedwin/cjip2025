@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="lg:text-4xl md:text-lg sm:text-md text-md flex justify-center font-semibold tracking-tight text-custom-600 dark:text-custom-600"
-                        style="font-size: 2.5rem;">
+                        style="font-size: 2rem;">
                         Rp. {{ number_format($simike->total_investasi) }}
                     </div>
                     <div class="flex justify-center gap-x-1">
