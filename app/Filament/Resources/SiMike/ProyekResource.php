@@ -557,12 +557,12 @@ class ProyekResource extends Resource
                         ->label('Kecamatan Usaha')
                         ->searchable()
                         ->multiple()
-                        ->default(function () {
-                            if (auth()->user()->kabkota->id) {
-                                return true;
-                            }
-                            return false;
-                        })
+                        // ->default(function () {
+                        //     if (auth()->user()->kabkota->id) {
+                        //         return true;
+                        //     }
+                        //     return false;
+                        // })
                         ->options(function () {
                             $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
                                 ->pluck('kecamatan_usaha')->toArray();
