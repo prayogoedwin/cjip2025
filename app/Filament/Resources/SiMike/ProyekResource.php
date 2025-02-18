@@ -553,32 +553,33 @@ class ProyekResource extends Resource
                             return true;
                         }),
 
-                    // SelectFilter::make('kecamatan_usaha')
-                    //     ->label('Kecamatan Usaha')
-                    //     ->searchable()
-                    //     ->multiple()
-                    //     ->default(function () {
-                    //         if (auth()->user()->kabkota->id) {
-                    //             return true;
-                    //         }
-                    //         return false;
-                    //     })
-                    //     ->options(function () {
-                    //         $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
-                    //             ->pluck('kecamatan_usaha')->toArray();
-                    //         $kec_usaha = array_combine($kec_usahas, $kec_usahas);
-                    //         return $kec_usaha;
-                    //     })
-                    //     ->visible(function () {
-                    //         if (auth()->user()->hasRole('kabkota')) {
-                    //             return true;
-                    //         }
-                    //         return false;
-                    //     }),
+                    SelectFilter::make('kecamatan_usaha')
+                        ->label('Kecamatan Usaha')
+                        ->searchable()
+                        ->multiple()
+                        ->default(function () {
+                            if (auth()->user()->kabkota->id) {
+                                return true;
+                            }
+                            return false;
+                        })
+                        ->options(function () {
+                            $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
+                                ->pluck('kecamatan_usaha')->toArray();
+                            $kec_usaha = array_combine($kec_usahas, $kec_usahas);
+                            return $kec_usaha;
+                        })
+                        ->visible(function () {
+                            if (auth()->user()->hasRole('kabkota')) {
+                                return true;
+                            }
+                            return false;
+                        }),
 
                     SelectFilter::make('kbli')
                         ->label('KBLI')
                         ->multiple()
+                        ->searchable()
                         ->options(function () {
                             $kbliCodes = Proyek::pluck('kbli')->unique()->toArray();
                             $options = [];
@@ -589,7 +590,7 @@ class ProyekResource extends Resource
                             return $options;
                         })->visible(function () {
                             if (auth()->user()->hasRole('kabkota')) {
-                                return false;
+                                return true;
                             }
                             return true;
                         }),
