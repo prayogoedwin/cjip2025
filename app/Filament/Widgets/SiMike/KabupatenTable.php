@@ -12,8 +12,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use Filament\Tables\Contracts\HasTable;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use Filament\Tables\Columns\Summarizers\Sum;
+use stdClass;
 
 class KabupatenTable extends BaseWidget
 {
@@ -115,6 +117,7 @@ class KabupatenTable extends BaseWidget
             ->heading('')
             ->query($query)
             ->paginated(false)
+            ->defaultSort('total', 'desc')
             ->headerActions([
                 ExportAction::make()->exports([
                     ExcelExport::make('table')

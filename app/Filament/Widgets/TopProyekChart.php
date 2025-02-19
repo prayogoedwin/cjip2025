@@ -47,7 +47,7 @@ class TopProyekChart extends ApexChartWidget
      *
      * @var string|null
      */
-    protected static ?string $heading = 'Top 10 Jumlah Nilai Investasi';
+    protected static ?string $heading = 'Top 5 Jumlah Nilai Investasi';
 
     /**
      * Chart options (series, labels, types, size, animations...)
@@ -86,7 +86,7 @@ class TopProyekChart extends ApexChartWidget
             ->join('kabkotas', 'kabkotas.id', '=', 'proyeks.kab_kota_id')
             ->groupBy('kab_kota_id', 'kabkotas.nama')
             ->orderByDesc(DB::raw('SUM(jumlah_investasi)'))
-            ->limit(10)
+            ->limit(5)
             ->when($tahun, function ($query, $tahun) {
                 return $query->where('tahun', $tahun);
             })
@@ -103,8 +103,20 @@ class TopProyekChart extends ApexChartWidget
                 return $query->whereBetween('tanggal_terbit_oss', [$startDate, $endDate]);
             })
             ->get();
-        $kabupatenKota = $proyekData->pluck('nama')->toArray();
-        $totalInvestasi = $proyekData->pluck('total')->toArray();
+        $proyekDataArray = $proyekData->map(function ($item) {
+            return [
+                'kabupaten' => $item->nama,
+                'total' => $item->total,
+            ];
+        })->sortByDesc('total')->values();
+
+        $kabupatenKota = $proyekDataArray->pluck('kabupaten')->toArray();
+        $totalInvestasi = $proyekDataArray->pluck('total')->toArray();
+
+        // Format data for currency
+        $totalInvestasiFormatted = array_map(function ($item) {
+            return 'Rp ' . number_format($item, 0, ',', '.');
+        }, $totalInvestasi);
         // Format data for currency
         $totalInvestasiFormatted = array_map(function ($item) {
             return 'Rp ' . number_format($item, 0, ',', '.');
