@@ -170,7 +170,7 @@ class KabupatenTable extends BaseWidget
                     })->sortable(),
 
                 Tables\Columns\TextColumn::make('total')
-                    ->label('Rencana Nilai Investasi')
+                    ->label('Jumlah Nilai Investasi')
                     ->formatStateUsing(function ($state) {
                         return 'Rp. ' . number_format($state);
                     })

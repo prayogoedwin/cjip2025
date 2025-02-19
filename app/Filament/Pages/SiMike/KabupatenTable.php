@@ -3,6 +3,7 @@
 namespace App\Filament\Pages\SiMike;
 
 use App\Filament\Widgets\Simike\KabupatenTable as SiMikeKabupatenTable;
+use App\Filament\Widgets\TopProyekChart;
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\Sektor;
 use App\Models\SiMike\Proyek;
@@ -192,7 +193,8 @@ class KabupatenTable extends Page
     protected function getFooterWidgets(): array
     {
         return [
-            SiMikeKabupatenTable::class
+            SiMikeKabupatenTable::class,
+            TopProyekChart::class
         ];
     }
 }
