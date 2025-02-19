@@ -136,6 +136,15 @@ class KabupatenTable extends BaseWidget
                         }
                         return true;
                     }),
+                // Tables\Columns\TextColumn::make('kecamatan_usaha')
+                //     ->searchable()
+                //     ->wrap()
+                //     ->visible(function () {
+                //         if (auth()->user()->hasRole('kabkota')) {
+                //             return true;
+                //         }
+                //         return false;
+                //     }),
                 Tables\Columns\TextColumn::make('proyek')
                     ->label('Jumlah Proyek')
                     ->formatStateUsing(function ($state) {
@@ -162,7 +171,6 @@ class KabupatenTable extends BaseWidget
 
                 Tables\Columns\TextColumn::make('total')
                     ->label('Rencana Nilai Investasi')
-                    ->description('Sesuai Dengan Parameter BKPM')
                     ->formatStateUsing(function ($state) {
                         return 'Rp. ' . number_format($state);
                     })
