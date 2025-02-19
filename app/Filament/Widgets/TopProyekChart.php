@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\SiMike\Proyek;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
+use Carbon\Carbon;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\DB;
 use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
@@ -12,7 +13,7 @@ use Malzariey\FilamentDaterangepickerFilter\Fields\DateRangePicker;
 class TopProyekChart extends ApexChartWidget
 {
     use HasWidgetShield;
-    // public $filter;
+
     public $tahun,
         $triwulan,
         $kabkota,
@@ -21,22 +22,12 @@ class TopProyekChart extends ApexChartWidget
         $uraian_skala_usaha,
         $kecamatan_usaha,
         $tanggal_terbit_oss,
-        $tanggal;
-    /**
-     * Chart Id
-     *
-     * @var string
-     */
+        $tanggal, $start, $end;
     protected static ?string $chartId = 'topProyekChart';
-
     protected int | string | array $columnSpan = 'full';
-
     protected static ?string $loadingIndicator = 'Loading...';
-
     protected static bool $deferLoading = true;
-
     protected $listeners = ['filterUpdated' => 'updateFilter'];
-
     public function updateFilter($tanggal_terbit_oss, $tahun, $triwulan, $kabkota, $sektor, $uraian_skala_usaha, $kecamatan_usaha)
     {
         $this->tanggal_terbit_oss = $tanggal_terbit_oss['tanggal'];
@@ -47,20 +38,7 @@ class TopProyekChart extends ApexChartWidget
         // $this->uraian_skala_usaha = $uraian_skala_usaha['uraian_skala_usaha'];
         // $this->kecamatan_usaha = $kecamatan_usaha['kecamatan_usaha'];
     }
-
-    /**
-     * Widget Title
-     *
-     * @var string|null
-     */
     protected static ?string $heading = 'Top 5 Chart Nilai Investasi';
-
-    /**
-     * Chart options (series, labels, types, size, animations...)
-     * https://apexcharts.com/docs/options
-     *
-     * @return array
-     */
 
     protected function getOptions(): array
     {
@@ -112,7 +90,7 @@ class TopProyekChart extends ApexChartWidget
             return [
                 'kabupaten' => $item->nama,
                 'total' => $item->total,
-                'project_count' => $item->project_count,  // Include the project count
+                'project_count' => $item->project_count,
             ];
         })->sortByDesc('total')->values();
 

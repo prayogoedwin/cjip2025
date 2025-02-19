@@ -36,45 +36,6 @@ class KabupatenTable extends Page
         $start, $end, $tanggal_terbit_oss,
         $superadmin;
 
-    public function submit()
-    {
-        if ($this->start && $this->end) {
-            $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
-        } else {
-            $this->tanggal_terbit_oss = null;
-        }
-        $this->tahun = $this->form->getState()['tahun'];
-        $this->triwulan = $this->form->getState()['triwulan'];
-        if (auth()->user()->hasRole('kabkota')) {
-            $this->kabkota = auth()->user()->kabkota->id;
-        } else {
-            $this->kabkota = $this->form->getState()['kabkota'];
-        }
-        $this->sektor = $this->form->getState()['sektor'];
-        $this->uraian_skala_usaha = $this->form->getState()['uraian_skala_usaha'];
-        if (auth()->user()->hasRole('super_admin')) {
-            $this->superadmin = auth()->user('super_admin');
-        } else {
-            // $this->kecamatan_usaha = $this->form->getState()['kecamatan_usaha'];
-        }
-
-        $this->dispatch(
-            'filterUpdated',
-            ['tanggal' => $this->tanggal_terbit_oss],
-            ['tahun' => $this->tahun],
-            ['triwulan' => $this->triwulan],
-            ['kabkota' => $this->kabkota],
-            ['sektor' => $this->sektor],
-            ['uraian_skala_usaha' => $this->uraian_skala_usaha],
-            ['kecamatan_usaha' => $this->kecamatan_usaha]
-        );
-    }
-
-    public function mount()
-    {
-        $this->tahun = now()->year;
-    }
-
     protected function getFormSchema(): array
     {
         return [
@@ -83,20 +44,14 @@ class KabupatenTable extends Page
                     'sm' => 1,
                     'xl' => 1,
                 ])->schema([
-                    // Select::make('tahun')
-                    //     ->default(now()->year)
-                    //     ->searchable()
-                    //     ->required()
-                    //     ->options(fn() => array_combine(
-                    //         $years = range(now()->year, now()->year - 5),
-                    //         $years
-                    //     )),
                     Select::make('tahun')
-                        ->options([
-                            '2025' => '2025',
-                            '2024' => '2024',
-                            '2023' => '2023',
-                        ]),
+                        ->default(now()->year)
+                        ->searchable()
+                        ->required()
+                        ->options(fn() => array_combine(
+                            $years = range(now()->year, now()->year - 2),
+                            $years
+                        )),
 
                     Fieldset::make('Tanggal Terbit Oss')
                         ->schema([
@@ -106,13 +61,17 @@ class KabupatenTable extends Page
                                     ->disableLabel()
                                     ->placeholder('Awal')
                                     ->format('d M Y')
-                                    ->displayFormat('d M Y'),
+                                    ->native(false)
+                                    ->displayFormat('d M Y')
+                                    ->default($this->start),
                                 DatePicker::make('end')
                                     ->label('Tanggal Akhir')
                                     ->disableLabel()
                                     ->placeholder('Akhir')
                                     ->format('d M Y')
-                                    ->displayFormat('d M Y'),
+                                    ->native(false)
+                                    ->displayFormat('d M Y')
+                                    ->default($this->end),
                             ])->columns(2),
                         ]),
                 ]),
@@ -188,6 +147,48 @@ class KabupatenTable extends Page
                     ])
             ])
         ];
+    }
+
+    public function mount()
+    {
+        $this->tahun = now()->year;
+        $this->start = Carbon::now()->startOfYear()->format('d M Y');
+        $this->end = Carbon::now()->format('d M Y');
+        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+    }
+
+    public function submit()
+    {
+        if ($this->start && $this->end) {
+            $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+        } else {
+            $this->tanggal_terbit_oss = null;
+        }
+        $this->tahun = $this->form->getState()['tahun'];
+        $this->triwulan = $this->form->getState()['triwulan'];
+        if (auth()->user()->hasRole('kabkota')) {
+            $this->kabkota = auth()->user()->kabkota->id;
+        } else {
+            $this->kabkota = $this->form->getState()['kabkota'];
+        }
+        $this->sektor = $this->form->getState()['sektor'];
+        $this->uraian_skala_usaha = $this->form->getState()['uraian_skala_usaha'];
+        if (auth()->user()->hasRole('super_admin')) {
+            $this->superadmin = auth()->user('super_admin');
+        } else {
+            // $this->kecamatan_usaha = $this->form->getState()['kecamatan_usaha'];
+        }
+
+        $this->dispatch(
+            'filterUpdated',
+            ['tanggal' => $this->tanggal_terbit_oss],
+            ['tahun' => $this->tahun],
+            ['triwulan' => $this->triwulan],
+            ['kabkota' => $this->kabkota],
+            ['sektor' => $this->sektor],
+            ['uraian_skala_usaha' => $this->uraian_skala_usaha],
+            ['kecamatan_usaha' => $this->kecamatan_usaha]
+        );
     }
 
     protected function getFooterWidgets(): array

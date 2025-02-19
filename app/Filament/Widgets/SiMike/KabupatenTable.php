@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets\Simike;
 
 use App\Models\SiMike\Proyek;
+use Carbon\Carbon;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -35,7 +36,7 @@ class KabupatenTable extends BaseWidget
         $kbli,
         $uraian_skala_usaha,
         $kecamatan_usaha,
-        $tanggal_terbit_oss,
+        $tanggal_terbit_oss, $start, $end,
         $tanggal;
 
     protected function isTablePaginationEnabled(): bool
@@ -61,6 +62,14 @@ class KabupatenTable extends BaseWidget
             return false;
         }
         return true;
+    }
+
+    public function mount()
+    {
+        $this->tahun = now()->year;
+        $this->start = Carbon::now()->startOfYear()->format('d M Y');
+        $this->end = Carbon::now()->format('d M Y');
+        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
     }
 
     public function table(Table $table): Table

@@ -470,8 +470,8 @@ class ProyekResource extends Resource
                         ->form([
                             Fieldset::make('Tanggal Terbit Oss')
                                 ->schema([
-                                    DatePicker::make('created_from')->label('Tanggal Awal')->hiddenLabel()->placeholder('Awal'),
-                                    DatePicker::make('created_until')->label('Tanggal Akhir')->hiddenLabel()->placeholder('Akhir'),
+                                    DatePicker::make('created_from')->label('Tanggal Awal')->hiddenLabel()->placeholder('Awal')->default(Carbon::now()->startOfYear()),
+                                    DatePicker::make('created_until')->label('Tanggal Akhir')->hiddenLabel()->placeholder('Akhir')->default(Carbon::now()),
                                 ])
                         ])
                         ->query(function (Builder $query, array $data): Builder {

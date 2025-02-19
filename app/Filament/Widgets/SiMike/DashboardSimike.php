@@ -57,6 +57,7 @@ class DashboardSimike extends Widget implements HasForms
 
         $superadmin,
         $admin;
+
     public $start, $end, $tanggal_terbit_oss;
 
     protected function getFormSchema(): array
@@ -84,14 +85,18 @@ class DashboardSimike extends Widget implements HasForms
                                     ->placeholder('Awal')
                                     ->format('d M Y')
                                     ->required()
-                                    ->displayFormat('d M Y'),
+                                    ->native(false)
+                                    ->displayFormat('d M Y')
+                                    ->default($this->start),
                                 DatePicker::make('end')
                                     ->label('Tanggal Akhir')
                                     ->disableLabel()
                                     ->placeholder('Akhir')
                                     ->format('d M Y')
                                     ->required()
-                                    ->displayFormat('d M Y'),
+                                    ->native(false)
+                                    ->displayFormat('d M Y')
+                                    ->default($this->end),
                             ])->columns(2),
                         ])
 
@@ -175,7 +180,9 @@ class DashboardSimike extends Widget implements HasForms
             $this->tanggal_terbit_oss = null;
         }
         $this->tahun = $this->form->getState()['tahun'];
+
         $this->triwulan = $this->form->getState()['triwulan'];
+
         if (auth()->user()->hasRole('kabkota')) {
             $this->kabkota = auth()->user()->kabkota->id;
         } else {
@@ -183,13 +190,8 @@ class DashboardSimike extends Widget implements HasForms
         }
 
         $this->sektor = $this->form->getState()['sektor'];
-        $this->uraian_skala_usaha = $this->form->getState()['uraian_skala_usaha'];
 
-        if (auth()->user()->hasRole('super_admin')) {
-            $this->superadmin = auth()->user('super_admin');
-        } else {
-            // $this->kecamatan_usaha = $this->form->getState()['kecamatan_usaha'];
-        }
+        $this->uraian_skala_usaha = $this->form->getState()['uraian_skala_usaha'];
 
         $this->dispatch(
             'filterUpdated',
@@ -206,8 +208,10 @@ class DashboardSimike extends Widget implements HasForms
 
     public function mount()
     {
-        // DEAFULT FILTERS TAHUN
         $this->tahun = now()->year;
+        $this->start = Carbon::now()->startOfYear()->format('d M Y');
+        $this->end = Carbon::now()->format('d M Y');
+        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
     }
 
     public function render(): View
@@ -252,7 +256,9 @@ class DashboardSimike extends Widget implements HasForms
                 ->count();
         }
 
-        $tanggal = $this->tanggal_terbit_oss;
+        // dd($this->start, $this->end, $this->tanggal_terbit_oss);
+
+        $tanggal = $this->tanggal_terbit_oss ?? $this->start . ' - ' . $this->end;
         $tahun = $this->tahun;
         $triwulan = $this->triwulan;
         $sektor = $this->sektor;

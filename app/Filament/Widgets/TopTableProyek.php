@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\SiMike\Proyek;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
+use Carbon\Carbon;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
@@ -27,11 +28,20 @@ class TopTableProyek extends BaseWidget
         $kecamatan_usaha,
         $tanggal_terbit_oss,
         $tanggal;
+    public $start, $end;
     protected static ?string $heading = 'Top 5 Table Nilai Investasi';
     protected int | string | array $columnSpan = 'full';
 
     protected static ?string $loadingIndicator = 'Loading...';
     protected $listeners = ['filterUpdated' => 'updateFilter'];
+
+    public function mount()
+    {
+        $this->tahun = now()->year;
+        $this->start = Carbon::now()->startOfYear()->format('d M Y');
+        $this->end = Carbon::now()->format('d M Y');
+        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+    }
 
     public function updateFilter($tanggal_terbit_oss, $tahun, $triwulan, $kabkota, $sektor, $uraian_skala_usaha, $kecamatan_usaha)
     {
