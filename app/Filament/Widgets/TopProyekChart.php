@@ -47,7 +47,7 @@ class TopProyekChart extends ApexChartWidget
      *
      * @var string|null
      */
-    protected static ?string $heading = 'Top 5 Jumlah Nilai Investasi';
+    protected static ?string $heading = 'Top 10 Jumlah Nilai Investasi';
 
     /**
      * Chart options (series, labels, types, size, animations...)
@@ -86,7 +86,7 @@ class TopProyekChart extends ApexChartWidget
             ->join('kabkotas', 'kabkotas.id', '=', 'proyeks.kab_kota_id')
             ->groupBy('kab_kota_id', 'kabkotas.nama')
             ->orderByDesc(DB::raw('SUM(jumlah_investasi)'))
-            ->limit(5)
+            ->limit(10)
             ->when($tahun, function ($query, $tahun) {
                 return $query->where('tahun', $tahun);
             })
@@ -151,7 +151,7 @@ class TopProyekChart extends ApexChartWidget
             'plotOptions' => [
                 'bar' => [
                     'borderRadius' => 3,
-                    'horizontal' => true,
+                    'vertical' => true,
                 ],
             ],
         ];

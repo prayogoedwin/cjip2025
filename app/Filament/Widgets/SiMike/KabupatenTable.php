@@ -12,9 +12,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
-use Filament\Tables\Contracts\HasTable;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use pxlrbt\FilamentExcel\Columns\Column;
 use Filament\Tables\Columns\Summarizers\Sum;
+use Filament\Tables\Contracts\HasTable;
 use stdClass;
 
 class KabupatenTable extends BaseWidget
@@ -122,6 +123,13 @@ class KabupatenTable extends BaseWidget
                 ExportAction::make()->exports([
                     ExcelExport::make('table')
                         ->fromTable()
+                        ->only([
+                            'kabkota.nama',
+                            'proyek',
+                            'kabkota.id',
+                            'count_tki',
+                            'total',
+                        ])
                         ->withFilename(date('d-M-Y') . ' - Rekap Data Simike')
                         ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
                 ])
@@ -129,6 +137,16 @@ class KabupatenTable extends BaseWidget
                     ->color('success')
             ])
             ->columns([
+                TextColumn::make('No.')->state(
+                    static function (HasTable $livewire, stdClass $rowLoop): string {
+                        return (string) (
+                            $rowLoop->iteration +
+                            ($livewire->getTableRecordsPerPage() * (
+                                $livewire->getTablePage() - 1
+                            ))
+                        );
+                    }
+                ),
                 Tables\Columns\TextColumn::make('kabkota.nama')
                     ->searchable()
                     ->label('Kabupaten/Kota')
@@ -182,17 +200,17 @@ class KabupatenTable extends BaseWidget
             ]);
     }
 
-    protected function getTableHeaderActions(): array
-    {
-        return [
-            ExportAction::make()->exports([
-                ExcelExport::make('table')
-                    ->fromTable()
-                    ->withFilename(date('d-M-Y') . ' - Data Simike')
-                    ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
-            ])
-                ->button()
-                ->color('success')
-        ];
-    }
+    // protected function getTableHeaderActions(): array
+    // {
+    //     return [
+    //         ExportAction::make()->exports([
+    //             ExcelExport::make('table')
+    //                 ->fromTable()
+    //                 ->withFilename(date('d-M-Y') . ' - Data Simike')
+    //                 ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
+    //         ])
+    //             ->button()
+    //             ->color('success')
+    //     ];
+    // }
 }
