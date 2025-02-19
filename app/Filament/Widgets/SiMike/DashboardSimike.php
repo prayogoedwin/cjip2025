@@ -255,6 +255,9 @@ class DashboardSimike extends Widget implements HasForms
         $tanggal = $this->tanggal_terbit_oss;
         $tahun = $this->tahun;
         $triwulan = $this->triwulan;
+        $sektor = $this->sektor;
+        $uraian_skala_usaha = $this->uraian_skala_usaha;
+        $kecamatan_usaha = $this->kecamatan_usaha;
         $simike = $this->simike;
         $nib = $this->nib;
 

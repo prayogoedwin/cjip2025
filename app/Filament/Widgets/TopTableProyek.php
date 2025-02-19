@@ -35,13 +35,14 @@ class TopTableProyek extends BaseWidget
 
     public function updateFilter($tanggal_terbit_oss, $tahun, $triwulan, $kabkota, $sektor, $uraian_skala_usaha, $kecamatan_usaha)
     {
+
         $this->tanggal_terbit_oss = $tanggal_terbit_oss['tanggal'];
         $this->tahun = $tahun['tahun'];
         $this->triwulan = $triwulan['triwulan'];
         $this->kabkota = $kabkota['kabkota'];
-        // $this->sektor = $sektor['sektor'];
-        // $this->uraian_skala_usaha = $uraian_skala_usaha['uraian_skala_usaha'];
-        // $this->kecamatan_usaha = $kecamatan_usaha['kecamatan_usaha'];
+        // $this->sektor = $sektor['sektor'] ? $sektor['sektor'] : null;
+        // $this->uraian_skala_usaha = $uraian_skala_usaha['uraian_skala_usaha'] ? $sektor['uraian_skala_usaha'] : null;
+        // $this->kecamatan_usaha = $kecamatan_usaha['kecamatan_usaha'] ? $sektor['kecamatan_usaha'] : null;
     }
     public function table(Table $table): Table
     {
@@ -62,9 +63,12 @@ class TopTableProyek extends BaseWidget
                     DB::raw('count(dikecualikan or null) as `jumlah_proyek_anomaly`'),
                     DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as `total`'),
                     DB::raw('sum(CASE WHEN dikecualikan = "1" THEN total_investasi ELSE 0 END) as `total_anomaly`'),
-                    DB::raw('count(nib) as nib_count'),
+                    DB::raw('count(DISTINCT CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN nib ELSE NULL END) as nib_count'), // Menggunakan DISTINCT
+                    DB::raw('count(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN nib ELSE 0 END) as nib_count_anomaly'),
                     DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tki ELSE 0 END) as `count_tki`'),
-                    DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tka ELSE 0 END) as `count_tka`')
+                    DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tka ELSE 0 END) as `count_tka`'),
+                    DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN tki ELSE 0 END) as `count_tki_anomaly`'),
+                    DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN tka ELSE 0 END) as `count_tka_anomaly`')
                 )->limit(5)
                 ->groupBy('kecamatan_usaha');
         } else {
@@ -84,7 +88,7 @@ class TopTableProyek extends BaseWidget
                     DB::raw('count(dikecualikan or null) as `jumlah_proyek_anomaly`'),
                     DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as `total`'),
                     DB::raw('sum(CASE WHEN dikecualikan = "1" THEN total_investasi ELSE 0 END) as `total_anomaly`'),
-                    DB::raw('count(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN nib ELSE 0 END) as nib_count'),
+                    DB::raw('count(DISTINCT CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN nib ELSE NULL END) as nib_count'), // Menggunakan DISTINCT
                     DB::raw('count(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN nib ELSE 0 END) as nib_count_anomaly'),
                     DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tki ELSE 0 END) as `count_tki`'),
                     DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tka ELSE 0 END) as `count_tka`'),
@@ -95,7 +99,7 @@ class TopTableProyek extends BaseWidget
         }
         return $table
             ->striped()
-            ->deferLoading()
+            // ->deferLoading()
             ->heading('Top 5 Nilai Investasi')
             ->query($query)
             ->paginated(false)
@@ -128,6 +132,7 @@ class TopTableProyek extends BaseWidget
                         );
                     }
                 ),
+
                 Tables\Columns\TextColumn::make('kabkota.nama')
                     ->label('Kabupaten/Kota')
                     ->wrap()
@@ -137,23 +142,28 @@ class TopTableProyek extends BaseWidget
                         }
                         return true;
                     }),
+
+                Tables\Columns\TextColumn::make('kecamatan_usaha')
+                    ->searchable()
+                    ->wrap()
+                    ->visible(function () {
+                        if (auth()->user()->hasRole('kabkota')) {
+                            return true;
+                        }
+                        return false;
+                    }),
+
                 Tables\Columns\TextColumn::make('proyek')
                     ->label('Jumlah Proyek')
                     ->formatStateUsing(function ($state) {
                         return number_format($state);
                     }),
-                Tables\Columns\TextColumn::make('kabkota.id')
+                Tables\Columns\TextColumn::make('nib_count')
                     ->label('Jumlah NIB')
                     ->formatStateUsing(function ($state) {
-                        $count = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
-                            ->where('dikecualikan', 0)
-                            ->where('is_mapping', 1)
-                            ->where('kab_kota_id', $state)
-                            ->groupBy('nib')
-                            ->get()
-                            ->count();
-                        return number_format($count, 0, ',', ',');
+                        return number_format($state);
                     }),
+
                 Tables\Columns\TextColumn::make('count_tki')
                     ->label('Jumlah Naker')
                     ->formatStateUsing(function ($state, Model $record) {
