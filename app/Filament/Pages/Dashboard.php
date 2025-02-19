@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\Simike\DashboardSimike;
+use App\Filament\Widgets\TopProyekChart;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Pages\Page;
 use Filament\Widgets\AccountWidget;
@@ -22,7 +23,8 @@ class Dashboard extends Page
         return [
             AccountWidget::class,
             FilamentInfoWidget::class,
-            DashboardSimike::class
+            DashboardSimike::class,
+            TopProyekChart::class,
         ];
     }
     protected static string $view = 'filament.pages.dashboard';

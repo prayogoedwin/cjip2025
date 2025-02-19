@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\SiMike\Proyek;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\DB;
 use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
@@ -10,6 +11,7 @@ use Malzariey\FilamentDaterangepickerFilter\Fields\DateRangePicker;
 
 class TopProyekChart extends ApexChartWidget
 {
+    use HasWidgetShield;
     // public $filter;
     public $tahun,
         $triwulan,
@@ -37,9 +39,9 @@ class TopProyekChart extends ApexChartWidget
         $this->tahun = $tahun['tahun'];
         $this->triwulan = $triwulan['triwulan'];
         $this->kabkota = $kabkota['kabkota'];
-        $this->sektor = $sektor['sektor'];
-        $this->uraian_skala_usaha = $uraian_skala_usaha['uraian_skala_usaha'];
-        $this->kecamatan_usaha = $kecamatan_usaha['kecamatan_usaha'];
+        // $this->sektor = $sektor['sektor'];
+        // $this->uraian_skala_usaha = $uraian_skala_usaha['uraian_skala_usaha'];
+        // $this->kecamatan_usaha = $kecamatan_usaha['kecamatan_usaha'];
     }
 
     /**
@@ -124,10 +126,10 @@ class TopProyekChart extends ApexChartWidget
                     'name' => 'Jumlah Nilai Investasi',
                     'data' => $totalInvestasi,
                 ],
-                [
-                    'name' => 'Jumlah Proyek',
-                    'data' => $projectCount, // Add project count as a second series
-                ],
+                // [
+                //     'name' => 'Jumlah Proyek',
+                //     'data' => $projectCount, // Add project count as a second series
+                // ],
             ],
             'xaxis' => [
                 'categories' => $kabupatenKota,
@@ -144,7 +146,7 @@ class TopProyekChart extends ApexChartWidget
                     ],
                 ],
             ],
-            'colors' => ['#16a34a','#f59e0b'],
+            'colors' => ['#16a34a', '#f59e0b'],
             'plotOptions' => [
                 'bar' => [
                     'borderRadius' => 3,
