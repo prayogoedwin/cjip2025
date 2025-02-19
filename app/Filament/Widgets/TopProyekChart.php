@@ -31,6 +31,10 @@ class TopProyekChart extends ApexChartWidget
 
     protected int | string | array $columnSpan = 'full';
 
+    protected static ?string $loadingIndicator = 'Loading...';
+
+    protected static bool $deferLoading = true;
+
     protected $listeners = ['filterUpdated' => 'updateFilter'];
 
     public function updateFilter($tanggal_terbit_oss, $tahun, $triwulan, $kabkota, $sektor, $uraian_skala_usaha, $kecamatan_usaha)
@@ -49,7 +53,7 @@ class TopProyekChart extends ApexChartWidget
      *
      * @var string|null
      */
-    protected static ?string $heading = 'Top 5 Jumlah Nilai Investasi';
+    protected static ?string $heading = 'Top 5 Chart Nilai Investasi';
 
     /**
      * Chart options (series, labels, types, size, animations...)
