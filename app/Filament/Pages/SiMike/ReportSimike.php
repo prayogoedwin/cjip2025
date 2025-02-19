@@ -18,6 +18,7 @@ use Filament\Tables\Filters\SelectFilter;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class ReportSimike extends Page implements HasForms, HasTable
 {
@@ -60,8 +61,18 @@ class ReportSimike extends Page implements HasForms, HasTable
             )
             ->striped()
             ->columns([
+                TextColumn::make('No.')->state(
+                    static function (HasTable $livewire, stdClass $rowLoop): string {
+                        return (string) (
+                            $rowLoop->iteration +
+                            ($livewire->getTableRecordsPerPage() * (
+                                $livewire->getTablePage() - 1
+                            ))
+                        );
+                    }
+                ),
                 TextColumn::make('kabkota_nama')
-                    ->label('Nama Kabkota'),
+                    ->label('Kabupaten/Kota'),
 
                 $this->getMonthColumn('bulan_januari', 'Januari'),
                 $this->getMonthColumn('bulan_februari', 'Februari'),
@@ -90,6 +101,21 @@ class ReportSimike extends Page implements HasForms, HasTable
                 ExportAction::make()->exports([
                     ExcelExport::make('table')
                         ->fromTable()
+                        ->only([
+                            'kabkota_nama',
+                            'bulan_januari',
+                            'bulan_februari',
+                            'bulan_maret',
+                            'bulan_april',
+                            'bulan_mei',
+                            'bulan_juni',
+                            'bulan_juli',
+                            'bulan_agustus',
+                            'bulan_september',
+                            'bulan_oktober',
+                            'bulan_november',
+                            'bulan_desember',
+                        ])
                         ->withFilename(date('d-M-Y') . ' - Report Import Simike')
                         ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
                 ])
