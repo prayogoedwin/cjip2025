@@ -47,7 +47,7 @@ class TopProyekChart extends ApexChartWidget
      *
      * @var string|null
      */
-    protected static ?string $heading = 'Top 10 Jumlah Nilai Investasi';
+    protected static ?string $heading = 'Top 5 Jumlah Nilai Investasi';
 
     /**
      * Chart options (series, labels, types, size, animations...)
@@ -81,46 +81,39 @@ class TopProyekChart extends ApexChartWidget
         )->select(
             'kab_kota_id',
             'kabkotas.nama',
-            DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as `total`')
+            DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as `total`'),
+            DB::raw('count(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE 0 END) as `project_count`')
         )
             ->join('kabkotas', 'kabkotas.id', '=', 'proyeks.kab_kota_id')
             ->groupBy('kab_kota_id', 'kabkotas.nama')
             ->orderByDesc(DB::raw('SUM(jumlah_investasi)'))
-            ->limit(10)
+            ->limit(5)
             ->when($tahun, function ($query, $tahun) {
                 return $query->where('tahun', $tahun);
             })
-            // Filter berdasarkan kabkota jika ada
             ->when($kabkota, function ($query, $kabkota) {
                 return $query->where('kab_kota_id', $kabkota);
             })
-            // Filter berdasarkan sektor jika ada
             ->when($sektor, function ($query, $sektor) {
                 return $query->where('sektor_id', $sektor);
             })
-            // Filter berdasarkan tanggal jika ada
             ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
                 return $query->whereBetween('tanggal_terbit_oss', [$startDate, $endDate]);
             })
             ->get();
+
         $proyekDataArray = $proyekData->map(function ($item) {
             return [
                 'kabupaten' => $item->nama,
                 'total' => $item->total,
+                'project_count' => $item->project_count,  // Include the project count
             ];
         })->sortByDesc('total')->values();
 
         $kabupatenKota = $proyekDataArray->pluck('kabupaten')->toArray();
         $totalInvestasi = $proyekDataArray->pluck('total')->toArray();
+        $projectCount = $proyekDataArray->pluck('project_count')->toArray();
 
-        // Format data for currency
-        $totalInvestasiFormatted = array_map(function ($item) {
-            return 'Rp ' . number_format($item, 0, ',', '.');
-        }, $totalInvestasi);
-        // Format data for currency
-        $totalInvestasiFormatted = array_map(function ($item) {
-            return 'Rp ' . number_format($item, 0, ',', '.');
-        }, $totalInvestasi);
         return [
             'chart' => [
                 'type' => 'bar',
@@ -128,8 +121,12 @@ class TopProyekChart extends ApexChartWidget
             ],
             'series' => [
                 [
-                    'name' => 'Total Investasi',
+                    'name' => 'Jumlah Nilai Investasi',
                     'data' => $totalInvestasi,
+                ],
+                [
+                    'name' => 'Jumlah Proyek',
+                    'data' => $projectCount, // Add project count as a second series
                 ],
             ],
             'xaxis' => [
@@ -147,7 +144,7 @@ class TopProyekChart extends ApexChartWidget
                     ],
                 ],
             ],
-            'colors' => ['#f59e0b'],
+            'colors' => ['#16a34a','#f59e0b'],
             'plotOptions' => [
                 'bar' => [
                     'borderRadius' => 3,
