@@ -322,6 +322,10 @@ class ProyekResource extends Resource
                     ->getStateUsing(function (Model $record) {
                         return $record->tki + $record->tka;
                     }),
+                Tables\Columns\TextColumn::make('jumlah_investasi')
+                    ->label('Rencana Nilai Investasi')
+                    // ->formatStateUsing(fn(float $state): string => "Rp. " . number_format($state, 0, ',', '.'))
+                    ->sortable()
                 // Tables\Columns\IconColumn::make('dikecualikan')
                 //     ->boolean()
                 //     ->label('Dikecualikan')
@@ -336,15 +340,12 @@ class ProyekResource extends Resource
                 //     ->trueColor('danger')
                 //     ->falseColor('success')
                 //     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('jumlah_investasi')
-                    ->label('Rencana Nilai Investasi')
-                    ->formatStateUsing(fn(float $state): string => "Rp. " . number_format($state, 0, ',', '.'))
-                    ->sortable(),
+                ,
 
-                Tables\Columns\TextColumn::make('jumlah_investasi')
-                    ->summarize(Sum::make()
-                        ->label('Total Nilai Investasi')
-                        ->formatStateUsing(fn(float $state): string => "Rp. " . number_format($state, 0, ',', '.'))),
+                // Tables\Columns\TextColumn::make('jumlah_investasi')
+                //     ->summarize(Sum::make()
+                //         ->label('Total Nilai Investasi')
+                //         ->formatStateUsing(fn(float $state): string => "Rp. " . number_format($state, 0, ',', '.'))),
 
                 // Tables\Columns\TextColumn::make('pembelian_pematangan_tanah')
                 //     ->label('Pembelian Pematangan Tanah')
