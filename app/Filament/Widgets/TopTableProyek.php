@@ -154,7 +154,6 @@ class TopTableProyek extends BaseWidget
                     }),
 
                 Tables\Columns\TextColumn::make('kecamatan_usaha')
-                    ->searchable()
                     ->wrap()
                     ->visible(function () {
                         if (auth()->user()->hasRole('kabkota')) {
