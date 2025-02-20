@@ -19,11 +19,11 @@ use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Notifications\Notification;
 use Filament\Pages\Actions\Action;
-use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Contracts\Pagination\Paginator;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class ListProyeks extends ListRecords
@@ -34,7 +34,7 @@ class ListProyeks extends ListRecords
     {
         return [
             // DashboardSimike::class,
-            LastImportSimike::class,
+            // LastImportSimike::class,
         ];
     }
 
