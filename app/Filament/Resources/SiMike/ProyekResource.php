@@ -457,8 +457,11 @@ class ProyekResource extends Resource
                 ExportAction::make()->exports([
                     ExcelExport::make('table')
                         ->fromTable()
-                        ->withFilename(date('d-M-Y') . ' - Data Simike')
-                        ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
+                        // ->queue()
+                        ->withChunkSize(1000)
+                        ->askForFilename()
+                        ->askForWriterType()
+                        ->withFilename(date('d-M-Y') . ' - Data Simike'),
                 ])
                     ->button()
                     ->color('success')
@@ -470,8 +473,14 @@ class ProyekResource extends Resource
                         ->form([
                             Fieldset::make('Tanggal Terbit Oss')
                                 ->schema([
-                                    DatePicker::make('created_from')->label('Tanggal Awal')->hiddenLabel()->placeholder('Awal')->default(Carbon::now()->startOfYear()),
-                                    DatePicker::make('created_until')->label('Tanggal Akhir')->hiddenLabel()->placeholder('Akhir')->default(Carbon::now()),
+                                    DatePicker::make('created_from')->label('Tanggal Awal')
+                                        ->hiddenLabel()
+                                        // ->default(Carbon::now()->startOfYear())
+                                        ->placeholder('Awal'),
+                                    DatePicker::make('created_until')->label('Tanggal Akhir')
+                                        ->hiddenLabel()
+                                        // ->default(Carbon::now())
+                                        ->placeholder('Akhir')
                                 ])
                         ])
                         ->query(function (Builder $query, array $data): Builder {
