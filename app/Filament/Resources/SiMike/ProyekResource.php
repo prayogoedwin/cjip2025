@@ -476,7 +476,7 @@ class ProyekResource extends Resource
                                 ->schema([
                                     DatePicker::make('created_from')->label('Tanggal Awal')
                                         ->hiddenLabel()
-                                        ->default(Carbon::now()->startOfYear())
+                                        // ->default(Carbon::now()->startOfYear())
                                         ->placeholder('Awal'),
                                     DatePicker::make('created_until')->label('Tanggal Akhir')
                                         ->hiddenLabel()
@@ -516,13 +516,12 @@ class ProyekResource extends Resource
                     //             );
                     //     }),
 
-                    // Tables\Filters\SelectFilter::make('tahun')
-                    //     ->searchable()
-                    //     ->options(function () {
-                    //         $years = range(Carbon::now()->year, Carbon::now()->subYear(2)->year);
-                    //         return array_combine(array_values($years), array_values($years));
-                    //     })
-                    //     ->default(Carbon::now()->year),
+                    Tables\Filters\SelectFilter::make('tahun')
+                        ->options(function () {
+                            $years = range(Carbon::now()->year, Carbon::now()->subYear(2)->year);
+                            return array_combine(array_values($years), array_values($years));
+                        })
+                        ->default(Carbon::now()->year),
 
                     Tables\Filters\SelectFilter::make('triwulan')
                         ->options([
