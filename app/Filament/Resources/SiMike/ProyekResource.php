@@ -432,6 +432,11 @@ class ProyekResource extends Resource
                     ->label('Kecamatan Usaha')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
+                Tables\Columns\TextColumn::make('kab_kota_usaha')
+                    ->wrap()
+                    ->label('Kabupaten/Kota Usaha')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('luas_tanah')
                     ->wrap()
                     ->label('Luas Tanah')
@@ -442,16 +447,16 @@ class ProyekResource extends Resource
                     ->label('Satuan Tanah')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
-                Tables\Columns\TextColumn::make('kabkota.nama')
-                    ->wrap()
-                    ->label('Kabupaten/Kota')
-                    ->searchable()
-                    ->toggleable(function () {
-                        if (auth()->user()->hasRole('kabkota')) {
-                            return false;
-                        }
-                        return true;
-                    }),
+                // Tables\Columns\TextColumn::make('kabkota.nama')
+                //     ->wrap()
+                //     ->label('Kabupaten/Kota')
+                //     ->searchable()
+                //     ->toggleable(function () {
+                //         if (auth()->user()->hasRole('kabkota')) {
+                //             return false;
+                //         }
+                //         return true;
+                //     }),
             ])
             ->deselectAllRecordsWhenFiltered(true)
             ->filtersFormColumns(4)
