@@ -10,15 +10,10 @@
                 <h2 class="grid flex-1 text-base font-semibold leading-6 text-gray-950 dark:text-white">
                     {{ filament()->getUserName($user) }}
                 </h2>
-
-                {{-- <p class="text-sm text-bold text-gray-500 dark:text-gray-400">
-                    {{ filament()->getUserName($user) }}
-                </p> --}}
                 <p class="text-xs text-gray-500 dark:text-gray-400">
                     {{ Auth::user()->email }}
                 </p>
             </div>
-
             <form action="{{ filament()->getLogoutUrl() }}" method="post" class="my-auto">
                 @csrf
 
