@@ -16,7 +16,7 @@ class EditProyekInvestasi extends EditRecord
 
     public static function getTranslatableLocales(): array
     {
-        return ['en', 'id'];
+        return ['id', 'en'];
     }
 
     protected function mutateFormDataBeforeSave(array $data): array
