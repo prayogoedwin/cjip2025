@@ -23,6 +23,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -38,7 +40,7 @@ class ProfileKabkotaResource extends Resource
     protected static ?string $navigationGroup = 'Cjip';
 
     protected static ?string $navigationLabel = 'Profil Kabupaten/Kota';
-
+    protected static ?string $recordTitleAttribute = 'profil';
     protected static ?int $navigationSort = 3;
 
     protected static ?string $pluralLabel = 'Profil Kabupaten/Kota';
@@ -158,40 +160,33 @@ class ProfileKabkotaResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('foto')->label('Foto'),
-                TextColumn::make('profil')->label('Nama Kabupaten/Kota')
-                    ->wrap()
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('desc_profil')->label('Deskripsi Kabupaten/Kota')
-                    ->wrap()
-                    ->searchable()
-                    ->sortable()
-                    ->toggleable()
-                    ->limit(250),
-                TextColumn::make('umr')->label('UMR')
-                    ->wrap()
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('populasi')->label('Populasi Jiwa')
-                    ->wrap()
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('inflasi')->label('Inflasi')->wrap()
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('angka_kerja')->label('Angka Kerja')
-                    ->wrap()
-                    ->searchable()
-                    ->sortable(),
-                BooleanColumn::make('status')
-                    ->trueIcon('heroicon-o-check-badge')
-                    ->falseIcon('heroicon-o-x-circle'),
+                Split::make([
+                    ImageColumn::make('icon')->label('Icon')
+                        ->grow(false)
+                        ->size('60px')
+                        ->height('full'),
+                    Stack::make([
+                        TextColumn::make('profil')->label('Nama Kabupaten/Kota')
+                            ->wrap()
+                            ->size(TextColumn\TextColumnSize::Large)
+                            ->weight('bold')
+                            ->searchable(),
+                        BooleanColumn::make('status')
+                            ->trueIcon('heroicon-o-check-badge')
+                            ->falseIcon('heroicon-o-x-circle'),
+                    ])
+                ]),
+            ])
+            ->contentGrid([
+                'sm' => 1,
+                'md' => 2,
+                'xl' => 3,
             ])
             ->filters([
-                SelectFilter::make('kab_kota_id')->relationship('kabkota', 'nama')->searchable()->label('Kabupaten/Kota')
+                SelectFilter::make('kab_kota_id')->relationship('kabkota', 'nama')->searchable()->label('Kabupaten/Kota')->preload()
             ])
             ->actions([
+                Tables\Actions\ViewAction::make()->iconButton(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -213,6 +208,7 @@ class ProfileKabkotaResource extends Resource
         return [
             'index' => Pages\ListProfileKabkotas::route('/'),
             'create' => Pages\CreateProfileKabkota::route('/create'),
+            'view' => Pages\ViewProfileKabkota::route('/{record}'),
             'edit' => Pages\EditProfileKabkota::route('/{record}/edit'),
         ];
     }
