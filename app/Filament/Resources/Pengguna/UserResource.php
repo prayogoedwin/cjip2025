@@ -56,8 +56,13 @@ class UserResource extends Resource
                         FileUpload::make('profile_photo_path')
                             ->avatar()
                             ->alignCenter()
-                            ->enableOpen()
-                            ->enableDownload()
+                            ->downloadable()
+                            ->hiddenLabel()
+                            ->image()
+                            ->imageEditor()
+                            ->circleCropper()
+                            ->openable()
+                            ->preserveFilenames()
                             ->disk('public')
                             ->directory('User/Photo'),
                     ]),
@@ -101,7 +106,7 @@ class UserResource extends Resource
                             ->columnSpan('full')
                             ->reactive()
                             ->dehydrated(false)
-                            ->hiddenOn(['create','view']),
+                            ->hiddenOn(['create', 'view']),
                         TextInput::make('password')
                             ->columnSpan('full')
                             ->visible(fn($livewire, $get) => $livewire instanceof CreateUser || $get('reset_password') == true)
