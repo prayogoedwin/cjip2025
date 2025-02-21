@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Widgets\Simike;
+namespace App\Filament\Widgets\SiMike;
 
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\Sektor;
@@ -267,6 +267,6 @@ class DashboardSimike extends Widget implements HasForms
         $simike = $this->simike;
         $nib = $this->nib;
 
-        return view('filament.widgets.simike.dashboard-simike', compact('tanggal', 'tahun', 'triwulan', 'simike', 'nib'));
+        return view('filament.widgets.si-mike.dashboard-simike', compact('tanggal', 'tahun', 'triwulan', 'simike', 'nib'));
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages\SiMike;
 
-use App\Filament\Widgets\Simike\KecamatanTable as SimikeKecamatanTable;
+use App\Filament\Widgets\SiMike\KecamatanTable as SimikeKecamatanTable;
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\Sektor;
 use App\Models\SiMike\Proyek;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Widgets\Simike;
+namespace App\Filament\Widgets\SiMike;
 
 use App\Models\SiMike\Proyek;
 use Carbon\Carbon;
