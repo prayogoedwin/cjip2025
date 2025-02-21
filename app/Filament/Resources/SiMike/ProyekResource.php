@@ -459,7 +459,7 @@ class ProyekResource extends Resource
                 //     }),
             ])
             ->deselectAllRecordsWhenFiltered(true)
-            ->filtersFormColumns(4)
+            ->filtersFormColumns(3)
             ->headerActions([
                 ExportAction::make()->exports([
                     ExcelExport::make('table')
@@ -482,11 +482,11 @@ class ProyekResource extends Resource
                                 ->schema([
                                     DatePicker::make('created_from')->label('Tanggal Awal')
                                         ->hiddenLabel()
-                                        // ->default(Carbon::now()->startOfYear())
+                                        ->default(Carbon::now()->startOfYear())
                                         ->placeholder('Awal'),
                                     DatePicker::make('created_until')->label('Tanggal Akhir')
                                         ->hiddenLabel()
-                                        // ->default(Carbon::now())
+                                        ->default(Carbon::now())
                                         ->placeholder('Akhir')
                                 ])
                         ])
@@ -569,28 +569,35 @@ class ProyekResource extends Resource
                             return true;
                         }),
 
-                    // SelectFilter::make('kecamatan_usaha')
-                    //     ->label('Kecamatan Usaha')
-                    //     ->searchable()
-                    //     ->multiple()
-                    //     // ->default(function () {
-                    //     //     if (auth()->user()->kabkota->id) {
-                    //     //         return true;
-                    //     //     }
-                    //     //     return false;
-                    //     // })
-                    //     ->options(function () {
-                    //         $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
-                    //             ->pluck('kecamatan_usaha')->toArray();
-                    //         $kec_usaha = array_combine($kec_usahas, $kec_usahas);
-                    //         return $kec_usaha;
-                    //     })
-                    //     ->visible(function () {
-                    //         if (auth()->user()->hasRole('kabkota')) {
-                    //             return true;
-                    //         }
-                    //         return false;
-                    //     }),
+                    SelectFilter::make('kecamatan_usaha')
+                        ->label('Kecamatan Usaha')
+                        ->searchable()
+                        ->multiple()
+                        // ->default(function () {
+                        //     if (auth()->user()->kabkota->id) {
+                        //         return true;
+                        //     }
+                        //     return false;
+                        // })
+                        ->options(function () {
+                            $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
+                                ->whereNotNull('kecamatan_usaha')
+                                ->pluck('kecamatan_usaha')
+                                ->filter()
+                                ->toArray();
+                            if (!empty($kec_usahas)) {
+                                $kec_usaha = array_combine($kec_usahas, $kec_usahas);
+                            } else {
+                                $kec_usaha = [];
+                            }
+                            return $kec_usaha;
+                        })
+                        ->visible(function () {
+                            if (auth()->user()->hasRole('kabkota')) {
+                                return true;
+                            }
+                            return false;
+                        }),
 
                     SelectFilter::make('kbli')
                         ->label('KBLI')

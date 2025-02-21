@@ -125,16 +125,14 @@ class KabupatenTable extends Page
                             ->searchable()
                             ->options(function () {
                                 $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
-                                    ->whereNotNull('kecamatan_usaha') // Pastikan tidak ada nilai null
+                                    ->whereNotNull('kecamatan_usaha')
                                     ->pluck('kecamatan_usaha')
-                                    ->filter() // Hapus nilai kosong jika ada
+                                    ->filter() 
                                     ->toArray();
-
-                                // Pastikan array tidak kosong sebelum menggunakan array_combine
                                 if (!empty($kec_usahas)) {
                                     $kec_usaha = array_combine($kec_usahas, $kec_usahas);
                                 } else {
-                                    $kec_usaha = []; // Kembalikan array kosong jika tidak ada data
+                                    $kec_usaha = [];
                                 }
 
                                 return $kec_usaha;
@@ -173,11 +171,6 @@ class KabupatenTable extends Page
         }
         $this->sektor = $this->form->getState()['sektor'];
         $this->uraian_skala_usaha = $this->form->getState()['uraian_skala_usaha'];
-        if (auth()->user()->hasRole('super_admin')) {
-            $this->superadmin = auth()->user('super_admin');
-        } else {
-            // $this->kecamatan_usaha = $this->form->getState()['kecamatan_usaha'];
-        }
 
         $this->dispatch(
             'filterUpdated',
@@ -194,7 +187,6 @@ class KabupatenTable extends Page
     protected function getFooterWidgets(): array
     {
         return [
-            TopProyekChart::class,
             SiMikeKabupatenTable::class,
         ];
     }

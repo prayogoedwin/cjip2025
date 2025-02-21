@@ -31,7 +31,6 @@ class TopTableProyek extends BaseWidget
     public $start, $end;
     protected static ?string $heading = 'Top 5 Table Nilai Investasi';
     protected int | string | array $columnSpan = 'full';
-
     protected static ?string $loadingIndicator = 'Loading...';
     protected $listeners = ['filterUpdated' => 'updateFilter'];
 
@@ -120,8 +119,9 @@ class TopTableProyek extends BaseWidget
                         ->fromTable()
                         ->only([
                             'kabkota.nama',
+                            'kecamatan_usaha',
                             'proyek',
-                            'kabkota.id',
+                            'nib_count',
                             'count_tki',
                             'total',
                         ])
@@ -155,6 +155,7 @@ class TopTableProyek extends BaseWidget
 
                 Tables\Columns\TextColumn::make('kecamatan_usaha')
                     ->wrap()
+                    ->label('Kecamatan')
                     ->visible(function () {
                         if (auth()->user()->hasRole('kabkota')) {
                             return true;

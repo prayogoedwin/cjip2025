@@ -14,6 +14,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
@@ -23,6 +24,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Pages\SubNavigationPosition;
 use Illuminate\Support\Facades\Hash;
 use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
@@ -32,6 +34,7 @@ class UserResource extends Resource
     protected static ?string $navigationGroup = 'Super Admin';
 
     protected static ?int $navigationSort = -2;
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function getNavigationBadge(): ?string
     {
@@ -48,7 +51,6 @@ class UserResource extends Resource
             ->schema([
                 Section::make('Foto Profil')
                     ->icon('heroicon-o-photo')
-                    ->collapsed()
                     ->collapsible()
                     ->schema([
                         FileUpload::make('profile_photo_path')
@@ -99,7 +101,7 @@ class UserResource extends Resource
                             ->columnSpan('full')
                             ->reactive()
                             ->dehydrated(false)
-                            ->hiddenOn('create'),
+                            ->hiddenOn(['create','view']),
                         TextInput::make('password')
                             ->columnSpan('full')
                             ->visible(fn($livewire, $get) => $livewire instanceof CreateUser || $get('reset_password') == true)
@@ -174,9 +176,11 @@ class UserResource extends Resource
                         }
                         return asset('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
                     }),
-                Tables\Columns\TextColumn::make('name')->searchable()->extraAttributes([
-                    'class' => 'mt-2 text-grey-300 dark:text-grey-300 text-md'
-                ]),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->extraAttributes([
+                        'class' => 'mt-2 text-grey-300 dark:text-grey-300 text-md'
+                    ]),
                 Tables\Columns\TextColumn::make('nip')
                     ->label('Nik/Nip')
                     ->searchable()
@@ -186,17 +190,17 @@ class UserResource extends Resource
                     ]),
                 Tables\Columns\TextColumn::make('email')
                     ->copyable()
-                    ->icon('heroicon-m-envelope')
                     ->searchable()
+                    ->icon('heroicon-m-envelope')
                     ->wrap(),
                 Tables\Columns\TextColumn::make('no_hp')
                     ->copyable()
-                    ->icon('heroicon-m-phone')
                     ->searchable()
+                    ->icon('heroicon-m-phone')
                     ->wrap(),
                 Tables\Columns\TextColumn::make('kabkota.nama')
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable()
                     ->wrap(),
                 Tables\Columns\TextColumn::make('userkawasan.nama')
                     ->label('Kawasan Industri')
@@ -223,9 +227,11 @@ class UserResource extends Resource
                     ->relationship('kabkota', 'nama')
                     ->searchable()
                     ->preload(),
-            ], layout: FiltersLayout::AboveContent)
+            ], layout: FiltersLayout::AboveContentCollapsible)
             ->filtersFormColumns(3)
+            ->searchable()
             ->actions([
+                Tables\Actions\ViewAction::make()->iconButton(),
                 Impersonate::make()->iconButton(),
                 ActionGroup::make([
                     Tables\Actions\EditAction::make(),
@@ -246,11 +252,20 @@ class UserResource extends Resource
         ];
     }
 
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            Pages\ViewUser::class,
+            Pages\EditUser::class,
+        ]);
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
+            'view' => Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
