@@ -3,12 +3,14 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Features;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Forms\ComponentContainer;
 use Filament\Widgets\Widget;
 use Illuminate\Contracts\View\View;
 
 class WidgetFeatures extends Widget
 {
+    use HasWidgetShield;
     protected int | string | array $columnSpan = 'full';
 
     public array $grid = [];
