@@ -40,7 +40,7 @@ class DetailMinatMasuk extends Component
             'comment' => $this->comment
         ]);
         $this->reset('comment');
-        $this->emit('commentPosted');
+        $this->dispatch('commentPosted');
     }
     public function render()
     {

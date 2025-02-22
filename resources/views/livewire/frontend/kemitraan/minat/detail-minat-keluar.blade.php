@@ -5,7 +5,7 @@
             <div class="w-full md:w-1/2 flex flex-col items-center">
                 <div class="w-full h-max-[400px] mb-4">
                     <img id="mainImage" src="{{ $imageMain ?? $product->gambar }}" alt="Product Image"
-                        class="w-full object-cover rounded-lg h-full">
+                        class="w-full object-cover rounded-lg h-full" style="height: 450px;">
                 </div>
             </div>
 
@@ -13,18 +13,14 @@
             <div class="w-full md:w-1/2 mt-6 md:mt-0 md:ml-6 flex flex-col justify-between">
                 <div>
                     <h2 class="text-3xl font-bold mb-4">{{ $product->name }}</h2>
-                    <p class="text-gray-700 mb-4">{{ $product->description }}</p>
+                    <p class="text-gray-700 mb-4">{!! str($product->description)->markdown()->sanitizeHtml() !!}</p>
                 </div>
                 <!-- Informasi Pemilik Produk -->
                 <div class="flex flex-row justify-between">
                     <div class="flex items-center mt-4">
                         <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                            <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                    clip-rule="evenodd">
-                                </path>
-                            </svg>
+                            <img class="mr-2 w-10 h-10 rounded-full"
+                                src="{{ asset('storage/' . $product->user->profile_photo_path) }}" alt="Profile Picture">
                         </div>
                         <div class="flex flex-col">
                             <span class="ml-3 text-gray-700 dark:text-gray-300">{{ $product->user->name }}</span>
@@ -33,12 +29,8 @@
                     </div>
                     <div class="flex items-center mt-4">
                         <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                            <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                    clip-rule="evenodd">
-                                </path>
-                            </svg>
+                            <img class="mr-2 w-10 h-10 rounded-full"
+                                src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" alt="Profile Picture">
                         </div>
                         <div class="flex flex-col">
                             @foreach ($product->productMinat as $user)
@@ -80,7 +72,7 @@
                                 <footer class="flex items-center mb-2">
                                     <p class="inline-flex items-center text-sm text-gray-900 dark:text-white font-semibold">
                                         <img class="mr-2 w-6 h-6 rounded-full"
-                                            src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
+                                            src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}"
                                             alt="Profile Picture">{{ $item->user->name }}
                                     </p>
                                     <p class="text-sm text-gray-600 dark:text-gray-400 ml-3">
@@ -98,7 +90,7 @@
                                 <footer class="flex items-center mb-2">
                                     <p class="inline-flex items-center text-sm text-gray-900 dark:text-white font-semibold">
                                         <img class="mr-2 w-6 h-6 rounded-full"
-                                            src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
+                                            src="{{ asset('storage/' . $item->user->profile_photo_path) }}"
                                             alt="Profile Picture">{{ $item->user->name }}
                                     </p>
                                     <p class="text-sm text-gray-600 dark:text-gray-400 ml-3">
