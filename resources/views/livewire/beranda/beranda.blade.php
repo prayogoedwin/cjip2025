@@ -10,9 +10,9 @@
                             <img class="absolute bg-cover w-full h-full object-cover "
                                 src="{{ asset('storage/' . $slider->foto) }}" style="background-size: cover"
                                 alt="">
-                            <div class="absolute inset-0 bg-gradient-to-b from-black/10 from-2%"></div>
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 from-10%"></div>
-                            <div class="container top-1/4 relative mb-10">
+                            <div class="absolute inset-0 bg-gradient-to-r from-black/70 from-8%"></div>
+                            {{-- <div class="absolute inset-0 bg-gradient-to-t from-black/80 from-10%"></div> --}}
+                            <div class="container top-1/6 relative mb-10">
                                 <div class="grid grid-cols-1">
                                     <div class="float-start ">
                                         <h1
@@ -41,12 +41,12 @@
 
             <!-- swipper controls -->
             {{-- <div class="swiper-pagination"></div> --}}
-            {{-- <div
+            <div
                 class="swiper-button-next bg-transparent w-[35px] h-[35px] leading-[35px] -mt-[30px] bg-none border border-solid border-white/50 text-white hover:bg-green-600 hover:border-green-600 rounded-full text-center">
             </div>
             <div
                 class="swiper-button-prev bg-transparent w-[35px] h-[35px] leading-[35px] -mt-[30px] bg-none border border-solid border-white/50 text-white hover:bg-green-600 hover:border-green-600 rounded-full text-center">
-            </div> --}}
+            </div>
 
             <div
                 class="absolute gap-3 bottom-0 left-0 right-0 justify-center mb-4 z-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-4 w-full max-w-5xl mx-auto">
