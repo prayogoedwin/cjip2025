@@ -48,6 +48,6 @@ class DetailMinatMasuk extends Component
         return view('livewire.frontend.kemitraan.minat.detail-minat-masuk', [
             'comments' => $comments,
             'jumlahDiskusi' => $comments->count()
-        ]);
+        ])->layout('components.layouts.master');
     }
 }
