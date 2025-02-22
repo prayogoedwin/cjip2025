@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class StatsProyekInvestasi extends BaseWidget
 {
+    protected int|string|array $columnSpan = 'full';
+    protected static ?string $navigationLabel = "Stats Proyek Investasi";
+    protected static ?string $label = 'Stats Proyek Investasi';
+    protected static ?string $pluralLabel = 'Stats Proyek Investasi';
+
+    protected ?string $heading = 'Stats Proyek Investasi';
+    protected static bool $isLazy = false;
     protected function getStats(): array
     {
         return [

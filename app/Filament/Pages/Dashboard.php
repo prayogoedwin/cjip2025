@@ -2,9 +2,12 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\ProyekInvestasi\StatsProyekInvestasi;
+use App\Filament\Widgets\ProyekInvestasi\WidgetProyekInvestasi;
 use App\Filament\Widgets\Simike\DashboardSimike;
 use App\Filament\Widgets\TopProyekChart;
 use App\Filament\Widgets\TopTableProyek;
+use App\Filament\Widgets\WidgetFeatures;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Pages\Page;
 use Filament\Widgets\AccountWidget;
@@ -24,6 +27,8 @@ class Dashboard extends Page
         return [
             AccountWidget::class,
             FilamentInfoWidget::class,
+            WidgetFeatures::class,
+            WidgetProyekInvestasi::class,
             DashboardSimike::class,
             // TopProyekChart::class,
             TopTableProyek::class
