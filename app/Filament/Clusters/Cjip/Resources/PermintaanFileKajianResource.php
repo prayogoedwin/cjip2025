@@ -152,6 +152,7 @@ class PermintaanFileKajianResource extends Resource
                             ->label('File Kajian Proyek')
                             ->disk('public')
                             ->openable()
+                            ->hint('*Masih belum bisa mengirimkan automatis ke email Pemohon')
                             ->downloadable()
                             ->acceptedFileTypes(['application/pdf'])
                             ->preserveFilenames()
