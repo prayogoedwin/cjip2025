@@ -45,6 +45,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->sidebarWidth('17rem')
             ->brandName('Central Java Investment Platform')
             ->brandLogo(asset('images/cjip-small.svg'))
             ->brandLogoHeight('3rem')
@@ -138,9 +139,6 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-squares-2x2')
                     ->collapsed()
                     ->collapsible(),
-
-
-
             ])
             ->authMiddleware([
                 Authenticate::class,
