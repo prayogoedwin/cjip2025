@@ -1,4 +1,4 @@
-/* @import '<path-to-vendor>/awcodes/filament-tiptap-editor/resources/css/plugin.css'; */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import '../../../../vendor/kenepa/banner/resources/css/index.css';

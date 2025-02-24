@@ -33,6 +33,7 @@ use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
 use Filament\Navigation\NavigationItem;
 use App\Filament\Pages\Dashboard as PagesDashboard;
+use Kenepa\Banner\BannerPlugin;
 use TomatoPHP\FilamentLogger\FilamentLoggerPlugin;
 use TomatoPHP\FilamentMediaManager\FilamentMediaManagerPlugin;
 
@@ -83,6 +84,11 @@ class AdminPanelProvider extends PanelProvider
                         'default' => 1,
                         'sm' => 2,
                     ]),
+                BannerPlugin::make()
+                    ->persistsBannersInDatabase()
+                    ->navigationGroup('Super Admin')
+                    ->navigationIcon('')->navigationSort(10)
+                    ->bannerManagerAccessPermission('banner-manager'),
                 SpotlightPlugin::make(),
                 FilamentMediaManagerPlugin::make()->allowSubFolders()->allowUserAccess(),
                 FilamentProgressbarPlugin::make()->color('#16a34a'),

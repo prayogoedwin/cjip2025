@@ -23,6 +23,7 @@
         "filament/tables": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
         "icetalker/filament-table-repeater": "^1.1",
+        "kenepa/banner": "^0.1.0",
         "laravel/framework": "^11.00",
         "laravel/pulse": "^1.2",
         "laravel/sanctum": "^4.0",
