@@ -203,7 +203,7 @@ class PermintaanFileKajianResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return static::getModel()::where('status', 0)->count();
     }
 
     public static function getRelations(): array
