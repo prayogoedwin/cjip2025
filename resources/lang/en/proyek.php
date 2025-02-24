@@ -12,6 +12,7 @@ return [
     "button_1" => "Details",
     "button_2" => "Project Location",
     "button_3" => 'Interest',
+    "button_4" => 'Download Study',
 
     "investment" => "Investment Value",
 

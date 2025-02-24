@@ -78,6 +78,10 @@
                                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-green-700 text-white rounded-md">{{ __('proyek.button_1', [], $locale) }}</a>
                                     <a href="{{ route('profil_kabkota', $proyek->kab_kota_id) }}"
                                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-green-700 text-white rounded-md">{{ __('proyek.button_2', [], $locale) }}</a>
+                                    <a href="{{ route('form_kajian_proyek') }}"
+                                        class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-green-700 text-white rounded-md">
+                                        {{ __('proyek.button_4', [], $locale) }}
+                                    </a>
                                 </div>
                             </div>
                             <div class="p-6">

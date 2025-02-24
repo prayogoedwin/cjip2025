@@ -12,6 +12,7 @@ return [
     "button_1" => "Detail",
     "button_2" => "Lokasi Proyek",
     "button_3" => "Minat Proyek",
+    "button_4" => "Unduh Kajian",
 
     "investment" => "Nilai Investasi",
 

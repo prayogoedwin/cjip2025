@@ -15,5 +15,5 @@ return [
     'pages' => 'Other',
     'service' => 'Service Information',
     'maps' => 'Maps',
-    'kajian' => 'Download Project Review',
+    'kajian' => 'Unduh Project Review',
 ];
