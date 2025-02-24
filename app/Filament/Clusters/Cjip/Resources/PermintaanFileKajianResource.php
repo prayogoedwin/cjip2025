@@ -159,8 +159,8 @@ class PermintaanFileKajianResource extends Resource
                             ->iconColor('primary')
                             ->sendToDatabase($recipient);
 
-                        $body = 'Terimakasih ' . $record->name
-                            . ' kami lampirkan file kajian proyek';
+                        $body = 'Kepada Yth. Bapak/i ' . $record->name
+                            . ' kami lampirkan file kajian proyek sesuai dengan permohonan anda.';
 
                         $pemohon = \App\Models\Cjip\PermintaanFileKajian::find($record->id);
 
