@@ -59,7 +59,7 @@ class PeminatProductResource extends Resource
                 // TextColumn::make('product.slug'),
                 ToggleColumn::make('status')->label('Verifikasi'),
                 TextInputColumn::make('rencana_nilai_pekerjaan')->rules(['numeric'])
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
