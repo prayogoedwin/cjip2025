@@ -4,7 +4,9 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Models\Cjip\PermintaanFileKajian;
 use App\Policies\ActivityPolicy;
+use App\Policies\Cjip\PermintaanFileKajianPolicy;
 use App\Policies\FolderPolicy;
 use App\Policies\MediaPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -43,6 +45,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Cjip\Partner' => 'App\Policies\Cjip\PartnerPolicy',
         'App\Models\Cjip\ProfileKabkota' => 'App\Policies\Cjip\ProfileKabkotaPolicy',
         'App\Models\Cjip\JenisPpp' => 'App\Policies\Cjip\JenisPppPolicy',
+        'App\Models\Cjip\PermintaanFileKajian' => 'App\Policies\Cjip\PermintaanFileKajianPolicy',
 
         'App\Models\Cjibf\CjibfRegisterO3m' => 'App\Policies\Cjibf\CjibfRegisterO3mPolicy',
         'App\Models\Cjibf\Event' => 'App\Policies\Cjip\EventPolicy',
@@ -60,7 +63,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Simike\Report' => 'App\Policies\Simike\ReportPolicy',
 
         Folder::class => FolderPolicy::class,
-        Media::class => MediaPolicy::class
+        Media::class => MediaPolicy::class,
 
 
     ];
