@@ -16,6 +16,7 @@ return [
     'pages' => 'Lainnya',
     'service' => 'Layanan Informasi',
     'maps' => 'Peta',
+    'kajian' => 'Download Kajian Proyek',
 
 
 ];
