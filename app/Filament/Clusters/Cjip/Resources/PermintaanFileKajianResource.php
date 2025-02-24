@@ -8,6 +8,7 @@ use App\Filament\Clusters\Cjip\Resources\PermintaanFileKajianResource\RelationMa
 use App\Models\Cjip\PermintaanFileKajian as CjipPermintaanFileKajian;
 use App\Models\Cjip\ProyekInvestasi;
 use App\Models\PermintaanFileKajian;
+use App\Notifications\PermintaanKajian;
 use Carbon\Carbon;
 use Dompdf\FrameDecorator\Text;
 use Filament\Forms;
@@ -26,23 +27,21 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Notification as Notifications;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PermintaanFileKajianResource extends Resource
 {
     protected static ?string $model = CjipPermintaanFileKajian::class;
 
+    public $pemohon;
+
     protected static ?string $recordTitleAttribute = 'nama';
-
     protected static ?int $navigationSort = 1;
-
     protected static ?string $navigationGroup = 'File Kajian';
-
     protected static ?string $navigationLabel = 'Permintaan Kajian Proyek';
-
     protected static ?string $pluralLabel = 'Permintaan Kajian Proyek';
-
-
     protected static ?string $cluster = CJIP::class;
 
     public static function form(Form $form): Form
@@ -87,7 +86,6 @@ class PermintaanFileKajianResource extends Resource
                         ->required(),
                     Hidden::make('status')
                         ->default(0),
-
                 ])
             ]);
     }
@@ -146,6 +144,41 @@ class PermintaanFileKajianResource extends Resource
                         $record->status = 1;
                         $record->file = $data['file'];
                         $record->save();
+
+                        Notification::make()
+                            ->title('Riwayat Data telah direkam')
+                            ->success()
+                            ->send();
+
+                        $recipient = auth()->user();
+
+                        Notification::make()
+                            ->title('Permohonan')
+                            ->body("Permohonan telah selesai, Balasan Sudah dikirim ke pemohon ")
+                            ->icon('heroicon-o-document-text')
+                            ->iconColor('primary')
+                            ->sendToDatabase($recipient);
+
+                        $body = 'Terimakasih ' . $record->name
+                            . ' kami lampirkan file kajian proyek';
+
+                        $pemohon = \App\Models\Cjip\PermintaanFileKajian::find($record->id);
+
+                        if ($pemohon) {
+                            try {
+                                Notifications::route('mail', $pemohon->email)
+                                    ->notify(new PermintaanKajian($body, $pemohon->file));
+                                Notification::make()
+                                    ->title('Email berhasil dikirim ke Pemohon')
+                                    ->success()
+                                    ->send();
+                            } catch (\Exception $e) {
+                                \Filament\Notifications\Notification::make()
+                                    ->title('Email tidak terkirim')
+                                    ->danger()
+                                    ->send();
+                            }
+                        }
                     })
                     ->form([
                         FileUpload::make('file')
