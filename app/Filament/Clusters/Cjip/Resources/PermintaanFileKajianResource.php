@@ -153,7 +153,7 @@ class PermintaanFileKajianResource extends Resource
                         $recipient = auth()->user();
 
                         Notification::make()
-                            ->title('Permohonan')
+                            ->title('Permohonan Data Kajian Proyek')
                             ->body("Permohonan telah selesai, Balasan Sudah dikirim ke pemohon ")
                             ->icon('heroicon-o-document-text')
                             ->iconColor('primary')
