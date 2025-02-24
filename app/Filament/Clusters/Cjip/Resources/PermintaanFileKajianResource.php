@@ -71,9 +71,9 @@ class PermintaanFileKajianResource extends Resource
                     TextInput::make('company')
                         ->label('Perusahaan/Institusi')
                         ->placeholder('Masukan Nama Perusahaan/institusi Anda'),
-                    Textarea::make('message')
-                        ->label('Pesan')
-                        ->placeholder('Masukan Pesan Anda'),
+                    // Textarea::make('message')
+                    //     ->label('Pesan')
+                    //     ->placeholder('Masukan Pesan Anda'),
                     FileUpload::make('file')
                         ->label('File Kajian Proyek')
                         ->disk('public')
