@@ -151,7 +151,7 @@ class ListProyeks extends ListRecords
 
     protected function getTableQuery(): Builder
     {
-        $query = parent::getTableQuery()->where('dikecualikan', 0)->where('is_mapping', 1);
+        $query = parent::getTableQuery()->with(['kabkota', 'sektor', 'kbli2digit', 'nibCheck', 'rules'])->where('dikecualikan', 0)->where('is_mapping', 1);
 
         if (auth()->user()->hasRole('kabkota')) {
             $query->where('kab_kota_id', auth()->user()->kabkota->id);

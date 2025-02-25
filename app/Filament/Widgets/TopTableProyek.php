@@ -79,6 +79,7 @@ class TopTableProyek extends BaseWidget
                     DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN tki ELSE 0 END) as `count_tki_anomaly`'),
                     DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN tka ELSE 0 END) as `count_tka_anomaly`')
                 )->limit(5)
+                ->with('kabkota')
                 ->groupBy('kecamatan_usaha');
         } else {
             $query = Proyek::filterMikro(
@@ -104,6 +105,7 @@ class TopTableProyek extends BaseWidget
                     DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN tki ELSE 0 END) as `count_tki_anomaly`'),
                     DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN tka ELSE 0 END) as `count_tka_anomaly`')
                 )->limit(5)
+                ->with('kabkota')
                 ->groupBy('kab_kota_id');
         }
         return $table
