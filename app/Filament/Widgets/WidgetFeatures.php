@@ -13,6 +13,7 @@ class WidgetFeatures extends Widget
     use HasWidgetShield;
     protected int | string | array $columnSpan = 'full';
 
+    protected static bool $isLazy = false;
     public array $grid = [];
     // protected static string $view = 'filament.widgets.widget-features';
 

@@ -44,6 +44,7 @@ class ProyekResource extends Resource
 
     protected static ?string $pluralLabel = 'Proyek Investasi';
 
+
     public static function form(Form $form): Form
     {
         return $form
@@ -312,10 +313,10 @@ class ProyekResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tahun')->sortable(),
                 Tables\Columns\TextColumn::make('triwulan')->sortable(),
-                Tables\Columns\TextColumn::make('rules.nama')
-                    ->label('Sumber Data')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->searchable(),
+                // Tables\Columns\TextColumn::make('rules.nama')
+                //     ->label('Sumber Data')
+                //     ->toggleable(isToggledHiddenByDefault: true)
+                //     ->searchable(),
                 Tables\Columns\TextColumn::make('jmlTenagaKerja')
                     ->label('Jumlah Naker')
                     ->getStateUsing(function (Model $record) {

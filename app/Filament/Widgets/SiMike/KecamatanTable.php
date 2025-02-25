@@ -22,6 +22,7 @@ class KecamatanTable extends BaseWidget
     protected static ?string $navigationLabel = "Rekap Kecamatan";
     protected static ?string $label = 'Rekap Kecamatan';
     protected static ?string $pluralLabel = 'Rekap Kecamatan';
+    protected static bool $isLazy = false;
 
     public $filter;
     public $tahun,
