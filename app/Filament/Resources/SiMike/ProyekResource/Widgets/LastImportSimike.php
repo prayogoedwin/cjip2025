@@ -13,6 +13,7 @@ class LastImportSimike extends Widget
 
     public $periode, $tahun, $triwulan;
 
+    protected static bool $isLazy = true;
     public static function canView(): bool
     {
         if (URL::current() == \url('/admin')) {
@@ -23,11 +24,12 @@ class LastImportSimike extends Widget
     protected int|string|array $columnSpan = 'full';
     public function mount()
     {
+        $query = Report::with('user')->latest();
         if (auth()->user()->hasRole('kabkota')) {
-            $this->periode = Report::where('user_id', auth()->user()->id)->latest()->first();
-        } else {
-            $this->periode = Report::latest()->first();
+            $query->where('user_id', auth()->user()->id);
         }
+        $this->periode = $query->first();
     }
+
     protected static string $view = 'filament.resources.si-mike.proyek-resource.widgets.last-import-simike';
 }

@@ -34,7 +34,7 @@ class ListProyeks extends ListRecords
     {
         return [
             // DashboardSimike::class,
-            // LastImportSimike::class,
+            LastImportSimike::class,
         ];
     }
 
