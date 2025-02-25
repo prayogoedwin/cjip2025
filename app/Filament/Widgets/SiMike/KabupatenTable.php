@@ -25,7 +25,7 @@ class KabupatenTable extends BaseWidget
     protected static ?string $navigationLabel = "Rekap Kabupaten/Kota";
     protected static ?string $label = 'Rekap Kabupaten/Kota';
     protected static ?string $pluralLabel = 'Rekap Kabupaten/Kota';
-    protected static bool $isLazy = false;
+    // protected static bool $isLazy = false;
 
     //FILTERS
     public $filter;

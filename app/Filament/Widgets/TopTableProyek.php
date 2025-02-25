@@ -31,8 +31,6 @@ class TopTableProyek extends BaseWidget
     public $start, $end;
     protected static ?string $heading = 'Top 5 Table Nilai Investasi';
     protected int | string | array $columnSpan = 'full';
-
-    protected static bool $isLazy = false;
     protected static ?string $loadingIndicator = 'Loading...';
     protected $listeners = ['filterUpdated' => 'updateFilter'];
 
