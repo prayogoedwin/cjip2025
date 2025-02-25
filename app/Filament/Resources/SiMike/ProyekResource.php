@@ -257,7 +257,6 @@ class ProyekResource extends Resource
                 Tables\Columns\TextColumn::make('day_of_tanggal_pengajuan_proyek')
                     ->label('Tanggal Pengajuan Proyek')
                     ->wrap()
-                    // ->date('d M Y')
                     ->toggleable(isToggledHiddenByDefault: false)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tanggal_terbit_oss')
@@ -325,65 +324,7 @@ class ProyekResource extends Resource
                 Tables\Columns\TextColumn::make('jumlah_investasi')
                     ->label('Rencana Nilai Investasi')
                     // ->formatStateUsing(fn(float $state): string => "Rp. " . number_format($state, 0, ',', '.'))
-                    ->sortable()
-                // Tables\Columns\IconColumn::make('dikecualikan')
-                //     ->boolean()
-                //     ->label('Dikecualikan')
-                //     ->sortable()
-                //     ->trueColor('danger')
-                //     ->falseColor('success')
-                //     ->toggleable(isToggledHiddenByDefault: true),
-                // Tables\Columns\IconColumn::make('is_mapping')
-                //     ->boolean()
-                //     ->label('Is Mapping')
-                //     ->sortable()
-                //     ->trueColor('danger')
-                //     ->falseColor('success')
-                //     ->toggleable(isToggledHiddenByDefault: true),
-                ,
-
-                // Tables\Columns\TextColumn::make('jumlah_investasi')
-                //     ->summarize(Sum::make()
-                //         ->label('Total Nilai Investasi')
-                //         ->formatStateUsing(fn(float $state): string => "Rp. " . number_format($state, 0, ',', '.'))),
-
-                // Tables\Columns\TextColumn::make('pembelian_pematangan_tanah')
-                //     ->label('Pembelian Pematangan Tanah')
-                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                //     ->wrap()
-                //     ->searchable()
-                //     ->toggleable(isToggledHiddenByDefault: false),
-                // Tables\Columns\TextColumn::make('bangunan_gedung')
-                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                //     ->label('Bangunan Gedung')
-                //     ->wrap()
-                //     ->searchable()
-                //     ->toggleable(isToggledHiddenByDefault: false),
-                // Tables\Columns\TextColumn::make('mesin_peralatan')
-                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                //     ->label('Mesin Peralatan')
-                //     ->wrap()
-                //     ->searchable()
-                //     ->toggleable(isToggledHiddenByDefault: false),
-                // Tables\Columns\TextColumn::make('mesin_peralatan_impor')
-                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                //     ->label('Mesin Peralatan Impor')
-                //     ->wrap()
-                //     ->searchable()
-                //     ->toggleable(isToggledHiddenByDefault: false),
-                // Tables\Columns\TextColumn::make('modal_kerja')
-                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                //     ->label('Modal Kerja')
-                //     ->wrap()
-                //     ->searchable()
-                //     ->toggleable(isToggledHiddenByDefault: false),
-                // Tables\Columns\TextColumn::make('lain_lain')
-                //     // ->formatStateUsing(fn(string $state): string => __("Rp.{$state}"))
-                //     ->label('Lain-Lain')
-                //     ->wrap()
-                //     ->searchable()
-                //     ->toggleable(isToggledHiddenByDefault: false),
-
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('npwp_perusahaan')
                     ->label('NPWP Perusahaan')
                     ->wrap()
@@ -447,16 +388,6 @@ class ProyekResource extends Resource
                     ->label('Satuan Tanah')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
-                // Tables\Columns\TextColumn::make('kabkota.nama')
-                //     ->wrap()
-                //     ->label('Kabupaten/Kota')
-                //     ->searchable()
-                //     ->toggleable(function () {
-                //         if (auth()->user()->hasRole('kabkota')) {
-                //             return false;
-                //         }
-                //         return true;
-                //     }),
             ])
             ->deselectAllRecordsWhenFiltered(true)
             ->filtersFormColumns(3)
@@ -482,11 +413,11 @@ class ProyekResource extends Resource
                                 ->schema([
                                     DatePicker::make('created_from')->label('Tanggal Awal')
                                         ->hiddenLabel()
-                                        ->default(Carbon::now()->startOfYear())
+                                        // ->default(Carbon::now()->startOfYear())
                                         ->placeholder('Awal'),
                                     DatePicker::make('created_until')->label('Tanggal Akhir')
                                         ->hiddenLabel()
-                                        ->default(Carbon::now())
+                                        // ->default(Carbon::now())
                                         ->placeholder('Akhir')
                                 ])
                         ])
@@ -501,26 +432,6 @@ class ProyekResource extends Resource
                                     fn(Builder $query, $date): Builder => $query->whereDate('tanggal_terbit_oss', '<=', $date),
                                 );
                         }),
-                    // Filter::make('created_at')
-                    //     ->form([
-                    //         Fieldset::make('Periode Import')
-                    //             ->schema([
-                    //                 Forms\Components\DatePicker::make('periode_start')
-                    //                     ->disableLabel()->placeholder('Awal'),
-                    //                 Forms\Components\DatePicker::make('periode_end')->disableLabel()->placeholder('Akhir'),
-                    //             ])->columns(2),
-                    //     ])
-                    //     ->query(function (Builder $query, array $data): Builder {
-                    //         return $query
-                    //             ->when(
-                    //                 $data['periode_start'],
-                    //                 fn(Builder $query, $date): Builder => $query->whereDate('periode_start', '>=', $date),
-                    //             )
-                    //             ->when(
-                    //                 $data['periode_end'],
-                    //                 fn(Builder $query, $date): Builder => $query->whereDate('periode_end', '<=', $date),
-                    //             );
-                    //     }),
 
                     Tables\Filters\SelectFilter::make('tahun')
                         ->options(function () {
@@ -573,12 +484,6 @@ class ProyekResource extends Resource
                         ->label('Kecamatan Usaha')
                         ->searchable()
                         ->multiple()
-                        // ->default(function () {
-                        //     if (auth()->user()->kabkota->id) {
-                        //         return true;
-                        //     }
-                        //     return false;
-                        // })
                         ->options(function () {
                             $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
                                 ->whereNotNull('kecamatan_usaha')
@@ -653,33 +558,6 @@ class ProyekResource extends Resource
                             }
                             return true;
                         }),
-
-
-                    // Tables\Filters\SelectFilter::make('dikecualikan')->label('Dikecualikan')
-                    //     ->options([
-                    //         0 => 'Tidak Dikecualikan',
-                    //         1 => 'Dikecualikan',
-                    //     ])
-                    //     ->default('0')
-                    //     ->visible(function () {
-                    //         if (auth()->user()->hasRole('kabkota')) {
-                    //             return false;
-                    //         }
-                    //         return true;
-                    //     }),
-
-                    // Tables\Filters\SelectFilter::make('is_mapping')->label('Is Mapping')
-                    //     ->options([
-                    //         0 => 'Tidak Mapping',
-                    //         1 => 'Mapping',
-                    //     ])
-                    //     ->default('1')
-                    //     ->visible(function () {
-                    //         if (auth()->user()->hasRole('kabkota')) {
-                    //             return false;
-                    //         }
-                    //         return true;
-                    //     }),
                 ],
                 layout: FiltersLayout::AboveContent
             )

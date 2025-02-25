@@ -151,10 +151,13 @@ class ListProyeks extends ListRecords
 
     protected function getTableQuery(): Builder
     {
+        $query = parent::getTableQuery()->where('dikecualikan', 0)->where('is_mapping', 1);
+
         if (auth()->user()->hasRole('kabkota')) {
-            return parent::getTableQuery()->where('kab_kota_id', auth()->user()->kabkota->id)->where('dikecualikan', 0)->where('is_mapping', 1);
+            $query->where('kab_kota_id', auth()->user()->kabkota->id);
         }
-        return parent::getTableQuery()->where('dikecualikan', 0)->where('is_mapping', 1);
+
+        return $query;
     }
     public function storeReport(array $data)
     {
