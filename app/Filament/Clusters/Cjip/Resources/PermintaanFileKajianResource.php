@@ -140,6 +140,10 @@ class PermintaanFileKajianResource extends Resource
                     ->icon('heroicon-s-envelope-open')
                     ->iconPosition('after')
                     ->label('Balas')
+                    ->modalSubmitActionLabel('Kirim')
+                    ->modalIcon('heroicon-o-paper-airplane')
+                    ->modalHeading('Balas')
+                    ->modalDescription('Silahkan upload file kajian proyek')
                     ->action(function (\App\Models\Cjip\PermintaanFileKajian $record, array $data): void {
                         $record->status = 1;
                         $record->file = $data['file'];
@@ -184,8 +188,8 @@ class PermintaanFileKajianResource extends Resource
                         FileUpload::make('file')
                             ->label('File Kajian Proyek')
                             ->disk('public')
+                            ->hiddenLabel()
                             ->openable()
-                            ->helperText('Silahkan upload file kajian proyek')
                             ->downloadable()
                             ->acceptedFileTypes(['application/pdf'])
                             ->preserveFilenames()

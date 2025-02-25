@@ -631,7 +631,7 @@ class ProyekResource extends Resource
                             return $options;
                         })->visible(function () {
                             if (auth()->user()->hasRole('kabkota')) {
-                                return false;
+                                return true;
                             }
                             return true;
                         }),
@@ -649,7 +649,7 @@ class ProyekResource extends Resource
                         })
                         ->visible(function () {
                             if (auth()->user()->hasRole('kabkota')) {
-                                return false;
+                                return true;
                             }
                             return true;
                         }),
