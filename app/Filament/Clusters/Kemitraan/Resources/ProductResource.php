@@ -5,6 +5,7 @@ namespace App\Filament\Clusters\Kemitraan\Resources;
 use App\Filament\Clusters\Kemitraan;
 use App\Filament\Clusters\Kemitraan\Resources\ProductResource\Pages;
 use App\Filament\Clusters\Kemitraan\Resources\ProductResource\RelationManagers;
+use App\Filament\Clusters\Kemitraan\Resources\ProductResource\RelationManagers\UserRelationManager;
 use App\Models\Kemitraan\Product;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -93,18 +94,18 @@ class ProductResource extends Resource
                         ->hint('*file maksimal 2 MB')
                         ->preserveFilenames(),
 
-                    FileUpload::make('image')
-                        ->label('Galeri Produk')
-                        ->image()
-                        ->required()
-                        ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg'])
-                        ->disk('public')
-                        ->directory('kemitraan/product/gallery')
-                        ->maxSize(2048)
-                        ->maxFiles(5)
-                        ->multiple()
-                        ->hint('*maksimal 5 gambar')
-                        ->preserveFilenames(),
+                    // FileUpload::make('image')
+                    //     ->label('Galeri Produk')
+                    //     ->image()
+                    //     ->required()
+                    //     ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg'])
+                    //     ->disk('public')
+                    //     ->directory('kemitraan/product/gallery')
+                    //     ->maxSize(2048)
+                    //     ->maxFiles(5)
+                    //     ->multiple()
+                    //     ->hint('*maksimal 5 gambar')
+                    //     ->preserveFilenames(),
 
                     Toggle::make('is_active')
                         ->label('Status')
@@ -194,7 +195,7 @@ class ProductResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()->label('Lihat Detail')->icon('heroicon-m-eye'),
-                // Tables\Actions\EditAction::make()->iconButton(),
+                Tables\Actions\EditAction::make()->iconButton(),
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
@@ -206,7 +207,7 @@ class ProductResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            UserRelationManager::class
         ];
     }
 

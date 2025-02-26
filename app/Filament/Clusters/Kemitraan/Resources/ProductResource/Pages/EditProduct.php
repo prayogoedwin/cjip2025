@@ -28,30 +28,10 @@ class EditProduct extends EditRecord
         $this->image = $data->galleryProduct->pluck('image')
             ->flatten()
             ->map(function ($imagePath) {
-                return Storage::url($imagePath); // Generate full URL from the storage path
+                return Storage::url($imagePath);
             })->flatten()
             ->toArray();
-        // dd($this->image);
     }
-
-    protected function getFormSchema(): array
-    {
-        return [
-            FileUpload::make('image')
-                ->image()
-                ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg'])
-                ->disk('public')
-                ->directory('kemitraan/product/gallery')
-                ->required()
-                ->preserveFilenames()
-                ->maxFiles(5)
-                ->multiple()
-                ->imagePreview()
-                ->hint('*maksimal 5 gambar')
-                ->label('Galeri Produk'),
-        ];
-    }
-
     protected function getHeaderActions(): array
     {
         return [

@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\Kawasan;
+use App\Models\Kemitraan\Product;
 use App\Models\Kepeminatan\Perusahaan;
 use App\Models\Simike\Report;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -98,5 +99,9 @@ class User extends Authenticatable implements HasAvatar
     public function userperusahaan()
     {
         return $this->hasOne(Perusahaan::class);
+    }
+    public function produk()
+    {
+        return $this->hasMany(Product::class, 'user_id');
     }
 }
