@@ -55,7 +55,6 @@ class Profile extends Component implements HasForms
             'nib' => auth()->user()->userperusahaan->nib ?? '',
             'alamat_pimpinan' => auth()->user()->userperusahaan->alamat_pimpinan ?? '',
             'alamat_perusahaan' => auth()->user()->userperusahaan->alamat_perusahaan ?? '',
-
         ]);
     }
 
@@ -360,7 +359,6 @@ class Profile extends Component implements HasForms
                     ->required()
                     ->label('Alamat Perusahaan')
                     ->columnSpanFull(),
-
                 TextInput::make('nama_pimpinan')
                     ->label('Nama Pimpinan')
                     ->required(),
@@ -378,24 +376,16 @@ class Profile extends Component implements HasForms
     }
     public function store()
     {
-        // Get the authenticated user
         $user = auth()->user();
-
-        // Update user information
         $user->update([
             'name' => $this->name,
             'email' => $this->email,
             'no_hp' => $this->no_hp,
             'jabatan' => $this->jabatan,
-            'profile_photo_path' => $this->form->getState()['profile_photo_path'], // Use old path if no new upload
+            'profile_photo_path' => $this->form->getState()['profile_photo_path'],
         ]);
-
-        // Get the user's associated company
         $perusahaan = $user->userperusahaan;
-
-        // Check if company data exists
         if ($perusahaan) {
-            // Update existing company information
             $perusahaan->update([
                 'nama_perusahaan' => $this->nama_perusahaan,
                 'nib' => $this->nib,
@@ -409,9 +399,8 @@ class Profile extends Component implements HasForms
                 'alamat_pimpinan' => $this->alamat_pimpinan,
             ]);
         } else {
-            // Create new company if it doesn't exist
             $perusahaan = Perusahaan::create([
-                'user_id' => $user->id, // Make sure to associate the company with the user
+                'user_id' => $user->id,
                 'nama_perusahaan' => $this->nama_perusahaan,
                 'nib' => $this->nib,
                 'jenis_usaha' => $this->jenis_usaha,
@@ -424,15 +413,12 @@ class Profile extends Component implements HasForms
                 'alamat_pimpinan' => $this->alamat_pimpinan,
             ]);
         }
-
-        // Optionally, you can return a success response or redirect the user
         session()->flash('message', 'Data saved successfully!');
         return Redirect::to('/dashboard');
     }
     public function logout()
     {
         Auth::logout();
-
         return Redirect::to('/');
     }
     public function render()
