@@ -13,12 +13,16 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid as ComponentsGrid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
+use Filament\Pages\Page;
+use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -54,6 +58,8 @@ class ProyekInvestasiResource extends Resource
     // protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationLabel = 'Proyek Investasi';
+
+    // protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     protected static ?string $pluralLabel = 'Proyek Investasi';
     protected static ?string $cluster = Cjip::class;
@@ -402,19 +408,35 @@ class ProyekInvestasiResource extends Resource
                                 })->relationship('kabKota', 'nama')->searchable(),
                                 Forms\Components\Select::make('market_id')->label('Market')->relationship('market', 'nama'),
                                 Forms\Components\Select::make('sektor_id')->label('Sektor')->relationship('sektor', 'nama'),
-                                // 
-                                Select::make('status')->options([
-                                    0 => 'UNPUBLISH',
-                                    null => 'REVIEWING',
-                                    1 => 'PUBLISHED',
-                                ])
-                                    ->default(null)
-                                    ->visible(function () {
-                                        if (auth()->user()->hasRole('admin_cjip')) {
-                                            return false;
-                                        }
-                                        return true;
-                                    }),
+
+                                Section::make([
+                                    Select::make('status')->options([
+                                        0 => 'UNPUBLISH',
+                                        null => 'REVIEWING',
+                                        1 => 'PUBLISHED',
+                                    ])
+                                        ->default(null)
+                                        ->visible(function () {
+                                            if (auth()->user()->hasRole('admin_cjip')) {
+                                                return false;
+                                            }
+                                            return true;
+                                        }),
+                                    Toggle::make(name: 'is_cjibf')
+                                        ->onIcon('heroicon-s-check-circle')
+                                        ->offIcon('heroicon-s-x-circle')
+                                        ->onColor('success')
+                                        ->label('CJIBF')
+                                        ->offColor('danger')
+                                        ->extraAttributes([
+                                            'class' => 'dark:text-gray-300'
+                                        ])->visible(function () {
+                                            if (auth()->user()->hasRole('admin_cjip')) {
+                                                return false;
+                                            }
+                                            return true;
+                                        }),
+                                ]),
                             ])
                     ])->skippable()
                 ])->columns(1),
@@ -436,6 +458,7 @@ class ProyekInvestasiResource extends Resource
                                 }
                                 return asset('images/no_image.jpg');
                             })
+                            ->visibleFrom('md')
                             ->height('150px')
                             ->width('250px')
                             ->extraImgAttributes([
@@ -517,21 +540,21 @@ class ProyekInvestasiResource extends Resource
                                 ->extraAttributes([
                                     'class' => 'text-gray-500 dark:text-gray-300 text-xs italic'
                                 ]),
-                            ToggleColumn::make(name: 'is_cjibf')
-                                ->onIcon('heroicon-s-check-circle')
-                                ->offIcon('heroicon-s-x-circle')
-                                ->onColor('success')
-                                ->label('CJIBF')
-                                ->alignRight()
-                                ->offColor('danger')
-                                ->extraAttributes([
-                                    'class' => 'dark:text-gray-300'
-                                ])->visible(function () {
-                                    if (auth()->user()->hasRole('admin_cjip')) {
-                                        return false;
-                                    }
-                                    return true;
-                                }),
+                            // ToggleColumn::make(name: 'is_cjibf')
+                            //     ->onIcon('heroicon-s-check-circle')
+                            //     ->offIcon('heroicon-s-x-circle')
+                            //     ->onColor('success')
+                            //     ->label('CJIBF')
+                            //     ->alignRight()
+                            //     ->offColor('danger')
+                            //     ->extraAttributes([
+                            //         'class' => 'dark:text-gray-300'
+                            //     ])->visible(function () {
+                            //         if (auth()->user()->hasRole('admin_cjip')) {
+                            //             return false;
+                            //         }
+                            //         return true;
+                            //     }),
                         ])
 
                     ]),

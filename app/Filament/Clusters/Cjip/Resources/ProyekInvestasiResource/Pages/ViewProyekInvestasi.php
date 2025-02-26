@@ -4,6 +4,7 @@ namespace App\Filament\Clusters\Cjip\Resources\ProyekInvestasiResource\Pages;
 
 use App\Filament\Clusters\Cjip\Resources\ProyekInvestasiResource;
 use Filament\Actions;
+use Filament\Actions\EditAction;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -19,6 +20,7 @@ class ViewProyekInvestasi extends ViewRecord
     {
         return [
             LocaleSwitcher::make(),
+            EditAction::make()
         ];
     }
 }
