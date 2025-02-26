@@ -554,10 +554,10 @@ class ProyekResource extends Resource
                 ]),
             ]);
     }
-    protected function paginateTableQuery(Builder $query): Paginator
-    {
-        return $query->fastPaginate(($this->getTableRecordsPerPage() === 'all') ? $query->count() : $this->getTableRecordsPerPage());
-    }
+    // protected function paginateTableQuery(Builder $query): Paginator
+    // {
+    //     return $query->fastPaginate(($this->getTableRecordsPerPage() === 'all') ? $query->count() : $this->getTableRecordsPerPage());
+    // }
     public static function getRelations(): array
     {
         return [
