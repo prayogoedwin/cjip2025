@@ -21,8 +21,6 @@ use Illuminate\Support\Str;
 class ProductAdd extends Component implements HasForms
 {
     use InteractsWithForms, WithFileUploads;
-
-    // public Product $product;
     public Product $product;
     public ?array $data = [];
     public ProductGallery $galeriProduct;
@@ -50,11 +48,9 @@ class ProductAdd extends Component implements HasForms
                     ->placeholder('Masukan Nama Produk')
                     ->reactive()
                     ->afterStateUpdated(fn($set, ?string $state) => $set('slug', Str::slug($state))),
-
                 Hidden::make('slug')
                     ->label('Slug Produk')
                     ->required(),
-
                 MarkdownEditor::make('description')
                     ->label('Deskripsi')
                     ->toolbarButtons([
@@ -76,7 +72,6 @@ class ProductAdd extends Component implements HasForms
                         'justify',
                     ])
                     ->placeholder('Masukan Deskripsi Produk'),
-
                 FileUpload::make('image_cover')
                     ->label('Sampul Produk')
                     ->image()
@@ -87,7 +82,6 @@ class ProductAdd extends Component implements HasForms
                     ->maxSize(2048)
                     ->hint('*file maksimal 2 MB')
                     ->preserveFilenames(),
-
                 FileUpload::make('image')
                     ->label('Galeri Produk')
                     ->image()
@@ -100,7 +94,6 @@ class ProductAdd extends Component implements HasForms
                     ->multiple()
                     ->hint('*maksimal 5 gambar')
                     ->preserveFilenames(),
-
                 Toggle::make('is_active')
                     ->label('Status')
                     ->default(false)
@@ -114,13 +107,12 @@ class ProductAdd extends Component implements HasForms
     public function create()
     {
         $user = auth()->user();
-        // Simpan produk baru
         $data = Product::create([
             'user_id' => $user->id,
             'name' => $this->form->getState()['name'],
             'slug' => $this->form->getState()['slug'],
             'description' => $this->form->getState()['description'],
-            'image_cover' => $this->form->getState()['image_cover'], // Simpan gambar sampul
+            'image_cover' => $this->form->getState()['image_cover'],
             'is_active' => $this->form->getState()['is_active'],
         ]);
 
@@ -133,8 +125,6 @@ class ProductAdd extends Component implements HasForms
         Log::info('Product stored, redirecting...');
         return redirect()->route('product.me');
     }
-
-
 
     public function render()
     {

@@ -70,7 +70,6 @@ class SuratPengajuan extends Component
     {
         $this->showBtn = false;
         $nib = DB::table('nibs')->where('nib', $this->nib)->first();
-        // dd($nib);
         if ($nib) {
             $this->nama_perusahaan = $nib->nama_perusahaan;
             $this->alamat_perusahaan = $nib->alamat_perusahaan;

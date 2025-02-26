@@ -16,17 +16,13 @@ class ProductMe extends Component
     public function logout()
     {
         Auth::logout();
-
         return Redirect::to('/');
     }
-
     protected $listeners = ['showModal'];
-
     public function showModal()
     {
         $this->isOpen = true;
     }
-
     public function closeModal()
     {
         $this->isOpen = false;

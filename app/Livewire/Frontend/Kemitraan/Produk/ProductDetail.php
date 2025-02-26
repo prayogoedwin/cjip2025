@@ -23,13 +23,8 @@ class ProductDetail extends Component
         $this->product = Product::where('slug', $slug)->first();
         $this->title = 'Detail Produk ' . $this->product->name;
         $this->imageProduct = $this->product->galleryProduct->pluck('image')->flatten()->toArray();
-
-        // dd($this->imageProduct);
-
-        // Check if the current user is the owner of the product
         $this->isOwner = $this->product->user_id == Auth::user()->id;
 
-        // Check if the current user is interested in the product
         $data = PeminatProduct::where('peminat_id', Auth::user()->id)
             ->where('product_id', $this->product->id)
             ->where('status', 0)
@@ -57,10 +52,8 @@ class ProductDetail extends Component
     public function logout()
     {
         Auth::logout();
-
         return Redirect::to('/');
     }
-
     protected $listeners = ['showModal'];
 
     public function showModal()

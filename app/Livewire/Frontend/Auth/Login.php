@@ -35,7 +35,6 @@ class Login extends Component
         ]);
 
         $this->loading = true;
-        // dd($this->rdr);
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             if ($this->rdr != "" && $this->rdr === "sinida") {
                 return redirect()->route('dashboard.sinida');

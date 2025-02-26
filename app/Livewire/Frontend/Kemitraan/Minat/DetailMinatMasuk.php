@@ -16,7 +16,6 @@ class DetailMinatMasuk extends Component
     public $title;
     public $comment;
     public $statusMinat;
-
     protected $listeners = ['commentPosted' => '$refresh'];
 
     public function mount($id)

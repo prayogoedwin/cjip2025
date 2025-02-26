@@ -19,12 +19,9 @@ class DaftarPmaPmdn extends Component implements HasForms, HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
-
     public $data, $status;
-
     public function mount($id, $status)
     {
-        // dd($status);
         $this->data = $id;
         $this->status = $status;
     }
@@ -43,7 +40,6 @@ class DaftarPmaPmdn extends Component implements HasForms, HasTable
             ->whereNotNull('kabkotas.lng')
             ->where('rilis.status_pm', $status)
             ->where('rilis.kab_kota_id', $id);
-
         return $data;
     }
 

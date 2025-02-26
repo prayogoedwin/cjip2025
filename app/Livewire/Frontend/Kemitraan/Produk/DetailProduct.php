@@ -20,13 +20,7 @@ class DetailProduct extends Component
     public function mount($slug)
     {
         $this->product = Product::where('slug', $slug)->first();
-        // $this->imageProduct = $this->product->galleryProduct;
         $this->imageProduct = $this->product->galleryProduct->pluck('image')->flatten()->toArray();
-
-        // Check if the current user is the owner of the product
-        // $this->isOwner = $this->product->user_id == Auth::user()->id;
-
-        // // Check if the current user is interested in the product
         if (Auth::check()) {
             $data = PeminatProduct::where('peminat_id', Auth::user()->id)
                 ->where('product_id', $this->product->id)
@@ -42,7 +36,6 @@ class DetailProduct extends Component
     {
         $this->imageMain = $image;
     }
-
     public function minatProduct($id)
     {
         $product = Product::where('id', $id)->first();
@@ -55,7 +48,6 @@ class DetailProduct extends Component
             'product_id' => $id
         ]);
         Session::forget('product_id');
-
         $this->show = false;
         session()->flash('message', 'Terima kasih, Keminatan Anda Dengan Produk Ini Sedang Di Proses');
     }

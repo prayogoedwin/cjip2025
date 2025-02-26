@@ -459,7 +459,6 @@ class SuratKepeminatan extends Component implements HasForms
                                     ->default(0)
                                     ->suffix('People/ Orang'),
                             ])->columns(1),
-
                         Fieldset::make('Foreign Worker/ TKA')
                             ->inlineLabel()
                             ->schema([
@@ -502,13 +501,11 @@ class SuratKepeminatan extends Component implements HasForms
     public function mount()
     {
         if (Session::get('lang')) {
-            // dd(Session::get('lang'));
             if (is_array(Session::get('lang'))) {
                 $this->locale = Session::get('lang')[0];
             } else {
                 $this->locale = Session::get('lang');
             }
-            // dd($this->locale);
         } else {
             $this->locale = 'id';
         }

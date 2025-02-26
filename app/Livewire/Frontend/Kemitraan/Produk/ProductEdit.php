@@ -33,8 +33,6 @@ class ProductEdit extends Component implements HasForms
     public function mount($id): void
     {
         $data = Product::with('galleryProduct')->find($id);
-        // dd($data);
-
         $this->product_id = $data->id;
         $this->name = $data->name;
         $this->is_active = $data->is_active == 1;
@@ -46,10 +44,7 @@ class ProductEdit extends Component implements HasForms
         } else {
             $this->image_cover = [$data->image_cover];
         }
-
         $this->image = $data->galleryProduct->pluck('image')->flatten()->toArray();
-
-        // dd($this->image);
     }
 
     protected function getFormSchema(): array
@@ -94,7 +89,6 @@ class ProductEdit extends Component implements HasForms
                 ->hint('*file maksimal 2 MB')
                 ->preserveFilenames()
                 ->label('Sampul Produk'),
-
             FileUpload::make('image')
                 ->image()
                 ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg'])
@@ -106,7 +100,6 @@ class ProductEdit extends Component implements HasForms
                 ->multiple()
                 ->hint('*maksimal 5 gambar')
                 ->label('Galeri Produk'),
-
             Toggle::make('is_active')->default(false)->label('Status')
                 ->onIcon('heroicon-s-check-circle')
                 ->offIcon('heroicon-s-x-circle')
@@ -119,23 +112,14 @@ class ProductEdit extends Component implements HasForms
     {
         $product = Product::find($id);
         if ($product) {
-            // Delete related product gallery images
             $productGallery = ProductGallery::where('product_id', $product->id)->get();
             foreach ($productGallery as $galleryItem) {
                 Storage::disk('public')->delete($galleryItem->image);
                 $galleryItem->delete();
             }
-
-            // Delete the product cover image
             Storage::disk('public')->delete($product->image_cover);
-
-            // Delete related comments
             $product->comment()->delete();
-
-            // Delete related interested users
             $product->productMinat()->delete();
-
-            // Finally, delete the product itself
             $product->delete();
         }
         session()->flash('message', 'Data saved successfully!');
@@ -154,9 +138,7 @@ class ProductEdit extends Component implements HasForms
     public function store()
     {
         $user = auth()->user();
-
         $product = Product::find($this->product_id);
-
         $product->update([
             'user_id' => $user->id,
             'name' => $this->name,
@@ -165,9 +147,7 @@ class ProductEdit extends Component implements HasForms
             'image_cover' => $this->form->getState()['image_cover'],
             'is_active' => $this->is_active,
         ]);
-
         $image = ProductGallery::where('product_id', $this->product_id);
-
         $image->update([
             'image' => $this->form->getState()['image'],
         ]);

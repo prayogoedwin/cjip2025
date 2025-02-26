@@ -14,7 +14,6 @@ class ProductAll extends Component
     public $title = 'Produk';
     public  $search;
     protected $products;
-
     public function cariProduct()
     {
         $this->products = Product::where('name', 'like', '%' . $this->search . '%')

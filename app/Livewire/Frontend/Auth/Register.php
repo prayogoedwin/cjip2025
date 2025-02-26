@@ -19,8 +19,6 @@ class Register extends Component
     public function registerStore()
     {
         $this->loading = true;
-
-        // Validasi input
         $this->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
@@ -32,12 +30,8 @@ class Register extends Component
             'email.unique' => 'Email already exists.',
             'password.required' => 'The password field is required.',
         ]);
-
         $hashedPassword = Hash::make($this->password);
-
         $role = Role::where('name', 'perusahaan')->first();
-
-        // Buat user baru
         $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
@@ -45,9 +39,7 @@ class Register extends Component
         ]);
         $user->syncRoles($role->id);
         session()->flash('message', 'Your registration was successful. Go to the login page.');
-
         $this->loading = false;
-        // $this->resetInputFields();
         if (Session::has('product_id')) {
             Auth::attempt(['email' => $this->email, 'password' => $this->password]);
             return redirect()->route('detail.product', Session::get('product_id'));

@@ -25,7 +25,6 @@ class MinatMasuk extends Component
     public function logout()
     {
         Auth::logout();
-
         return Redirect::to('/');
     }
 }

@@ -23,7 +23,6 @@ class DetailMinatKeluar extends Component
         $this->product = Product::with('productMinat')->where('slug', $slug)->first();
         $this->title = 'Detail Produk ' . $this->product->name;
         $this->imageProduct = $this->product->galleryProduct;
-        // dd($this->product->productMinat);
     }
     public function changeImage($image)
     {
