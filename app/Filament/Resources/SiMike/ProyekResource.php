@@ -159,13 +159,11 @@ class ProyekResource extends Resource
                                 $sum
                             );
                         }),
-
                     Forms\Components\TextInput::make('lain_lain')
                         ->reactive()
                         ->numeric()
                         ->afterStateUpdated(function ($state, callable $set, $get) {
                             $sum = $state + $get('mesin_peralatan_impor') + $get('pembelian_pematangan_tanah') + $get('bangunan_gedung') + $get('modal_kerja') + $get('mesin_peralatan');
-
                             if ($sum <= 1000000000) {
                                 $set('flag', 'Micro');
                             } elseif ($sum >= 1000000000 && $sum <= 5000000000) {
@@ -175,7 +173,6 @@ class ProyekResource extends Resource
                             } elseif ($sum > 10000000000) {
                                 $set('flag', 'Besar');
                             }
-
                             return $set(
                                 'jumlah_investasi',
                                 $sum
@@ -183,14 +180,12 @@ class ProyekResource extends Resource
                         }),
                     Forms\Components\TextInput::make('jumlah_investasi')
                         ->reactive()
-
                 ])->columns(3),
                 Forms\Components\Section::make('Proyek')->schema([
                     Forms\Components\TextInput::make('id_proyek'),
                     Forms\Components\TextInput::make('kbli'),
                     Forms\Components\TextInput::make('judul_kbli'),
                 ])->columns(3),
-
                 Forms\Components\Section::make('Uraian Proyek')->schema([
                     Forms\Components\TextInput::make('flag')
                         ->reactive()
@@ -207,7 +202,6 @@ class ProyekResource extends Resource
                     Forms\Components\Select::make('tahun')
                         ->options(function () {
                             $years = range(Carbon::now()->year, Carbon::now()->subYear(5)->year);
-                            //dd($years);
                             return $years;
                         })
                         ->default(Carbon::now()->year)
@@ -230,7 +224,6 @@ class ProyekResource extends Resource
                             } elseif ($bulan_ini >= 9 && $bulan_ini <= 12) {
                                 return 4;
                             }
-
                             return null;
                         })
                         ->required()
@@ -238,14 +231,12 @@ class ProyekResource extends Resource
                 ])->columns(4),
                 Forms\Components\Hidden::make('user_id')->default(auth()->id()),
                 Forms\Components\Hidden::make('last_edited_by_id')->default(auth()->id())
-
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            // ->recordCheckboxPosition(\Filament\Tables\Enums\RecordCheckboxPosition::BeforeCells)
             ->query(Proyek::query()
                 ->with(['kabkota', 'sektor', 'kbli2digit', 'nibCheck', 'rules'])
                 ->where('dikecualikan', 0)
@@ -320,10 +311,6 @@ class ProyekResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tahun')->sortable(),
                 Tables\Columns\TextColumn::make('triwulan')->sortable(),
-                // Tables\Columns\TextColumn::make('rules.nama')
-                //     ->label('Sumber Data')
-                //     ->toggleable(isToggledHiddenByDefault: true)
-                //     ->searchable(),
                 Tables\Columns\TextColumn::make('jmlTenagaKerja')
                     ->label('Jumlah Naker')
                     ->getStateUsing(function (Model $record) {
@@ -403,10 +390,9 @@ class ProyekResource extends Resource
                 ExportAction::make()->exports([
                     ExcelExport::make('table')
                         ->fromTable()
-                        // ->queue()
                         ->withChunkSize(1000)
                         ->askForFilename()
-                        ->askForWriterType()
+                        ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
                         ->withFilename(date('d-M-Y') . ' - Data Simike'),
                 ])
                     ->button()
@@ -440,14 +426,12 @@ class ProyekResource extends Resource
                                     fn(Builder $query, $date): Builder => $query->whereDate('tanggal_terbit_oss', '<=', $date),
                                 );
                         }),
-
                     Tables\Filters\SelectFilter::make('tahun')
                         ->options(function () {
                             $years = range(Carbon::now()->year, Carbon::now()->subYear(2)->year);
                             return array_combine(array_values($years), array_values($years));
                         })
-                    ->default(Carbon::now()->year),
-
+                        ->default(Carbon::now()->year),
                     Tables\Filters\SelectFilter::make('triwulan')
                         ->options([
                             1 => 'I',
@@ -468,14 +452,12 @@ class ProyekResource extends Resource
                     //     }
                     //     return null;
                     // }),
-
                     Tables\Filters\SelectFilter::make('uraian_skala_usaha')
                         ->label('Skala Usaha')
                         ->options([
                             'Usaha Mikro' => 'Usaha Mikro',
                             'Usaha Kecil' => 'Usaha Kecil',
                         ]),
-
                     Tables\Filters\SelectFilter::make('kab_kota_id')
                         ->label('Kabupaten/Kota')
                         ->relationship('kabkota', 'nama')
@@ -487,7 +469,6 @@ class ProyekResource extends Resource
                             }
                             return true;
                         }),
-
                     SelectFilter::make('kecamatan_usaha')
                         ->label('Kecamatan Usaha')
                         ->searchable()
@@ -511,7 +492,6 @@ class ProyekResource extends Resource
                             }
                             return false;
                         }),
-
                     SelectFilter::make('kbli')
                         ->label('KBLI')
                         ->multiple()
@@ -522,7 +502,6 @@ class ProyekResource extends Resource
                             foreach ($kbliCodes as $kbli) {
                                 $options[$kbli] = $kbli;
                             }
-
                             return $options;
                         })->visible(function () {
                             if (auth()->user()->hasRole('kabkota')) {
@@ -530,7 +509,6 @@ class ProyekResource extends Resource
                             }
                             return true;
                         }),
-
                     SelectFilter::make('sektor')
                         ->label('Kategori')
                         ->multiple()
@@ -540,7 +518,6 @@ class ProyekResource extends Resource
                             foreach ($sektors as $sektor) {
                                 $options[$sektor] = $sektor;
                             }
-
                             return $options;
                         })->visible(function () {
                             if (auth()->user()->hasRole('kabkota')) {
@@ -548,7 +525,6 @@ class ProyekResource extends Resource
                             }
                             return true;
                         }),
-
                     SelectFilter::make('nama_23_sektor')
                         ->label('23 Sektor')
                         ->multiple()
@@ -578,19 +554,16 @@ class ProyekResource extends Resource
                 ]),
             ]);
     }
-
     protected function paginateTableQuery(Builder $query): Paginator
     {
         return $query->fastPaginate(($this->getTableRecordsPerPage() === 'all') ? $query->count() : $this->getTableRecordsPerPage());
     }
-
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-
     public static function getPages(): array
     {
         return [
