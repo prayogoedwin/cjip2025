@@ -91,7 +91,7 @@ class AdminPanelProvider extends PanelProvider
                     ->bannerManagerAccessPermission('banner-manager'),
                 SpotlightPlugin::make(),
                 FilamentMediaManagerPlugin::make()->allowSubFolders()->allowUserAccess(),
-                FilamentProgressbarPlugin::make()->color('#16a34a'),
+                // FilamentProgressbarPlugin::make()->color('#16a34a'),
                 SpatieLaravelTranslatablePlugin::make()->defaultLocales(['id', 'en']),
                 FilamentLoggerPlugin::make(),
                 FilamentApexChartsPlugin::make(),

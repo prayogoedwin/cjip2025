@@ -245,7 +245,14 @@ class ProyekResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->recordCheckboxPosition(\Filament\Tables\Enums\RecordCheckboxPosition::BeforeCells)
+            // ->recordCheckboxPosition(\Filament\Tables\Enums\RecordCheckboxPosition::BeforeCells)
+            ->query(Proyek::query()
+                ->with(['kabkota', 'sektor', 'kbli2digit', 'nibCheck', 'rules'])
+                ->where('dikecualikan', 0)
+                ->where('is_mapping', 1)
+                ->when(auth()->user()->hasRole('kabkota'), function ($query) {
+                    $query->where('kab_kota_id', auth()->user()->kabkota->id);
+                }))
             ->columns([
                 Tables\Columns\TextColumn::make('id_proyek')
                     ->label('ID Proyek')
@@ -291,7 +298,7 @@ class ProyekResource extends Resource
                 Tables\Columns\TextColumn::make('kbli2digit.nama_23_sektor')
                     ->label('Nama 23 Sektor')
                     ->wrap()
-                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('klsektor_pembina')
                     ->label('K/L Sektor Pembina')
@@ -439,7 +446,7 @@ class ProyekResource extends Resource
                             $years = range(Carbon::now()->year, Carbon::now()->subYear(2)->year);
                             return array_combine(array_values($years), array_values($years));
                         })
-                        ->default(Carbon::now()->year),
+                    ->default(Carbon::now()->year),
 
                     Tables\Filters\SelectFilter::make('triwulan')
                         ->options([
