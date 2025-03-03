@@ -1178,7 +1178,6 @@
                 </div>
             </header>
 
-
             <div class="fi-section-content-ctn border-t border-gray-200 dark:border-white/10">
                 <div class="fi-section-content p-6">
                     <dl>
@@ -1243,54 +1242,28 @@
                                                                             style="">
                                                                             {{ $product->userPeminat->userperusahaan->jenis_usaha }}
                                                                         </div>
-
-
                                                                     </div>
-
                                                                 </div>
-
-
-
-
                                                             </div>
                                                         </div>
-
-
                                                     </div>
-
                                                 </div>
-
                                             </dd>
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
                                 <div class="fi-in-entry-wrp">
-
-
                                     <div class="grid gap-y-2 sm:grid-cols-3 sm:items-start sm:gap-x-4">
-
                                         <div class="flex items-center gap-x-3 justify-between ">
-
                                             <dt class="fi-in-entry-wrp-label inline-flex items-center gap-x-3">
-
-
                                                 <span
                                                     class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
                                                     Alamat Perusahaan :
                                                 </span>
-
-
                                             </dt>
-
-
-
                                         </div>
-
-
                                         <div class="grid auto-cols-fr gap-y-2 sm:col-span-2">
                                             <dd class="">
                                                 <div class="fi-in-text w-full">
