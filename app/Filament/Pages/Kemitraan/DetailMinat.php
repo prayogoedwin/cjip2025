@@ -39,14 +39,13 @@ class DetailMinat extends Page
     {
         ComentProduct::create([
             'user_id' => Auth::user()->id,
-            'product_id' => $this->product->id,
+            'product_id' => $this->product->product->id,
             'comment' => $this->comment
         ]);
         $this->reset('comment');
         $this->dispatch('commentPosted');
-        $this->comments = ComentProduct::where('product_id', $this->product->id)->get();
-        $this->jumlahDiskusi = $this->comments->count();
     }
+
 
     protected static string $view = 'filament.pages.kemitraan.detail-minat';
 }
