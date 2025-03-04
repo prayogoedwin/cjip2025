@@ -14,7 +14,7 @@
                 <div>
                     <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
                         {{ $product->product->name }}</h2>
-                    <p class="text-gray-700 dark:text-gray-400 mb-4">{{ $product->product->description }}
+                    <p class="text-gray-700 dark:text-gray-400 mb-4">{!! str($product->product->description)->markdown()->sanitizeHtml() !!}
                     </p>
                 </div>
                 <!-- Informasi Pemilik Produk -->
@@ -363,278 +363,142 @@
                                                                             style="">
                                                                             {{ $product->product->user->userperusahaan->jenis_usaha }}
                                                                         </div>
-
-
                                                                     </div>
-
                                                                 </div>
-
-
-
-
                                                             </div>
                                                         </div>
-
-
                                                     </div>
-
                                                 </div>
-
                                             </dd>
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
                                 <div class="fi-in-entry-wrp">
-
-
                                     <div class="grid gap-y-2 sm:grid-cols-3 sm:items-start sm:gap-x-4">
-
                                         <div class="flex items-center gap-x-3 justify-between ">
-
                                             <dt class="fi-in-entry-wrp-label inline-flex items-center gap-x-3">
-
-
                                                 <span
                                                     class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
                                                     Alamat Perusahaan :
                                                 </span>
-
-
                                             </dt>
-
-
-
                                         </div>
-
-
                                         <div class="grid auto-cols-fr gap-y-2 sm:col-span-2">
                                             <dd class="">
-
                                                 <div class="fi-in-text w-full">
-
                                                     <div class="fi-in-affixes flex">
-
-
                                                         <div class="min-w-0 flex-1">
                                                             <div class="flex ">
-
                                                                 <div class="flex max-w-max" style="">
-
                                                                     <div
-                                                                        class="fi-in-text-item inline-flex items-center gap-1.5  ">
-
-
+                                                                        class="fi-in-text-item inline-flex items-center gap-1.5">
                                                                         <div class="text-sm leading-6 text-gray-950 dark:text-white  "
                                                                             style="">
                                                                             {{ $product->product->user->userperusahaan->alamat_perusahaan }}
                                                                         </div>
-
-
                                                                     </div>
-
                                                                 </div>
-
-
-
-
                                                             </div>
                                                         </div>
-
-
                                                     </div>
-
                                                 </div>
-
                                             </dd>
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
                                 <div class="fi-in-entry-wrp">
-
-
                                     <div class="grid gap-y-2 sm:grid-cols-3 sm:items-start sm:gap-x-4">
-
                                         <div class="flex items-center gap-x-3 justify-between ">
-
                                             <dt class="fi-in-entry-wrp-label inline-flex items-center gap-x-3">
-
-
                                                 <span
                                                     class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
                                                     NIB :
                                                 </span>
-
-
                                             </dt>
-
-
-
                                         </div>
-
-
                                         <div class="grid auto-cols-fr gap-y-2 sm:col-span-2">
                                             <dd class="">
-
                                                 <div class="fi-in-text w-full">
-
                                                     <div class="fi-in-affixes flex">
-
-
                                                         <div class="min-w-0 flex-1">
                                                             <div class="flex ">
-
                                                                 <div class="flex max-w-max" style="">
-
                                                                     <div
                                                                         class="fi-in-text-item inline-flex items-center gap-1.5  ">
-
-
                                                                         <div class="text-sm leading-6 text-gray-950 dark:text-white  "
                                                                             style="">
                                                                             {{ $product->product->user->userperusahaan->nib }}
                                                                         </div>
-
-
                                                                     </div>
-
                                                                 </div>
-
-
-
-
                                                             </div>
                                                         </div>
-
-
                                                     </div>
-
                                                 </div>
-
                                             </dd>
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
                                 <div class="fi-in-entry-wrp">
-
-
                                     <div class="grid gap-y-2 sm:grid-cols-3 sm:items-start sm:gap-x-4">
-
                                         <div class="flex items-center gap-x-3 justify-between ">
-
                                             <dt class="fi-in-entry-wrp-label inline-flex items-center gap-x-3">
-
-
                                                 <span
                                                     class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
                                                     Asal Negara :
                                                 </span>
-
-
                                             </dt>
-
-
-
                                         </div>
-
-
                                         <div class="grid auto-cols-fr gap-y-2 sm:col-span-2">
                                             <dd class="">
-
                                                 <div class="fi-in-text w-full">
-
                                                     <div class="fi-in-affixes flex">
-
-
                                                         <div class="min-w-0 flex-1">
                                                             <div class="flex ">
-
                                                                 <div class="flex max-w-max" style="">
-
                                                                     <div
                                                                         class="fi-in-text-item inline-flex items-center gap-1.5  ">
-
-
                                                                         <div class="text-sm leading-6 text-gray-950 dark:text-white  "
                                                                             style="">
                                                                             {{ $product->product->user->userperusahaan->negara_asal }}
                                                                         </div>
-
-
                                                                     </div>
-
                                                                 </div>
-
-
-
-
                                                             </div>
                                                         </div>
-
-
                                                     </div>
-
                                                 </div>
-
                                             </dd>
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
                                 <div class="fi-in-entry-wrp">
-
-
                                     <div class="grid gap-y-2 sm:grid-cols-3 sm:items-start sm:gap-x-4">
-
                                         <div class="flex items-center gap-x-3 justify-between ">
-
                                             <dt class="fi-in-entry-wrp-label inline-flex items-center gap-x-3">
-
-
                                                 <span
                                                     class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
                                                     Induk Perusahaan :
                                                 </span>
-
-
                                             </dt>
-
-
-
                                         </div>
-
-
                                         <div class="grid auto-cols-fr gap-y-2 sm:col-span-2">
                                             <dd class="">
-
                                                 <div class="fi-in-text w-full">
-
                                                     <div class="fi-in-affixes flex">
-
-
                                                         <div class="min-w-0 flex-1">
                                                             <div class="flex ">
-
                                                                 <div class="flex max-w-max" style="">
-
                                                                     <div
                                                                         class="fi-in-text-item inline-flex items-center gap-1.5  ">
-
-
                                                                         <div class="text-sm leading-6 text-gray-950 dark:text-white  "
                                                                             style="">
                                                                             {{ $product->product->user->userperusahaan->induk_perusahaan }}
@@ -652,222 +516,114 @@
                             </div>
                             <div style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
                                 <div class="fi-in-entry-wrp">
-
-
                                     <div class="grid gap-y-2 sm:grid-cols-3 sm:items-start sm:gap-x-4">
-
                                         <div class="flex items-center gap-x-3 justify-between ">
-
                                             <dt class="fi-in-entry-wrp-label inline-flex items-center gap-x-3">
-
-
                                                 <span
                                                     class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
                                                     Telepon Perusahaan :
                                                 </span>
-
-
                                             </dt>
-
-
-
                                         </div>
-
-
                                         <div class="grid auto-cols-fr gap-y-2 sm:col-span-2">
                                             <dd class="">
-
                                                 <div class="fi-in-text w-full">
-
                                                     <div class="fi-in-affixes flex">
-
-
                                                         <div class="min-w-0 flex-1">
                                                             <div class="flex ">
-
                                                                 <div class="flex max-w-max" style="">
-
                                                                     <div
                                                                         class="fi-in-text-item inline-flex items-center gap-1.5  ">
-
-
                                                                         <div class="text-sm leading-6 text-gray-950 dark:text-white  "
                                                                             style="">
                                                                             {{ $product->product->user->userperusahaan->telepon_perusahaan }}
                                                                         </div>
-
-
                                                                     </div>
-
                                                                 </div>
-
-
-
-
                                                             </div>
                                                         </div>
-
-
                                                     </div>
-
                                                 </div>
-
                                             </dd>
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
                                 <div class="fi-in-entry-wrp">
-
-
                                     <div class="grid gap-y-2 sm:grid-cols-3 sm:items-start sm:gap-x-4">
-
                                         <div class="flex items-center gap-x-3 justify-between ">
-
                                             <dt class="fi-in-entry-wrp-label inline-flex items-center gap-x-3">
-
-
                                                 <span
                                                     class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
                                                     Nama Pimpinan :
                                                 </span>
-
-
                                             </dt>
-
-
-
                                         </div>
-
-
                                         <div class="grid auto-cols-fr gap-y-2 sm:col-span-2">
                                             <dd class="">
-
                                                 <div class="fi-in-text w-full">
-
                                                     <div class="fi-in-affixes flex">
-
-
                                                         <div class="min-w-0 flex-1">
                                                             <div class="flex ">
-
                                                                 <div class="flex max-w-max" style="">
-
                                                                     <div
-                                                                        class="fi-in-text-item inline-flex items-center gap-1.5  ">
-
-
-                                                                        <div class="text-sm leading-6 text-gray-950 dark:text-white  "
+                                                                        class="fi-in-text-item inline-flex items-center gap-1.5">
+                                                                        <div class="text-sm leading-6 text-gray-950 dark:text-white"
                                                                             style="">
                                                                             {{ $product->product->user->userperusahaan->nama_pimpinan }}
                                                                         </div>
-
-
                                                                     </div>
-
                                                                 </div>
-
-
-
-
                                                             </div>
                                                         </div>
-
-
                                                     </div>
-
                                                 </div>
-
                                             </dd>
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
                                 <div class="fi-in-entry-wrp">
-
-
                                     <div class="grid gap-y-2 sm:grid-cols-3 sm:items-start sm:gap-x-4">
-
                                         <div class="flex items-center gap-x-3 justify-between ">
-
                                             <dt class="fi-in-entry-wrp-label inline-flex items-center gap-x-3">
-
-
                                                 <span
                                                     class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
                                                     Telepon Pimpinan :
                                                 </span>
-
-
                                             </dt>
-
-
-
                                         </div>
-
-
                                         <div class="grid auto-cols-fr gap-y-2 sm:col-span-2">
                                             <dd class="">
-
                                                 <div class="fi-in-text w-full">
-
                                                     <div class="fi-in-affixes flex">
-
-
                                                         <div class="min-w-0 flex-1">
                                                             <div class="flex ">
-
                                                                 <div class="flex max-w-max" style="">
-
                                                                     <div
-                                                                        class="fi-in-text-item inline-flex items-center gap-1.5  ">
-
-
-                                                                        <div class="text-sm leading-6 text-gray-950 dark:text-white  "
+                                                                        class="fi-in-text-item inline-flex items-center gap-1.5">
+                                                                        <div class="text-sm leading-6 text-gray-950 dark:text-white"
                                                                             style="">
                                                                             {{ $product->product->user->userperusahaan->telepon_pimpinan }}
                                                                         </div>
-
-
                                                                     </div>
-
                                                                 </div>
-
-
-
-
                                                             </div>
                                                         </div>
-
-
                                                     </div>
-
                                                 </div>
-
                                             </dd>
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="--col-span-default: span 1 / span 1;" class="col-[--col-span-default]">
                                 <div class="fi-in-entry-wrp">
-
-
                                     <div class="grid gap-y-2 sm:grid-cols-3 sm:items-start sm:gap-x-4">
-
                                         <div class="flex items-center gap-x-3 justify-between ">
-
                                             <dt class="fi-in-entry-wrp-label inline-flex items-center gap-x-3">
-
-
                                                 <span
                                                     class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
                                                     Alamat Pimpinan :
@@ -876,55 +632,31 @@
                                         </div>
                                         <div class="grid auto-cols-fr gap-y-2 sm:col-span-2">
                                             <dd class="">
-
                                                 <div class="fi-in-text w-full">
-
                                                     <div class="fi-in-affixes flex">
-
-
                                                         <div class="min-w-0 flex-1">
                                                             <div class="flex ">
-
                                                                 <div class="flex max-w-max" style="">
-
                                                                     <div
                                                                         class="fi-in-text-item inline-flex items-center gap-1.5  ">
-
-
                                                                         <div class="text-sm leading-6 text-gray-950 dark:text-white  "
                                                                             style="">
                                                                             {{ $product->product->user->userperusahaan->alamat_pimpinan }}
                                                                         </div>
-
-
                                                                     </div>
-
                                                                 </div>
-
-
-
-
                                                             </div>
                                                         </div>
-
-
                                                     </div>
-
                                                 </div>
-
                                             </dd>
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </dl>
                 </div>
-
-
             </div>
         </section>
 
