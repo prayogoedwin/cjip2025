@@ -1,4 +1,5 @@
 <x-filament::page>
+    {{-- Detail Produk --}}
     <x-filament::section>
         <div class="bg-white dark:bg-gray-900 p-2 flex flex-col md:flex-row">
             <div class="w-full md:w-1/2 flex flex-col items-center">
@@ -931,7 +932,6 @@
     </x-filament::section>
 
     {{-- detail Peminat Produk --}}
-
     <x-filament::section>
         <x-slot name="heading">
             Details Peminat Produk
@@ -1542,6 +1542,7 @@
         {{-- Content --}}
     </x-filament::section>
 
+    {{-- Discussion --}}
     <x-filament::section>
         @if ($statusMinat->status == 1)
             <section class="bg-white dark:bg-gray-900 py-3 lg:py-16 antialiased">
