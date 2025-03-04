@@ -78,7 +78,7 @@ class KabupatenTable extends Page
 
                 Grid::make([
                     'sm' => 2,
-                    'xl' => 2,
+                    'xl' => 4,
                 ])
                     ->schema([
                         Select::make('uraian_skala_usaha')

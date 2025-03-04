@@ -7,7 +7,7 @@
             <span class="px-4 bg-primary-500 rounded-lg text-md font-bold text-white uppercase">Dashboard Si-Mike</span>
         </div>
     </div> --}}
-    <x-filament::section collapsible collapsed icon="heroicon-o-magnifying-glass" icon-color="primary">
+    <x-filament::section collapsible icon="heroicon-o-magnifying-glass" icon-color="primary">
         <x-slot name="heading">
             Filter Dashboard Si-Mike
         </x-slot>

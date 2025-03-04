@@ -1,5 +1,5 @@
 <x-filament-panels::page>
-    <x-filament::section collapsible collapsed icon="heroicon-o-magnifying-glass" icon-color="primary">
+    <x-filament::section collapsible icon="heroicon-o-magnifying-glass" icon-color="primary">
         <x-slot name="heading">
             Filter Rekap Kabupaten/Kota
         </x-slot>

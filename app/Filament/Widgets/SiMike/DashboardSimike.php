@@ -103,7 +103,7 @@ class DashboardSimike extends Widget implements HasForms
                 ]),
                 Grid::make([
                     'sm' => 2,
-                    'xl' => 2,
+                    'xl' => 4,
                 ])
                     ->schema([
                         Select::make('uraian_skala_usaha')
