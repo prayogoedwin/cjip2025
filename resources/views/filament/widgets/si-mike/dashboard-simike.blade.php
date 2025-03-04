@@ -21,7 +21,7 @@
         </form>
     </x-filament::section>
 
-    <x-filament::section collapsible icon="heroicon-o-squares-2x2" icon-color="primary" class="mt-3 gap-x-2">
+    <x-filament::section collapsible icon="heroicon-o-squares-2x2" icon-color="primary" class="mt-6 gap-x-2">
         <x-slot name="heading">
             Dashboard Si-Mike
         </x-slot>

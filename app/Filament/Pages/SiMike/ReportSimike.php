@@ -35,9 +35,9 @@ class ReportSimike extends Page implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->paginated([35, 'all'])
-            ->defaultPaginationPageOption(35)
-            // ->paginated(false)
+            // ->paginated([35, 'all'])
+            // ->defaultPaginationPageOption(35)
+            ->paginated(false)
             ->query(
                 Report::query()
                     ->join('users', 'reports.user_id', '=', 'users.id')
