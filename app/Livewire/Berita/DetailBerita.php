@@ -42,8 +42,8 @@ class DetailBerita extends Component
 
         // $this->post = Berita::find($slug);
 
-        // $update = ['count' => $this->berita->count + 1,];
-        // Berita::where('slug->' . $this->locale, $this->slug)->update($update);
+        $update = ['count' => $this->berita->count + 1,];
+        Berita::where('slug->' . $this->locale, $this->slug)->update($update);
 
         $this->beritas = Berita::where('status', '1')->inRandomOrder()->take(5)->get();
 
