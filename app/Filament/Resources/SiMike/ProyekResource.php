@@ -237,13 +237,14 @@ class ProyekResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->paginated(15)
             ->query(Proyek::query()
-                ->with(['kabkota', 'sektor', 'kbli2digit', 'nibCheck', 'rules'])
-                ->where('dikecualikan', 0)
-                ->where('is_mapping', 1)
-                ->when(auth()->user()->hasRole('kabkota'), function ($query) {
-                    $query->where('kab_kota_id', auth()->user()->kabkota->id);
-                }))
+                ->where([
+                    ['dikecualikan', '=', 0],
+                    ['is_mapping', '=', 1],
+                ])
+                ->when(auth()->user()->hasRole('kabkota'), fn($query) => $query->where('kab_kota_id', auth()->user()->kabkota->id)))
+            ->paginated([15])
             ->columns([
                 Tables\Columns\TextColumn::make('id_proyek')
                     ->label('ID Proyek')
