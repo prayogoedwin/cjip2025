@@ -18,6 +18,7 @@ use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -25,6 +26,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Pages\SubNavigationPosition;
+use Filament\Support\Enums\FontWeight;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Facades\Hash;
 use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
@@ -172,51 +177,43 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('profile_photo_path')
-                    ->label('Avatar')->grow(false)->circular()->size(50)
-                    ->getStateUsing(function (Model $record) {
-                        if ($record->profile_photo_path) {
-                            $thumb = $record->profile_photo_path;
-                            return $thumb;
-                        }
-                        return asset('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
-                    }),
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable()
-                    ->extraAttributes([
-                        'class' => 'mt-2 text-grey-300 dark:text-grey-300 text-md'
+                Split::make([
+                    Tables\Columns\ImageColumn::make('profile_photo_path')
+                        ->label('Avatar')->grow(false)->circular()->size(50)
+                        ->getStateUsing(function (Model $record) {
+                            if ($record->profile_photo_path) {
+                                $thumb = $record->profile_photo_path;
+                                return $thumb;
+                            }
+                            return asset('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
+                        }),
+                    Stack::make([
+                        TextColumn::make('name')->sortable()->searchable()->limit(30)->weight(FontWeight::Bold),
+                        TextColumn::make('email')->sortable()->searchable()->size('xs')->copyable()->limit(30),
                     ]),
-                Tables\Columns\TextColumn::make('nip')
-                    ->label('Nik/Nip')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->extraAttributes([
-                        'class' => 'mt-2 text-grey-300 dark:text-grey-300 text-md'
-                    ]),
-                Tables\Columns\TextColumn::make('email')
-                    ->copyable()
-                    ->searchable()
-                    ->icon('heroicon-m-envelope')
-                    ->wrap(),
-                Tables\Columns\TextColumn::make('no_hp')
-                    ->copyable()
-                    ->searchable()
-                    ->icon('heroicon-m-phone')
-                    ->wrap(),
-                Tables\Columns\TextColumn::make('kabkota.nama')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->searchable()
-                    ->wrap(),
-                Tables\Columns\TextColumn::make('userkawasan.nama')
-                    ->label('Kawasan Industri')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->wrap(),
-                Tables\Columns\TagsColumn::make('roles.name')->searchable()
-                    ->extraAttributes([
-                        'class' => 'mt-2 text-grey-300 dark:text-grey-300 text-xs text-justify'
-                    ]),
+                    Stack::make([
+                        TextColumn::make('roles.name')->searchable()
+                            ->badge()
+                            ->separator(',')
+                            ->visibleFrom('md')
+                            ->alignRight()
+                            ->extraAttributes([
+                                'class' => 'mt-2'
+                            ]),
+                        TextColumn::make('created_at')
+                            ->visibleFrom('md')
+                            ->date('d M Y')->alignRight()->size('xs')->extraAttributes([
+                                'class' => 'mt-2'
+                            ])
+
+                    ])
+                ])
             ])->defaultSort('created_at', 'desc')
+            ->contentGrid([
+                'sm' => 1,
+                'md' => 2,
+                'lg' => 2
+            ])
             ->filters([
                 SelectFilter::make('roles_id')->label('Roles')
                     ->relationship('roles', 'name')
@@ -236,8 +233,8 @@ class UserResource extends Resource
             ->filtersFormColumns(3)
             ->searchable()
             ->actions([
-                Tables\Actions\ViewAction::make()->iconButton(),
-                Impersonate::make()->iconButton(),
+                Tables\Actions\ViewAction::make()->button()->hiddenLabel(),
+                Impersonate::make()->button()->hiddenLabel(),
                 ActionGroup::make([
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
