@@ -21,9 +21,11 @@ class TopSkalaUsaha extends ApexChartWidget
         $kecamatan_usaha,
         $tanggal_terbit_oss,
         $tanggal, $start, $end;
+    // protected static ?string $loadingIndicator = 'Loading...';
+    // protected static bool $deferLoading = true;
+    protected $listeners = ['filterUpdated' => 'updateFilter'];
     protected static ?string $loadingIndicator = 'Loading...';
     protected static bool $deferLoading = true;
-    protected $listeners = ['filterUpdated' => 'updateFilter'];
 
     public function mount(): void
     {
@@ -54,7 +56,7 @@ class TopSkalaUsaha extends ApexChartWidget
      *
      * @var string|null
      */
-    protected static ?string $heading = 'Uraian Skala Usaha';
+    protected static ?string $heading = 'Jumlah Proyek Per Skala Usaha';
 
     /**
      * Chart options (series, labels, types, size, animations...)
@@ -93,18 +95,18 @@ class TopSkalaUsaha extends ApexChartWidget
             ->groupBy('uraian_skala_usaha')
             ->orderByDesc(DB::raw('COUNT(*)'))
             ->whereIn('uraian_skala_usaha', ['Usaha Kecil', 'Usaha Mikro'])
-            ->when($tahun, function ($query, $tahun) {
-                return $query->where('tahun', $tahun);
-            })
-            ->when($kabkota, function ($query, $kabkota) {
-                return $query->where('kab_kota_id', $kabkota);
-            })
-            ->when($sektor, function ($query, $sektor) {
-                return $query->where('sektor_id', $sektor);
-            })
-            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-                return $query->whereBetween('tanggal_terbit_oss', [$startDate, $endDate]);
-            })
+            // ->when($tahun, function ($query, $tahun) {
+            //     return $query->where('tahun', $tahun);
+            // })
+            // ->when($kabkota, function ($query, $kabkota) {
+            //     return $query->where('kab_kota_id', $kabkota);
+            // })
+            // ->when($sektor, function ($query, $sektor) {
+            //     return $query->where('sektor_id', $sektor);
+            // })
+            // ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+            //     return $query->whereBetween('tanggal_terbit_oss', [$startDate, $endDate]);
+            // })
             ->get();
 
         $uraianSkalaUsaha = $proyekData->pluck('uraian_skala_usaha')->toArray();

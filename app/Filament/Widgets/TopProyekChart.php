@@ -57,13 +57,13 @@ class TopProyekChart extends ApexChartWidget
         $uraian_skala_usaha = $this->filterFormData['uraian_skala_usaha'] ?? null;
 
         if (is_array($tanggalTerbitOSS) && isset($tanggalTerbitOSS['start'], $tanggalTerbitOSS['end'])) {
-            $startDate = \Carbon\Carbon::parse($tanggalTerbitOSS['start'])->format('Y-m-d');
-            $endDate = \Carbon\Carbon::parse($tanggalTerbitOSS['end'])->format('Y-m-d');
+            $startDate = Carbon::parse($tanggalTerbitOSS['start'])->format('Y-m-d');
+            $endDate = Carbon::parse($tanggalTerbitOSS['end'])->format('Y-m-d');
         } else {
             $startDate = $endDate = null;
         }
 
-        // Mikro
+        // Data Usaha Mikro
         $proyekDataMikro = Proyek::filterMikro(
             $this->tanggal_terbit_oss,
             $this->tahun,
@@ -75,29 +75,17 @@ class TopProyekChart extends ApexChartWidget
         )->select(
             'kab_kota_id',
             'kabkotas.nama',
-            DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as `total`'),
-            DB::raw('count(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE 0 END) as `project_count`')
+            DB::raw('SUM(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as total'),
+            DB::raw('COUNT(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE NULL END) as project_count')
         )
             ->join('kabkotas', 'kabkotas.id', '=', 'proyeks.kab_kota_id')
             ->groupBy('kab_kota_id', 'kabkotas.nama')
             ->where('uraian_skala_usaha', 'Usaha Mikro')
             ->orderByDesc(DB::raw('SUM(jumlah_investasi)'))
             ->limit(5)
-            ->when($tahun, function ($query, $tahun) {
-                return $query->where('tahun', $tahun);
-            })
-            ->when($kabkota, function ($query, $kabkota) {
-                return $query->where('kab_kota_id', $kabkota);
-            })
-            ->when($sektor, function ($query, $sektor) {
-                return $query->where('sektor_id', $sektor);
-            })
-            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-                return $query->whereBetween('tanggal_terbit_oss', [$startDate, $endDate]);
-            })
             ->get();
 
-        // Kecil
+        // Data Usaha Kecil
         $proyekDataKecil = Proyek::filterMikro(
             $this->tanggal_terbit_oss,
             $this->tahun,
@@ -109,51 +97,39 @@ class TopProyekChart extends ApexChartWidget
         )->select(
             'kab_kota_id',
             'kabkotas.nama',
-            DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as `total`'),
-            DB::raw('count(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE 0 END) as `project_count`')
+            DB::raw('SUM(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as total'),
+            DB::raw('COUNT(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE NULL END) as project_count')
         )
             ->join('kabkotas', 'kabkotas.id', '=', 'proyeks.kab_kota_id')
             ->groupBy('kab_kota_id', 'kabkotas.nama')
-            ->where('uraian_skala_usaha', 'Usaha Kecil') // Filter untuk Usaha Kecil
+            ->where('uraian_skala_usaha', 'Usaha Kecil')
             ->orderByDesc(DB::raw('SUM(jumlah_investasi)'))
             ->limit(5)
-            ->when($tahun, function ($query, $tahun) {
-                return $query->where('tahun', $tahun);
-            })
-            ->when($kabkota, function ($query, $kabkota) {
-                return $query->where('kab_kota_id', $kabkota);
-            })
-            ->when($sektor, function ($query, $sektor) {
-                return $query->where('sektor_id', $sektor);
-            })
-            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-                return $query->whereBetween('tanggal_terbit_oss', [$startDate, $endDate]);
-            })
             ->get();
 
         $proyekDataMikroArray = $proyekDataMikro->map(function ($item) {
             return [
                 'kabupaten' => $item->nama,
-                'total' => number_format($item->total, 0, ',', '.'), // Format total with thousand separators
-                'project_count' => $item->project_count,
+                'total' => (float) $item->total,
+                'project_count' => (int) $item->project_count,
             ];
         });
 
         $proyekDataKecilArray = $proyekDataKecil->map(function ($item) {
             return [
                 'kabupaten' => $item->nama,
-                'total' => number_format($item->total, 0, ',', '.'), // Format total with thousand separators
-                'project_count' => $item->project_count,
+                'total' => (float) $item->total,
+                'project_count' => (int) $item->project_count,
             ];
         });
 
-        $kabupatenKota = array_unique(array_merge(
+        $kabupatenKota = array_values(array_unique(array_merge(
             $proyekDataMikroArray->pluck('kabupaten')->toArray(),
             $proyekDataKecilArray->pluck('kabupaten')->toArray()
-        ));
+        )));
 
-        $totalInvestasiMikro = $proyekDataMikroArray->pluck('total')->toArray();
-        $totalInvestasiKecil = $proyekDataKecilArray->pluck('total')->toArray();
+        $totalInvestasiMikro = $proyekDataMikroArray->pluck('total')->values()->toArray();
+        $totalInvestasiKecil = $proyekDataKecilArray->pluck('total')->values()->toArray();
 
         return [
             'chart' => [

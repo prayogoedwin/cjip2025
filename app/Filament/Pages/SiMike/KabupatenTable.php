@@ -128,7 +128,7 @@ class KabupatenTable extends Page
                                 $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
                                     ->whereNotNull('kecamatan_usaha')
                                     ->pluck('kecamatan_usaha')
-                                    ->filter() 
+                                    ->filter()
                                     ->toArray();
                                 if (!empty($kec_usahas)) {
                                     $kec_usaha = array_combine($kec_usahas, $kec_usahas);
