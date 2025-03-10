@@ -23,6 +23,8 @@ class Listrik extends Component implements HasForms, HasTable
             ->query(BiayaListrik::query())
             ->defaultPaginationPageOption(5)
             ->columns([
+                TextColumn::make('no.')
+                    ->rowIndex(),
                 TextColumn::make('kode'),
                 TextColumn::make('kapasitas'),
                 TextColumn::make('tarif')->searchable(),

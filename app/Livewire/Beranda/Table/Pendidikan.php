@@ -23,6 +23,8 @@ class Pendidikan extends Component implements HasForms, HasTable
             ->query(CjipPendidikan::query())
             ->defaultPaginationPageOption(5)
             ->columns([
+                TextColumn::make('no.')
+                    ->rowIndex(),
                 TextColumn::make('nama'),
                 TextColumn::make('kabkota.nama')->searchable(),
                 TextColumn::make('jenis_sekolah'),

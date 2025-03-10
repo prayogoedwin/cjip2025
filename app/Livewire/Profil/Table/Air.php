@@ -22,6 +22,8 @@ class Air extends Component implements HasForms, HasTable
             ->query(BiayaAir::query())
             ->defaultPaginationPageOption(5)
             ->columns([
+                TextColumn::make('no.')
+                    ->rowIndex(),
                 TextColumn::make('kategoriair.user_category')->wrap()->label('Kategori')->searchable(),
                 TextColumn::make('category')->wrap()->label('kategori')->searchable(),
                 TextColumn::make('first')->wrap()->label('I (1 - 10 m3)')->searchable(),

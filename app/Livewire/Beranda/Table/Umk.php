@@ -27,14 +27,15 @@ class Umk extends Component implements HasForms, HasTable
             ->query(UpahMinimum::query())
             ->defaultPaginationPageOption(5)
             ->columns([
+                TextColumn::make('no.')
+                    ->rowIndex(),
                 TextColumn::make('tahun'),
                 TextColumn::make('sumber_data'),
                 TextColumn::make('kabkota.nama')
                     ->label('Kabupaten/Kota')
                     ->searchable(),
-                TextColumn::make('nilai_umr')
-                ,
-            ])->defaultSort('nilai_umr', 'desc')    
+                TextColumn::make('nilai_umr'),
+            ])->defaultSort('nilai_umr', 'desc')
             ->filters([
                 // 
             ])
