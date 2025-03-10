@@ -4,6 +4,7 @@ namespace App\Filament\Pages\SiMike;
 
 use App\Filament\Widgets\SiMike\KabupatenTable as SiMikeKabupatenTable;
 use App\Filament\Widgets\TopProyekChart;
+use App\Filament\Widgets\TopSkalaUsaha;
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\Sektor;
 use App\Models\SiMike\Proyek;
@@ -187,6 +188,8 @@ class KabupatenTable extends Page
     protected function getFooterWidgets(): array
     {
         return [
+            TopSkalaUsaha::class,
+            TopProyekChart::class,
             SiMikeKabupatenTable::class,
         ];
     }

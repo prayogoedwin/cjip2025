@@ -4,7 +4,7 @@ namespace App\Filament\Pages;
 
 use App\Filament\Widgets\ProyekInvestasi\StatsProyekInvestasi;
 use App\Filament\Widgets\ProyekInvestasi\WidgetProyekInvestasi;
-use App\Filament\Widgets\Simike\DashboardSimike;
+use App\Filament\Widgets\SiMike\DashboardSimike;
 use App\Filament\Widgets\TopProyekChart;
 use App\Filament\Widgets\TopTableProyek;
 use App\Filament\Widgets\WidgetFeatures;
