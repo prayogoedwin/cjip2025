@@ -46,7 +46,7 @@ class TopProyekChart extends ApexChartWidget
         $this->uraian_skala_usaha = $uraian_skala_usaha['uraian_skala_usaha'];
     }
 
-    protected static ?string $heading = 'Top 5 Chart Nilai Investasi';
+    protected static ?string $heading = 'Top 3 Chart Nilai Investasi';
 
     protected function getOptions(): array
     {
@@ -76,13 +76,13 @@ class TopProyekChart extends ApexChartWidget
             'kab_kota_id',
             'kabkotas.nama',
             DB::raw('SUM(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as total'),
-            DB::raw('COUNT(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE NULL END) as project_count')
+            // DB::raw('COUNT(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE NULL END) as project_count')
         )
             ->join('kabkotas', 'kabkotas.id', '=', 'proyeks.kab_kota_id')
             ->groupBy('kab_kota_id', 'kabkotas.nama')
             ->where('uraian_skala_usaha', 'Usaha Mikro')
             ->orderByDesc(DB::raw('SUM(jumlah_investasi)'))
-            ->limit(5)
+            ->limit(3)
             ->get();
 
         // Data Usaha Kecil
@@ -98,20 +98,20 @@ class TopProyekChart extends ApexChartWidget
             'kab_kota_id',
             'kabkotas.nama',
             DB::raw('SUM(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as total'),
-            DB::raw('COUNT(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE NULL END) as project_count')
+            // DB::raw('COUNT(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE NULL END) as project_count')
         )
             ->join('kabkotas', 'kabkotas.id', '=', 'proyeks.kab_kota_id')
             ->groupBy('kab_kota_id', 'kabkotas.nama')
             ->where('uraian_skala_usaha', 'Usaha Kecil')
             ->orderByDesc(DB::raw('SUM(jumlah_investasi)'))
-            ->limit(5)
+            ->limit(3)
             ->get();
 
         $proyekDataMikroArray = $proyekDataMikro->map(function ($item) {
             return [
                 'kabupaten' => $item->nama,
                 'total' => (float) $item->total,
-                'project_count' => (int) $item->project_count,
+                // 'project_count' => (int) $item->project_count,
             ];
         });
 
@@ -119,7 +119,7 @@ class TopProyekChart extends ApexChartWidget
             return [
                 'kabupaten' => $item->nama,
                 'total' => (float) $item->total,
-                'project_count' => (int) $item->project_count,
+                // 'project_count' => (int) $item->project_count,
             ];
         });
 
@@ -152,7 +152,8 @@ class TopProyekChart extends ApexChartWidget
             'colors' => ['#16a34a', '#f59e0b'],
             'plotOptions' => [
                 'bar' => [
-                    'borderRadius' => 3,
+                    'borderRadius' => 0,
+                    'borderWidth' => 1,
                     'vertical' => true,
                 ],
             ],
