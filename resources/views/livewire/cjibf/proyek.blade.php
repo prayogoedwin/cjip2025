@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="p-6">
-                                <div class="block max-w-md mb-3">
+                                <div class="block max-w-md mb-3 justify-between flex">
                                     <div class="flex">
                                         @if ($proyek->market->id == 1)
                                             <p class="text-base font-bold" style="color: #1DB053;">
@@ -101,6 +101,8 @@
                                                 {{ __('proyek.tab_4', [], $locale) }}</p>
                                         @endif
                                     </div>
+                                    <p class="text-base px-5 py-1 bg-green-600 rounded text-white font-normal">
+                                        {{ $proyek->kabkota->nama }}</p>
                                 </div>
                                 <a href="{{ route('detail_investasi', $proyek->id) }}"
                                     class="hover:text-green-600 text-lg font-semibold">{{ \Illuminate\Support\Str::limit(strip_tags($proyek->getTranslations('nama', [$locale]) ? $proyek->getTranslations('nama', [$locale])[$locale] : $proyek->nama), 100, ' ...') }}</a>
