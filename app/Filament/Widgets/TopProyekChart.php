@@ -46,7 +46,7 @@ class TopProyekChart extends ApexChartWidget
         $this->uraian_skala_usaha = $uraian_skala_usaha['uraian_skala_usaha'];
     }
 
-    protected static ?string $heading = 'Top 3 Chart Nilai Investasi';
+    protected static ?string $heading = 'Top Chart Nilai Investasi';
 
     protected function getOptions(): array
     {
@@ -82,7 +82,7 @@ class TopProyekChart extends ApexChartWidget
             ->groupBy('kab_kota_id', 'kabkotas.nama')
             ->where('uraian_skala_usaha', 'Usaha Mikro')
             ->orderByDesc(DB::raw('SUM(jumlah_investasi)'))
-            ->limit(3)
+            ->limit(4)
             ->get();
 
         // Data Usaha Kecil
@@ -104,13 +104,13 @@ class TopProyekChart extends ApexChartWidget
             ->groupBy('kab_kota_id', 'kabkotas.nama')
             ->where('uraian_skala_usaha', 'Usaha Kecil')
             ->orderByDesc(DB::raw('SUM(jumlah_investasi)'))
-            ->limit(3)
+            ->limit(4)
             ->get();
 
         $proyekDataMikroArray = $proyekDataMikro->map(function ($item) {
             return [
                 'kabupaten' => $item->nama,
-                'total' => (float) $item->total,
+                'total' => number_format($item->total, 0, ',', '.'),
                 // 'project_count' => (int) $item->project_count,
             ];
         });
@@ -118,7 +118,7 @@ class TopProyekChart extends ApexChartWidget
         $proyekDataKecilArray = $proyekDataKecil->map(function ($item) {
             return [
                 'kabupaten' => $item->nama,
-                'total' => (float) $item->total,
+                'total' => number_format($item->total, 0, ',', '.'),
                 // 'project_count' => (int) $item->project_count,
             ];
         });
