@@ -471,6 +471,7 @@ class ProyekInvestasiResource extends Resource
                         Split::make([
                             TextColumn::make('nama')->wrap()
                                 ->searchable()
+                                ->copyable()
                                 ->grow(false)
                                 ->extraAttributes([
                                     'class' => 'mt-2 text-gray-500 dark:text-gray-300 text-md font-bold'
