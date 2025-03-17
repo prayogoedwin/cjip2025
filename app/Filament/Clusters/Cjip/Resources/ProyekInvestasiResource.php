@@ -52,15 +52,8 @@ class ProyekInvestasiResource extends Resource
     protected static ?string $model = ProyekInvestasi::class;
 
     protected static ?string $navigationGroup = 'Cjip';
-
     protected static ?string $recordTitleAttribute = 'nama';
-
-    // protected static ?int $navigationSort = 1;
-
     protected static ?string $navigationLabel = 'Proyek Investasi';
-
-    // protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
-
     protected static ?string $pluralLabel = 'Proyek Investasi';
     protected static ?string $cluster = Cjip::class;
 
