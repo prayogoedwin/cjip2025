@@ -427,6 +427,37 @@ class ProyekResource extends Resource
                                     fn(Builder $query, $date): Builder => $query->whereDate('tanggal_terbit_oss', '<=', $date),
                                 );
                         }),
+                    Filter::make('periode_start')
+                        ->form([
+                            Fieldset::make('Filter per Bulan')
+                                ->schema([
+                                    Forms\Components\Select::make('bulan')
+                                        ->options([
+                                            '01' => 'Januari',
+                                            '02' => 'Februari',
+                                            '03' => 'Maret',
+                                            '04' => 'April',
+                                            '05' => 'Mei',
+                                            '06' => 'Juni',
+                                            '07' => 'Juli',
+                                            '08' => 'Agustus',
+                                            '09' => 'September',
+                                            '10' => 'Oktober',
+                                            '11' => 'November',
+                                            '12' => 'Desember',
+                                        ])
+                                        ->disableLabel()
+                                        ->searchable()
+                                        ->placeholder('Pilih Bulan'),
+                                ])->columns(1),
+                        ])
+                        ->query(function (Builder $query, array $data): Builder {
+                            return $query->when(
+                                $data['bulan'],
+                                fn(Builder $query, $bulan) => $query->whereMonth('periode_start', $bulan),
+                            );
+                        }),
+
                     Tables\Filters\SelectFilter::make('tahun')
                         ->options(function () {
                             $years = range(Carbon::now()->year, Carbon::now()->subYear(2)->year);
