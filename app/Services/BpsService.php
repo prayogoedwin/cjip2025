@@ -26,7 +26,8 @@ class BpsService
 
         $vervarArray = [];
         foreach ($vervar as $item) {
-            $vervarArray[$item['val']] = $item['label'];
+            $cleanLabel = preg_replace('/^\d+\s*/', '', $item['label']); // Hapus angka di awal
+            $vervarArray[$item['val']] = $cleanLabel;
         }
 
         $turvarArray = [];
@@ -95,7 +96,8 @@ class BpsService
 
         $vervarArray = [];
         foreach ($vervar as $item) {
-            $vervarArray[$item['val']] = $item['label'];
+            $cleanLabel = preg_replace('/^\d+\s*/', '', $item['label']); // Hapus angka di awal
+            $vervarArray[$item['val']] = $cleanLabel;
         }
 
         $turvarArray = [];
