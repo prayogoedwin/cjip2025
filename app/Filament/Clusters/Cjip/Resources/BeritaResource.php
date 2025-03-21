@@ -119,18 +119,17 @@ class BeritaResource extends Resource
                         ->schema([
                             FileUpload::make('image')
                                 ->label('Image')
+                                // ->image()
                                 ->disk('public')
                                 ->directory('berita/' . Carbon::now()->year)
-                                ->image()
                                 ->helperText('*Isikan Maksimal 5 Foto dan Ukuran File Maksimal 2 Mb.')
                                 ->hint('foto auto cropping rasio 16:9')
+                                ->imageCropAspectRatio('16:9')
                                 ->multiple()
                                 ->required()
                                 ->maxSize(2048)
-                                ->enableOpen()
-                                ->enableReordering()
-                                ->enableDownload()
-                                ->imageCropAspectRatio('16:9')
+                                ->openable()
+                                ->downloadable()
                         ])->columns(1),
                 ])->columnSpan(1)
 
