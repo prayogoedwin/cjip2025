@@ -127,7 +127,7 @@ class BeritaResource extends Resource
                                 ->imageCropAspectRatio('16:9')
                                 ->multiple()
                                 ->required()
-                                ->maxSize(2048)
+                                // ->maxSize(2048)
                                 ->openable()
                                 ->downloadable()
                         ])->columns(1),
