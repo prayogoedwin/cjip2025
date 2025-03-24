@@ -90,7 +90,7 @@ class AdminPanelProvider extends PanelProvider
                     ->navigationIcon('')->navigationSort(10)
                     ->bannerManagerAccessPermission('banner-manager'),
                 SpotlightPlugin::make(),
-                FilamentMediaManagerPlugin::make()->allowSubFolders()->allowUserAccess(),
+                FilamentMediaManagerPlugin::make(),
                 // FilamentProgressbarPlugin::make()->color('#16a34a'),
                 SpatieLaravelTranslatablePlugin::make()->defaultLocales(['id', 'en']),
                 FilamentLoggerPlugin::make(),
