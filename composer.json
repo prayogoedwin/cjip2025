@@ -37,8 +37,7 @@
         "pxlrbt/filament-excel": "^2.3",
         "pxlrbt/filament-spotlight": "^1.3",
         "stechstudio/filament-impersonate": "^3.6",
-        "tomatophp/filament-logger": "^1.0",
-        "tomatophp/filament-media-manager": "^1.1"
+        "tomatophp/filament-logger": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

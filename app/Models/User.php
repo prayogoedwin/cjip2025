@@ -23,7 +23,7 @@ use TomatoPHP\FilamentMediaManager\Traits\InteractsWithMediaFolders;
 
 class User extends Authenticatable implements HasAvatar
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, InteractsWithMediaFolders;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     public function canImpersonate()
     {
