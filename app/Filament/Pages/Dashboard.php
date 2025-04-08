@@ -18,9 +18,12 @@ class Dashboard extends Page
 
     // use HasPageShield;    
     protected static ?string $navigationIcon = 'heroicon-s-home';
+
+    protected static ?string $navigationLabel = 'Dashboard';
+    protected static ?string $title = '';
     protected static ?int $navigationSort = -10;
     protected int | string | array $columnSpan = 'full';
-
+    
 
     protected function getHeaderWidgets(): array
     {
