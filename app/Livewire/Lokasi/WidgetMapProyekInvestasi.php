@@ -3,6 +3,8 @@
 namespace App\Livewire\Lokasi;
 
 use App\Models\Cjip\ProyekInvestasi;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class WidgetMapProyekInvestasi extends Component
@@ -17,10 +19,37 @@ class WidgetMapProyekInvestasi extends Component
 
     public function mount()
     {
-        $readytoover = ProyekInvestasi::all()->where('status', '1')->where('market_id', 1);
-        $prospective = ProyekInvestasi::all()->where('status', '1')->where('market_id', 2);
-        $potential = ProyekInvestasi::all()->where('status', '1')->where('market_id', 3);
-        $strategi = ProyekInvestasi::all()->where('status', '1')->where('market_id', 4);
+        $readytoover = ProyekInvestasi::query()
+            ->where('status', 1)
+            ->where('market_id', 1)
+            ->when(Auth::user()->hasRole('admin_cjip'), function (Builder $query) {
+                $query->where('kab_kota_id', Auth::user()->kabkota->id);
+            })
+            ->get();
+
+        $prospective = ProyekInvestasi::query()
+            ->where('status', 1)
+            ->where('market_id', 2)
+            ->when(Auth::user()->hasRole('admin_cjip'), function (Builder $query) {
+                $query->where('kab_kota_id', Auth::user()->kabkota->id);
+            })
+            ->get();
+
+        $potential = ProyekInvestasi::query()
+            ->where('status', 1)
+            ->where('market_id', 3)
+            ->when(Auth::user()->hasRole('admin_cjip'), function (Builder $query) {
+                $query->where('kab_kota_id', Auth::user()->kabkota->id);
+            })
+            ->get();
+
+        $strategi = ProyekInvestasi::query()
+            ->where('status', 1)
+            ->where('market_id', 4)
+            ->when(Auth::user()->hasRole('admin_cjip'), function (Builder $query) {
+                $query->where('kab_kota_id', Auth::user()->kabkota->id);
+            })
+            ->get();
 
         $this->proyeks = $readytoover;
         $this->proyeks1 = $prospective;
