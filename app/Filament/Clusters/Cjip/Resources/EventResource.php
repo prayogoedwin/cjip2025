@@ -3,8 +3,8 @@
 namespace App\Filament\Clusters\Cjip\Resources;
 
 use App\Filament\Clusters\Cjip;
-use App\Filament\Clusters\CJIP\Resources\EventResource\Pages;
-use App\Filament\Clusters\CJIP\Resources\EventResource\RelationManagers;
+use App\Filament\Clusters\Cjip\Resources\EventResource\Pages;
+use App\Filament\Clusters\Cjip\Resources\EventResource\RelationManagers;
 use App\Models\Cjip\Event as CjipEvent;
 use App\Models\Event;
 use Filament\Forms;
