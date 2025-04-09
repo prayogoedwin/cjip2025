@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\EventResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\EventResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\EventResource;
+use App\Filament\Clusters\Cjip\Resources\EventResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 

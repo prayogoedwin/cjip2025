@@ -8,7 +8,7 @@ use App\Filament\Clusters\CJIP\Resources\PartnerResource\RelationManagers;
 use App\Models\Cjip\Partner as CjipPartner;
 use App\Models\Partner;
 use Filament\Forms;
-use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\FileUpload;   
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -24,6 +24,7 @@ class PartnerResource extends Resource
     protected static ?string $model = CjipPartner::class;
 
     protected static ?string $navigationGroup = 'Setting';
+    
     protected static ?int $navigationSort = 2;
 
     protected static ?string $cluster = Cjip::class;

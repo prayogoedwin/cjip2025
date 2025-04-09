@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\CJIP\Resources\PartnerResource\Pages;
+namespace App\Filament\Clusters\Cjip\Resources\PartnerResource\Pages;
 
-use App\Filament\Clusters\CJIP\Resources\PartnerResource;
+use App\Filament\Clusters\Cjip\Resources\PartnerResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
