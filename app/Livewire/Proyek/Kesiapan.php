@@ -92,11 +92,25 @@ class Kesiapan extends Component
     public function render()
     {
 
-
         $jenis_marketplaces = Market::all();
+
+        $proyeks = ProyekInvestasi::where(function ($query) {
+            $query->where('nama', 'like', '%' . $this->search . '%')
+                ->orWhereHas('kabkota', function ($subQuery) {
+                    $subQuery->where('nama', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('sektor', function ($subQuery) {
+                    $subQuery->where('nama', 'like', '%' . $this->search . '%');
+                });
+        })
+            ->where('status', 1)
+            ->where('market_id', $this->marketPlace)
+            ->orderBy('id', 'desc')
+            ->paginate(6);
+
         return view('livewire.proyek.kesiapan',  [
             'jenis_marketplaces' => $jenis_marketplaces,
-            'proyeks' => $this->proyeks,
+            'proyeks' => $proyeks,
             'acti' => $this->acti,
         ]);
     }
