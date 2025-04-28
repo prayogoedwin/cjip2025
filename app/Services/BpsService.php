@@ -10,7 +10,17 @@ class BpsService
     public function getData($kode_data)
     {
         $response = Http::timeout(60)->get("https://webapi.bps.go.id/v1/api/list/model/data/lang/ind/domain/3300/var/{$kode_data}/key/0e9edd42e8750976d85170947004f513/")->json();
-        $data = $response['datacontent'];
+        // $data = $response['datacontent'];
+
+        $data = $response['datacontent'] ?? null;
+        if (!$data) {
+            return [
+                'label' => $response['var'][0]['label'] ?? '',
+                'tahun' => date('Y') - 2,
+                'kode' => $kode_data,
+                'data' => []
+            ];
+        }
         $vervar = $response['vervar'];
         $turvar = $response['turvar'];
         $tahun = $response['tahun'];
@@ -80,7 +90,18 @@ class BpsService
     public function getTanamanPangan($kode_data)
     {
         $response = Http::timeout(60)->get("https://webapi.bps.go.id/v1/api/list/model/data/lang/ind/domain/3300/var/{$kode_data}/key/0e9edd42e8750976d85170947004f513/")->json();
-        $data = $response['datacontent'];
+        // $data = $response['datacontent'];
+
+        $data = $response['datacontent'] ?? null;
+        if (!$data) {
+            return [
+                'label' => $response['var'][0]['label'] ?? '',
+                'tahun' => date('Y') - 2,
+                'kode' => $kode_data,
+                'data' => []
+            ];
+        }
+
         $vervar = $response['vervar'];
         $turvar = $response['turvar'];
         $tahun = $response['tahun'];
