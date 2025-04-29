@@ -137,3 +137,9 @@ Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(functio
 });
 Route::get('download-loi/{id}', DownloadLoi::class)->name('download-loi');
 Route::get('daftar-pma-pmdn/{id}/{status}', DaftarPmaPmdn::class);
+
+// maintenance
+
+Route::get('/maintenance', function () {
+    return view('maintenance');
+});
