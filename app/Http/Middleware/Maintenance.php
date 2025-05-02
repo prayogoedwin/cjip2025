@@ -15,7 +15,19 @@ class Maintenance
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->is(["register"])) {
+        if ($request->is([
+            'register',
+            'login',
+            'dashboard', 
+            'dashboard/sinida',  
+            'dashboard/kepeminatan', 
+            'dashboard/profile',
+            'add-product',
+            'dashboard.investor',
+            'dashboard/product-kemitraan',
+            'kepeminatan',
+            'product-all',
+            ])) {
             return redirect("/maintenance");
         }
         return $next($request);
