@@ -27,7 +27,7 @@ class DashboardSimike extends Widget implements HasForms
     use InteractsWithForms;
     protected static ?int $sort = 2;
     protected static ?string $pollingInterval = null;
-    protected static bool $isLazy = false;
+    protected static bool $isLazy = true;
     protected int|string|array $columnSpan = 'full';
 
     protected $simike, $sirusa, $nibs;
