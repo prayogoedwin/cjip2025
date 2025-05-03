@@ -34,7 +34,7 @@ class Dashboard extends Page
             WidgetProyekInvestasi::class,
             DashboardSimike::class,
             // TopProyekChart::class,
-            TopTableProyek::class
+            // TopTableProyek::class
         ];
     }
     protected static string $view = 'filament.pages.dashboard';

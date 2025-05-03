@@ -87,7 +87,8 @@ class DashboardSimike extends Widget implements HasForms
                                     ->required()
                                     ->native(false)
                                     ->displayFormat('d M Y')
-                                    ->default($this->start),
+                                    // ->default($this->start)
+                                    ,
                                 DatePicker::make('end')
                                     ->label('Tanggal Akhir')
                                     ->disableLabel()
@@ -96,7 +97,7 @@ class DashboardSimike extends Widget implements HasForms
                                     ->required()
                                     ->native(false)
                                     ->displayFormat('d M Y')
-                                    ->default($this->end),
+                                    // ->default($this->end),
                             ])->columns(2),
                         ])
 
@@ -209,9 +210,10 @@ class DashboardSimike extends Widget implements HasForms
     public function mount()
     {
         $this->tahun = now()->year;
-        $this->start = Carbon::now()->startOfYear()->format('d M Y');
-        $this->end = Carbon::now()->format('d M Y');
-        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+        // $this->start = Carbon::now()->startOfYear()->format('d M Y');
+        // $this->end = Carbon::now()->format('d M Y');
+        // $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+        
     }
 
     public function render(): View
