@@ -27,10 +27,11 @@ class DashboardSimike extends Widget implements HasForms
     use InteractsWithForms;
     protected static ?int $sort = 2;
     protected static ?string $pollingInterval = null;
-    protected static bool $isLazy = true;
+    protected static bool $isLazy = false;
     protected int|string|array $columnSpan = 'full';
 
     protected $simike, $sirusa, $nibs;
+
     public $proyek,
         $tk,
         $nib,
@@ -70,7 +71,6 @@ class DashboardSimike extends Widget implements HasForms
                 ])->schema([
                     Select::make('tahun')
                         ->default(now()->year)
-                        ->searchable()
                         ->required()
                         ->options(fn() => array_combine(
                             $years = range(now()->year, now()->year - 2),
@@ -209,10 +209,10 @@ class DashboardSimike extends Widget implements HasForms
 
     public function mount()
     {
-        $this->tahun = now()->year;
-        $this->start = Carbon::now()->startOfYear()->format('d M Y');
-        $this->end = Carbon::now()->format('d M Y');
-        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+        // $this->tahun = now()->year;
+        // $this->start = Carbon::now()->startOfYear()->format('d M Y');
+        // $this->end = Carbon::now()->format('d M Y');
+        // $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
         
     }
 
