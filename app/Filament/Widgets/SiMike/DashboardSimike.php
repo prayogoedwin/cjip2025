@@ -104,7 +104,7 @@ class DashboardSimike extends Widget implements HasForms
                 ]),
                 Grid::make([
                     'sm' => 2,
-                    'xl' => 3,
+                    'xl' => 4,
                 ])
                     ->schema([
                         Select::make('uraian_skala_usaha')
@@ -164,9 +164,9 @@ class DashboardSimike extends Widget implements HasForms
                             })
                             ->visible(fn() => auth()->user()->hasRole('kabkota')),
 
-                        // Select::make('sektor')->label('Kategori')
-                        //     ->options(Sektor::groupBy('sektor')->pluck('sektor', 'id'))
-                        //     ->searchable()
+                        Select::make('sektor')->label('Kategori')
+                            ->options(Sektor::groupBy('sektor')->pluck('sektor', 'id'))
+                            ->searchable()
                     ])
             ])
 
@@ -210,9 +210,9 @@ class DashboardSimike extends Widget implements HasForms
     public function mount()
     {
         $this->tahun = now()->year;
-        // $this->start = Carbon::now()->startOfYear()->format('d M Y');
-        // $this->end = Carbon::now()->format('d M Y');
-        // $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+        $this->start = Carbon::now()->startOfYear()->format('d M Y');
+        $this->end = Carbon::now()->format('d M Y');
+        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
         
     }
 
