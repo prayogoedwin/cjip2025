@@ -240,13 +240,14 @@ class ProyekResource extends Resource
         return $table
             ->paginated(15)
             ->query(
-                Proyek::with('kbli2digit')
+                Proyek::mappedProyek()
+                    // ->with('kbli2digit')
                     ->select(['id_proyek', 'nib', 'is_mapping', 'dikecualikan', 'kab_kota_id','day_of_tanggal_pengajuan_proyek','tanggal_terbit_oss',
                     'tahun', 'triwulan','jumlah_investasi','uraian_skala_usaha','alamat_usaha','kelurahan_usaha','kecamatan_usaha','provinsi_usaha',
                     'nama_perusahaan','kbli','klsektor_pembina','sektor','tki','tka','npwp_perusahaan','nomor_identitas_user',
-                    'nomor_telp','email','alamat','uraian_status_penanaman_modal','judul_kbli','satuan_tanah','luas_tanah','nama_user','kab_kota_usaha','mapping_kbli_id'])
-                    ->where('dikecualikan', 0)
-                    ->where('is_mapping', 1)
+                    'nomor_telp','email','alamat','uraian_status_penanaman_modal','judul_kbli','satuan_tanah','luas_tanah','nama_user','kab_kota_usaha',
+                    // 'mapping_kbli_id'
+                    ])
                     ->when(auth()->user()->hasRole('kabkota'), fn($query) =>
                         $query->where('kab_kota_id', auth()->user()->kabkota->id)
                     )
@@ -283,21 +284,21 @@ class ProyekResource extends Resource
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false)
                     ->wrap(),
-                Tables\Columns\TextColumn::make('kbli2digit.kbli_2digit')
-                    ->label('KBLI 2Digit')
-                    ->wrap()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('kbli2digit.nama_kbli_2digit')
-                    ->label('Nama KBLI 2Digit')
-                    ->wrap()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('kbli2digit.nama_23_sektor')
-                    ->label('Nama 23 Sektor')
-                    ->wrap()
-                    ->toggleable(isToggledHiddenByDefault: false)
-                    ->searchable(),
+                // Tables\Columns\TextColumn::make('kbli2digit.kbli_2digit')
+                //     ->label('KBLI 2Digit')
+                //     ->wrap()
+                //     ->toggleable(isToggledHiddenByDefault: true)
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('kbli2digit.nama_kbli_2digit')
+                //     ->label('Nama KBLI 2Digit')
+                //     ->wrap()
+                //     ->toggleable(isToggledHiddenByDefault: true)
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('kbli2digit.nama_23_sektor')
+                //     ->label('Nama 23 Sektor')
+                //     ->wrap()
+                //     ->toggleable(isToggledHiddenByDefault: false)
+                //     ->searchable(),
                 Tables\Columns\TextColumn::make('klsektor_pembina')
                     ->label('K/L Sektor Pembina')
                     ->searchable()
@@ -530,56 +531,56 @@ class ProyekResource extends Resource
                             }
                             return false;
                         }),
-                    SelectFilter::make('kbli')
-                        ->label('KBLI')
-                        ->multiple()
-                        ->searchable()
-                        ->options(function () {
-                            $kbliCodes = Proyek::pluck('kbli')->unique()->toArray();
-                            $options = [];
-                            foreach ($kbliCodes as $kbli) {
-                                $options[$kbli] = $kbli;
-                            }
-                            return $options;
-                        })->visible(function () {
-                            if (auth()->user()->hasRole('kabkota')) {
-                                return true;
-                            }
-                            return true;
-                        }),
-                    SelectFilter::make('sektor')
-                        ->label('Kategori')
-                        ->multiple()
-                        ->options(function () {
-                            $sektors = Sektor::pluck('sektor')->unique()->toArray();
-                            $options = [];
-                            foreach ($sektors as $sektor) {
-                                $options[$sektor] = $sektor;
-                            }
-                            return $options;
-                        })->visible(function () {
-                            if (auth()->user()->hasRole('kabkota')) {
-                                return true;
-                            }
-                            return true;
-                        }),
-                    SelectFilter::make('nama_23_sektor')
-                        ->label('23 Sektor')
-                        ->multiple()
-                        ->options(function () {
-                            $kblis = MappingKbli::pluck('nama_23_sektor')->unique()->toArray();
-                            $options = [];
-                            foreach ($kblis as $kbli) {
-                                $options[$kbli] = $kbli;
-                            }
-                            return $options;
-                        })
-                        ->visible(function () {
-                            if (auth()->user()->hasRole('kabkota')) {
-                                return true;
-                            }
-                            return true;
-                        }),
+                    // SelectFilter::make('kbli')
+                    //     ->label('KBLI')
+                    //     ->multiple()
+                    //     ->searchable()
+                    //     ->options(function () {
+                    //         $kbliCodes = Proyek::pluck('kbli')->unique()->toArray();
+                    //         $options = [];
+                    //         foreach ($kbliCodes as $kbli) {
+                    //             $options[$kbli] = $kbli;
+                    //         }
+                    //         return $options;
+                    //     })->visible(function () {
+                    //         if (auth()->user()->hasRole('kabkota')) {
+                    //             return true;
+                    //         }
+                    //         return true;
+                    //     }),
+                    // SelectFilter::make('sektor')
+                    //     ->label('Kategori')
+                    //     ->multiple()
+                    //     ->options(function () {
+                    //         $sektors = Sektor::pluck('sektor')->unique()->toArray();
+                    //         $options = [];
+                    //         foreach ($sektors as $sektor) {
+                    //             $options[$sektor] = $sektor;
+                    //         }
+                    //         return $options;
+                    //     })->visible(function () {
+                    //         if (auth()->user()->hasRole('kabkota')) {
+                    //             return true;
+                    //         }
+                    //         return true;
+                    //     }),
+                    // SelectFilter::make('nama_23_sektor')
+                    //     ->label('23 Sektor')
+                    //     ->multiple()
+                    //     ->options(function () {
+                    //         $kblis = MappingKbli::pluck('nama_23_sektor')->unique()->toArray();
+                    //         $options = [];
+                    //         foreach ($kblis as $kbli) {
+                    //             $options[$kbli] = $kbli;
+                    //         }
+                    //         return $options;
+                    //     })
+                    //     ->visible(function () {
+                    //         if (auth()->user()->hasRole('kabkota')) {
+                    //             return true;
+                    //         }
+                    //         return true;
+                    //     }),
                 ],
                 layout: FiltersLayout::AboveContent
             )

@@ -104,7 +104,7 @@ class DashboardSimike extends Widget implements HasForms
                 ]),
                 Grid::make([
                     'sm' => 2,
-                    'xl' => 4,
+                    'xl' => 3,
                 ])
                     ->schema([
                         Select::make('uraian_skala_usaha')
@@ -164,9 +164,9 @@ class DashboardSimike extends Widget implements HasForms
                             })
                             ->visible(fn() => auth()->user()->hasRole('kabkota')),
 
-                        Select::make('sektor')->label('Kategori')
-                            ->options(Sektor::groupBy('sektor')->pluck('sektor', 'id'))
-                            ->searchable()
+                        // Select::make('sektor')->label('Kategori')
+                        //     ->options(Sektor::groupBy('sektor')->pluck('sektor', 'id'))
+                        //     ->searchable()
                     ])
             ])
 

@@ -135,6 +135,11 @@ class Proyek extends Model
         return $this->belongsTo(MappingKbli::class, 'mapping_kbli_id');
     }
 
+    public function scopeMappedProyek($query)
+{
+    return $query->where('dikecualikan', 0)->where('is_mapping', 1);
+}
+
     public function rules()
     {
         return $this->belongsTo(RulesSimike::class, 'rules_id');
