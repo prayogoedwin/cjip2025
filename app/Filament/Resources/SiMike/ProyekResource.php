@@ -238,17 +238,48 @@ class ProyekResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->paginated(15)
+            ->paginated([10])
             ->query(
                 Proyek::mappedProyek()
                     // ->with('kbli2digit')
-                    ->select(['id_proyek', 'nib', 'is_mapping', 'dikecualikan', 'kab_kota_id','day_of_tanggal_pengajuan_proyek','tanggal_terbit_oss',
-                    'tahun', 'triwulan','jumlah_investasi','uraian_skala_usaha','alamat_usaha','kelurahan_usaha','kecamatan_usaha','provinsi_usaha',
-                    'nama_perusahaan','kbli','klsektor_pembina','sektor','tki','tka','npwp_perusahaan','nomor_identitas_user',
-                    'nomor_telp','email','alamat','uraian_status_penanaman_modal','judul_kbli','satuan_tanah','luas_tanah','nama_user','kab_kota_usaha',
-                    // 'mapping_kbli_id'
+                    ->select([
+                        'id_proyek',
+                        'nib',
+                        'is_mapping',
+                        'dikecualikan',
+                        'kab_kota_id',
+                        'day_of_tanggal_pengajuan_proyek',
+                        'tanggal_terbit_oss',
+                        'tahun',
+                        'triwulan',
+                        'jumlah_investasi',
+                        'uraian_skala_usaha',
+                        'alamat_usaha',
+                        'kelurahan_usaha',
+                        'kecamatan_usaha',
+                        'provinsi_usaha',
+                        'nama_perusahaan',
+                        'kbli',
+                        'klsektor_pembina',
+                        'sektor',
+                        'tki',
+                        'tka',
+                        'npwp_perusahaan',
+                        'nomor_identitas_user',
+                        'nomor_telp',
+                        'email',
+                        'alamat',
+                        'uraian_status_penanaman_modal',
+                        'judul_kbli',
+                        'satuan_tanah',
+                        'luas_tanah',
+                        'nama_user',
+                        'kab_kota_usaha',
+                        // 'mapping_kbli_id'
                     ])
-                    ->when(auth()->user()->hasRole('kabkota'), fn($query) =>
+                    ->when(
+                        auth()->user()->hasRole('kabkota'),
+                        fn($query) =>
                         $query->where('kab_kota_id', auth()->user()->kabkota->id)
                     )
             )
@@ -264,24 +295,20 @@ class ProyekResource extends Resource
                 Tables\Columns\TextColumn::make('day_of_tanggal_pengajuan_proyek')
                     ->label('Tanggal Pengajuan Proyek')
                     ->wrap()
-                    ->toggleable(isToggledHiddenByDefault: false)
-                    ->searchable(),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('tanggal_terbit_oss')
                     ->label('Tanggal Terbit OSS')
                     ->wrap()
                     ->date('d M Y')
-                    ->toggleable(isToggledHiddenByDefault: false)
-                    ->searchable(),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('nama_perusahaan')
                     ->label('Nama Perusahaan')
                     ->wrap()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('kbli')
-                    ->label('KBLI')
-                    ->searchable(),
+                    ->label('KBLI'),
                 Tables\Columns\TextColumn::make('judul_kbli')
                     ->label('Judul KBLI')
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false)
                     ->wrap(),
                 // Tables\Columns\TextColumn::make('kbli2digit.kbli_2digit')
@@ -301,7 +328,6 @@ class ProyekResource extends Resource
                 //     ->searchable(),
                 Tables\Columns\TextColumn::make('klsektor_pembina')
                     ->label('K/L Sektor Pembina')
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false)
                     ->wrap(),
                 Tables\Columns\TextColumn::make('sektor')
@@ -315,23 +341,19 @@ class ProyekResource extends Resource
                         'danger' => 'Usaha Kecil',
                         'primary' => 'Usaha Mikro',
                     ])
-                    ->label('Uraian Skala Usaha')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('tahun')->sortable(),
-                Tables\Columns\TextColumn::make('triwulan')->sortable(),
+                    ->label('Uraian Skala Usaha'),
+                Tables\Columns\TextColumn::make('tahun'),
+                Tables\Columns\TextColumn::make('triwulan'),
                 Tables\Columns\TextColumn::make('jmlTenagaKerja')
                     ->label('Jumlah Naker')
                     ->getStateUsing(function (Model $record) {
                         return $record->tki + $record->tka;
                     }),
                 Tables\Columns\TextColumn::make('jumlah_investasi')
-                    ->label('Rencana Nilai Investasi')
-                    // ->formatStateUsing(fn(float $state): string => "Rp. " . number_format($state, 0, ',', '.'))
-                    ->sortable(),
+                    ->label('Rencana Nilai Investasi'),
                 Tables\Columns\TextColumn::make('npwp_perusahaan')
                     ->label('NPWP Perusahaan')
                     ->wrap()
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nama_user')
                     ->label('Nama User')
@@ -341,58 +363,47 @@ class ProyekResource extends Resource
                 Tables\Columns\TextColumn::make('nomor_identitas_user')
                     ->label('Nomor Identitas User')
                     ->wrap()
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('email')
                     ->wrap()
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('alamat')
                     ->wrap()
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('nomor_telp')
                     ->label('Nomor Telp')
                     ->wrap()
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('uraian_status_penanaman_modal')
                     ->label('Status Penanaman Modal')
                     ->wrap()
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('alamat_usaha')
                     ->wrap()
                     ->label('Alamat Usaha')
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('kelurahan_usaha')
                     ->wrap()
                     ->label('Kelurahan Usaha')
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('kecamatan_usaha')
                     ->wrap()
                     ->label('Kecamatan Usaha')
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('kab_kota_usaha')
                     ->wrap()
                     ->label('Kabupaten/Kota Usaha')
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('luas_tanah')
                     ->wrap()
                     ->label('Luas Tanah')
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('satuan_tanah')
                     ->wrap()
                     ->label('Satuan Tanah')
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
             ])
-            ->deselectAllRecordsWhenFiltered(true)
+            // ->deselectAllRecordsWhenFiltered(true)
             ->filtersFormColumns(3)
             ->headerActions([
                 ExportAction::make()->exports([
@@ -513,7 +524,8 @@ class ProyekResource extends Resource
                         ->searchable()
                         ->multiple()
                         ->options(function () {
-                            $kec_usahas = Proyek::where('kab_kota_id', auth()->user()->kabkota->id)
+                            $kec_usahas = Proyek::where('kab_kota_id', auth()
+                                ->user()->kabkota->id)
                                 ->whereNotNull('kecamatan_usaha')
                                 ->pluck('kecamatan_usaha')
                                 ->filter()
