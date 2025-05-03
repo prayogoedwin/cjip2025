@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class ProyekResource extends Resource
@@ -237,15 +238,16 @@ class ProyekResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->paginated(15)
             ->query(
-                Proyek::query()
-                    ->where([
-                        ['dikecualikan', '=', 0],
-                        ['is_mapping', '=', 1],
-                    ])
-                    ->when(
-                        auth()->user()->hasRole('kabkota'),
-                        fn($query) =>
+                Proyek::with('kbli2digit')
+                    ->select(['id_proyek', 'nib', 'is_mapping', 'dikecualikan', 'kab_kota_id','day_of_tanggal_pengajuan_proyek','tanggal_terbit_oss',
+                    'tahun', 'triwulan','jumlah_investasi','uraian_skala_usaha','alamat_usaha','kelurahan_usaha','kecamatan_usaha','provinsi_usaha',
+                    'nama_perusahaan','kbli','klsektor_pembina','sektor','tki','tka','npwp_perusahaan','nomor_identitas_user',
+                    'nomor_telp','email','alamat','uraian_status_penanaman_modal','judul_kbli','satuan_tanah','luas_tanah','nama_user','kab_kota_usaha','mapping_kbli_id'])
+                    ->where('dikecualikan', 0)
+                    ->where('is_mapping', 1)
+                    ->when(auth()->user()->hasRole('kabkota'), fn($query) =>
                         $query->where('kab_kota_id', auth()->user()->kabkota->id)
                     )
             )
@@ -412,11 +414,11 @@ class ProyekResource extends Resource
                                 ->schema([
                                     DatePicker::make('created_from')->label('Tanggal Awal')
                                         ->hiddenLabel()
-                                        // ->default(Carbon::now()->startOfYear())
+                                        ->default(Carbon::now()->startOfYear())
                                         ->placeholder('Awal'),
                                     DatePicker::make('created_until')->label('Tanggal Akhir')
                                         ->hiddenLabel()
-                                        // ->default(Carbon::now())
+                                        ->default(Carbon::now())
                                         ->placeholder('Akhir')
                                 ])
                         ])
