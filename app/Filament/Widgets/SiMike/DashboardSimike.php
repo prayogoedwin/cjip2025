@@ -209,10 +209,10 @@ class DashboardSimike extends Widget implements HasForms
 
     public function mount()
     {
-        // $this->tahun = now()->year;
-        // $this->start = Carbon::now()->startOfYear()->format('d M Y');
-        // $this->end = Carbon::now()->format('d M Y');
-        // $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
+        $this->tahun = now()->year;
+        $this->start = Carbon::now()->startOfYear()->format('d M Y');
+        $this->end = Carbon::now()->format('d M Y');
+        $this->tanggal_terbit_oss = $this->start . ' - ' . $this->end;
         
     }
 

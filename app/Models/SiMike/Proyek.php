@@ -97,11 +97,6 @@ class Proyek extends Model
     {
         return $this->nama_perusahaan . ' | ' . $this->kbli . ' | ' . $this->id_proyek;
     }
-
-    public function settings(): BelongsTo
-    {
-        return $this->belongsTo(SettingSimike::class);
-    }
     public function nibCheck(): BelongsTo
     {
         return $this->belongsTo(Nib::class, 'nib_id');
