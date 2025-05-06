@@ -387,6 +387,7 @@ class SuratKepeminatan extends Component implements HasForms
                             ->inlineLabel(),
                         Radio::make('status_investasi')
                             ->inlineLabel()
+                            ->required()
                             ->options([
                                 0 => 'NEW (GREENFIELD) / BARU',
                                 1 => 'EXPANSION (BROWNFIELD) / EXPANSI',
@@ -396,6 +397,7 @@ class SuratKepeminatan extends Component implements HasForms
                             ->options([
                                 Kabkota::all()->pluck('nama', 'id')->toArray(),
                             ])
+                            ->required()
                             ->searchable()
                             ->inlineLabel(),
                         Radio::make('local_plan')

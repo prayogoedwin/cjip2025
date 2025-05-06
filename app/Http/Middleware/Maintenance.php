@@ -19,14 +19,14 @@ class Maintenance
             'register',
             // 'login',
             // 'dashboard', 
-            // 'dashboard/sinida',  
-            'dashboard/kepeminatan', 
+            // 'dashboard/kepeminatan', 
             // 'dashboard/profile',
-            'add-product',
+            // 'kepeminatan',
+            // 'product-all',
+            'dashboard/sinida',  
+            'dashboard/add-product',
             'dashboard.investor',
             'dashboard/product-kemitraan',
-            'kepeminatan',
-            'product-all',
             ])) {
             return redirect("/maintenance");
         }
