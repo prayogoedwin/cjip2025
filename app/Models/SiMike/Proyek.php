@@ -176,16 +176,16 @@ class Proyek extends Model
             }
         })
             ->select(
-                DB::raw('sum(jumlah_investasi) as `jumlah_investasi`'),
                 DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as `total_investasi`'),
-                DB::raw('sum(CASE WHEN dikecualikan = "1" THEN jumlah_investasi ELSE 0 END) as `jumlah_investasi_anomaly`'),
-                DB::raw('sum(CASE WHEN dikecualikan = "1" THEN jumlah_investasi ELSE 0 END) as `total_investasi_anomaly`'),
                 DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN nib_count ELSE 0 END) as `count_nib`'),
-                DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN nib_count ELSE 0 END) as `count_nib_anomaly`'),
                 DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tki ELSE 0 END) as `count_tki`'),
                 DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tka ELSE 0 END) as `count_tka`'),
                 DB::raw('count(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE 0 END) as `jumlah_proyek`'),
-                DB::raw('count(dikecualikan and is_mapping or null) as `jumlah_proyek_anomaly`'),
+                // DB::raw('sum(jumlah_investasi) as `jumlah_investasi`'),
+                // DB::raw('sum(CASE WHEN dikecualikan = "1" THEN jumlah_investasi ELSE 0 END) as `jumlah_investasi_anomaly`'),
+                // DB::raw('sum(CASE WHEN dikecualikan = "1" THEN jumlah_investasi ELSE 0 END) as `total_investasi_anomaly`'),
+                // DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN nib_count ELSE 0 END) as `count_nib_anomaly`'),
+                // DB::raw('count(dikecualikan and is_mapping or null) as `jumlah_proyek_anomaly`'),
             );
     }
 

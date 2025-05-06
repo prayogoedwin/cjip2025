@@ -239,50 +239,50 @@ class ProyekResource extends Resource
     {
         return $table
             ->paginated([10])
-            ->query(
-                Proyek::mappedProyek()
-                    // ->with('kbli2digit')
-                    ->select([
-                        'id_proyek',
-                        'nib',
-                        'is_mapping',
-                        'dikecualikan',
-                        'kab_kota_id',
-                        'day_of_tanggal_pengajuan_proyek',
-                        'tanggal_terbit_oss',
-                        'tahun',
-                        'triwulan',
-                        'jumlah_investasi',
-                        'uraian_skala_usaha',
-                        'alamat_usaha',
-                        'kelurahan_usaha',
-                        'kecamatan_usaha',
-                        'provinsi_usaha',
-                        'nama_perusahaan',
-                        'kbli',
-                        'klsektor_pembina',
-                        'sektor',
-                        'tki',
-                        'tka',
-                        'npwp_perusahaan',
-                        'nomor_identitas_user',
-                        'nomor_telp',
-                        'email',
-                        'alamat',
-                        'uraian_status_penanaman_modal',
-                        'judul_kbli',
-                        'satuan_tanah',
-                        'luas_tanah',
-                        'nama_user',
-                        'kab_kota_usaha',
-                        // 'mapping_kbli_id'
-                    ])
-                    ->when(
-                        auth()->user()->hasRole('kabkota'),
-                        fn($query) =>
-                        $query->where('kab_kota_id', auth()->user()->kabkota->id)
-                    )
-            )
+            // ->query(
+            //     Proyek::mappedProyek()
+            //         // ->with('kbli2digit')
+            //         ->select([
+            //             'id_proyek',
+            //             'nib',
+            //             'is_mapping',
+            //             'dikecualikan',
+            //             'kab_kota_id',
+            //             'day_of_tanggal_pengajuan_proyek',
+            //             'tanggal_terbit_oss',
+            //             'tahun',
+            //             'triwulan',
+            //             'jumlah_investasi',
+            //             'uraian_skala_usaha',
+            //             'alamat_usaha',
+            //             'kelurahan_usaha',
+            //             'kecamatan_usaha',
+            //             'provinsi_usaha',
+            //             'nama_perusahaan',
+            //             'kbli',
+            //             'klsektor_pembina',
+            //             'sektor',
+            //             'tki',
+            //             'tka',
+            //             'npwp_perusahaan',
+            //             'nomor_identitas_user',
+            //             'nomor_telp',
+            //             'email',
+            //             'alamat',
+            //             'uraian_status_penanaman_modal',
+            //             'judul_kbli',
+            //             'satuan_tanah',
+            //             'luas_tanah',
+            //             'nama_user',
+            //             'kab_kota_usaha',
+            //             // 'mapping_kbli_id'
+            //         ])
+            //         ->when(
+            //             auth()->user()->hasRole('kabkota'),
+            //             fn($query) =>
+            //             $query->where('kab_kota_id', auth()->user()->kabkota->id)
+            //         )
+            // )
             ->columns([
                 Tables\Columns\TextColumn::make('id_proyek')
                     ->label('ID Proyek')
@@ -424,24 +424,26 @@ class ProyekResource extends Resource
                         ->form([
                             Fieldset::make('Tanggal Terbit Oss')
                                 ->schema([
-                                    DatePicker::make('created_from')->label('Tanggal Awal')
+                                    DatePicker::make('start')
+                                        ->label('Tanggal Awal')
                                         ->hiddenLabel()
                                         ->default(Carbon::now()->startOfYear())
                                         ->placeholder('Awal'),
-                                    DatePicker::make('created_until')->label('Tanggal Akhir')
+                                    DatePicker::make('end')
+                                        ->label('Tanggal Akhir')
                                         ->hiddenLabel()
                                         ->default(Carbon::now())
-                                        ->placeholder('Akhir')
-                                ])
+                                        ->placeholder('Akhir'),
+                                ]),
                         ])
                         ->query(function (Builder $query, array $data): Builder {
                             return $query
                                 ->when(
-                                    $data['created_from'],
+                                    $data['start'] ?? null,
                                     fn(Builder $query, $date): Builder => $query->whereDate('tanggal_terbit_oss', '>=', $date),
                                 )
                                 ->when(
-                                    $data['created_until'],
+                                    $data['end'] ?? null,
                                     fn(Builder $query, $date): Builder => $query->whereDate('tanggal_terbit_oss', '<=', $date),
                                 );
                         }),

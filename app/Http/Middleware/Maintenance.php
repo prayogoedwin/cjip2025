@@ -26,7 +26,7 @@ class Maintenance
             'dashboard/sinida',  
             'dashboard/add-product',
             'dashboard.investor',
-            'dashboard/product-kemitraan',
+            // 'dashboard/product-kemitraan',
             ])) {
             return redirect("/maintenance");
         }

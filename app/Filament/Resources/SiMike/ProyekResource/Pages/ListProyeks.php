@@ -30,6 +30,29 @@ class ListProyeks extends ListRecords
 {
     protected static string $resource = ProyekResource::class;
 
+    protected $listeners = ['filterTable' => 'applyFilter'];
+
+    public function applyFilter($range)
+    {
+        $this->tableFilters['tanggal_terbit_oss']['start'] = $range['start'] ?? null;
+        $this->tableFilters['tanggal_terbit_oss']['end'] = $range['end'] ?? null;
+    
+        $this->tableFilters['tahun']['value'] = $range['tahun'] ?? null;
+    }
+
+    public function mount(): void
+    {
+        $start = Carbon::now()->startOfYear()->toDateString(); // 'Y-m-d'
+        $end = Carbon::now()->toDateString(); // 'Y-m-d'
+    
+        $this->tableFilters['tanggal_terbit_oss']['start'] = $start;
+        $this->tableFilters['tanggal_terbit_oss']['end'] = $end;
+
+        $this->tableFilters['tahun']['value'] = Carbon::now()->year;
+    
+        parent::mount();
+    }
+
     protected function getHeaderWidgets(): array
     {
         return [
@@ -149,16 +172,19 @@ class ListProyeks extends ListRecords
         ];
     }
 
-    // protected function getTableQuery(): Builder
-    // {
-    //     $query = parent::getTableQuery()->with(['kabkota', 'sektor', 'kbli2digit', 'nibCheck', 'rules'])->where('dikecualikan', 0)->where('is_mapping', 1);
+    protected function getTableQuery(): Builder
+    {
+        $query = parent::getTableQuery()
+        ->with('kabkota')
+        ->where('dikecualikan', 0)
+        ->where('is_mapping', 1);
 
-    //     if (auth()->user()->hasRole('kabkota')) {
-    //         $query->where('kab_kota_id', auth()->user()->kabkota->id);
-    //     }
+        if (auth()->user()->hasRole('kabkota')) {
+            $query->where('kab_kota_id', auth()->user()->kabkota->id);
+        }
 
-    //     return $query;
-    // }
+        return $query;
+    }
     public function storeReport(array $data)
     {
         $report = Report::create([
