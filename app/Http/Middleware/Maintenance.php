@@ -17,11 +17,11 @@ class Maintenance
     {
         if ($request->is([
             'register',
-            'login',
-            'dashboard', 
-            'dashboard/sinida',  
+            // 'login',
+            // 'dashboard', 
+            // 'dashboard/sinida',  
             'dashboard/kepeminatan', 
-            'dashboard/profile',
+            // 'dashboard/profile',
             'add-product',
             'dashboard.investor',
             'dashboard/product-kemitraan',

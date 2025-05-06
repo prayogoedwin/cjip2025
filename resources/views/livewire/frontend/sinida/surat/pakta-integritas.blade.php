@@ -1,7 +1,7 @@
 <div>
     <div class="book">
         <div class="page" id="result">
-            <h4>PAKTA INTEGRITAS PEMOHON INSENTIF/KEMUDAHAN PENANAMAN MODAL</h4>
+            <h4 style="text-align: center">PAKTA INTEGRITAS PEMOHON INSENTIF/KEMUDAHAN PENANAMAN MODAL</h4>
             <p style="margin-top: 50px; margin-bottom: 30px;">Bersama dengan ini kami:</p>
             <table style="margin-left: 30px">
                 <tr>
@@ -17,7 +17,7 @@
                 <tr>
                     <td style="width: 150px;">Telepon Perusahaan</td>
                     <td>:</td>
-                    <td>&nbsp;{{ $telp_perusahaan }}</td>
+                    <td>&nbsp;{{ $telepon_perusahaan }}</td>
                 </tr>
                 <tr>
                     <td style="width: 150px;">Nama Pimpinan</td>
@@ -32,7 +32,7 @@
                 <tr>
                     <td style="width: 150px;">Telepon Pimpinan</td>
                     <td>:</td>
-                    <td>&nbsp;{{ $telp_pimpinan }}</td>
+                    <td>&nbsp;{{ $telepon_pimpinan }}</td>
                 </tr>
             </table>
             <p style="margin-top: 30px; margin-bottom: 20px;">Menyatakan, bahwa kami:</p>

@@ -32,6 +32,7 @@ use App\Livewire\Frontend\MasterDashboard;
 use App\Livewire\Frontend\Sinida\Admin\SkInsentifGubernur;
 use App\Livewire\Frontend\Sinida\Admin\SkInsentifKepalaDpm;
 use App\Livewire\Frontend\Sinida\Admin\SkInsentifSekda;
+use App\Livewire\Frontend\Sinida\Pengajuan;
 use App\Livewire\Frontend\Sinida\RiwayatPengajuan;
 use App\Livewire\Frontend\Sinida\Surat\PaktaIntegritas;
 use App\Livewire\Frontend\Sinida\SuratPengajuan;
@@ -130,7 +131,7 @@ Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(functio
 
 
     // Sinida
-    Route::get('sinida', SuratPengajuan::class)->name('dashboard.sinida');
+    Route::get('sinida', Pengajuan::class)->name('dashboard.sinida');
     Route::get('riwayat-sinida', RiwayatPengajuan::class)->name('dashboard.riwayat-sinida');
     Route::get('pakta-integritas', PaktaIntegritas::class)->name('pakta-integritas');
     // Route::get('pernyataan-tidak-menerima-intensif', PernyataanTidakMenerimaInsentif::class)->name('pernyataan-tidak-menerima-intensif');

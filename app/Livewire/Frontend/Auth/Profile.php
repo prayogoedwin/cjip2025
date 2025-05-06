@@ -96,6 +96,9 @@ class Profile extends Component implements HasForms
                     ->required(),
                 TextInput::make('nib')
                     ->label('NIB')
+                    ->minLength(13)
+                    ->numeric()
+                    ->maxLength(13)
                     ->required(),
                 TextInput::make('jenis_usaha')
                     ->required(),
