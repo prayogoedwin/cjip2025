@@ -23,9 +23,8 @@ class Maintenance
             // 'dashboard/profile',
             // 'kepeminatan',
             // 'product-all',
-            'dashboard/sinida',  
-            'dashboard/add-product',
-            'dashboard.investor',
+            // 'dashboard/sinida',  
+            // 'dashboard/add-product',
             // 'dashboard/product-kemitraan',
             ])) {
             return redirect("/maintenance");

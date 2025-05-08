@@ -54,14 +54,12 @@ class ProductAdd extends Component implements HasForms
                 MarkdownEditor::make('description')
                     ->label('Deskripsi')
                     ->toolbarButtons([
-                        'attachFiles',
                         'blockquote',
                         'bold',
                         'bulletList',
                         'codeBlock',
                         'heading',
                         'italic',
-                        'link',
                         'orderedList',
                         'redo',
                         'strike',
@@ -71,7 +69,7 @@ class ProductAdd extends Component implements HasForms
                         'fullscreen',
                         'justify',
                     ])
-                    ->placeholder('Masukan Deskripsi Produk'),
+                    ->placeholder('Masukan Deskripsi Singkat Produk'),
                 FileUpload::make('image_cover')
                     ->label('Sampul Produk')
                     ->image()
@@ -79,8 +77,8 @@ class ProductAdd extends Component implements HasForms
                     ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg'])
                     ->disk('public')
                     ->directory('kemitraan/product/cover')
-                    ->maxSize(2048)
-                    ->hint('*file maksimal 2 MB')
+                    ->maxSize(1024)
+                    ->hint('*file maksimal 1 MB')
                     ->preserveFilenames(),
                 FileUpload::make('image')
                     ->label('Galeri Produk')

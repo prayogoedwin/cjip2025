@@ -26,6 +26,7 @@ use App\Livewire\Frontend\Kemitraan\Produk\ProductEdit;
 use App\Livewire\Frontend\Kemitraan\Produk\ProductList;
 use App\Livewire\Frontend\Kemitraan\Produk\ProductMe;
 use App\Livewire\Frontend\Kepeminatan\BerandaPengajuan;
+use App\Livewire\Frontend\Kepeminatan\RiwayatPengajuan as KepeminatanRiwayatPengajuan;
 use App\Livewire\Frontend\Kepeminatan\Surat\DownloadLoi;
 use App\Livewire\Frontend\Kepeminatan\SuratKepeminatan;
 use App\Livewire\Frontend\MasterDashboard;
@@ -127,7 +128,7 @@ Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(functio
     Route::get('profile', Profile::class)->name('dashboard.profile'); // perbaikan
     Route::get('kepeminatan', SuratKepeminatan::class)->name('dashboard.kepeminatan');
     // Route::get('download-loi/{id}', DownloadLoi::class)->name('download-loi');
-    // Route::get('riwayat-kepeminatan', RiwayatPengajuan::class)->name('dashboard.riwayat-kepeminatan');
+    Route::get('riwayat-kepeminatan', KepeminatanRiwayatPengajuan::class)->name('dashboard.riwayat-kepeminatan');
 
 
     // Sinida

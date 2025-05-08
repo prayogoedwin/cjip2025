@@ -86,7 +86,9 @@ class Pengajuan extends Component implements HasForms
                 ->collapsible()
                 ->schema([
                     Grid::make()->schema([
-                        TextInput::make('nib')->required()->label('NIB'),
+                        TextInput::make('nib')->required()->label('NIB')->minLength(13)
+                            ->numeric()
+                            ->maxLength(13),
                         TextInput::make('nama_perusahaan')->required()->label('Nama Perusahaan'),
                         TextInput::make('jenis_usaha')->required()->label('Jenis Usaha'),
                         TextInput::make('telepon_perusahaan')->required()->label('Telepon Perusahaan'),
@@ -103,6 +105,8 @@ class Pengajuan extends Component implements HasForms
                 FileUpload::make('pakta_integritas')
                     ->required()
                     ->label('File Pakta Integritas')
+                    ->hint('*file maksimal 1 MB, format .pdf')
+                    ->maxSize(1024)
                     ->getUploadedFileNameForStorageUsing(
                         fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
                             ->prepend('Pakta Integritas-' . Auth::user()->name . '-'),
@@ -135,6 +139,8 @@ class Pengajuan extends Component implements HasForms
                 FileUpload::make('file_ktp')
                     ->required()
                     ->label('File KTP')
+                    ->hint('*file maksimal 1 MB, format .pdf')
+                    ->maxSize(1024)
                     ->getUploadedFileNameForStorageUsing(
                         fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
                             ->prepend('File KTP-' . Auth::user()->name . '-'),
@@ -144,6 +150,8 @@ class Pengajuan extends Component implements HasForms
                     ->directory('sinida/file_ktp'),
                 FileUpload::make('file_permohonan_direktur')
                     ->required()
+                    ->hint('*file maksimal 1 MB, format .pdf')
+                    ->maxSize(1024)
                     ->label('File Permohonan Direktur')
                     ->getUploadedFileNameForStorageUsing(
                         fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
