@@ -60,12 +60,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Kepeminatan\Smtp' => 'App\Policies\Kepeminatan\SmtpPolicy',
         'App\Models\Kepeminatan\TemplateEmail' => 'App\Policies\Kepeminatan\TemplateEmailPolicy',
 
-        'App\Models\Simike\Report' => 'App\Policies\Simike\ReportPolicy',
-
-        Folder::class => FolderPolicy::class,
-        Media::class => MediaPolicy::class,
-
-
+        'App\Models\Simike\Report' => 'App\Policies\Simike\ReportPolicy'
     ];
 
     /**
