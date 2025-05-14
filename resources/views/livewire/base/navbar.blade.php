@@ -158,9 +158,9 @@
                             </li>
                             <li><a href="{{ route('peta') }}"
                                     class="sub-menu-item">{{ __('navbar.maps', [], $locale) }}</a></li>
-                            <li><a href="{{ route('form_kajian_proyek') }}"
+                            {{-- <li><a href="{{ route('form_kajian_proyek') }}"
                                     class="sub-menu-item">{{ __('navbar.kajian', [], $locale) }}</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
 
