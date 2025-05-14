@@ -16,7 +16,7 @@ class Maintenance
     public function handle(Request $request, Closure $next)
     {
         if ($request->is([
-            'register',
+            // 'register',
             // 'login',
             // 'dashboard', 
             // 'dashboard/kepeminatan', 
