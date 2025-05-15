@@ -21,8 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('banner-manager', function (User $user) {
-           return $user->email === 'assulkhaniproject@gmail.com';
-        });
+        // Gate::define('banner-manager', function (User $user) {
+        //    return $user->email === 'assulkhaniproject@gmail.com';
+        // });
     }
 }
