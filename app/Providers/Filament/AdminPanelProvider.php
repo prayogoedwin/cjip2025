@@ -87,6 +87,7 @@ class AdminPanelProvider extends PanelProvider
                 BannerPlugin::make()
                     ->persistsBannersInDatabase()
                     ->navigationGroup('Super Admin')
+                    ->disableBannerManager()
                     // ->bannerManagerAccessPermission('banner-manager')
                     ->navigationIcon('')->navigationSort(10),
                 SpotlightPlugin::make(),
