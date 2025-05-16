@@ -19,7 +19,6 @@ class CreateProyekInvestasi extends CreateRecord
     {
         return [
             LocaleSwitcher::make(),
-            
         ];
     }
 }

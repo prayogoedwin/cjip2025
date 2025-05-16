@@ -78,7 +78,8 @@ class ProyekInvestasiResource extends Resource
                                     ->profile('default')
                                     ->disk('public')
                                     ->directory('proyek/content')
-                                    ->maxContentWidth('5xl'),
+                                    ->maxContentWidth('5xl')
+                                     ->extraInputAttributes(['style' => 'min-height: 12rem;']),
                                 RichEditor::make('eksisting')
                                     ->toolbarButtons([
                                         'attachFiles',
