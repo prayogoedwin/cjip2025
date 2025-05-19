@@ -216,59 +216,135 @@ class DashboardSimike extends Widget implements HasForms
         
     }
 
+    // public function render(): View
+    // {
+    //     if (auth()->user()->hasRole('kabkota')) {
+    //         $this->simike = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+    //             ->first();
+    //     } else {
+    //         $this->simike = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+    //             ->first();
+    //     }
+
+    //     if (auth()->user()->hasRole('kabkota')) {
+    //         $this->nib = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+    //             ->groupBy('nib')
+    //             ->where('dikecualikan', false)
+    //             ->where('is_mapping', true)
+    //             ->get()
+    //             ->count();
+    //     } else {
+    //         $this->nib = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+    //             ->where('dikecualikan', false)
+    //             ->where('is_mapping', true)
+    //             ->groupBy(['nib', 'kab_kota_id'])
+    //             ->get()
+    //             ->count();
+    //     }
+
+    //     if (auth()->user()->hasRole('kabkota')) {
+    //         $this->nib_anomaly = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+    //             ->groupBy('nib')
+    //             ->where('dikecualikan', true)
+    //             ->where('is_mapping', false)
+    //             ->get()
+    //             ->count();
+    //     } else {
+    //         $this->nib = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
+    //             ->where('dikecualikan', false)
+    //             ->where('is_mapping', true)
+    //             ->groupBy(['nib', 'kab_kota_id'])
+    //             ->get()
+    //             ->count();
+    //     }
+
+    //     // dd($this->start, $this->end, $this->tanggal_terbit_oss);
+
+    //     $tanggal = $this->tanggal_terbit_oss ?? $this->start . ' - ' . $this->end;
+    //     $tahun = $this->tahun;
+    //     $triwulan = $this->triwulan;
+    //     $sektor = $this->sektor;
+    //     $uraian_skala_usaha = $this->uraian_skala_usaha;
+    //     $kecamatan_usaha = $this->kecamatan_usaha;
+    //     $simike = $this->simike;
+    //     $nib = $this->nib;
+
+    //     return view('filament.widgets.si-mike.dashboard-simike', compact('tanggal', 'tahun', 'triwulan', 'simike', 'nib'));
+    // }
+
     public function render(): View
-    {
-        if (auth()->user()->hasRole('kabkota')) {
-            $this->simike = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
-                ->first();
-        } else {
-            $this->simike = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
-                ->first();
-        }
+{
+    $kabkotaId = auth()->user()->hasRole('kabkota') 
+        ? auth()->user()->kabkota->id 
+        : $this->kabkota;
 
-        if (auth()->user()->hasRole('kabkota')) {
-            $this->nib = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
-                ->groupBy('nib')
-                ->where('dikecualikan', false)
-                ->where('is_mapping', true)
-                ->get()
-                ->count();
-        } else {
-            $this->nib = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
-                ->where('dikecualikan', false)
-                ->where('is_mapping', true)
-                ->groupBy(['nib', 'kab_kota_id'])
-                ->get()
-                ->count();
-        }
+    // Query summary utama (yang valid)
+    $this->simike = Proyek::filterMikro(
+        $this->tanggal_terbit_oss, 
+        $this->tahun, 
+        $this->triwulan, 
+        $kabkotaId, 
+        $this->sektor, 
+        $this->uraian_skala_usaha, 
+        $this->kecamatan_usaha
+    )->first();
 
-        if (auth()->user()->hasRole('kabkota')) {
-            $this->nib_anomaly = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, auth()->user()->kabkota->id, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
-                ->groupBy('nib')
-                ->where('dikecualikan', true)
-                ->where('is_mapping', false)
-                ->get()
-                ->count();
-        } else {
-            $this->nib = Proyek::filterMikro($this->tanggal_terbit_oss, $this->tahun, $this->triwulan, $this->kabkota, $this->sektor, $this->uraian_skala_usaha, $this->kecamatan_usaha)
-                ->where('dikecualikan', false)
-                ->where('is_mapping', true)
-                ->groupBy(['nib', 'kab_kota_id'])
-                ->get()
-                ->count();
-        }
+    // Query jumlah NIB unik valid
+    $this->nib = Proyek::query()
+        ->when($this->tanggal_terbit_oss, function ($query) {
+            $dates = explode(' - ', $this->tanggal_terbit_oss);
+            $start = date('Y-m-d', strtotime(str_replace('/', '-', trim($dates[0]))));
+            $end = date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', trim($dates[1]))));
+            $query->whereBetween('tanggal_terbit_oss', [$start, $end]);
+        })
+        ->when($this->tahun, fn($q) => $q->where('tahun', $this->tahun))
+        ->when($this->triwulan, fn($q) => $q->where('triwulan', $this->triwulan))
+        ->when($kabkotaId, fn($q) => $q->where('kab_kota_id', $kabkotaId))
+        ->when($this->sektor, fn($q) => $q->where('sektor_id', $this->sektor))
+        ->when($this->uraian_skala_usaha, fn($q) => $q->where('uraian_skala_usaha', $this->uraian_skala_usaha))
+        ->when($this->kecamatan_usaha, fn($q) => $q->where('kecamatan_usaha', $this->kecamatan_usaha))
+        ->where('dikecualikan', 0)
+        ->where('is_mapping', 1)
+        ->distinct('nib')
+        ->count('nib');
 
-        // dd($this->start, $this->end, $this->tanggal_terbit_oss);
+    // Query jumlah NIB anomali
+    $this->nib_anomaly = Proyek::query()
+        ->when($this->tanggal_terbit_oss, function ($query) {
+            $dates = explode(' - ', $this->tanggal_terbit_oss);
+            $start = date('Y-m-d', strtotime(str_replace('/', '-', trim($dates[0]))));
+            $end = date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', trim($dates[1]))));
+            $query->whereBetween('tanggal_terbit_oss', [$start, $end]);
+        })
+        ->when($this->tahun, fn($q) => $q->where('tahun', $this->tahun))
+        ->when($this->triwulan, fn($q) => $q->where('triwulan', $this->triwulan))
+        ->when($kabkotaId, fn($q) => $q->where('kab_kota_id', $kabkotaId))
+        ->when($this->sektor, fn($q) => $q->where('sektor_id', $this->sektor))
+        ->when($this->uraian_skala_usaha, fn($q) => $q->where('uraian_skala_usaha', $this->uraian_skala_usaha))
+        ->when($this->kecamatan_usaha, fn($q) => $q->where('kecamatan_usaha', $this->kecamatan_usaha))
+        ->where('dikecualikan', 1)
+        ->where('is_mapping', 0)
+        ->distinct('nib')
+        ->count('nib');
 
-        $tanggal = $this->tanggal_terbit_oss ?? $this->start . ' - ' . $this->end;
-        $tahun = $this->tahun;
-        $triwulan = $this->triwulan;
-        $sektor = $this->sektor;
-        $uraian_skala_usaha = $this->uraian_skala_usaha;
-        $kecamatan_usaha = $this->kecamatan_usaha;
-        $simike = $this->simike;
-        $nib = $this->nib;
+    $tanggal = $this->tanggal_terbit_oss ?? $this->start . ' - ' . $this->end;
+    $tahun = $this->tahun;
+    $triwulan = $this->triwulan;
+    $sektor = $this->sektor;
+    $uraian_skala_usaha = $this->uraian_skala_usaha;
+    $kecamatan_usaha = $this->kecamatan_usaha;
+    $simike = $this->simike;
+    $nib = $this->nib;
+    $nib_anomaly = $this->nib_anomaly;
 
-        return view('filament.widgets.si-mike.dashboard-simike', compact('tanggal', 'tahun', 'triwulan', 'simike', 'nib'));
-    }
+    return view('filament.widgets.si-mike.dashboard-simike', compact(
+        'tanggal',
+        'tahun',
+        'triwulan',
+        'simike',
+        'nib',
+        'nib_anomaly'
+    ));
+}
+
 }

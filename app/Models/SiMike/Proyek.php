@@ -131,63 +131,91 @@ class Proyek extends Model
     }
 
     public function scopeMappedProyek($query)
-{
-    return $query->where('dikecualikan', 0)->where('is_mapping', 1);
-}
+    {
+        return $query->where('dikecualikan', 0)->where('is_mapping', 1);
+    }
 
     public function rules()
     {
         return $this->belongsTo(RulesSimike::class, 'rules_id');
     }
 
-    public function scopeFilterMikro($query, $dateRange, $tahun, $triwulan, $kabkota, $sektor, $uraian_skala_usaha, $kecamatan_usaha)
+    // public function scopeFilterMikro($query, $dateRange, $tahun, $triwulan, $kabkota, $sektor, $uraian_skala_usaha, $kecamatan_usaha)
+    // {
+    //     return $query->when(!is_null($dateRange), function ($query) use ($dateRange) {
+    //         if (!is_null($dateRange)) {
+    //             $dates = explode(' - ', $dateRange);
+    //             $startDate = date('Y-m-d', strtotime(str_replace('/', '-', trim($dates[0]))));
+    //             $endDate = date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', trim($dates[1]))));
+
+    //             return $query->whereBetween('tanggal_terbit_oss', [$startDate, $endDate]);
+    //         }
+    //     })->when(!is_null('tahun'), function ($query) use ($tahun) {
+    //         if ($tahun != null) {
+    //             return $query->where('tahun', $tahun);
+    //         }
+    //     })->when(!is_null('triwulan'), function ($query) use ($triwulan) {
+    //         if ($triwulan != null) {
+    //             return $query->Where('triwulan', $triwulan);
+    //         }
+    //     })->when(!is_null('kab_kota_id'), function ($query) use ($kabkota) {
+    //         if ($kabkota != null) {
+    //             return $query->Where('kab_kota_id', $kabkota);
+    //         }
+    //     })->when(!is_null('sektor_id'), function ($query) use ($sektor) {
+    //         if ($sektor != null) {
+    //             return $query->Where('sektor_id', $sektor);
+    //         }
+    //     })->when(!is_null('uraian_skala_usaha'), function ($query) use ($uraian_skala_usaha) {
+    //         if ($uraian_skala_usaha != null) {
+    //             return $query->Where('uraian_skala_usaha', $uraian_skala_usaha);
+    //         }
+    //     })->when(!is_null('kecamatan_usaha'), function ($query) use ($kecamatan_usaha) {
+    //         if ($kecamatan_usaha != null) {
+    //             return $query->Where('kecamatan_usaha', $kecamatan_usaha);
+    //         }
+    //     })
+    //         ->select(
+    //             DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as `total_investasi`'),
+    //             DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN nib_count ELSE 0 END) as `count_nib`'),
+    //             DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tki ELSE 0 END) as `count_tki`'),
+    //             DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tka ELSE 0 END) as `count_tka`'),
+    //             DB::raw('count(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE 0 END) as `jumlah_proyek`'),
+    //             // DB::raw('sum(jumlah_investasi) as `jumlah_investasi`'),
+    //             // DB::raw('sum(CASE WHEN dikecualikan = "1" THEN jumlah_investasi ELSE 0 END) as `jumlah_investasi_anomaly`'),
+    //             // DB::raw('sum(CASE WHEN dikecualikan = "1" THEN jumlah_investasi ELSE 0 END) as `total_investasi_anomaly`'),
+    //             // DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN nib_count ELSE 0 END) as `count_nib_anomaly`'),
+    //             // DB::raw('count(dikecualikan and is_mapping or null) as `jumlah_proyek_anomaly`'),
+    //         );
+    // }
+
+    public function scopeFilterMikro($query, $dateRange = null, $tahun = null, $triwulan = null, $kabkota = null, $sektor = null, $uraian_skala_usaha = null, $kecamatan_usaha = null)
     {
-        return $query->when(!is_null($dateRange), function ($query) use ($dateRange) {
-            if (!is_null($dateRange)) {
+        return $query
+            ->where('dikecualikan', 0)
+            ->where('is_mapping', 1)
+            ->when($dateRange, function ($query) use ($dateRange) {
                 $dates = explode(' - ', $dateRange);
                 $startDate = date('Y-m-d', strtotime(str_replace('/', '-', trim($dates[0]))));
                 $endDate = date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', trim($dates[1]))));
 
                 return $query->whereBetween('tanggal_terbit_oss', [$startDate, $endDate]);
-            }
-        })->when(!is_null('tahun'), function ($query) use ($tahun) {
-            if ($tahun != null) {
-                return $query->where('tahun', $tahun);
-            }
-        })->when(!is_null('triwulan'), function ($query) use ($triwulan) {
-            if ($triwulan != null) {
-                return $query->Where('triwulan', $triwulan);
-            }
-        })->when(!is_null('kab_kota_id'), function ($query) use ($kabkota) {
-            if ($kabkota != null) {
-                return $query->Where('kab_kota_id', $kabkota);
-            }
-        })->when(!is_null('sektor_id'), function ($query) use ($sektor) {
-            if ($sektor != null) {
-                return $query->Where('sektor_id', $sektor);
-            }
-        })->when(!is_null('uraian_skala_usaha'), function ($query) use ($uraian_skala_usaha) {
-            if ($uraian_skala_usaha != null) {
-                return $query->Where('uraian_skala_usaha', $uraian_skala_usaha);
-            }
-        })->when(!is_null('kecamatan_usaha'), function ($query) use ($kecamatan_usaha) {
-            if ($kecamatan_usaha != null) {
-                return $query->Where('kecamatan_usaha', $kecamatan_usaha);
-            }
-        })
-            ->select(
-                DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN jumlah_investasi ELSE 0 END) as `total_investasi`'),
-                DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN nib_count ELSE 0 END) as `count_nib`'),
-                DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tki ELSE 0 END) as `count_tki`'),
-                DB::raw('sum(CASE WHEN dikecualikan = "0" AND is_mapping = "1" THEN tka ELSE 0 END) as `count_tka`'),
-                DB::raw('count(CASE WHEN dikecualikan = "1" OR is_mapping = "0" THEN nib_count ELSE 0 END) as `jumlah_proyek`'),
-                // DB::raw('sum(jumlah_investasi) as `jumlah_investasi`'),
-                // DB::raw('sum(CASE WHEN dikecualikan = "1" THEN jumlah_investasi ELSE 0 END) as `jumlah_investasi_anomaly`'),
-                // DB::raw('sum(CASE WHEN dikecualikan = "1" THEN jumlah_investasi ELSE 0 END) as `total_investasi_anomaly`'),
-                // DB::raw('sum(CASE WHEN dikecualikan = "1" AND is_mapping = "0" THEN nib_count ELSE 0 END) as `count_nib_anomaly`'),
-                // DB::raw('count(dikecualikan and is_mapping or null) as `jumlah_proyek_anomaly`'),
-            );
+            })
+            ->when($tahun, fn($q) => $q->where('tahun', $tahun))
+            ->when($triwulan, fn($q) => $q->where('triwulan', $triwulan))
+            ->when($kabkota, fn($q) => $q->where('kab_kota_id', $kabkota))
+            ->when($sektor, fn($q) => $q->where('sektor_id', $sektor))
+            ->when($uraian_skala_usaha, fn($q) => $q->where('uraian_skala_usaha', $uraian_skala_usaha))
+            ->when($kecamatan_usaha, fn($q) => $q->where('kecamatan_usaha', $kecamatan_usaha))
+            ->selectRaw('
+            SUM(jumlah_investasi) as total_investasi,
+            COUNT(DISTINCT nib) as count_nib,
+            SUM(tki) as count_tki,
+            SUM(tka) as count_tka,
+            COUNT(*) as jumlah_proyek
+        ');
     }
+
 
     public function scopeFilterMikroNIB($query, $dateRange, $tahun, $triwulan, $kabkota, $sektor, $uraian_skala_usaha, $kecamatan_usaha)
     {
