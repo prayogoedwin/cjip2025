@@ -19,7 +19,9 @@
     <meta name="version" content="2.1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="DPMPTSP Provinsi Jawa Tengah">
-    <meta name="og_image" content="{{ asset('images/cjip-small.svg') }}" />
+    <meta name="og_image" content="{{ asset('images/cjip-small.png') }}" />
+    <meta property="og:width" content="512">
+    <meta property="og:height" content="512">
     <meta name="og_secureImage" content="{{ asset('images/cjip-small.svg') }}" />
     @yield('meta_berita')
     @yield('meta_investasi')
