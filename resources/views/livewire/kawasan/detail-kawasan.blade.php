@@ -269,6 +269,7 @@
                 {{-- Copy URL --}}
                 <button onclick="copyToClipboard('{{ route('detail_kawasan', $kawasan->id) }}')"
                     class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600">
+                    <i class="uil uil-copy"></i>
                     Copy URL
                 </button>
 
