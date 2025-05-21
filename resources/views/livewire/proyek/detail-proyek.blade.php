@@ -391,7 +391,32 @@
                     </div>
                 </div>
             </div>
+            {{-- Tombol Share --}}
+            <div class="flex gap-2 mt-3 float-end sm:mx-auto">
+                <div class="mt-1 gap-2 text-semibold"><i class="uil uil-share mr-1"></i>Share :</div>
+                {{-- Facebook --}}
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('detail_investasi', $proyek->id)) }}"
+                    target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                    <i class="uil uil-facebook-f align-middle w-10"></i>
+                    Facebook
+                </a>
+
+                {{-- Twitter --}}
+                <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('detail_investasi', $proyek->id)) }}&text={{ urlencode($proyek->nama) }}"
+                    target="_blank" class="bg-blue-400 text-white px-3 py-1 rounded text-sm hover:bg-blue-500">
+                    <i class="uil uil-twitter"></i>
+                    Twitter
+                </a>
+
+                {{-- WhatsApp --}}
+                 <a href="https://wa.me/?text={{ urlencode( route('detail_investasi', $proyek->id)) }}"
+                    target="_blank" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
+                    <i class="uil uil-whatsapp"></i>
+                    WhatsApp
+                </a>
+            </div>
         </div>
+
     </div>
     <!-- End Hero -->
 </div>
