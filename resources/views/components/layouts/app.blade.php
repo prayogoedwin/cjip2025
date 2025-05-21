@@ -20,9 +20,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="DPMPTSP Provinsi Jawa Tengah">
     <meta property="og_image" content="{{ asset('images/cjip-small.png') }}" />
-    <meta property="og:width" content="512">
-    <meta property="og:height" content="512">
-    <meta name="og_secureImage" content="{{ asset('images/cjip-small.svg') }}" />
+    <meta name="og_image" content="{{ asset('images/cjip-small.png') }}" />
+    <meta name="og_secureImage" content="{{ asset('images/cjip-small.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/cjip-small.svg') }}" />
+    
     @yield('meta_berita')
     @yield('meta_investasi')
     @yield('meta_kawasan')
