@@ -81,6 +81,42 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- Tombol Share --}}
+                    <div class="flex flex-wrap items-center gap-2 mt-3 justify-center sm:justify-end">
+                        {{-- Label --}}
+                        <div class="w-full sm:w-auto text-center sm:text-left font-semibold">
+                            <i class="uil uil-share mr-1"></i>Share:
+                        </div>
+
+                        {{-- Copy URL --}}
+                        <button onclick="copyToClipboard('{{ route('detail_berita', $berita->getTranslations('slug', [$locale])[$locale]) }}')"
+                            class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600">
+                            Copy URL
+                        </button>
+
+                        {{-- Facebook --}}
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('detail_berita', $berita->getTranslations('slug', [$locale])[$locale])) }}"
+                            target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                            <i class="uil uil-facebook-f align-middle w-10"></i>
+                            Facebook
+                        </a>
+
+                        {{-- Twitter --}}
+                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('detail_berita', $berita->getTranslations('slug', [$locale])[$locale])) }}&text={{ urlencode($berita->nama) }}"
+                            target="_blank" class="bg-blue-400 text-white px-3 py-1 rounded text-sm hover:bg-blue-500">
+                            <i class="uil uil-twitter"></i>
+                            Twitter
+                        </a>
+
+                        {{-- WhatsApp --}}
+                        <a href="https://wa.me/?text={{ urlencode(route('detail_berita', $berita->getTranslations('slug', [$locale])[$locale])) }}"
+                            target="_blank"
+                            class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
+                            <i class="uil uil-whatsapp"></i>
+                            WhatsApp
+                        </a>
+                    </div>
                 </div>
                 <!-- End Content -->
 
@@ -143,7 +179,8 @@
 
                                     <div class="flex-shrink-0 relative rounded-lg overflow-hidden w-20 h-20">
                                         <img class="w-full h-full absolute top-0 start-0 object-cover rounded-lg"
-                                            src="{{ asset('storage/' . $berita->image[0]) }}" alt="Image Description">
+                                            src="{{ asset('storage/' . $berita->image[0]) }}"
+                                            alt="Image Description">
                                     </div>
                                 </a>
                                 <!-- End Media -->
@@ -156,4 +193,14 @@
         </div>
         <!-- End Blog Article -->
     </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('URL berhasil disalin ke clipboard!');
+            }, function(err) {
+                alert('Gagal menyalin URL');
+            });
+        }
+    </script>
 </div>

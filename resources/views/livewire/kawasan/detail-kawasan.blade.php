@@ -260,8 +260,18 @@
             </div>
        
         {{-- Tombol Share --}}
-            <div class="flex gap-2 mt-3 float-end sm:mx-auto">
-                <div class="mt-1 gap-2 text-semibold"><i class="uil uil-share mr-1"></i>Share :</div>
+            <div class="flex flex-wrap items-center gap-2 mt-3 justify-center sm:justify-end">
+                {{-- Label --}}
+                <div class="w-full sm:w-auto text-center sm:text-left font-semibold">
+                    <i class="uil uil-share mr-1"></i>Share:
+                </div>
+
+                {{-- Copy URL --}}
+                <button onclick="copyToClipboard('{{ route('detail_kawasan', $kawasan->id) }}')"
+                    class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600">
+                    Copy URL
+                </button>
+
                 {{-- Facebook --}}
                 <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('detail_kawasan', $kawasan->id)) }}"
                     target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
@@ -277,8 +287,8 @@
                 </a>
 
                 {{-- WhatsApp --}}
-                 <a href="https://wa.me/?text={{ urlencode( route('detail_kawasan', $kawasan->id)) }}"
-                    target="_blank" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
+                <a href="https://wa.me/?text={{ urlencode(route('detail_kawasan', $kawasan->id)) }}" target="_blank"
+                    class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
                     <i class="uil uil-whatsapp"></i>
                     WhatsApp
                 </a>
@@ -286,4 +296,13 @@
              </div>
         </div>
     </div>
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('URL berhasil disalin ke clipboard!');
+            }, function(err) {
+                alert('Gagal menyalin URL');
+            });
+        }
+    </script>
 </div>
