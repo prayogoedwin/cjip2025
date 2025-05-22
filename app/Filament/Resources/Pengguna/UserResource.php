@@ -32,6 +32,8 @@ use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Facades\Hash;
 use STS\FilamentImpersonate\Tables\Actions\Impersonate;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 
 class UserResource extends Resource
 {
@@ -177,7 +179,7 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Split::make([
+                
                     Tables\Columns\ImageColumn::make('profile_photo_path')
                         ->label('Avatar')->grow(false)->circular()->size(50)
                         ->getStateUsing(function (Model $record) {
@@ -187,11 +189,12 @@ class UserResource extends Resource
                             }
                             return asset('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
                         }),
-                    Stack::make([
+                    
                         TextColumn::make('name')->sortable()->searchable()->limit(30)->weight(FontWeight::Bold),
+                        TextColumn::make('nip')->toggleable(isToggledHiddenByDefault: true),
+                        TextColumn::make('jabatan')->toggleable(isToggledHiddenByDefault: true),
+                        TextColumn::make('no_hp')->toggleable(isToggledHiddenByDefault: true),
                         TextColumn::make('email')->sortable()->searchable()->size('xs')->copyable()->limit(30),
-                    ]),
-                    Stack::make([
                         TextColumn::make('roles.name')->searchable()
                             ->badge()
                             ->separator(',')
@@ -206,13 +209,25 @@ class UserResource extends Resource
                                 'class' => 'mt-2'
                             ])
 
-                    ])
-                ])
+                    
+                
             ])->defaultSort('created_at', 'desc')
-            ->contentGrid([
-                'sm' => 1,
-                'md' => 2,
-                'lg' => 2
+            // ->contentGrid([
+            //     'sm' => 1,
+            //     'md' => 2,
+            //     'lg' => 2
+            // ])
+             ->headerActions([
+                ExportAction::make()->exports([
+                    ExcelExport::make('table')
+                        ->fromTable()
+                        ->withChunkSize(1000)
+                        ->askForFilename()
+                        ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
+                        ->withFilename(date('d-M-Y') . ' - Data Simike'),
+                ])
+                    ->button()
+                    ->color('success')
             ])
             ->filters([
                 SelectFilter::make('roles_id')->label('Roles')
