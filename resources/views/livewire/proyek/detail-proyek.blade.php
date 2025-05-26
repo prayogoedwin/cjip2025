@@ -74,7 +74,8 @@
             </div>
         </div>
         <div class="container">
-            <nav class="flex space-x-2" aria-label="Tabs" role="tablist">
+            <nav class="flex space-x-2 grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-3" aria-label="Tabs"
+                role="tablist">
                 <button type="button"
                     class="hs-tab-active:bg-green-600 ring-1 ring-green-600 hs-tab-active:text-white hs-tab-active:hover:text-white hs-tab-active:dark:text-white py-3 px-4 text-center flex-auto inline-flex justify-center items-center gap-x-2 bg-transparent text-sm font-medium text-gray-500 hover:text-yellow-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:text-gray-400 dark:hover:text-yellow-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 active"
                     id="fill-and-justify-item-1" data-hs-tab="#fill-and-justify-1" aria-controls="fill-and-justify-1"
@@ -98,6 +99,12 @@
                     id="fill-and-justify-item-4" data-hs-tab="#fill-and-justify-4" aria-controls="fill-and-justify-4"
                     role="tab">
                     {{ __('detailproyek.tabs_5', [], $locale) }}
+                </button>
+                <button type="button"
+                    class="hs-tab-active:bg-green-600 ring-1 ring-green-500 hs-tab-active:text-white hs-tab-active:hover:text-white hs-tab-active:dark:text-white py-3 px-4 text-center flex-auto inline-flex justify-center items-center gap-x-2 bg-transparent text-sm font-medium text-gray-500 hover:text-yellow-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:text-gray-400 dark:hover:text-yellow-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                    id="fill-and-justify-item-5" data-hs-tab="#fill-and-justify-5" aria-controls="fill-and-justify-5"
+                    role="tab">
+                    {{ __('detailproyek.tabs_6', [], $locale) }}
                 </button>
             </nav>
 
@@ -388,6 +395,41 @@
                                 </div>
                             @endforeach
                         </div>
+                    </div>
+                </div>
+                <div id="fill-and-justify-5" class="hidden" role="tabpanel"
+                    aria-labelledby="fill-and-justify-item-5">
+                    <div class="relative">
+                        @php
+                            $kajianPdf = $proyek->file_kajian; // contoh properti dari model $proyek
+                            
+                        @endphp
+
+                        @if ($kajianPdf)
+                            <div class="mt-4">
+                                <iframe src="{{ asset('storage/' . $kajianPdf) }}"
+                                    class="w-full h-[600px] border rounded-md" frameborder="0"></iframe>
+                            </div>
+                        @else
+                            <p class="text-gray-500 italic flex justify-center py-5">Tidak ada file kajian yang tersedia.</p>
+                        @endif
+                        {{-- <div id="grid" class="md:flex w-full justify-center mx-auto mt-4">
+                            @foreach ($proyek->foto as $image)
+                                <div class="lg:w-1/3 md:w-1/3 p-4 picture-item" data-groups='["branding"]'>
+                                    <div
+                                        class="group relative block overflow-hidden rounded-md duration-700 ease-in-out">
+                                        <div class="relative bg-green-600 overflow-hidden rounded-md">
+                                            <a href="{{ asset('storage/' . $image) }}"
+                                                class="lightbox duration-700 ease-in-out group-hover:p-[10px]"
+                                                title="">
+                                                <img src="{{ asset('storage/' . $image) }}" class="rounded-md"
+                                                    alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div> --}}
                     </div>
                 </div>
             </div>

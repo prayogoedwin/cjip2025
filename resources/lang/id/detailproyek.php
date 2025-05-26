@@ -14,6 +14,7 @@ return [
     "tabs_3" => "Kontak",
     "tabs_4" => "Latar Belakang",
     "tabs_5" => "Galeri",
+    "tabs_6" => "File Kajian",
 
 
     "tb_1" => "Latar Belakang",

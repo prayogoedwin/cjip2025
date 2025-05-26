@@ -14,6 +14,7 @@ return [
     "tabs_3" => "Contact",
     "tabs_4" => "Background",
     "tabs_5" => "Gallery",
+    "tabs_6" => "Study File",
 
     "tb_1" => "Background",
     "tb_2" => "Present Condition",
