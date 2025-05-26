@@ -20,6 +20,8 @@ class SektorContent extends Component
     public $searchs;
     public $highlightIndex = 0;
 
+    public $acti, $search = '';
+
     protected $listeners = [
         'languageChange' => 'changeLanguage',
         'languageChanged' => '$refresh',
@@ -34,38 +36,60 @@ class SektorContent extends Component
         $this->emit('languageChanged');
     }
 
-    public function mount($selectedCategory = 18)
+    // public function mount($selectedCategory = 18)
+    // {
+
+    //     $this->marketPlace = $selectedCategory;
+    //     $this->reset(['query', 'searchs', 'highlightIndex']);
+    // }
+
+    public function cariProyeks()
     {
+        $this->proyeks = ProyekInvestasi::where(function ($query) {
+            $query->where('nama', 'like', '%' . $this->search . '%')
+                ->orWhereHas('kabkota', function ($subQuery) {
+                    $subQuery->where('nama', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('sektor', function ($subQuery) {
+                    $subQuery->where('nama', 'like', '%' . $this->search . '%');
+                });
+        })
+            ->where('status', 1)
+            // ->where('is_cjibf', 1)
+            ->where('sektor_id', $this->marketPlace)
+            ->orderBy('id', 'desc')
+            ->paginate(6);
+    }
+
+     public function updatedSearch()
+    {
+        $this->cariProyeks();
+    }
+
+    public function updateMarket($id)
+    {
+        $this->marketPlace = $id;
+        $this->acti = $id;
+        $this->resetPage();
+        $this->cariProyeks();
+        $this->active = $id;
+    }
+
+     public function mount($selectedCategory = 18)
+    {
+        if (Session::get('lang')) {
+            if (is_array(Session::get('lang'))) {
+                $this->locale = Session::get('lang')[0];
+            } else {
+                $this->locale = Session::get('lang');
+            }
+        } else {
+            $this->locale = 'id';
+        }
 
         $this->marketPlace = $selectedCategory;
-        $this->reset(['query', 'searchs', 'highlightIndex']);
-    }
-
-
-    public function incrementHighlight()
-    {
-        if ($this->highlightIndex === count($this->searchs) - 1) {
-            $this->highlightIndex = 0;
-            return;
-        }
-        $this->highlightIndex++;
-    }
-
-    public function decrementHighlight()
-    {
-        if ($this->highlightIndex === 0) {
-            $this->highlightIndex = count($this->searchs) - 1;
-            return;
-        }
-        $this->highlightIndex--;
-    }
-
-    public function selectContact()
-    {
-        $proyek = $this->searchs[$this->highlightIndex] ?? null;
-        if ($proyek) {
-            $this->redirect(route('show-proyek', $proyek['id']));
-        }
+        $this->acti = $selectedCategory;
+        $this->cariProyeks();
     }
 
     public function updatedQuery()
@@ -82,12 +106,6 @@ class SektorContent extends Component
             ->simplePaginate(15);
         // dd($this->searchs);
     }
-    public function updateMarket($value)
-    {
-        //dd($value);
-        $this->marketPlace = $value;
-        $this->active = $value;
-    }
 
     public function render()
     {
@@ -103,28 +121,22 @@ class SektorContent extends Component
             $this->locale = 'id';
         }
 
-        $jenis_marketplaces = Market::all();
+         $jenis_marketplaces = Market::all();
 
-        // dd($this->marketPlace);
+        $proyeks = ProyekInvestasi::where(function ($query) {
+            $query->where('nama', 'like', '%' . $this->search . '%')
+                ->orWhereHas('kabkota', function ($subQuery) {
+                    $subQuery->where('nama', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('sektor', function ($subQuery) {
+                    $subQuery->where('nama', 'like', '%' . $this->search . '%');
+                });
+        })
+            ->where('status', 1)
+            ->where('sektor_id', $this->marketPlace)
+            ->orderBy('id', 'desc')
+            ->paginate(6);
 
-        if ($this->marketPlace == 0) {
-            $this->proyeks = ProyekInvestasi::where('status', 1)->orderBy('id', 'DESC')->paginate(9);
-        } else {
-            $this->proyeks = ProyekInvestasi::where('status', 1)
-                ->where('sektor_id', $this->marketPlace)->orderBy('id', 'DESC')->paginate(9);
-        }
-
-        // $qconfig = Config::where('nama', 'seo_sektor')->first();
-        // $config = json_decode($qconfig->detail);
-
-        $proyeks = $this->proyeks;
-        $searchs = $this->searchs;
-        if ($this->active == null) {
-            $acti = 18;
-        } else {
-            $acti = $this->active;
-        }
-
-        return view('livewire.proyek.sektor-content', compact('jenis_marketplaces', 'proyeks', 'searchs', 'acti',));
+        return view('livewire.proyek.sektor-content', compact('jenis_marketplaces', 'proyeks'));
     }
 }

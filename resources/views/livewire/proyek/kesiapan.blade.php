@@ -1,5 +1,4 @@
 <div>
-
     <section class="relative md:py-18 py-10">
         <div class="container py-5 lg:py-14">
             <div class="py-5 lg:w-3/5 w-4/5 mx-auto">
@@ -98,9 +97,6 @@
                 </button>
             </div>
         </div>
-
-
-
 
         @isset($proyeks)
             @if ($proyeks->isEmpty())
