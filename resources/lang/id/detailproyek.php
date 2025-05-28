@@ -36,6 +36,7 @@ return [
     "summary6" => "Sumber Air",
     "summary7" => "Kelistrikan",
     "summary8" => "Telekomunikasi",
+    "summary9" => "Jaringan Jalan",
 
     "contact1" => "Nama Pic",
     "contact2" => "Nama Instansi",

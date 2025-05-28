@@ -35,6 +35,7 @@ return [
     "summary6" => "Water Sources",
     "summary7" => "Electricity",
     "summary8" => "Telecommunication",
+    "summary9" => "Road Network",
 
     "contact1" => "Pic Name",
     "contact2" => "Institution Name",

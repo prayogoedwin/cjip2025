@@ -49,6 +49,7 @@ class ProyekInvestasi extends Model
         'sumber_air',
         'kelistrikan',
         'telekomunikasi',
+        'jaringan_jalan'
     ];
 
     protected $fillable = [
@@ -91,6 +92,9 @@ class ProyekInvestasi extends Model
         'sumber_air',
         'kelistrikan',
         'telekomunikasi',
+
+        'url_video',
+        'jaringan_jalan',
     ];
 
 

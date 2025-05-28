@@ -79,7 +79,7 @@ class ProyekInvestasiResource extends Resource
                                     ->disk('public')
                                     ->directory('proyek/content')
                                     ->maxContentWidth('5xl')
-                                     ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
                                 RichEditor::make('eksisting')
                                     ->toolbarButtons([
                                         'attachFiles',
@@ -308,6 +308,22 @@ class ProyekInvestasiResource extends Resource
                                         'strike',
                                         'undo',
                                     ]),
+                                RichEditor::make('jaringan_jalan')->label('Jaringan Jalan')
+                                    ->toolbarButtons([
+                                        'attachFiles',
+                                        'blockquote',
+                                        'bold',
+                                        'bulletList',
+                                        'codeBlock',
+                                        'h2',
+                                        'h3',
+                                        'italic',
+                                        'link',
+                                        'orderedList',
+                                        'redo',
+                                        'strike',
+                                        'undo',
+                                    ]),
                             ]),
                         Wizard\Step::make('Investasi')
                             ->icon('heroicon-m-currency-dollar')
@@ -366,6 +382,10 @@ class ProyekInvestasiResource extends Resource
                             ->icon('heroicon-m-folder-plus')
                             ->completedIcon('heroicon-m-hand-thumb-up')
                             ->schema([
+                                TextInput::make('url_video')
+                                    ->label('URL Video')
+                                    ->url()
+                                    ->hint('Isikan URL Embed Video Youtube jika ada'),
                                 FileUpload::make('foto')
                                     ->disk('public')
                                     ->directory('proyek/foto')
