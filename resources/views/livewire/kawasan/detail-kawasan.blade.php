@@ -5,8 +5,6 @@
         Java Investment Platform</title>
 
     <link rel="canonical" href="https://cjip.jatengprov.go.id/detail-kawasan-industri/{{ $kawasan->id }}" />
-    <meta name="robots" content="index, follow" />
-
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
     <meta property="og:title"

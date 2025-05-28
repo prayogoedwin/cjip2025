@@ -7,7 +7,6 @@
 
         <link rel="canonical"
             href="https://cjip.jatengprov.go.id/berita/{{ $berita->getTranslations('slug', [$locale])[$locale] }}" />
-        <meta name="robots" content="index, follow" />
         <meta name='keywords'
             content='{{ $berita->getTranslations('meta_keyword', [$locale]) ? $berita->getTranslations('meta_keyword', [$locale])[$locale] : $berita->meta_keyword }}' />
         <meta name="description"

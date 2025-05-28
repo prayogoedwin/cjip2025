@@ -1,32 +1,3 @@
-/* Template Name: Techwind - Tailwind CSS Multipurpose Landing & Admin Dashboard Template
-   Author: Shreethemes
-   Email: support@shreethemes.in
-   Website: https://shreethemes.in
-   Version: 2.1.0
-   Created: May 2022
-   File Description: Main JS file of the template
-*/
-
-
-/*********************************/
-/*         INDEX                 */
-/*================================
- *     01.  Loader               *
- *     02.  Toggle Menus         *
- *     03.  Menu Active          *
- *     04.  Clickable Menu       *
- *     05.  Menu Sticky          *
- *     06.  Back to top          *
- *     07.  Active Sidebar       *
- *     08.  Feather icon         *
- *     09.  Small Menu           *
- *     10.  Wow Animation JS     *
- *     11.  Contact us           *
- *     12.  Dark & Light Mode    *
- *     13.  LTR & RTL Mode       *
- ================================*/
-
-
 window.addEventListener('load', fn, false)
 
 //  window.onload = function loader() {
@@ -71,7 +42,7 @@ function getClosest(elem, selector) {
             function (s) {
                 var matches = (this.document || this.ownerDocument).querySelectorAll(s),
                     i = matches.length;
-                while (--i >= 0 && matches.item(i) !== this) {}
+                while (--i >= 0 && matches.item(i) !== this) { }
                 return i > -1;
             };
     }
@@ -97,21 +68,21 @@ function activateMenu() {
 
         if (matchingMenuItem) {
             matchingMenuItem.classList.add('active');
-         
-         
+
+
             var immediateParent = getClosest(matchingMenuItem, 'li');
-      
+
             if (immediateParent) {
                 immediateParent.classList.add('active');
             }
-            
+
             var parent = getClosest(immediateParent, '.child-menu-item');
-            if(parent){
+            if (parent) {
                 parent.classList.add('active');
             }
 
-            var parent = getClosest(parent || immediateParent , '.parent-menu-item');
-        
+            var parent = getClosest(parent || immediateParent, '.parent-menu-item');
+
             if (parent) {
                 parent.classList.add('active');
 
@@ -178,7 +149,7 @@ window.onscroll = function () {
 
 function scrollFunction() {
     var mybutton = document.getElementById("back-to-top");
-    if(mybutton!=null){
+    if (mybutton != null) {
         if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
             mybutton.classList.add("block");
             mybutton.classList.remove("hidden");
@@ -228,7 +199,7 @@ try {
 try {
     new WOW().init();
 } catch (error) {
-    
+
 }
 
 /*************************/
@@ -292,7 +263,7 @@ try {
         }, 200);
     }
 } catch (error) {
-    
+
 }
 
 
@@ -300,10 +271,10 @@ try {
 /* Dark & Light Mode */
 /*********************/
 try {
-    function changeTheme(e){
+    function changeTheme(e) {
         e.preventDefault()
         const htmlTag = document.getElementsByTagName("html")[0]
-        
+
         if (htmlTag.className.includes("dark")) {
             htmlTag.className = 'light'
         } else {
@@ -312,33 +283,33 @@ try {
     }
 
     const switcher = document.getElementById("theme-mode")
-    switcher?.addEventListener("click" ,changeTheme )
-    
+    switcher?.addEventListener("click", changeTheme)
+
     const chk = document.getElementById('chk');
 
-    chk.addEventListener('change',changeTheme);
+    chk.addEventListener('change', changeTheme);
 } catch (err) {
-    
+
 }
 
 
 /*********************/
 /* LTR & RTL Mode */
 /*********************/
-try{
+try {
     const htmlTag = document.getElementsByTagName("html")[0]
-    function changeLayout(e){
+    function changeLayout(e) {
         e.preventDefault()
         const switcherRtl = document.getElementById("switchRtl")
-        if(switcherRtl.innerText === "LTR"){
+        if (switcherRtl.innerText === "LTR") {
             htmlTag.dir = "ltr"
         }
-        else{
+        else {
             htmlTag.dir = "rtl"
         }
-        
+
     }
     const switcherRtl = document.getElementById("switchRtl")
-    switcherRtl?.addEventListener("click" ,changeLayout )
+    switcherRtl?.addEventListener("click", changeLayout)
 }
-catch(err){}
+catch (err) { }

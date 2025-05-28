@@ -5,8 +5,6 @@
         Java Investment Platform</title>
 
     <link rel="canonical" href="https://cjip.jatengprov.go.id/peluang-investasi/{{ $proyek->id }}" />
-    <meta name="robots" content="index, follow" />
-
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
     <meta property="og:title"
@@ -401,8 +399,7 @@
                     aria-labelledby="fill-and-justify-item-5">
                     <div class="relative">
                         @php
-                            $kajianPdf = $proyek->file_kajian; // contoh properti dari model $proyek
-                            
+                            $kajianPdf = $proyek->file_kajian; 
                         @endphp
 
                         @if ($kajianPdf)
@@ -413,23 +410,6 @@
                         @else
                             <p class="text-gray-500 italic flex justify-center py-5">Tidak ada file kajian yang tersedia.</p>
                         @endif
-                        {{-- <div id="grid" class="md:flex w-full justify-center mx-auto mt-4">
-                            @foreach ($proyek->foto as $image)
-                                <div class="lg:w-1/3 md:w-1/3 p-4 picture-item" data-groups='["branding"]'>
-                                    <div
-                                        class="group relative block overflow-hidden rounded-md duration-700 ease-in-out">
-                                        <div class="relative bg-green-600 overflow-hidden rounded-md">
-                                            <a href="{{ asset('storage/' . $image) }}"
-                                                class="lightbox duration-700 ease-in-out group-hover:p-[10px]"
-                                                title="">
-                                                <img src="{{ asset('storage/' . $image) }}" class="rounded-md"
-                                                    alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div> --}}
                     </div>
                 </div>
             </div>
