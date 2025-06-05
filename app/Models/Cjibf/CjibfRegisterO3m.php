@@ -4,6 +4,7 @@ namespace App\Models\Cjibf;
 
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\Kawasan;
+use App\Models\Cjip\KawasanIndustri;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use app\Models\Investasi\ProyekInvestasi;
@@ -32,7 +33,7 @@ class CjibfRegisterO3m extends Model
 
     public function kawasan(): BelongsTo
     {
-        return $this->belongsTo(Kawasan::class);
+        return $this->belongsTo(KawasanIndustri::class);
     }
     public function interest(): BelongsTo
     {

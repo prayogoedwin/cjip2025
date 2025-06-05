@@ -7,6 +7,7 @@ use App\Livewire\Beranda\Beranda;
 use App\Livewire\Berita\Berita;
 use App\Livewire\Berita\DetailBerita;
 use App\Livewire\Cjibf\Dashboard;
+use App\Livewire\Cjibf\RegisterO3m;
 use App\Livewire\Faq\Faq;
 use App\Livewire\Frontend\Auth\Login;
 use App\Livewire\Frontend\Auth\Profile;
@@ -79,6 +80,8 @@ Route::get('cjibf', Dashboard::class)->name('cjibf');
 Route::get('panduan-investasi', Faq::class)->name('faq');
 Route::get('download-kajian-proyek', FormDownload::class)->name('form_kajian_proyek');
 Route::get('success-download', ConfirmSuccess::class)->name('confirm_kajian_proyek');
+
+Route::get('register-o3m', RegisterO3m::class)->name('register.cjibf');
 
 // Route::get('profil-kabkota/{id}', ProfilKabKota::class)->name('profil_kabkota');
 
