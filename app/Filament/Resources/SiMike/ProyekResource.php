@@ -427,12 +427,12 @@ class ProyekResource extends Resource
                                     DatePicker::make('start')
                                         ->label('Tanggal Awal')
                                         ->hiddenLabel()
-                                        ->default(Carbon::now()->startOfYear())
+                                        // ->default(Carbon::now()->startOfYear())
                                         ->placeholder('Awal'),
                                     DatePicker::make('end')
                                         ->label('Tanggal Akhir')
                                         ->hiddenLabel()
-                                        ->default(Carbon::now())
+                                        // ->default(Carbon::now())
                                         ->placeholder('Akhir'),
                                 ]),
                         ])

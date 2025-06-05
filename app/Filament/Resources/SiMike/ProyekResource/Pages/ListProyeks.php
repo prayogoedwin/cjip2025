@@ -40,18 +40,18 @@ class ListProyeks extends ListRecords
         $this->tableFilters['tahun']['value'] = $range['tahun'] ?? null;
     }
 
-    public function mount(): void
-    {
-        $start = Carbon::now()->startOfYear()->toDateString(); // 'Y-m-d'
-        $end = Carbon::now()->toDateString(); // 'Y-m-d'
+    // public function mount(): void
+    // {
+    //     $start = Carbon::now()->startOfYear()->toDateString(); // 'Y-m-d'
+    //     $end = Carbon::now()->toDateString(); // 'Y-m-d'
     
-        $this->tableFilters['tanggal_terbit_oss']['start'] = $start;
-        $this->tableFilters['tanggal_terbit_oss']['end'] = $end;
+    //     $this->tableFilters['tanggal_terbit_oss']['start'] = $start;
+    //     $this->tableFilters['tanggal_terbit_oss']['end'] = $end;
 
-        $this->tableFilters['tahun']['value'] = Carbon::now()->year;
+    //     $this->tableFilters['tahun']['value'] = Carbon::now()->year;
     
-        parent::mount();
-    }
+    //     parent::mount();
+    // }
 
     protected function getHeaderWidgets(): array
     {
