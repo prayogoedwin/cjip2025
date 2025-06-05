@@ -112,6 +112,11 @@ class O3MettingResource extends Resource
                     ->getStateUsing(function ($record) {
                         return $record->InterestLocation;
                     }),
+                    TextColumn::make('created_at')
+                        ->date(' d M Y')
+                        ->label('Created At')
+                        ->sortable()
+                        ->toggleable(isToggledHiddenByDefault: true),
             ])->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('created_at')
