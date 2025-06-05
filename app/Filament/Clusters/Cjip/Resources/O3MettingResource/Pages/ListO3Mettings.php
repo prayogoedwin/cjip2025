@@ -13,7 +13,10 @@ class ListO3Mettings extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->label('Register O3m')->
+                color('primary')->
+                icon('heroicon-o-plus')->
+                tooltip('Register One-on-One Meeting'),
         ];
     }
 }

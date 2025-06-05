@@ -60,7 +60,6 @@ class ProductEdit extends Component implements HasForms
             MarkdownEditor::make('description')
                 ->label('Deskripsi')
                 ->toolbarButtons([
-                    'attachFiles',
                     'blockquote',
                     'bold',
                     'bulletList',

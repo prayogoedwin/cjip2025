@@ -8,14 +8,17 @@ use App\Filament\Clusters\Cjip\Resources\O3MettingResource\RelationManagers;
 use App\Models\Cjibf\CjibfRegisterO3m;
 use App\Models\Cjip\Kabkota;
 use App\Models\Cjip\Kawasan;
+use App\Models\Cjip\KawasanIndustri;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -44,7 +47,7 @@ class O3MettingResource extends Resource
     {
         return $form
             ->schema([
-                Card::make([
+                Section::make([
                     Hidden::make("event_id")->default('1'),
                     TextInput::make('name')
                         ->label('Name / nama')
@@ -68,11 +71,11 @@ class O3MettingResource extends Resource
 
                     Select::make('kawasan_id')
                         ->label('Industrial Parks / Kawasan Industri')
-                        ->options(options: Kawasan::all()->pluck('nama', 'id'))
+                        ->options(options: KawasanIndustri::all()->pluck('nama', 'id'))
                         ->searchable()
                         ->preload()
-                        ->visible(function (\Closure $get) {
-                            if ($get('o3m_interest_id') === 2) {
+                        ->visible(function (Get $get) {
+                            if ($get('o3m_interest_id') === '2') {
                                 return true;
                             }
                             return false;
@@ -82,14 +85,12 @@ class O3MettingResource extends Resource
                         ->options(options: Kabkota::all()->pluck('nama', 'id'))
                         ->searchable()
                         ->preload()
-                        ->visible(function (\Closure $get) {
-                            if ($get('o3m_interest_id') === 1) {
+                        ->visible(function (Get $get) {
+                            if ($get('o3m_interest_id') === '1') {
                                 return true;
                             }
                             return false;
                         }),
-
-
                 ])
             ]);
     }
@@ -112,11 +113,11 @@ class O3MettingResource extends Resource
                     ->getStateUsing(function ($record) {
                         return $record->InterestLocation;
                     }),
-                    TextColumn::make('created_at')
-                        ->date(' d M Y')
-                        ->label('Created At')
-                        ->sortable()
-                        ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->date(' d M Y')
+                    ->label('Created At')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('created_at')
@@ -135,7 +136,7 @@ class O3MettingResource extends Resource
                                 fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     })
-                ])
+            ])
             ->headerActions([
                 ExportAction::make()->exports([
                     ExcelExport::make('table')
