@@ -240,7 +240,7 @@ class ProyekInvestasiResource extends Resource
                                     ->directory('proyek/content/irr')
                                     ->maxContentWidth('5xl')
                                     ->extraInputAttributes(['style' => 'min-height: 12rem;']),
-                                TiptapEditor::make('skema_investasi')->label('IRR')
+                                TiptapEditor::make('skema_investasi')->label('Skema Investasi')
                                     ->columnSpan('full')
                                     ->profile('default')
                                     ->disk('public')
