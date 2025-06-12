@@ -280,7 +280,9 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ $proyek->getTranslations('npv', [$locale]) ? $proyek->getTranslations('npv', [$locale])[$locale] : $proyek->npv }}
+                                                    {!! $proyek->getTranslations('npv', [$locale])
+                                                        ? $proyek->getTranslations('npv', [$locale])[$locale]
+                                                        : $proyek->npv !!}
                                                 </td>
 
                                             </tr>
@@ -293,7 +295,9 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ $proyek->irr }}</td>
+                                                    {!! $proyek->getTranslations('irr', [$locale])
+                                                        ? $proyek->getTranslations('irr', [$locale])[$locale]
+                                                        : $proyek->irr !!}</td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -304,7 +308,9 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ $proyek->bc_ratio }}</td>
+                                                    {!! $proyek->getTranslations('bc_ratio', [$locale])
+                                                        ? $proyek->getTranslations('bc_ratio', [$locale])[$locale]
+                                                        : $proyek->bc_ratio !!}</td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -315,7 +321,9 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ $proyek->getTranslations('playback_period', [$locale]) ? $proyek->getTranslations('playback_period', [$locale])[$locale] : $proyek->playback_period }}
+                                                    {!! $proyek->getTranslations('playback_period', [$locale])
+                                                        ? $proyek->getTranslations('playback_period', [$locale])[$locale]
+                                                        : $proyek->playback_period !!}
                                                 </td>
                                             </tr>
                                         </tbody>

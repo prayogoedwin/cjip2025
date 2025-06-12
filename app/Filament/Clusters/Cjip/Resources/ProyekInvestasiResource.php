@@ -75,54 +75,37 @@ class ProyekInvestasiResource extends Resource
                                 TextInput::make('nama')->label('Nama Proyek')->required(),
                                 TiptapEditor::make('latar_belakang')->label('Latar Belakang')
                                     ->columnSpan('full')
+                                    ->required()
                                     ->profile('default')
                                     ->disk('public')
                                     ->directory('proyek/content')
                                     ->maxContentWidth('5xl')
                                     ->extraInputAttributes(['style' => 'min-height: 12rem;']),
-                                RichEditor::make('eksisting')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
+                                TiptapEditor::make('eksisting')->label('Eksisting')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/eksisting')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
                             ]),
                         Wizard\Step::make('Lokasi')
                             ->icon('heroicon-m-map-pin')
                             ->completedIcon('heroicon-m-hand-thumb-up')
                             ->schema([
                                 TextInput::make('luas_lahan')->label('Luas Lahan'),
-                                RichEditor::make('desc_luas_lahan')->label('Deskripsi Luas Lahan')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-
+                                TiptapEditor::make('desc_luas_lahan')->label('Deskripsi Luas Lahan')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/desc_luas_lahan')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
                                 ComponentsGrid::make()->schema([
                                     Forms\Components\TextInput::make('lat')
                                         ->label('Latitude')
                                         ->reactive()
+                                        ->required()
                                         ->afterStateUpdated(function ($state, callable $get, callable $set) {
                                             $set('location', [
                                                 'lat' => floatVal($state),
@@ -133,6 +116,7 @@ class ProyekInvestasiResource extends Resource
                                     Forms\Components\TextInput::make('lng')
                                         ->label('Longitude')
                                         ->reactive()
+                                        ->required()
                                         ->afterStateUpdated(function ($state, callable $get, callable $set) {
                                             $set('location', [
                                                 'lat' => floatval($get('lat')),
@@ -180,233 +164,129 @@ class ProyekInvestasiResource extends Resource
                             ->icon('heroicon-m-document-check')
                             ->completedIcon('heroicon-m-hand-thumb-up')
                             ->schema([
-                                RichEditor::make('sumber_air')->label('Sumber Air')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                RichEditor::make('kelistrikan')->label('Kelistrikan')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                RichEditor::make('telekomunikasi')->label('Telekomunikasi')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                RichEditor::make('status_kepemilikan')->label('Status Kepemilikan')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                RichEditor::make('lingkup_pekerjaan')->label('Lingkup Pekerjaan')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                RichEditor::make('ketersediaan_pasar')->label('Ketersediaan Pasar')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                RichEditor::make('ketersediaan_sd')->label('Ketersediaan Sumber Daya')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                RichEditor::make('desain_layout_proyek')->label('Desain Layout Proyek')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                RichEditor::make('jaringan_jalan')->label('Jaringan Jalan')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
+                                TiptapEditor::make('sumber_air')->label('Sumber Air')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/sumber_air')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('kelistrikan')->label('Kelistrikan')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/kelistrikan')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('telekomunikasi')->label('Telekomunikasi')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/Telekomunikasi')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('status_kepemilikan')->label('Status Kepemilikan')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/status_kepemilikan')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('lingkup_pekerjaan')->label('Lingkup Pekerjaan')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/lingkup_pekerjaan')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('ketersediaan_pasar')->label('Ketersediaan Pasar')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/ketersediaan_pasar')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('ketersediaan_sd')->label('Ketersediaan Sumber Daya')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/ketersediaan_sd')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('desain_layout_proyek')->label('Desain Layout Proyek')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/desain_layout_proyek')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('jaringan_jalan')->label('Jaringan Jalan')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/jaringan_jalan')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
                             ]),
                         Wizard\Step::make('Investasi')
                             ->icon('heroicon-m-currency-dollar')
                             ->completedIcon('heroicon-m-hand-thumb-up')
                             ->schema([
-                                RichEditor::make('rincian_investasi')->label('Rincian Investasi')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                RichEditor::make('skema_investasi')->label('Skema Investasi')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                TextInput::make('nilai_investasi')->label('Nilai Investasi'),
-                                RichEditor::make('npv')->label('NPV')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                RichEditor::make('irr')->label('IRR')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'undo',
-                                    ]),
-                                TextInput::make('bc_ratio')->label('Bc Ratio'),
-                                TextInput::make('playback_period')->label('Payback Period'),
+                                TextInput::make('nilai_investasi')->label('Nilai Investasi')->required(),
+                                TiptapEditor::make('rincian_investasi')->label('Rincian Investasi')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/irr')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('skema_investasi')->label('IRR')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/skema_investasi')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+
+                                TiptapEditor::make('npv')->label('NPV')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/npv')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('irr')->label('IRR')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/irr')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('bc_ratio')->label('Bc Ratio')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/bc_ratio')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                                TiptapEditor::make('playback_period')->label('Payback Period')
+                                    ->columnSpan('full')
+                                    ->profile('default')
+                                    ->disk('public')
+                                    ->directory('proyek/content/playback_period')
+                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
                             ]),
                         Wizard\Step::make('Kontak')
                             ->icon('heroicon-m-user')
                             ->completedIcon('heroicon-m-hand-thumb-up')
                             ->schema([
                                 ComponentsGrid::make()->schema([
-                                    TextInput::make('cp_nama')->label('CP Nama'),
-                                    TextInput::make('cp_email')->label('CP Email')->email(),
-                                    TextInput::make('cp_hp')->label('CP No. Hp')->tel()->maxLength(13)
+                                    TextInput::make('cp_nama')->label('CP Nama')->required(),
+                                    TextInput::make('cp_email')->label('CP Email')->email()->required(),
+                                    TextInput::make('cp_hp')->label('CP No. Hp')->tel()->maxLength(13)->required()
                                 ])->columns(3),
-                                Textarea::make('cp_alamat')->label('CP Alamat'),
+                                Textarea::make('cp_alamat')->label('CP Alamat')->required(),
                             ]),
                         Wizard\Step::make('File')
                             ->icon('heroicon-m-folder-plus')
