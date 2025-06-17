@@ -7,9 +7,6 @@
             <span class="px-4 bg-primary-500 rounded-lg text-md font-bold text-white uppercase">Dashboard Si-Mike</span>
         </div>
     </div> --}}
-    <div wire:loading class="mt-3 text-center">
-            <div class="text-sm text-gray-500 mt-2 mx-auto">Sedang Memproses Data...</div>
-        </div>
     <x-filament::section collapsible icon="heroicon-o-magnifying-glass" icon-color="primary">
         <x-slot name="heading">
             Filter Dashboard Si-Mike
@@ -21,10 +18,9 @@
                     Filter
                 </x-filament::button>
             </div>
-            {{-- Loading indicator --}}
-        <div wire:loading wire:target="submit" class="mt-3 text-center">
-            <div class="text-sm text-gray-500 mt-2 mx-auto">Sedang Memproses Data...</div>
-        </div>
+            <div wire:loading wire:target="submit" class="mt-3 text-center">
+                <div class="text-sm text-gray-500 mt-2 mx-auto">Sedang Memproses Data...</div>
+            </div>
         </form>
     </x-filament::section>
 
