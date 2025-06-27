@@ -63,7 +63,7 @@ class Peta extends Component
             ->get();
         try {
             $response = Http::timeout(60)->get('https://webgis.dpubinmarcipka.jatengprov.go.id/api/data/jembatanprovinsi');
-
+            // $response = Http::timeout(60)->get('https://example.com/api');
             if ($response->successful()) {
                 $jembatan = $response->json();
             } else {

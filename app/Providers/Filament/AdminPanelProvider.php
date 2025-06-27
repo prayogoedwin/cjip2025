@@ -145,6 +145,11 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-squares-2x2')
                     ->collapsed()
                     ->collapsible(),
+                NavigationGroup::make()
+                    ->label('SIDIKARYO')
+                    ->icon('heroicon-o-briefcase')
+                    ->collapsed()
+                    ->collapsible(),
             ])
             ->authMiddleware([
                 Authenticate::class,
