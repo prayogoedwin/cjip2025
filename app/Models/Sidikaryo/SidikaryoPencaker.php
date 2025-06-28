@@ -19,7 +19,8 @@ class SidikaryoPencaker extends Model
         'p',
         'lulusan_sma_smk',
         'lulusan_dibawah_sma_smk',
-        'lulusan_sarjana_keatas'
+        'lulusan_sarjana_keatas',
+        'jurusan_terbanyak'
     ];
 
     protected $casts = [

@@ -128,7 +128,8 @@ class PenempatanResource extends Resource
                                 $data = $response->json();
                                 
                                 // Hapus data hari ini jika sudah ada
-                                SidikaryoPenempatan::whereDate('created_at', today())->delete();
+                                //SidikaryoPenempatan::whereDate('created_at', today())->delete();
+                                SidikaryoPenempatan::truncate();
                                 
                                 foreach ($data as $item) {
                                     $bridging = BridgingKabkota::where('kabkota_id', $item['id'])->first();

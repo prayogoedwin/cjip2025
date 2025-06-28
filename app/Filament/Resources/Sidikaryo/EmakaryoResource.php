@@ -78,6 +78,12 @@ class EmakaryoResource extends Resource
                 ->numeric()
                 ->sortable()
                 ->alignRight(),
+            
+            TextColumn::make('jurusan_terbanyak')
+                ->label('Jurusan Terbanyak')
+                ->numeric()
+                ->sortable()
+                ->alignRight(),
                 
             TextColumn::make('created_at')
                 ->label('Tanggal Tarik')
@@ -141,7 +147,8 @@ class EmakaryoResource extends Resource
                                 $data = $response->json();
                                 
                                 // Hapus data hari ini jika sudah ada
-                                SidikaryoPencaker::whereDate('created_at', today())->delete();
+                                //SidikaryoPencaker::whereDate('created_at', today())->delete();
+                                SidikaryoPencaker::truncate();
                                 
                                 foreach ($data as $item) {
                                     $bridging = BridgingKabkota::where('kabkota_id', $item['id_kota'])->first();
@@ -155,6 +162,7 @@ class EmakaryoResource extends Resource
                                         'lulusan_sma_smk' => $item['lulusan_sma_smk'],
                                         'lulusan_dibawah_sma_smk' => $item['lulusan_dibawah_sma_smk'],
                                         'lulusan_sarjana_keatas' => $item['lulusan_sarjana_keatas'],
+                                        'jurusan_terbanyak' => $item['jurusan_terbanyak'],
                                         'created_at' => now(),
                                         'updated_at' => now(),
                                     ]);
@@ -214,6 +222,7 @@ class EmakaryoResource extends Resource
                         'lulusan_sma_smk' => $item['lulusan_sma_smk'],
                         'lulusan_dibawah_sma_smk' => $item['lulusan_dibawah_sma_smk'],
                         'lulusan_sarjana_keatas' => $item['lulusan_sarjana_keatas'],
+                        'jurusan_terbanyak' => $item['jurusan_terbanyak'],
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);

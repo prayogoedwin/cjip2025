@@ -890,10 +890,18 @@
                 '</a>' +
                 '</div>' +
 
-                 '<div class=" grid-cols-2">' +
+                '<div class=" grid-cols-2">' +
                 '<span class="control-label col-lg-10">Lulusan Sarjana :</span>' +
                 '<a class="">' +
                 '<span class="control-label col-lg-10"><strong> <?= $map->lulusan_sarjana_keatas ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Jurusan Terbanyak :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->jurusan_terbanyak ?> </strong></span>' +
                 '</a>' +
                 '</div>' +
 
