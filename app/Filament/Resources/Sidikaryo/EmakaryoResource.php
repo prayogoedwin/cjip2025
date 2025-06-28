@@ -93,32 +93,32 @@ class EmakaryoResource extends Resource
         ])
            ->filters([
             // Filter default hari ini
-            Filter::make('hari_ini')
-                ->label('Hari Ini')
-                ->default()
-                ->query(fn ($query) => $query->whereDate('created_at', today())),
+            // Filter::make('hari_ini')
+            //     ->label('Hari Ini')
+            //     ->default()
+            //     ->query(fn ($query) => $query->whereDate('created_at', today())),
                 
             // Filter berdasarkan tanggal spesifik
-            Filter::make('tanggal')
-                ->form([
-                    Forms\Components\DatePicker::make('tanggal')
-                        ->label('Pilih Tanggal')
-                        ->default(today())
-                        ->displayFormat('d F Y')
-                ])
-                ->query(function (Builder $query, array $data) {
-                    return $query
-                        ->when(
-                            $data['tanggal'],
-                            fn ($query, $date) => $query->whereDate('created_at', $date)
-                        );
-                })
-                ->indicateUsing(function (array $data): ?string {
-                    if (! $data['tanggal']) {
-                        return null;
-                    }
-                    return 'Tanggal: ' . Carbon::parse($data['tanggal'])->format('d F Y');
-                })
+            // Filter::make('tanggal')
+            //     ->form([
+            //         Forms\Components\DatePicker::make('tanggal')
+            //             ->label('Pilih Tanggal')
+            //             ->default(today())
+            //             ->displayFormat('d F Y')
+            //     ])
+            //     ->query(function (Builder $query, array $data) {
+            //         return $query
+            //             ->when(
+            //                 $data['tanggal'],
+            //                 fn ($query, $date) => $query->whereDate('created_at', $date)
+            //             );
+            //     })
+            //     ->indicateUsing(function (array $data): ?string {
+            //         if (! $data['tanggal']) {
+            //             return null;
+            //         }
+            //         return 'Tanggal: ' . Carbon::parse($data['tanggal'])->format('d F Y');
+            //     })
         ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
