@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Client\RequestException;
+use App\Models\Sidikaryo\SidikaryoPencaker;
+use App\Models\Sidikaryo\SidikaryoPenempatan;
 
 class Peta extends Component
 {
@@ -37,6 +39,7 @@ class Peta extends Component
         } else {
             $this->locale = 'id';
         }
+        
 
         $readytoover = ProyekInvestasi::all()->where('status', '1')->where('market_id', 1);
         $prospective = ProyekInvestasi::all()->where('status', '1')->where('market_id', 2);
@@ -96,6 +99,43 @@ class Peta extends Component
         $kodePerikanan = JenisPpp::where('kode', '56')->select('kode_data')->first();
         $perikanan = $bps->getData($kodePerikanan->kode_data);
 
+
+        // Untuk sidikaryo_penempatans
+        $penempatans = SidikaryoPenempatan::whereIn('created_at', function($query) {
+            $query->selectRaw('MAX(created_at)')
+                ->from('sidikaryo_penempatans');
+        })->get();
+
+        $pencakers = DB::table('sidikaryo_pencakers')
+            ->join('kabkotas', 'sidikaryo_pencakers.cjip_kota_id', '=', 'kabkotas.id')
+            ->select(
+                'sidikaryo_pencakers.*',
+                'kabkotas.nama as nama_kabkota',
+                'kabkotas.lat',
+                'kabkotas.lng'
+            )
+            ->whereNotNull('kabkotas.lat')
+            ->whereNotNull('kabkotas.lng')
+            ->get();
+
+        $kelulusans = DB::table('sidikaryo_dapodiks')
+            ->join('kabkotas', 'sidikaryo_dapodiks.cjip_kota_id', '=', 'kabkotas.id')
+            ->select([
+                'sidikaryo_dapodiks.cjip_kota_id',
+                'kabkotas.nama as kab_kota',
+                DB::raw('SUM(sidikaryo_dapodiks.jumlah_laki_laki) as total_laki'),
+                DB::raw('SUM(sidikaryo_dapodiks.jumlah_perempuan) as total_perempuan'),
+                DB::raw('SUM(sidikaryo_dapodiks.total_jumlah_potensi_lulusan) as total_potensi'),
+                'kabkotas.lat',
+                'kabkotas.lng'
+            ])
+            ->whereNotNull('kabkotas.lat')
+            ->whereNotNull('kabkotas.lng')
+            ->groupBy('sidikaryo_dapodiks.cjip_kota_id', 'kabkotas.nama', 'kabkotas.lat', 'kabkotas.lng')
+            ->orderBy('kabkotas.nama')
+            ->get();
+        
+
         $this->proyeks = $readytoover;
         $this->proyeks1 = $prospective;
         $this->proyeks2 = $potential;
@@ -109,6 +149,11 @@ class Peta extends Component
         $this->peternakan = $peternakan;
         $this->perkebunan = $perkebunan;
         $this->perikanan = $perikanan;
+
+        $this->pencaker = $pencakers;
+        $this->penempatan = $penempatans;
+
+        $this->kelulusan = $kelulusans;
     }
     public function render()
     {
@@ -126,6 +171,10 @@ class Peta extends Component
         $perkebunan = $this->perkebunan;
         $perikanan = $this->perikanan;
 
+        $pencaker = $this->pencaker;
+        $penempatan = $this->penempatan;
+        $kelulusan = $this->kelulusan;
+
         return view('livewire.lokasi.peta')->extends('components.layouts.peta', [
             'locations' => $locations,
             'locations1' => $locations1,
@@ -139,7 +188,10 @@ class Peta extends Component
             'tanamanPangans' => $tanamanPangan,
             'peternakans' => $peternakan,
             'perkebunans' => $perkebunan,
-            'perikanans' => $perikanan
+            'perikanans' => $perikanan,
+            'pencakers' => $pencaker,
+            'penempatans' => $penempatan,
+            'kelulusans' => $kelulusan
         ]);
     }
 }

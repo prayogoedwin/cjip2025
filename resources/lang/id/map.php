@@ -16,7 +16,7 @@ return [
 
     'industry' => 'Kawasan Industri',
 
-    'tenaga_kerja' => 'Tenaga Kerja Tersedia',
+    'tenaga_kerja' => 'Tenaga Kerja',
     'potensi' => 'Potensi  Kelulusan',
 
     'pma' => 'PMA',
