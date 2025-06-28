@@ -861,8 +861,7 @@
            
             var popupkawasan =
                 '<div class="">' +
-                 '<h4 style="margin-bottom: 15px; text-align: center;">Ketersediaan Tenaga Kerja</h4>' +
-                 '<h4 style="margin-bottom: 15px; text-align: center;"><?= $map->kota ?></h4>' +
+                 '<h4 style="margin-bottom: 15px; text-align: center;">Ketersediaan Tenaga Kerja <?= $map->kota ?></h4>' +
                 '<div class=" grid-cols-2">' +
                 '<span class="control-label col-lg-10">Laki-laki :</span>' +
                 '<a class="">' +
@@ -965,8 +964,7 @@
 
             var popupkawasan =
                 '<div class="">' +
-                 '<h4 style="margin-bottom: 15px; text-align: center;">Potensi Kelulusan</h4>' +
-                 '<h4 style="margin-bottom: 15px; text-align: center;"><?= $map->kab_kota ?></h4>' +
+                 '<h4 style="margin-bottom: 15px; text-align: center;">Potensi Kelulusan <?= $map->kab_kota ?></h4>' +
                 '<div class=" grid-cols-2">' +
                 '<span class="control-label col-lg-10">Laki-laki :</span>' +
                 '<a class="">' +
@@ -984,6 +982,13 @@
                 '<span class="control-label col-lg-10">Potensi Lulusan SMA/SMK :</span>' +
                 '<a class="">' +
                 '<span class="control-label col-lg-10"><strong> <?= $map->total_potensi ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Jurusan Terbanyak :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->jurusan_terbanyak ?> </strong></span>' +
                 '</a>' +
                 '</div>' +
 

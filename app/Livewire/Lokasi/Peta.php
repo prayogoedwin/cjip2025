@@ -118,8 +118,43 @@ class Peta extends Component
             ->whereNotNull('kabkotas.lng')
             ->get();
 
+        // $kelulusans = DB::table('sidikaryo_dapodiks')
+        //     ->join('kabkotas', 'sidikaryo_dapodiks.cjip_kota_id', '=', 'kabkotas.id')
+        //     ->select([
+        //         'sidikaryo_dapodiks.cjip_kota_id',
+        //         'kabkotas.nama as kab_kota',
+        //         'sidikaryo_dapodiks.kode_kabkota',
+        //         DB::raw('SUM(sidikaryo_dapodiks.jumlah_laki_laki) as total_laki'),
+        //         DB::raw('SUM(sidikaryo_dapodiks.jumlah_perempuan) as total_perempuan'),
+        //         DB::raw('SUM(sidikaryo_dapodiks.total_jumlah_potensi) as total_potensi'),
+        //         'kabkotas.lat',
+        //         'kabkotas.lng'
+        //     ])
+        //     ->whereNotNull('kabkotas.lat')
+        //     ->whereNotNull('kabkotas.lng')
+        //     ->groupBy('sidikaryo_dapodiks.cjip_kota_id', 'kabkotas.nama', 'kabkotas.lat', 'kabkotas.lng')
+        //     ->orderBy('kabkotas.nama')
+        //     ->get();
+
         $kelulusans = DB::table('sidikaryo_dapodiks')
             ->join('kabkotas', 'sidikaryo_dapodiks.cjip_kota_id', '=', 'kabkotas.id')
+            ->leftJoin(DB::raw('(
+                SELECT 
+                    cjip_kota_id,
+                    GROUP_CONCAT(jurusan ORDER BY jumlah DESC SEPARATOR ", ") as jurusan_terbanyak
+                FROM (
+                    SELECT 
+                        cjip_kota_id,
+                        jurusan,
+                        COUNT(*) as jumlah,
+                        ROW_NUMBER() OVER (PARTITION BY cjip_kota_id ORDER BY COUNT(*) DESC) as rank
+                    FROM sidikaryo_dapodiks
+                    WHERE jurusan IS NOT NULL
+                    GROUP BY cjip_kota_id, jurusan
+                ) ranked
+                WHERE rank <= 5
+                GROUP BY cjip_kota_id
+            ) as jurusan_populer'), 'sidikaryo_dapodiks.cjip_kota_id', '=', 'jurusan_populer.cjip_kota_id')
             ->select([
                 'sidikaryo_dapodiks.cjip_kota_id',
                 'kabkotas.nama as kab_kota',
@@ -128,11 +163,12 @@ class Peta extends Component
                 DB::raw('SUM(sidikaryo_dapodiks.jumlah_perempuan) as total_perempuan'),
                 DB::raw('SUM(sidikaryo_dapodiks.total_jumlah_potensi) as total_potensi'),
                 'kabkotas.lat',
-                'kabkotas.lng'
+                'kabkotas.lng',
+                'jurusan_populer.jurusan_terbanyak'
             ])
             ->whereNotNull('kabkotas.lat')
             ->whereNotNull('kabkotas.lng')
-            ->groupBy('sidikaryo_dapodiks.cjip_kota_id', 'kabkotas.nama', 'kabkotas.lat', 'kabkotas.lng')
+            ->groupBy('sidikaryo_dapodiks.cjip_kota_id', 'kabkotas.nama', 'kabkotas.lat', 'kabkotas.lng', 'jurusan_populer.jurusan_terbanyak')
             ->orderBy('kabkotas.nama')
             ->get();
         
