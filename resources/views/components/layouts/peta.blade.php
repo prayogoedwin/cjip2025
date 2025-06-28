@@ -947,9 +947,14 @@
 
             <?php foreach ($kelulusans as $map) { ?>
 
-            var redirect =
-                '<a href="https://bursakerja.jatengprov.go.id/home/register_penyedia_kerja/" target="blank" class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">Hubungi BKK</a>';
-           
+             var kodeKabkota = '<?= $map->kode_kabkota ?? "" ?>';
+            var redirect = kodeKabkota ? 
+                `<a href="${window.location.origin}/bkk/${kodeKabkota}" 
+                target="_blank" 
+                class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">
+                Lihat Daftar BKK
+                </a>` : '';
+
             var popupkawasan =
                 '<div class="">' +
                  '<h4 style="margin-bottom: 15px; text-align: center;">Potensi Kelulusan</h4>' +

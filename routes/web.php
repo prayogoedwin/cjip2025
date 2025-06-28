@@ -8,6 +8,7 @@ use App\Livewire\Berita\Berita;
 use App\Livewire\Berita\DetailBerita;
 use App\Livewire\Cjibf\Dashboard;
 use App\Livewire\Faq\Faq;
+use App\Livewire\Bkk\Bkk;
 use App\Livewire\Frontend\Auth\Login;
 use App\Livewire\Frontend\Auth\Profile;
 use App\Livewire\Frontend\Auth\Register;
@@ -77,6 +78,7 @@ Route::get('sektor', Sektor::class)->name('sektor');
 Route::get('peta-investasi', Peta::class)->name('peta');
 Route::get('cjibf', Dashboard::class)->name('cjibf');
 Route::get('panduan-investasi', Faq::class)->name('faq');
+Route::get('bkk/{kabkota}', Bkk::class)->name('bkk');
 Route::get('download-kajian-proyek', FormDownload::class)->name('form_kajian_proyek');
 Route::get('success-download', ConfirmSuccess::class)->name('confirm_kajian_proyek');
 

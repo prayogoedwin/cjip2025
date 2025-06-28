@@ -123,9 +123,10 @@ class Peta extends Component
             ->select([
                 'sidikaryo_dapodiks.cjip_kota_id',
                 'kabkotas.nama as kab_kota',
+                'sidikaryo_dapodiks.kode_kabkota',
                 DB::raw('SUM(sidikaryo_dapodiks.jumlah_laki_laki) as total_laki'),
                 DB::raw('SUM(sidikaryo_dapodiks.jumlah_perempuan) as total_perempuan'),
-                DB::raw('SUM(sidikaryo_dapodiks.total_jumlah_potensi_lulusan) as total_potensi'),
+                DB::raw('SUM(sidikaryo_dapodiks.total_jumlah_potensi) as total_potensi'),
                 'kabkotas.lat',
                 'kabkotas.lng'
             ])
