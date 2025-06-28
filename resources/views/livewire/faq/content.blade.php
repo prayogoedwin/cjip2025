@@ -7,7 +7,7 @@
                         <div class="lg:col-span-12 md:col-span-12">
                             <div id="#{{ $loop->iteration }}">
                                 <h5 class="text-2xl font-semibold">
-                                    {{ \App\Models\Cjip\JenisFaq::find($key)->getTranslations('nama', [$locale]) ? \App\Models\Cjip\JenisFaq::find($key)->getTranslations('nama', [$locale])[$locale] : \App\Models\General\JenisFaq::find($key)->nama }} AAA
+                                    {{ \App\Models\Cjip\JenisFaq::find($key)->getTranslations('nama', [$locale]) ? \App\Models\Cjip\JenisFaq::find($key)->getTranslations('nama', [$locale])[$locale] : \App\Models\General\JenisFaq::find($key)->nama }}
                                 </h5>
                                 <div id="accordion-collapseone" data-accordion="collapse" class="mt-6">
                                     @foreach ($faq as $fa)
