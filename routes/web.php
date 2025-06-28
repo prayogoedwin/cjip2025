@@ -76,6 +76,7 @@ Route::get('peluang-investasi', Proyek::class)->name('peluang_investasi');
 Route::get('peluang-investasi/{id}', DetailProyek::class)->name('detail_investasi');
 Route::get('sektor', Sektor::class)->name('sektor');
 Route::get('peta-investasi', Peta::class)->name('peta');
+Route::get('infografis', Peta::class)->name('infografis');
 Route::get('cjibf', Dashboard::class)->name('cjibf');
 Route::get('panduan-investasi', Faq::class)->name('faq');
 Route::get('bkk/{kabkota}', Bkk::class)->name('bkk');

@@ -166,12 +166,31 @@
 
                     <li><a href="{{ route('kawasan') }}"
                             class="sub-menu-item">{{ __('navbar.kawasans', [], $locale) }}</a></li>
-                    <li><a href="{{ route('berita') }}"
+
+                    <li class="has-submenu parent-menu-item">
+                        <a href="javascript:void(0)">{{ __('navbar.info', [], $locale) }}</a><span
+                            class="menu-arrow"></span>
+                        <ul class="submenu">
+                            <li><a href="{{ route('berita') }}"
+                            class="sub-menu-item">{{ __('navbar.news', [], $locale) }}</a></a>
+                            </li>
+                            <li><a href="{{ route('faq') }}"
+                            class="sub-menu-item">{{ __('navbar.guide', [], $locale) }}</a></a>
+                            </li>
+                            <li><a href="{{ route('infografis') }}"
+                                    class="sub-menu-item">{{ __('navbar.grafis', [], $locale) }}</a></li>
+                            {{-- <li><a href="{{ route('form_kajian_proyek') }}"
+                                    class="sub-menu-item">{{ __('navbar.kajian', [], $locale) }}</a>
+                            </li> --}}
+                        </ul>
+                    </li>
+
+                    {{-- <li><a href="{{ route('berita') }}"
                             class="sub-menu-item">{{ __('navbar.news', [], $locale) }}</a>
-                    </li>
-                    <li><a href="{{ route('faq') }}"
+                    </li> --}}
+                    {{-- <li><a href="{{ route('faq') }}"
                             class="sub-menu-item">{{ __('navbar.guide', [], $locale) }}</a>
-                    </li>
+                    </li> --}}
                     <li><a href="{{ route('peta') }}" class="sub-menu-item">{{ __('navbar.maps', [], $locale) }}</a>
                     </li>
                     <li><a href="{{ route('cjibf') }}" class="sub-menu-item"><b

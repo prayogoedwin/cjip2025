@@ -18,6 +18,8 @@ return [
     'maps' => 'Peta',
     'kajian' => 'Unduh Kajian Proyek',
     'bkk' => 'Daftar Bursa Kerja Khusus (BKK)',
+    'info' => 'Informasi',
+    'grafis' => 'Infografis',
 
 
 ];
