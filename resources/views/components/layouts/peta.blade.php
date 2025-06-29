@@ -857,7 +857,7 @@
             <?php foreach ($pencakers as $map) { ?>
 
             var redirect =
-                '<a href="https://bursakerja.jatengprov.go.id/home/register_penyedia_kerja/" target="blank" class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">Buat Lowongan di Emakaryo</a>';
+                '<a href="https://bursakerja.jatengprov.go.id/home/register_penyedia_kerja/99" target="blank" class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">Buat Lowongan di Emakaryo</a>';
            
             var popupkawasan =
                 '<div class="">' +

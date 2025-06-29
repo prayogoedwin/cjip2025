@@ -161,7 +161,7 @@ class PenempatanResource extends Resource
                         }
                     })
                     ->requiresConfirmation()
-                    ->modalHeading('Tarik Data Pencaker')
+                    ->modalHeading('Tarik Data Penempatan')
                     ->modalSubheading('Data akan diambil dari API Bursa Kerja Jateng')
                     ->modalButton('Proses')
                     ->modalCloseButton(false),

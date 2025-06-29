@@ -170,7 +170,7 @@ class SidikaryoBkkResource extends Resource
                         }
                     })
                     ->requiresConfirmation()
-                    ->modalHeading('Tarik Data Pencaker')
+                    ->modalHeading('Tarik Data BKK')
                     ->modalSubheading('Data akan diambil dari API Bursa Kerja Jateng')
                     ->modalButton('Proses')
                     ->modalCloseButton(false),
