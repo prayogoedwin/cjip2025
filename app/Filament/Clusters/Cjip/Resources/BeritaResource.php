@@ -10,6 +10,7 @@ use App\Models\Cjip\Category;
 use Carbon\Carbon;
 use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
@@ -113,6 +114,15 @@ class BeritaResource extends Resource
                                 ->options(Category::all()->pluck('name', 'id'))
                                 ->searchable(),
                             Toggle::make('featured')->inline(),
+                            DatePicker::make('created_at')
+                                ->label('Publish Date')
+                                ->default(Carbon::now())
+                                ->visible(function () {
+                                    if (auth()->user()->hasRole('admin_cjip')) {
+                                        return false;
+                                    }
+                                    return true;
+                                }),
                         ])->columns(1),
 
                     Section::make('Post Images')

@@ -78,8 +78,8 @@ Route::get('sektor', Sektor::class)->name('sektor');
 Route::get('peta-investasi', Peta::class)->name('peta');
 Route::get('cjibf', Dashboard::class)->name('cjibf');
 Route::get('panduan-investasi', Faq::class)->name('faq');
-Route::get('download-kajian-proyek', FormDownload::class)->name('form_kajian_proyek');
-Route::get('success-download', ConfirmSuccess::class)->name('confirm_kajian_proyek');
+// Route::get('download-kajian-proyek', FormDownload::class)->name('form_kajian_proyek');
+// Route::get('success-download', ConfirmSuccess::class)->name('confirm_kajian_proyek');
 
 Route::get('register-o3m', RegisterO3m::class)->name('register.cjibf');
 

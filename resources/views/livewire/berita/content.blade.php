@@ -23,7 +23,7 @@
                                             class="text-white">{{ date('d M Y', strtotime($tagline[0]->created_at)) }}</span>
                                     </li>
 
-                                    <li class="flex items-center me-4 gap-1">
+                                    {{-- <li class="flex items-center me-4 gap-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -31,7 +31,6 @@
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
-                                        {{-- View : --}}
                                         <span class="text-white">
                                             @if (!empty($tagline[0]->count))
                                                 {{ $tagline[0]->count }}
@@ -39,7 +38,7 @@
                                                 0
                                             @endif
                                         </span> <span class="text-white">{{ __('berita.viewed', [], $locale) }}</span>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                         </div>
@@ -75,7 +74,7 @@
                                         class="text-white">{{ date('d M Y', strtotime($tagline[1]->created_at)) }}</span>
                                 </li>
 
-                                <li class="flex items-center me-4 gap-1">
+                                {{-- <li class="flex items-center me-4 gap-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -83,7 +82,6 @@
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    {{-- View : --}}
                                     <span class="text-white">
                                         @if (!empty($tagline[1]->count))
                                             {{ $tagline[1]->count }}
@@ -91,7 +89,7 @@
                                             0
                                         @endif
                                     </span> <span class="text-white">{{ __('berita.viewed', [], $locale) }}</span>
-                                </li>
+                                </li> --}}
                             </ul>
                             <ul class=""></ul>
                         </div>
@@ -128,7 +126,7 @@
                                 <span class="text-white">{{ date('d M Y', strtotime($tagline[2]->created_at)) }}</span>
                             </li>
 
-                            <li class="flex items-center me-4 gap-1">
+                            {{-- <li class="flex items-center me-4 gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -136,7 +134,6 @@
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
-                                {{-- View : --}}
                                 <span class="text-white">
                                     @if (!empty($tagline[2]->count))
                                         {{ $tagline[2]->count }}
@@ -144,7 +141,7 @@
                                         0
                                     @endif
                                 </span> <span class="text-white">{{ __('berita.viewed', [], $locale) }}</span>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
@@ -192,7 +189,7 @@
                                                 class="">{{ date('d M Y', strtotime($berita->created_at)) }}</span>
                                         </li>
 
-                                        <li class="flex items-center me-4 gap-1">
+                                        {{-- <li class="flex items-center me-4 gap-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -200,7 +197,6 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
-                                            {{-- View : --}}
                                             <span class="">
                                                 @if (!empty($berita->count))
                                                     {{ $berita->count }}
@@ -208,7 +204,7 @@
                                                     0
                                                 @endif
                                             </span> {{ __('berita.viewed', [], $locale) }}
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                                 <a href="{{ route('detail_berita', $berita->getTranslations('slug', [$locale])[$locale]) }}"

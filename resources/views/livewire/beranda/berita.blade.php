@@ -41,7 +41,7 @@
                                                 class="text-md text-gray-500">{{ date('d M Y', strtotime($berita->created_at)) }}</span>
                                         </li>
 
-                                        <li class="flex items-center gap-1 ml-2">
+                                        {{-- <li class="flex items-center gap-1 ml-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -49,7 +49,6 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
-                                            {{-- View : --}}
                                             <span class=" text-md text-gray-500">
                                                 @if (!empty($berita->count))
                                                     {{ $berita->count }}
@@ -57,7 +56,7 @@
                                                     0
                                                 @endif
                                             </span> {{ __('berita.viewed', [], $locale) }}
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </div>

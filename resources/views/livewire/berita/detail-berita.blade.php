@@ -45,7 +45,7 @@
                                 {{ $berita->getTranslations('title', [$locale]) ? $berita->getTranslations('title', [$locale])[$locale] : $berita->title }}
                             </h2>
                             <div class="flex items-center gap-x-5">
-                                <p
+                                {{-- <p
                                     class="text-xs sm:text-sm text-gray-800 dark:text-gray-800 bg-slate-50 py-1 px-2 rounded-full">
                                     @if (!empty($berita->count))
                                         {{ $berita->count }}
@@ -53,7 +53,7 @@
                                         0
                                     @endif
                                     <span>{{ __('berita.viewed', [], $locale) }}</span>
-                                </p>
+                                </p> --}}
                                 <p
                                     class="text-xs sm:text-sm text-gray-800 dark:text-gray-800 bg-slate-50 py-1 px-2 rounded-full">
                                     {{ date('d M Y', strtotime($berita->created_at)) }}</p>
@@ -155,7 +155,7 @@
                                                     class="">{{ date('d M Y', strtotime($berita->created_at)) }}</span>
                                             </li>
 
-                                            <li class="flex items-center me-4 gap-1">
+                                            {{-- <li class="flex items-center me-4 gap-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                     class="w-4 h-4">
@@ -164,7 +164,6 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 </svg>
-                                                {{-- View : --}}
                                                 <span class="">
                                                     @if (!empty($berita->count))
                                                         {{ $berita->count }}
@@ -172,7 +171,7 @@
                                                         0
                                                     @endif
                                                 </span> {{ __('berita.viewed', [], $locale) }}
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </div>
 
