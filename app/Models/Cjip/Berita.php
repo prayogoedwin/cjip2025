@@ -45,6 +45,7 @@ class Berita extends Model
         'kab_kota_id',
         'featured',
         'count',
+        'created_at',
     ];
 
 
