@@ -26,6 +26,8 @@ use Filament\SpatieLaravelTranslatablePlugin;
 use Awcodes\LightSwitch\LightSwitchPlugin;
 use Awcodes\LightSwitch\Enums\Alignment;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 use lockscreen\FilamentLockscreen\Lockscreen;
 use lockscreen\FilamentLockscreen\Http\Middleware\Locker;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin;
@@ -59,14 +61,26 @@ class AdminPanelProvider extends PanelProvider
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Profile')
-                    ->url(fn(): string => Profile::getUrl())
+                    ->url(fn(): string => MyProfilePage::getUrl())
                     ->icon('heroicon-s-user'),
-                // ...
             ])
             ->colors([
                 'primary' => '#16a34a',
             ])
-            ->plugin(new Lockscreen())
+            ->plugin(
+                BreezyCore::make()
+                    ->enableSanctumTokens(
+                        permissions: ['my', 'custom', 'permissions']
+                    )
+                    ->myProfile(
+                        shouldRegisterUserMenu: true,
+                        userMenuLabel: 'Profile',
+                        shouldRegisterNavigation: false,
+                        navigationGroup: 'Settings',
+                        hasAvatars: false,
+                        slug: 'my-profile'
+                    )
+            )
             ->plugins([
                 FilamentShieldPlugin::make()
                     ->gridColumns([
