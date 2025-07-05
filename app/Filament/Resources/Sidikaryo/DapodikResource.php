@@ -18,6 +18,9 @@ use Filament\Tables\Filters\Filter;
 use Illuminate\Support\Carbon;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Actions\Action;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Sidikaryo\SidikaryoDapodikExport;
+
 
 
 class DapodikResource extends Resource
@@ -25,6 +28,11 @@ class DapodikResource extends Resource
     protected static ?string $model = \App\Models\Sidikaryo\SidikaryoDapodik::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+       // Custom labels
+    protected static ?string $modelLabel = 'Data Dapodik';
+    protected static ?string $pluralModelLabel = 'Data Dapodik';
+    protected static ?string $title = 'Data Dapodik Sekolah';
+
     protected static ?string $navigationGroup = 'SIDIKARYO';
     protected static ?string $navigationLabel = 'Dapodik'; 
 
@@ -148,6 +156,15 @@ class DapodikResource extends Resource
                     ->url(static::getUrl('rekap'))
                     ->color('success')
                     ->icon('heroicon-o-document-chart-bar'),
+
+                Action::make('export')
+                    ->label('Export Excel')
+                    ->action(fn () => Excel::download(
+                        new SidikaryoDapodikExport(), 
+                        'sidikaryo-dapodik-export-'.now()->format('Y-m-d').'.xlsx'
+                    ))
+                    ->color('success')
+                    ->icon('heroicon-o-arrow-down-tray')
             ]);
             // ->contentFooter(view('filament.resources.sidikaryo.dapodik-summary'));
     }

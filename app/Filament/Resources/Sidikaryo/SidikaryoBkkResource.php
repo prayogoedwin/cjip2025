@@ -21,9 +21,16 @@ use Filament\Tables\Filters\Filter;
 use Illuminate\Support\Carbon;
 use Filament\Tables\Filters\SelectFilter;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Sidikaryo\SidikaryoPkkExport;
+
 class SidikaryoBkkResource extends Resource
 {
     protected static ?string $model = \App\Models\Sidikaryo\SidikaryoBkk::class;
+
+     protected static ?string $modelLabel = 'Data BKK';
+    protected static ?string $pluralModelLabel = 'Data BKK';
+    protected static ?string $title = 'Data BKK';
 
     protected static ?string $navigationGroup = 'SIDIKARYO';
     protected static ?string $navigationLabel = 'BKK'; 
@@ -174,6 +181,15 @@ class SidikaryoBkkResource extends Resource
                     ->modalSubheading('Data akan diambil dari API Bursa Kerja Jateng')
                     ->modalButton('Proses')
                     ->modalCloseButton(false),
+
+                Action::make('export')
+                    ->label('Export Excel')
+                    ->action(fn () => Excel::download(
+                        new SidikaryoPkkExport(), 
+                        'sidikaryo-bkk-export-'.now()->format('Y-m-d').'.xlsx'
+                    ))
+                    ->color('success')
+                    ->icon('heroicon-o-arrow-down-tray')
             ])
             
             ->bulkActions([

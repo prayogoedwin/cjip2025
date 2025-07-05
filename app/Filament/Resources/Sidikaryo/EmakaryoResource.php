@@ -19,11 +19,18 @@ use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Sidikaryo\SidikaryoPencakerExport;
 
 class EmakaryoResource extends Resource
 {
     // protected static ?string $model = Emakaryo::class;
     protected static ?string $model = \App\Models\Sidikaryo\SidikaryoPencaker::class;
+
+    protected static ?string $modelLabel = 'Data Pencari Kerja';
+    protected static ?string $pluralModelLabel = 'Data Pencari Kerja';
+    protected static ?string $title = 'Data Pencari Kerja';
+
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'SIDIKARYO';
@@ -187,6 +194,15 @@ class EmakaryoResource extends Resource
                     ->modalSubheading('Data akan diambil dari API Bursa Kerja Jateng')
                     ->modalButton('Proses')
                     ->modalCloseButton(false),
+
+                Action::make('export')
+                    ->label('Export Excel')
+                    ->action(fn () => Excel::download(
+                        new SidikaryoPencakerExport(), 
+                        'sidikaryo-pencaker-export-'.now()->format('Y-m-d').'.xlsx'
+                    ))
+                    ->color('success')
+                    ->icon('heroicon-o-arrow-down-tray')
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
