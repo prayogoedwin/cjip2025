@@ -201,7 +201,7 @@ class Peta extends Component
         $kawasan = $this->kawasans;
         $pma = $this->pma;
         $pmdn = $this->pmdn;
-        $jembatans = $this->jembatanProvinsi;
+        $jembatans =  $this->jembatanProvinsi ?? [];
         $holtikultura = $this->holtikultura;
         $tanamanPangan = $this->tanamanPangan;
         $peternakan = $this->peternakan;

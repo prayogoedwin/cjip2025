@@ -905,6 +905,16 @@
                 '</div>' +
 
 
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Sumber Data :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> Emakaryo per tanggal <?= $map->created_at ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+               
+
+
                 '<br>' +
                 '</div>'+
                 redirect;
@@ -989,6 +999,13 @@
                 '<span class="control-label col-lg-10">Jurusan Terbanyak :</span>' +
                 '<a class="">' +
                 '<span class="control-label col-lg-10"><strong> <?= $map->jurusan_terbanyak ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+                 '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Sumber Data :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> Dapodik </strong></span>' +
                 '</a>' +
                 '</div>' +
 

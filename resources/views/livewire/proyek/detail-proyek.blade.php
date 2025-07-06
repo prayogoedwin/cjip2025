@@ -235,6 +235,106 @@
                                                         : $proyek->telekomunikasi !!}
                                                 </td>
                                             </tr>
+
+                                            <tr>
+                                                <td
+                                                    class="px-6 py-4 whitespace-wrap text-sm font-medium text-gray-800 dark:text-gray-200">
+                                                    Ketersediaan Tenaga Kerja</td>
+                                                <td
+                                                    class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
+                                                </td>
+                                                <td
+                                                    class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
+
+                                                            <table border="1" >
+                                                                <tr>
+                                                                    <td>Kategori</td>
+                                                                    <td>:</td>
+                                                                    <td>Jumlah</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Laki-laki</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ number_format($pencaker->l) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Perempuan</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ number_format($pencaker->p) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Lulusan SMA/SMK</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ number_format($pencaker->lulusan_sma_smk) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Lulusan dibawah SMA/SMK</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ number_format($pencaker->lulusan_dibawah_sma_smk) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Lulusan Sarjana</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ number_format($pencaker->lulusan_sarjana_keatas) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>5 Jurusan Terbanyak</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $pencaker->jurusan_terbanyak }}</td>
+                                                                </tr>
+                                                            </table>
+
+                                                </td>
+                                            </tr>
+
+                                             <tr>
+                                                <td
+                                                    class="px-6 py-4 whitespace-wrap text-sm font-medium text-gray-800 dark:text-gray-200">
+                                                    Potensi Kelulusan</td>
+                                                <td
+                                                    class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
+                                                </td>
+                                                <td
+                                                    class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
+
+                                                            <table border="1" >
+                                                                <tr>
+                                                                    <td>Kategori</td>
+                                                                    <td>:</td>
+                                                                    <td>Jumlah</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Laki-laki</td>
+                                                                    <td>:</td>
+                                                               <td>{{ number_format($potensi_lulus['jumlah_laki_laki']) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Perempuan</td>
+                                                                    <td>:</td>
+                                                                <td>{{ number_format($potensi_lulus['jumlah_perempuan']) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Lulusan SMA/SMK</td>
+                                                                    <td>:</td>
+                                                                 <td>{{ number_format($potensi_lulus['total_jumlah_potensi']) }}</td>
+                                                                </tr>
+                                                               
+                                                               
+                                                                <tr>
+                                                                    <td>Jurusan</td>
+                                                                    <td>:</td>
+                                                                   <td>
+                                                                        @foreach($potensi_lulus_topjur as $jurusan_name)
+                                                                            {{ $jurusan_name }}@if(!$loop->last), @endif
+                                                                        @endforeach
+                                                                    </td>
+                                                                </tr>
+                                                       
+                                                            </table>
+
+                                                </td>
+                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
