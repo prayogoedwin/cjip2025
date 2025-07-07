@@ -50,7 +50,6 @@
     </style>
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9CEQ6X90T8"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
