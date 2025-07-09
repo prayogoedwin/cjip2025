@@ -188,8 +188,8 @@ class KabupatenTable extends Page
     protected function getFooterWidgets(): array
     {
         return [
-            TopSkalaUsaha::class,
-            TopProyekChart::class,
+            // TopSkalaUsaha::class,
+            // TopProyekChart::class,
             SiMikeKabupatenTable::class,
         ];
     }
