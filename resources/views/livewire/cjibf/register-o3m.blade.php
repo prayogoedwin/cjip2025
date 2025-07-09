@@ -35,7 +35,7 @@
             <p class="text-xl mx-1 mt-2 font-normal text-gray-500 dark:text-white text-center">Please fill out the
                 form to register for One-on-One Meeting</p>
             <p class="text-xl mx-1 mb-5 mt-1 font-normal text-gray-500 dark:text-white text-center">More Information
-                please contact: <span class="font-bold text-gray-700"> Mr. PURWADI (+62 811-2669-003)</span></p>
+                please contact: <span class="font-bold text-gray-700"> Mr. FAJAR (+62 857-2700-8400)</span></p>
         </div>
         <div class="mt-10 relative">
             <div class="grid mx-5 md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
