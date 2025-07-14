@@ -26,6 +26,12 @@ class SidikaryoDapodik extends Model
         'total_jumlah_potensi',
         'cjip_kota_id',
         'kabkota_id',
+        'kelulusan_laki',
+        'kelulusan_perempuan',
+        'tahun_tarik',
+        'semester',
+        'bentuk_pendidikan_id',
+        'dataperiode'
     ];
 
     protected $casts = [
@@ -39,6 +45,9 @@ class SidikaryoDapodik extends Model
         'total_jumlah_potensi' => 'integer',
         'cjip_kota_id' => 'integer',
         'kabkota_id' => 'integer',
+        'tahun_tarik'  => 'integer',
+        'semester'  => 'integer',
+        'bentuk_pendidikan_id'  => 'integer'
     ];
 
     // Define relationships if needed

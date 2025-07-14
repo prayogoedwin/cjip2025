@@ -908,10 +908,9 @@
                 '<div class=" grid-cols-2">' +
                 '<span class="control-label col-lg-10">Sumber Data :</span>' +
                 '<a class="">' +
-                '<span class="control-label col-lg-10"><strong> Ayokerjo (<?= $map->created_at ?>) </strong></span>' +
+                '<span class="control-label col-lg-10"><strong> Emakaryo per tanggal <?= $map->created_at ?> </strong></span>' +
                 '</a>' +
                 '</div>' +
-                
 
                
 
@@ -967,7 +966,7 @@
 
              var kodeKabkota = '<?= $map->kode_kabkota ?? "" ?>';
             var redirect = kodeKabkota ? 
-                `<a href="${window.location.origin}/bkk/${kodeKabkota}/#main-section" 
+                `<a href="${window.location.origin}/bkk/${kodeKabkota}" 
                 target="_blank" 
                 class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">
                 Lihat Daftar BKK
@@ -1006,7 +1005,7 @@
                  '<div class=" grid-cols-2">' +
                 '<span class="control-label col-lg-10">Sumber Data :</span>' +
                 '<a class="">' +
-                '<span class="control-label col-lg-10"><strong> Dapodik (<?= $map->dataperiode ?>) </strong></span>' +
+                '<span class="control-label col-lg-10"><strong> Dapodik </strong></span>' +
                 '</a>' +
                 '</div>' +
 
@@ -1182,7 +1181,6 @@
 
 
             // ================= marker jembatan =======================
-            <?php if($jembatans != null){ ?>
             var markersJembatan = L.markerClusterGroup({
                 spiderfyOnMaxZoom: true,
                 showCoverageOnHover: true,
@@ -1252,8 +1250,6 @@
                     map.addLayer(markersJembatan);
                 }
             });
-             <?php } ?>
-   
 
 
             // ================= marker holtikultura =======================

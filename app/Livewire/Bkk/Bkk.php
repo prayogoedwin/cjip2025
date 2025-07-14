@@ -17,35 +17,6 @@ class Bkk extends Component
         'languageChanged' => '$refresh', // Refresh komponen setelah bahasa diubah
     ];
 
-    public function mount($kabkota = null)
-    {
-        $this->kabkota = $kabkota;
-        $this->loadBkkData();
-    }
-
-    public function loadBkkData()
-    {
-        $query = SidikaryoBkk::query();
-        
-        if ($this->kabkota) {
-            $query->where('id_kota', $this->kabkota);
-        }
-        
-        $this->bkkData = $query->get([
-            'nama_sekolah',
-            'nama_bkk',
-            'id_kota',
-            'telpon',
-            'hp',
-            'email',
-            'website',
-            'contact_person',
-            'jabatan',
-            'alamat'
-        ]);
-    }
-
-
     public function changeLanguage($lang)
     {
         $this->locale = $lang['lang'];
@@ -56,6 +27,16 @@ class Bkk extends Component
         // Emit event untuk melakukan reload atau refresh halaman
         $this->emit('languageChanged');
     }
+
+    public $kabkota; // Tambahkan property untuk menyimpan nilai kabkota
+
+    public function mount($kabkota = null)
+    {
+        $this->kabkota = $kabkota;
+        
+    }
+    
+
     public function render()
     {
         if (Session::get('lang')) {
@@ -68,17 +49,15 @@ class Bkk extends Component
             $this->locale = 'id';
         }
 
-        // Get kabupaten/kota name if kabkota_id exists
         $nama_kota = null;
         if ($this->kabkota) {
             $kota = BridgingKabkota::where('kabkota_id', $this->kabkota)->first();
             $nama_kota = $kota ? $kota->nama_kota : 'Unknown';
         }
 
-        $this->loadBkkData(); // Pastikan data di-load sebelum render
         return view('livewire.bkk.bkk', [
-            'bkkData' => $this->bkkData, // Explicitly pass the variable
-            'namaKota' => $nama_kota // Pass nama kota to view
+            'kabkota' => $this->kabkota, // Teruskan parameter ke view
+            'namaKota'=> $nama_kota
         ]);
     }
 }

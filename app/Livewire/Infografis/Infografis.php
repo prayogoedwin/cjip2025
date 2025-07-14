@@ -15,8 +15,11 @@ class Infografis extends Component
     
     // We'll use simple arrays instead of chart models
     public $tenagaKerjaData = [];
+    public $tenagaKerjaPendidikanData = [];
     public $tenagaKerjaPieData = [];
+    public $tenagaKerjaKelaminPieData = [];
     public $bkkData = [];
+    public $dapodikData = [];
 
     protected $listeners = [
         'languageChange' => 'changeLanguage',
@@ -44,8 +47,12 @@ class Infografis extends Component
     public function loadCharts()
     {
         $this->loadTenagaKerjaChart();
+        $this->loadTenagaKerjaPendidikanChart();
+        $this->loadTenagaKerjaKelaminPieChart();
         $this->loadTenagaKerjaPieChart();
         $this->loadBkkChart();
+        $this->loadDapodikChart();
+       
     }
 
     public function loadTenagaKerjaChart()
@@ -54,40 +61,110 @@ class Infografis extends Component
             ->join('kabkotas', 'sidikaryo_pencakers.cjip_kota_id', '=', 'kabkotas.id')
             ->select(
                 'kabkotas.nama as kabkota',
-                DB::raw('SUM(lulusan_sma_smk) as sma_smk'),
-                DB::raw('SUM(lulusan_dibawah_sma_smk) as dibawah_sma'),
-                DB::raw('SUM(lulusan_sarjana_keatas) as sarjana')
+                DB::raw('SUM(l) as laki_laki'),
+                DB::raw('SUM(p) as perempuan'),
+            
             )
             ->groupBy('kabkotas.nama')
             ->orderBy('kabkotas.nama')
             ->get();
 
         $this->tenagaKerjaData = [
-            'title' => 'Ketersediaan Tenaga Kerja',
+            'title' => 'Ketersediaan Tenaga Kerja - Jenis Kelamin - Per Kabupaten Kota',
             'type' => 'column',
             'categories' => $data->pluck('kabkota')->toArray(),
-            
+
             'series' => [
                 [
-                    'name' => 'SMA/SMK',
-                    'data' => $data->pluck('sma_smk')->map(function($item) {
+                    'name' => 'Jumlah Tenaga Kerja Laki-laki',
+                    'data' => $data->pluck('laki_laki')->map(function($item) {
                         return (int)$item;
                     })->toArray(),
-                    'color' => '#FF7D7D'  // Merah muda soft
+                    'color' => '#FF7D7D' 
+                ],
+                 [
+                    'name' => 'Jumlah Tenaga Kerja Perempuan',
+                    'data' => $data->pluck('perempuan')->map(function($item) {
+                        return (int)$item;
+                    })->toArray(),
+                    'color' => '#FFD166' 
+                ]
+            ]
+        
+        ];
+    }
+
+    public function loadTenagaKerjaPendidikanChart()
+    {
+        $data = DB::table('sidikaryo_pencakers')
+            ->join('kabkotas', 'sidikaryo_pencakers.cjip_kota_id', '=', 'kabkotas.id')
+            ->select(
+                'kabkotas.nama as kabkota',
+                DB::raw('SUM(lulusan_sma_smk) as sma_smk'),
+                DB::raw('SUM(lulusan_dibawah_sma_smk) as dibawah_sma'),
+                DB::raw('SUM(lulusan_sarjana_keatas) as sarjana')
+            
+            )
+            ->groupBy('kabkotas.nama')
+            ->orderBy('kabkotas.nama')
+            ->get();
+
+            $this->tenagaKerjaPendidikanData = [
+                'title' => 'Ketersediaan Tenaga Kerja - Pendidikan - Per Kabupaten Kota',
+                'type' => 'column',
+                'categories' => $data->pluck('kabkota')->toArray(),
+                'series' => [
+                    [
+                        'name' => 'SMA/SMK',
+                        'data' => $data->pluck('sma_smk')->map(function($item) {
+                            return (int)$item;
+                        })->toArray(),
+                        'color' => '#FF7D7D'  // Merah muda soft
+                    ],
+                    [
+                        'name' => 'Dibawah SMA',
+                        'data' => $data->pluck('dibawah_sma')->map(function($item) {
+                            return (int)$item;
+                        })->toArray(),
+                        'color' => '#FFD166'  // Kuning mustard soft
+                    ],
+                    // [
+                    //     'name' => 'Sarjana',
+                    //     'data' => $data->pluck('sarjana')->map(function($item) {
+                    //         return (int)$item;
+                    //     })->toArray(),
+                    //     'color' => '#83C5BE'  // Hijau mint soft
+                    // ]
+                ]
+        ];
+    }
+
+    public function loadTenagaKerjaKelaminPieChart()
+    {
+        $pieData = DB::table('sidikaryo_pencakers')
+            ->select(
+                DB::raw('SUM(l) as laki_laki'),
+                DB::raw('SUM(p) as perempuan'),
+            )
+            ->first();
+
+        $total = $pieData->laki_laki + $pieData->perempuan;
+
+        $this->tenagaKerjaKelaminPieData = [
+            'title' => 'Keteresediaan Tenaga Kerja - Jenis Kelamin - Jawa Tengah',
+            'type' => 'pie',
+            'slices' => [
+                [
+                    'name' => 'Laki-laki',
+                    'value' => (int)$pieData->laki_laki,
+                    'percentage' => round(($pieData->laki_laki / $total) * 100, 1),
+                    'color' => '#FF7D7D'
                 ],
                 [
-                    'name' => 'Dibawah SMA',
-                    'data' => $data->pluck('dibawah_sma')->map(function($item) {
-                        return (int)$item;
-                    })->toArray(),
-                    'color' => '#FFD166'  // Kuning mustard soft
-                ],
-                [
-                    'name' => 'Sarjana',
-                    'data' => $data->pluck('sarjana')->map(function($item) {
-                        return (int)$item;
-                    })->toArray(),
-                    'color' => '#83C5BE'  // Hijau mint soft
+                    'name' => 'Perempuan',
+                    'value' => (int)$pieData->perempuan,
+                    'percentage' => round(($pieData->perempuan / $total) * 100, 1),
+                    'color' => '#FFD166'
                 ]
             ]
         ];
@@ -95,7 +172,6 @@ class Infografis extends Component
 
     public function loadTenagaKerjaPieChart()
     {
-        // New pie chart data (aggregated totals)
         $pieData = DB::table('sidikaryo_pencakers')
             ->select(
                 DB::raw('SUM(lulusan_sma_smk) as sma_smk'),
@@ -107,7 +183,7 @@ class Infografis extends Component
         $total = $pieData->sma_smk + $pieData->dibawah_sma + $pieData->sarjana;
 
         $this->tenagaKerjaPieData = [
-            'title' => 'Distribusi Tenaga Kerja',
+            'title' => 'Keteresediaan Tenaga Kerja - Penddidikan - Jawa Tengah',
             'type' => 'pie',
             'slices' => [
                 [
@@ -134,7 +210,78 @@ class Infografis extends Component
 
     public function loadBkkChart()
     {
-        // Example data - replace with your actual query
+        $data = DB::table('sidikaryo_bkks')
+            ->join('kabkotas', 'sidikaryo_bkks.cjip_kota_id', '=', 'kabkotas.id')
+            ->select(
+                'kabkotas.nama as kabkota',
+                DB::raw('COUNT(sidikaryo_bkks.id) as jumlah_bkk'),
+            )
+            ->groupBy('kabkotas.nama')
+            ->orderBy('kabkotas.nama')
+            ->get();
+
+            $this->bkkData = [
+                'title' => 'Jumlah BKK Per Kabupaten/Kota',
+                'type' => 'bar',
+                'categories' => $data->pluck('kabkota')->toArray(),
+                'series' => [
+                    [
+                        'name' => 'Jumlah BKK',
+                        'data' => $data->pluck('jumlah_bkk')->map(function($item) {
+                            return (int)$item;
+                        })->toArray(),
+                        'color' => '#FF7D7D'  // Merah muda soft
+                    ]
+                ]
+            ];
+    }
+
+    public function loadDapodikChart()
+    {
+        $data = DB::table('sidikaryo_dapodiks')
+            ->join('kabkotas', 'sidikaryo_dapodiks.cjip_kota_id', '=', 'kabkotas.id')
+            ->select(
+                'kabkotas.nama as kabkota',
+                DB::raw('SUM(kelulusan_laki) as laki_laki'),
+                DB::raw('SUM(kelulusan_perempuan) as perempuan'),
+            
+            )
+            ->groupBy('kabkotas.nama')
+            ->orderBy('kabkotas.nama')
+            ->get();
+
+            $this->dapodikData = [
+                'title' => 'Potensi Kelulusan - Jenis Kelamin - Per Kabupaten Kota',
+                'type' => 'column',
+                'categories' => $data->pluck('kabkota')->toArray(),
+                'series' => [
+                    [
+                        'name' => 'Laki-laki',
+                        'data' => $data->pluck('laki_laki')->map(function($item) {
+                            return (int)$item;
+                        })->toArray(),
+                        'color' => '#FF7D7D'  // Merah muda soft
+                    ],
+                    [
+                        'name' => 'Perempuan',
+                        'data' => $data->pluck('perempuan')->map(function($item) {
+                            return (int)$item;
+                        })->toArray(),
+                        'color' => '#FFD166'  // Kuning mustard soft
+                    ],
+                    // [
+                    //     'name' => 'Sarjana',
+                    //     'data' => $data->pluck('sarjana')->map(function($item) {
+                    //         return (int)$item;
+                    //     })->toArray(),
+                    //     'color' => '#83C5BE'  // Hijau mint soft
+                    // ]
+                ]
+        ];
+    }
+
+    public function DonutChart()
+    {
         $data = [
             ['kabkota' => 'Kabupaten A', 'jumlah' => 120],
             ['kabkota' => 'Kabupaten B', 'jumlah' => 85],

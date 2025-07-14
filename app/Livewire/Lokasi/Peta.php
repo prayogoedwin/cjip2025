@@ -17,7 +17,7 @@ use App\Models\Sidikaryo\SidikaryoPenempatan;
 class Peta extends Component
 {
     public $location, $location1, $location2, $location3, $proyeks, $proyeks1, $proyeks2, $proyeks3, $kawasans, $pma, $pmdn, $jembatanProvinsi,
-        $holtikultura, $tanamanPangan, $peternakan, $perkebunan, $perikanan;
+        $holtikultura, $tanamanPangan, $peternakan, $perkebunan, $perikanan, $pencaker, $penempatan, $kelulusan;
     public $locale;
     protected $listeners = ['languageChange' => 'changeLanguange'];
 
@@ -64,20 +64,29 @@ class Peta extends Component
             ->where('rilis.status_pm', 'PMDN')
             ->groupBy('kabkotas.id')
             ->get();
-        try {
-            $response = Http::timeout(60)->get('https://webgis.dpubinmarcipka.jatengprov.go.id/api/data/jembatanprovinsi');
-            // $response = Http::timeout(60)->get('https://example.com/api');
-            if ($response->successful()) {
-                $jembatan = $response->json();
-            } else {
-                $errorCode = $response->status();
-                return $errorCode;
-            }
-        } catch (RequestException $e) {
-            $errorCode = $e->getCode();
-            $errorMessage = $e->getMessage();
-            return $errorMessage;
-        }
+        // try {
+
+        //     $response = Http::timeout(60)->get('https://webgis.dpubinmarcipka.jatengprov.go.id/api/data/jembatanprovinsi');
+        //     // $response = Http::timeout(60)->get('https://example.com/api');
+        //     if ($response->successful()) {
+        //         $jembatan = $response->json();
+        //     } else {
+        //         $jembatan = null;
+        //         $errorCode = $response->status();
+        //         //return $errorCode;
+        //         return $jembatan;
+        //     }
+
+  
+        // } catch (RequestException $e) {
+        //     $jembatan = null;
+        //     // $errorCode = $e->getCode();
+        //     // $errorMessage = $e->getMessage();
+        //     //return $errorMessage;
+        //     return $jembatan;
+        // }
+
+        $jembatan = null;
 
         // holtikultura bps
         $kodeHoltikultura = JenisPpp::where('kode', '55')->select('kode_data')->first();
@@ -118,24 +127,6 @@ class Peta extends Component
             ->whereNotNull('kabkotas.lng')
             ->get();
 
-        // $kelulusans = DB::table('sidikaryo_dapodiks')
-        //     ->join('kabkotas', 'sidikaryo_dapodiks.cjip_kota_id', '=', 'kabkotas.id')
-        //     ->select([
-        //         'sidikaryo_dapodiks.cjip_kota_id',
-        //         'kabkotas.nama as kab_kota',
-        //         'sidikaryo_dapodiks.kode_kabkota',
-        //         DB::raw('SUM(sidikaryo_dapodiks.jumlah_laki_laki) as total_laki'),
-        //         DB::raw('SUM(sidikaryo_dapodiks.jumlah_perempuan) as total_perempuan'),
-        //         DB::raw('SUM(sidikaryo_dapodiks.total_jumlah_potensi) as total_potensi'),
-        //         'kabkotas.lat',
-        //         'kabkotas.lng'
-        //     ])
-        //     ->whereNotNull('kabkotas.lat')
-        //     ->whereNotNull('kabkotas.lng')
-        //     ->groupBy('sidikaryo_dapodiks.cjip_kota_id', 'kabkotas.nama', 'kabkotas.lat', 'kabkotas.lng')
-        //     ->orderBy('kabkotas.nama')
-        //     ->get();
-
         $kelulusans = DB::table('sidikaryo_dapodiks')
             ->join('kabkotas', 'sidikaryo_dapodiks.cjip_kota_id', '=', 'kabkotas.id')
             ->leftJoin(DB::raw('(
@@ -159,12 +150,13 @@ class Peta extends Component
                 'sidikaryo_dapodiks.cjip_kota_id',
                 'kabkotas.nama as kab_kota',
                 'sidikaryo_dapodiks.kode_kabkota',
-                DB::raw('SUM(sidikaryo_dapodiks.jumlah_laki_laki) as total_laki'),
-                DB::raw('SUM(sidikaryo_dapodiks.jumlah_perempuan) as total_perempuan'),
+                DB::raw('SUM(sidikaryo_dapodiks.kelulusan_laki) as total_laki'),
+                DB::raw('SUM(sidikaryo_dapodiks.kelulusan_perempuan) as total_perempuan'),
                 DB::raw('SUM(sidikaryo_dapodiks.total_jumlah_potensi) as total_potensi'),
                 'kabkotas.lat',
                 'kabkotas.lng',
-                'jurusan_populer.jurusan_terbanyak'
+                'jurusan_populer.jurusan_terbanyak',
+                DB::raw('(SELECT dataperiode FROM sidikaryo_dapodiks LIMIT 1) as dataperiode')
             ])
             ->whereNotNull('kabkotas.lat')
             ->whereNotNull('kabkotas.lng')

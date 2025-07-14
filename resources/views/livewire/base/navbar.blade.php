@@ -177,7 +177,7 @@
                             <li><a href="{{ route('faq') }}"
                             class="sub-menu-item">{{ __('navbar.guide', [], $locale) }}</a></a>
                             </li>
-                            <li><a href="{{ route('infografis') }}"
+                            <li><a href="{{ route('infografis') }}/#main-section"
                                     class="sub-menu-item">{{ __('navbar.grafis', [], $locale) }}</a></li>
                             {{-- <li><a href="{{ route('form_kajian_proyek') }}"
                                     class="sub-menu-item">{{ __('navbar.kajian', [], $locale) }}</a>

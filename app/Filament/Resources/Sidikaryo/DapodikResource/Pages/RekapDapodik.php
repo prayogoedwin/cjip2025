@@ -21,9 +21,8 @@ class RekapDapodik extends Page
             ->select([
                 'cjip_kota_id',
                 'kab_kota',
-                DB::raw('SUM(jumlah_laki_laki) as total_laki'),
-                DB::raw('SUM(jumlah_perempuan) as total_perempuan'),
-                DB::raw('SUM(total_jumlah_potensi) as total_potensi')
+                DB::raw('SUM(kelulusan_laki) as total_kelulusan_laki'),
+                DB::raw('SUM(kelulusan_perempuan) as total_kelulusan_perempuan'),
             ])
             ->groupBy('cjip_kota_id', 'kab_kota')
             ->orderBy('kab_kota')

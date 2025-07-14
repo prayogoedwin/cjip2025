@@ -8,9 +8,9 @@
                     <tr>
                         {{-- <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">CJIP Kota ID</th> --}}
                         <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Kab/Kota</th>
-                        <th class="px-4 py-2 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">Total Laki-laki</th>
-                        <th class="px-4 py-2 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">Total Perempuan</th>
-                        <th class="px-4 py-2 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">Total Potensi Lulusan</th>
+                        <th class="px-4 py-2 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">Total Kelulusan Laki-laki</th>
+                        <th class="px-4 py-2 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">Total Kelulusan Perempuan</th>
+                        <th class="px-4 py-2 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">Total KeLulusan</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-100 dark:divide-gray-800">
@@ -18,9 +18,9 @@
                         <tr>
                             {{-- <td class="px-4 py-2 text-sm text-gray-800 dark:text-gray-100">{{ $item['cjip_kota_id'] }}</td> --}}
                             <td class="px-4 py-2 text-sm text-gray-800 dark:text-gray-100">{{ $item['kab_kota'] }}</td>
-                            <td class="px-4 py-2 text-sm text-right text-gray-800 dark:text-gray-100">{{ number_format($item['total_laki']) }}</td>
-                            <td class="px-4 py-2 text-sm text-right text-gray-800 dark:text-gray-100">{{ number_format($item['total_perempuan']) }}</td>
-                            <td class="px-4 py-2 text-sm text-right font-bold text-green-700 dark:text-green-400">{{ number_format($item['total_potensi']) }}</td>
+                            <td class="px-4 py-2 text-sm text-right text-gray-800 dark:text-gray-100">{{ number_format($item['total_kelulusan_laki']) }}</td>
+                            <td class="px-4 py-2 text-sm text-right text-gray-800 dark:text-gray-100">{{ number_format($item['total_kelulusan_perempuan']) }}</td>
+                            <td class="px-4 py-2 text-sm text-right font-bold text-green-700 dark:text-green-400">{{ number_format($item['total_kelulusan_perempuan'] + $item['total_kelulusan_laki']) }}</td>
                         </tr>
                     @endforeach
                 </tbody>

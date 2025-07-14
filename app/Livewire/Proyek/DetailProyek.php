@@ -20,6 +20,8 @@ class DetailProyek extends Component
     public $col;
     public $name;
     public $lokasi;
+    public $pencakers;
+    public $total_potensi;
 
     // protected $listeners = ['changeLanguange' => 'languageChange'];
     protected $listeners = ['changeLanguange' => 'languageChange'];
@@ -63,20 +65,6 @@ class DetailProyek extends Component
                 'jumlah_perempuan' => $this->potensi_lulus->sum('jumlah_perempuan'),
                 'total_jumlah_potensi' => $this->potensi_lulus->sum('total_jumlah_potensi'),
             ];
-
-            // Mengambil 5 jurusan yang paling banyak muncul
-            // $topJurusan = $this->potensi_lulus
-            //     ->groupBy('jurusan')
-            //     ->map(function ($item) {
-            //         return [
-            //             'count' => $item->count(),
-            //             'total_potensi' => $item->sum('total_jumlah_potensi'),
-            //             'jumlah_laki_laki' => $item->sum('jumlah_laki_laki'),
-            //             'jumlah_perempuan' => $item->sum('jumlah_perempuan'),
-            //         ];
-            //     })
-            //     ->sortByDesc('count')
-            //     ->take(5);
 
             $potensi_lulus_topjur = $this->potensi_lulus
                 ->groupBy('jurusan')

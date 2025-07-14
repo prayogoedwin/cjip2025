@@ -126,7 +126,7 @@ class EmakaryoResource extends Resource
             //         }
             //         return 'Tanggal: ' . Carbon::parse($data['tanggal'])->format('d F Y');
             //     })
-        ])
+            ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
                 // Tables\Actions\ViewAction::make(), // Opsional
@@ -134,66 +134,17 @@ class EmakaryoResource extends Resource
             ->headerActions([
                 Action::make('tarikData')
                     ->label('Tarik Data')
+                    // ->icon('heroicon-o-cloud-arrow-down')
+                    ->color('success')
                     ->action(function () {
-                        // Pindahkan logika ke method terpisah atau langsung di sini
-                        try {
-                            //$response = Http::get('https://bursakerja.jatengprov.go.id/api_v2/rekap/pencaker');
-                            $response = Http::withOptions([
-                'verify' => false, // Nonaktifkan SSL verify (sementara)
-                'timeout' => 120, // Timeout 120 detik
-            ])
-            ->withHeaders([
-                'Accept' => 'application/json',
-                'User-Agent' => 'Filament-App/1.0',
-            ])
-            ->retry(3, 5000) // 3x percobaan, interval 5 detik
-            ->get('https://bursakerja.jatengprov.go.id/api_v2/rekap/pencaker');
-            
-                            
-                            if ($response->successful()) {
-                                $data = $response->json();
-                                
-                                // Hapus data hari ini jika sudah ada
-                                //SidikaryoPencaker::whereDate('created_at', today())->delete();
-                                SidikaryoPencaker::truncate();
-                                
-                                foreach ($data as $item) {
-                                    $bridging = BridgingKabkota::where('kabkota_id', $item['id_kota'])->first();
-                                    
-                                    SidikaryoPencaker::create([
-                                        'id_kota' => $item['id_kota'],
-                                        'kota' => $item['kota'],
-                                        'cjip_kota_id' => $bridging ? $bridging->cjip_kabkota_id : null,
-                                        'l' => $item['l'],
-                                        'p' => $item['p'],
-                                        'lulusan_sma_smk' => $item['lulusan_sma_smk'],
-                                        'lulusan_dibawah_sma_smk' => $item['lulusan_dibawah_sma_smk'],
-                                        'lulusan_sarjana_keatas' => $item['lulusan_sarjana_keatas'],
-                                        'jurusan_terbanyak' => $item['jurusan_terbanyak'],
-                                        'created_at' => now(),
-                                        'updated_at' => now(),
-                                    ]);
-                                }
-                                
-                                Notification::make()
-                                    ->title('Data berhasil ditarik')
-                                    ->success()
-                                    ->send();
-                            } else {
-                                throw new \Exception('Gagal mengambil data dari API');
-                            }
-                        } catch (\Exception $e) {
-                            Notification::make()
-                                ->title('Error: ' . $e->getMessage())
-                                ->danger()
-                                ->send();
-                        }
+                    // Create new instance and call the method
+                    $resource = new self();
+                    $resource->tarikData();
                     })
                     ->requiresConfirmation()
-                    ->modalHeading('Tarik Data Pencaker')
+                    ->modalHeading('Tarik Data Penyedia Kerja')
                     ->modalSubheading('Data akan diambil dari API Bursa Kerja Jateng')
-                    ->modalButton('Proses')
-                    ->modalCloseButton(false),
+                    ->modalSubmitActionLabel('Ya, Tarik Data'),
 
                 Action::make('export')
                     ->label('Export Excel')
@@ -211,24 +162,30 @@ class EmakaryoResource extends Resource
             ]);
     }
 
-    public function tarikData()
+   public function tarikData()
     {
         try {
-            // Ambil data dari API
-            $response = Http::get('http://bursakerja.jatengprov.go.id/api_v2/rekap/pencaker');
+            $response = Http::withOptions([
+                'verify' => false, // Nonaktifkan SSL verify (sementara)
+                'timeout' => 120, // Timeout 120 detik
+            ])
+            ->withHeaders([
+                'Accept' => 'application/json',
+                'User-Agent' => 'Filament-App/1.0',
+            ])
+            ->retry(3, 5000) // 3x percobaan, interval 5 detik
+            ->get('https://bursakerja.jatengprov.go.id/api_v2/rekap/pencaker');
             
             if ($response->successful()) {
                 $data = $response->json();
                 
                 // Hapus data hari ini jika sudah ada
-                SidikaryoPencaker::whereDate('created_at', today())->delete();
+                //SidikaryoPencaker::whereDate('created_at', today())->delete();
+                SidikaryoPencaker::truncate();
                 
-                // Proses setiap item
                 foreach ($data as $item) {
-                    // Cari mapping kota
                     $bridging = BridgingKabkota::where('kabkota_id', $item['id_kota'])->first();
                     
-                    // Simpan data
                     SidikaryoPencaker::create([
                         'id_kota' => $item['id_kota'],
                         'kota' => $item['kota'],
@@ -258,6 +215,7 @@ class EmakaryoResource extends Resource
                 ->send();
         }
     }
+    
 
     public static function getRelations(): array
     {
