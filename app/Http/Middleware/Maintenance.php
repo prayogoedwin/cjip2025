@@ -16,14 +16,14 @@ class Maintenance
     public function handle(Request $request, Closure $next)
     {
         if ($request->is([
-            'register',
+            // 'register',
             // 'login',
-            // 'dashboard', 
-            // 'dashboard/kepeminatan', 
+            // 'dashboard',
+            // 'dashboard/kepeminatan',
             // 'dashboard/profile',
             // 'kepeminatan',
             // 'product-all',
-            // 'dashboard/sinida',  
+            // 'dashboard/sinida',
             // 'dashboard/add-product',
             // 'dashboard/product-kemitraan',
             ])) {

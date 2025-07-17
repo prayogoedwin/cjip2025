@@ -73,7 +73,7 @@ class RegisterO3m extends Component implements HasForms
 
             Select::make('kawasan_id')
                 ->label('Industrial Parks / Kawasan Industri')
-                ->options(options: KawasanIndustri::all()->pluck('nama', 'id'))
+                ->options(options: KawasanIndustri::where('status', 1)->pluck('nama', 'id'))
                 ->searchable()
                 ->preload()
                 ->visible(function (Get $get) {
