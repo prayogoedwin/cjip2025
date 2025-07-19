@@ -23,8 +23,17 @@ class Proyek extends Component
 
     protected $listeners = [
         'languageChange' => 'changeLanguange',
-        'minatProyek' => 'updateState'
+        'minatProyek' => 'updateState',
+        'languageChanged' => '$refresh',
     ];
+
+    public function changeLanguange($lang)
+    {
+        $this->locale = $lang['lang'];
+        Session::put('lang', $this->locale);
+        $this->emit('languageChanged');
+        $this->cariProyeks();
+    }
 
     public function cariProyeks()
     {
@@ -62,11 +71,6 @@ class Proyek extends Component
         Session::put('id_proyek', $id);
         return redirect()->to('/kepeminatan');
     }
-    public function changeLanguange($lang)
-    {
-        $this->locale = $lang['lang'];
-        $this->cariProyeks();
-    }
 
     public function mount($selectedCategory = 1)
     {
@@ -87,9 +91,27 @@ class Proyek extends Component
     public function render()
     {
         $jenis_marketplaces = Market::all();
-        return view('livewire.cjibf.proyek',  [
+        $this->locale = Session::get('lang', 'id');
+
+        $proyeks = ProyekInvestasi::where(function ($query) {
+            $query->where('nama->' . $this->locale, 'like', '%' . $this->search . '%')
+                ->orWhereHas('kabkota', function ($subQuery) {
+                    $subQuery->where('nama', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('sektor', function ($subQuery) {
+                    $subQuery->where('nama', 'like', '%' . $this->search . '%');
+                });
+        })
+            ->where('status', 1)
+            ->where('is_cjibf', 1)
+            ->where('market_id', $this->marketPlace)
+            ->orderBy('id', 'desc')
+            ->paginate(6);
+
+        return view('livewire.cjibf.proyek', [
             'jenis_marketplaces' => $jenis_marketplaces,
-            'proyeks' => $this->proyeks,
+            'proyeks' => $proyeks,
+            'locale' => $this->locale,
             'acti' => $this->acti,
         ]);
     }
