@@ -65,7 +65,7 @@ class Peta extends Component
             ->groupBy('kabkotas.id')
             ->get();
         // try {
-
+        // https://sijean.dpubinmarcipka.jatengprov.go.id/api-jembatan?API-KEY=244cb2f1-5377-4f1f-94af-345d2727d298
         //     $response = Http::timeout(60)->get('https://webgis.dpubinmarcipka.jatengprov.go.id/api/data/jembatanprovinsi');
         //     // $response = Http::timeout(60)->get('https://example.com/api');
         //     if ($response->successful()) {

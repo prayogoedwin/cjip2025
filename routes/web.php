@@ -111,6 +111,11 @@ Route::get('sk-kepala-dpm/{record}', SkInsentifKepalaDpm::class)->name('sk-insen
 Route::get('/peminat-product/{id}', DetailMinat::class)->name('peminat-product.show');
 Route::get('kemitraan-form/{record}', FormKemitraan::class)->name('form-kemitraan');
 
+Route::get('/check-user', function () {
+    $user = auth()->user();
+    dd($user?->toArray());
+});
+
 
 Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(function () {
 

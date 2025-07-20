@@ -17,7 +17,7 @@
         "binarytorch/larecipe": "^2.6",
         "cheesegrits/filament-google-maps": "^3.0",
         "coolsam/signature-pad": "^2.0",
-        "filament/filament": "^3.2",
+        "filament/filament": "^3.0",
         "filament/notifications": "^3.2",
         "filament/spatie-laravel-settings-plugin": "^3.2",
         "filament/spatie-laravel-translatable-plugin": "^3.2",

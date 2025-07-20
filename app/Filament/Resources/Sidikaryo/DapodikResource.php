@@ -55,10 +55,10 @@ class DapodikResource extends Resource
                         ->searchable()
                         ->sortable(),
                     
-                    TextColumn::make('kode_kabkota')
-                        ->label('Kode Kab/Kota')
-                        ->searchable()
-                        ->sortable(),
+                    // TextColumn::make('kode_kabkota')
+                    //     ->label('Kode Kab/Kota')
+                    //     ->searchable()
+                    //     ->sortable(),
                         
                     TextColumn::make('kab_kota')
                         ->label('Kabupaten/Kota')
@@ -136,14 +136,14 @@ class DapodikResource extends Resource
                         ->sortable()
                         ->alignRight(),
                         
-                    TextColumn::make('cjip_kota_id')
-                        ->label('CJIP Kota ID')
-                        ->numeric()
-                        ->sortable(),
+                    // TextColumn::make('cjip_kota_id')
+                    //     ->label('CJIP Kota ID')
+                    //     ->numeric()
+                    //     ->sortable(),
                         
-                    TextColumn::make('kabkota_id')
-                        ->label('Kab/Kota ID')
-                        ->sortable(),
+                    // TextColumn::make('kabkota_id')
+                    //     ->label('Kab/Kota ID')
+                    //     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('tahun_data')
