@@ -138,12 +138,12 @@ class Peta extends Component
                         cjip_kota_id,
                         jurusan,
                         COUNT(*) as jumlah,
-                        ROW_NUMBER() OVER (PARTITION BY cjip_kota_id ORDER BY COUNT(*) DESC) as rank
+                        ROW_NUMBER() OVER (PARTITION BY cjip_kota_id ORDER BY COUNT(*) DESC) as rnk
                     FROM sidikaryo_dapodiks
                     WHERE jurusan IS NOT NULL
                     GROUP BY cjip_kota_id, jurusan
                 ) ranked
-                WHERE rank <= 5
+                WHERE rnk <= 5
                 GROUP BY cjip_kota_id
             ) as jurusan_populer'), 'sidikaryo_dapodiks.cjip_kota_id', '=', 'jurusan_populer.cjip_kota_id')
             ->select([
