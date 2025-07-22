@@ -152,7 +152,7 @@ class AdminPanelProvider extends PanelProvider
                     ->collapsible(),
             ])
             ->authMiddleware([
-                Authenticate::class,
+                // Authenticate::class,
                 Locker::class,
             ]);
     }
