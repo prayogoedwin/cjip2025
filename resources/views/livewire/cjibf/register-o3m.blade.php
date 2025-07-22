@@ -26,7 +26,7 @@
         <meta name="twitter:site" content="@investCJ">
     @stop
 
-    <section class="relative md:py-5 py-10 overflow-hidden mx-2 lg:mx-10"
+    <section class=" md:py-5 py-10 overflow-hidden mx-2 lg:mx-10"
         style="background-image: url('https://preline.co/assets/svg/examples/polygon-bg-element.svg'); background-repeat: no-repeat; background-size: cover;">
         <div>
             <h1 class="text-4xl mx-1 mt-4 font-bold text-gray-800 dark:text-white text-center">One-on-One Meeting
@@ -37,15 +37,12 @@
             <p class="text-xl mx-1 mb-5 mt-1 font-normal text-gray-500 dark:text-white text-center">More Information
                 please contact: <span class="font-bold text-gray-700"> Mr. FAJAR (+62 857-2700-8400)</span></p>
         </div>
-        <div class="mt-10 relative">
+        <div class="mt-10">
             <div class="grid mx-5 md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
                 <div class="lg:col-span-5 md:col-span-6">
-                    <div class="lg:me-8">
+                    <div class="">
                         <div class="relative mx-5">
                             <img src="{{ asset('images/register.jpg') }}" alt="">
-                            <div
-                                class="overflow-hidden absolute h-[512px] w-[512px] bg-indigo-600/5 top-1/4 start-0 end-0 align-middle -z-1 rounded-full">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -78,8 +75,9 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- </div> --}}
             </div>
-        </div>
     </section>
 
     <!-- Modal -->

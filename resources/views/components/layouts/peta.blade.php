@@ -964,75 +964,7 @@
 
 
             // ================= marker jembatan =======================
-            var markersJembatan = L.markerClusterGroup({
-                spiderfyOnMaxZoom: true,
-                showCoverageOnHover: true,
-                zoomToBoundsOnClick: true
-            });
 
-            <?php foreach ($jembatans as $map) { 
-                $latitude = floatval($map['geometry']['coordinates'][1]);
-                $longitude = floatval($map['geometry']['coordinates'][0]);
-            ?>
-            // var redirect =
-            //     '<a href="#" target="blank" class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">Lihat Daftar PMDN</a>';
-
-            var popupkawasan =
-                '<div class="">' +
-                '<br>' +
-                '<div class=" grid-cols-2">' +
-                '<span class="control-label col-lg-10">Nama Jembatan :</span>' +
-                '<a class="">' +
-                '<span class="control-label col-lg-10"><strong><?= $map['properties']['nama'] ?></strong></span>' +
-                '</a>' +
-                '</div>' +
-                '<div class=" grid-cols-2">' +
-                '<span class="control-label col-lg-10">Unker :</span>' +
-                '<a class="">' +
-                '<span class="control-label col-lg-10"><strong><?= $map['properties']['unker'] ?></strong></span>' +
-                '</a>' +
-                '</div>' +
-                '<br>' +
-                '</div>'
-            // +
-            // redirect
-            ;
-
-            var kawasanOptions = {
-                'maxWidth': '600',
-                'width': '600',
-                'className': 'popupCustom'
-            };
-
-            var kawasans = L.marker([<?= $latitude ?>, <?= $longitude ?>], {
-                    icon: Icon3,
-                    draggable: false,
-                    shadow: true
-                })
-                .bindPopup(popupkawasan, kawasanOptions);
-
-            markersJembatan.addLayer(kawasans);
-            <?php } ?>
-
-            document.getElementById('jembatanprovinsi').addEventListener('click', function() {
-                var element = this;
-
-                if (element.classList.contains('active')) {
-                    element.classList.remove('active');
-                    element.classList.remove('text-yellow-500');
-                    element.classList.remove('ring-yellow-500');
-                } else {
-                    element.classList.add('active');
-                    element.classList.add('text-yellow-500'); // Active color
-                    element.classList.add('ring-yellow-500'); // Active color
-                }
-                event.preventDefault();
-                if (map.hasLayer(markersJembatan)) {
-                    map.removeLayer(markersJembatan);
-                } else {
-                    map.addLayer(markersJembatan);
-                }
-            });
 
 
             // ================= marker holtikultura =======================

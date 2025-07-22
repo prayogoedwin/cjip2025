@@ -61,20 +61,20 @@ class Peta extends Component
             ->where('rilis.status_pm', 'PMDN')
             ->groupBy('kabkotas.id')
             ->get();
-        try {
-            $response = Http::timeout(60)->get('https://webgis.dpubinmarcipka.jatengprov.go.id/api/data/jembatanprovinsi');
+        // try {
+        //     $response = Http::timeout(60)->get('https://webgis.dpubinmarcipka.jatengprov.go.id/api/data/jembatanprovinsi');
 
-            if ($response->successful()) {
-                $jembatan = $response->json();
-            } else {
-                $errorCode = $response->status();
-                return $errorCode;
-            }
-        } catch (RequestException $e) {
-            $errorCode = $e->getCode();
-            $errorMessage = $e->getMessage();
-            return $errorMessage;
-        }
+        //     if ($response->successful()) {
+        //         $jembatan = $response->json();
+        //     } else {
+        //         $errorCode = $response->status();
+        //         return $errorCode;
+        //     }
+        // } catch (RequestException $e) {
+        //     $errorCode = $e->getCode();
+        //     $errorMessage = $e->getMessage();
+        //     return $errorMessage;
+        // }
 
         // holtikultura bps
         $kodeHoltikultura = JenisPpp::where('kode', '55')->select('kode_data')->first();
@@ -103,7 +103,7 @@ class Peta extends Component
         $this->kawasans = $kawasan;
         $this->pma = $pma;
         $this->pmdn = $pmdn;
-        $this->jembatanProvinsi = $jembatan;
+        // $this->jembatanProvinsi = $jembatan;
         $this->holtikultura = $holtikultura;
         $this->tanamanPangan = $tanamanPangan;
         $this->peternakan = $peternakan;
@@ -119,7 +119,7 @@ class Peta extends Component
         $kawasan = $this->kawasans;
         $pma = $this->pma;
         $pmdn = $this->pmdn;
-        $jembatans = $this->jembatanProvinsi;
+        // $jembatans = $this->jembatanProvinsi;
         $holtikultura = $this->holtikultura;
         $tanamanPangan = $this->tanamanPangan;
         $peternakan = $this->peternakan;
@@ -134,7 +134,7 @@ class Peta extends Component
             'kawasans' => $kawasan,
             'pma' => $pma,
             'pmdn' => $pmdn,
-            'jembatans' => $jembatans,
+            // 'jembatans' => $jembatans,
             'holtikulturas' => $holtikultura,
             'tanamanPangans' => $tanamanPangan,
             'peternakans' => $peternakan,
