@@ -9,7 +9,7 @@ class BpsService
 {
     public function getData($kode_data)
     {
-        $response = Http::timeout(60)->get("https://webapi.bps.go.id/v1/api/list/model/data/lang/ind/domain/3300/var/{$kode_data}/key/0e9edd42e8750976d85170947004f513/")->json();
+        $response = Http::timeout(60)->get("https://webapi.bps.go.id/v1/api/list/model/data/lang/ind/domain/3300/var/{$kode_data}/th/123/key/0e9edd42e8750976d85170947004f513/")->json();
         // $data = $response['datacontent'];
 
         $data = $response['datacontent'] ?? null;
@@ -89,7 +89,7 @@ class BpsService
 
     public function getTanamanPangan($kode_data)
     {
-        $response = Http::timeout(60)->get("https://webapi.bps.go.id/v1/api/list/model/data/lang/ind/domain/3300/var/{$kode_data}/key/0e9edd42e8750976d85170947004f513/")->json();
+        $response = Http::timeout(60)->get("https://webapi.bps.go.id/v1/api/list/model/data/lang/ind/domain/3300/var/{$kode_data}/th/123/key/0e9edd42e8750976d85170947004f513/")->json();
         // $data = $response['datacontent'];
 
         $data = $response['datacontent'] ?? null;
