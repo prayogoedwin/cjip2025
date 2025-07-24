@@ -41,7 +41,7 @@
 
             <!-- swipper controls -->
             {{-- <div class="swiper-pagination"></div> --}}
-            
+
             <div
                 class="swiper-button-next bg-transparent w-[35px] h-[35px] leading-[35px] -mt-[30px] bg-none border border-solid border-white/50 text-white hover:bg-green-600 hover:border-green-600 rounded-full text-center">
             </div>
@@ -51,7 +51,7 @@
 
             <div
                 class="absolute gap-3 bottom-0 left-0 right-0 justify-center mb-4 z-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-4 w-full max-w-5xl mx-auto">
-                @auth
+                @investor
                     <a href="{{ route('dashboard.kepeminatan') }}"
                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
                         Kepeminatan
@@ -64,8 +64,22 @@
                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
                         Permohonan Insentif
                     </a>
-                @endauth
-                @guest
+                @endinvestor
+            @admin
+                    <a href="{{ route('pengajuan.kepeminatan') }}"
+                        class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
+                        Kepeminatan
+                    </a>
+                    <a href="{{ route('product') }}"
+                        class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
+                        Kemitraan
+                    </a>
+                    <a href="{{ url('/login?rdr=sinida') }}"
+                        class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
+                        Permohonan Insentif
+                    </a>
+                @endadmin
+            @guest
                     <a href="{{ route('pengajuan.kepeminatan') }}"
                         class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">
                         Kepeminatan

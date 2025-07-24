@@ -38,6 +38,7 @@ use App\Livewire\Frontend\Sinida\Pengajuan;
 use App\Livewire\Frontend\Sinida\RiwayatPengajuan;
 use App\Livewire\Frontend\Sinida\Surat\PaktaIntegritas;
 use App\Livewire\Frontend\Sinida\SuratPengajuan;
+use App\Livewire\Frontend\ThankYou;
 use App\Livewire\KajianProyek\ConfirmSuccess;
 use App\Livewire\KajianProyek\FormDownload;
 use App\Livewire\Kawasan\DetailKawasan;
@@ -80,6 +81,8 @@ Route::get('cjibf', Dashboard::class)->name('cjibf');
 Route::get('panduan-investasi', Faq::class)->name('faq');
 // Route::get('download-kajian-proyek', FormDownload::class)->name('form_kajian_proyek');
 // Route::get('success-download', ConfirmSuccess::class)->name('confirm_kajian_proyek');
+Route::get('cjibf/real-count-kepeminatan', \App\Livewire\Cjibf\RealCount::class)->name('cjibf.realcount');
+
 
 Route::get('register-o3m', RegisterO3m::class)->name('register.cjibf');
 
@@ -94,6 +97,7 @@ Route::get('login', Login::class, 'login')->name('login');
 
 // Kepeminatan
 Route::get('kepeminatan', BerandaPengajuan::class)->name('pengajuan.kepeminatan');
+Route::get('/kepeminatan-success', ThankYou::class)->name('success.kepeminatan');
 Route::get('/success', function () {
     return view('success');
 });
