@@ -38,7 +38,14 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('admin', function () {
             /** @var \App\Models\User|Authenticatable|null $user */
             $user = auth()->user();
-            return $user;
+
+            // The directive is false if no user is logged in.
+            if (!$user) {
+                return false;
+            }
+
+            // Return true only if the logged-in user does NOT have the 'perusahaan' role.
+            return !$user->hasRole('perusahaan');
         });
     }
 }
