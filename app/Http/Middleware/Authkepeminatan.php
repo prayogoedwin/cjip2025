@@ -18,7 +18,9 @@ class Authkepeminatan
     {
         $userRoles = Auth::user()->roles->pluck('name')->toArray();
 
-        if (in_array('perusahaan', $userRoles) || in_array('role_lain', $userRoles)) {
+        //dd($userRoles);
+
+        if (in_array('perusahaan', $userRoles)) {
             return $next($request);
         }
 

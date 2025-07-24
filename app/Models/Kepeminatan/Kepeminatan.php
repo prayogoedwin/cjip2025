@@ -39,7 +39,7 @@ class Kepeminatan extends Model
         'signature'
     ];
 
-    protected $cast = [
+    protected $casts = [
         'local_plan' => 'boolean',
         'local_exis' => 'boolean',
         'foreign_plan' => 'boolean',
