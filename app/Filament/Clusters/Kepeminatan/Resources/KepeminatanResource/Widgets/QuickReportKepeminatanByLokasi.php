@@ -3,10 +3,15 @@
 namespace App\Filament\Clusters\Kepeminatan\Resources\KepeminatanResource\Widgets;
 
 use App\Models\Kepeminatan\Kepeminatan;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Grid;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
@@ -14,7 +19,7 @@ use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class QuickReportKepeminatanByLokasi extends BaseWidget
 {
-    protected int | string | array $columnSpan = 'full';
+   /* protected int | string | array $columnSpan = 'full';*/
     public static function canView(): bool
     {
         if (URL::current() == \url('/admin')) {
@@ -44,6 +49,29 @@ class QuickReportKepeminatanByLokasi extends BaseWidget
                     ])
                 ]
             )
+            ->filters([
+                Filter::make('created_at')
+                    ->form([
+                        Grid::make()
+                            ->schema([
+                                DatePicker::make('created_from')->label('Dari Tanggal')->default(today()),
+                                DatePicker::make('created_until')->label('Sampai Tanggal')->default(today()),
+                            ])
+                            ->columns(2)
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
+            ], layout: FiltersLayout::AboveContent)
+            ->filtersFormColumns(1)
             ->columns([
                 TextColumn::make('prefensi_lokasi')
                     ->label('Preferensi Lokasi')

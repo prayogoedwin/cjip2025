@@ -30,7 +30,7 @@ class RealCount extends Component
 
         // Update public properties for initial display and for users with JS disabled
         $this->totalKepeminatan = $rawKepeminatan;
-        $this->totalInvestasiUsd = 'USD ' . number_format($rawUsd, 2, ',', '.');
+        $this->totalInvestasiUsd = 'USD ' . number_format($rawUsd, 0, ',', '.');
         $this->totalInvestasiIdr = 'Rp ' . number_format($rawIdr, 0, ',', '.');
 
         // Dispatch the raw numbers to the browser for the animation script to use

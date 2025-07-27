@@ -4,6 +4,7 @@ export default {
   darkMode: 'class',
   content: [
     './app/Filament/**/*.php',
+    './app/Livewire/**/*.php',
     './resources/views/filament/**/*.blade.php',
     './vendor/filament/**/*.blade.php',
     "./resources/**/*.blade.php",

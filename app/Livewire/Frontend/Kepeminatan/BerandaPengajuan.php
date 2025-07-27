@@ -22,6 +22,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Support\RawJs;
 use Livewire\Component;
 use Coolsam\SignaturePad\Forms\Components\Fields\SignaturePad;
 use Illuminate\Support\Facades\DB;
@@ -132,6 +133,7 @@ class BerandaPengajuan extends Component implements HasForms
                         Toggle::make('interest_invesment')
                             ->label('Apakah Kepeminatan dengan Proyek Jawa Tengah/What is the Interest in Central Java Project?')
                             ->inlineLabel()
+                            ->onColor('#a3e635')
                             ->reactive(),
                         Select::make('proyek_id')
                             ->searchable()
@@ -182,6 +184,8 @@ class BerandaPengajuan extends Component implements HasForms
                             ->visible(fn(Get $get): bool => $get('local_plan') == '0')
                             ->required(fn(Get $get): bool => $get('local_plan') == '0')
                             ->numeric()
+                            ->mask(RawJs::make('$money($input)'))
+                            ->stripCharacters(',')
                             ->inlineLabel()
                             ->prefix('USD '),
                         TextInput::make('nilai_investasi_rupiah')
@@ -189,6 +193,8 @@ class BerandaPengajuan extends Component implements HasForms
                             ->visible(fn(Get $get): bool => $get('local_plan') == '1')
                             ->required(fn(Get $get): bool => $get('local_plan') == '1')
                             ->prefix('Rp. ')
+                            ->mask(RawJs::make('$money($input)'))
+                            ->stripCharacters(',')
                             ->numeric()
                             ->inlineLabel(),
                         Fieldset::make('Local Worker/ TKI')
@@ -220,6 +226,7 @@ class BerandaPengajuan extends Component implements HasForms
         // First, get the validated state from the form.
         $data = $this->form->getState();
 
+        //dd($data);
         try {
             // Find necessary related models first to fail early.
             $status = TemplateEmail::where('modul', 'kepeminatan')->where('status', 'menunggu')->firstOrFail();
