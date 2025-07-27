@@ -47,5 +47,6 @@ class AppServiceProvider extends ServiceProvider
             // Return true only if the logged-in user does NOT have the 'perusahaan' role.
             return !$user->hasRole('perusahaan');
         });
+
     }
 }

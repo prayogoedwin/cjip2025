@@ -10,6 +10,9 @@ class QuickReportKepeminatan extends Widget
 {
     public $totalInvestasiDollar;
     public $totalInvestasiRupiah;
+    public $totalKepeminatan;
+    public $sumKepeminatan;
+    public $usdToIdrRate;
     public static function canView(): bool
     {
         if (URL::current() == \url('/admin')) {
@@ -24,20 +27,25 @@ class QuickReportKepeminatan extends Widget
 
     public function mount()
     {
-        $this->totalInvestasiDollar = Kepeminatan::sum('nilai_investasi');
-        $this->totalInvestasiRupiah = Kepeminatan::sum('nilai_investasi_rupiah');
+        // Define the current exchange rate
+        // Note: For a real application, you should fetch this from an API for live data.
+        $this->usdToIdrRate = 16359.89; // As of late July 2025
 
-        // Eloquent query to get investments grouped by preferensi_lokasi
-        $investasiByPreferensiLokasi = Kepeminatan::select('prefensi_lokasi')
-            ->selectRaw('SUM(nilai_investasi) as total_investasi_usd, SUM(nilai_investasi_rupiah) as total_investasi_rupiah')
-            ->groupBy('prefensi_lokasi')
-            ->get();
+        $kepeminatanToday = Kepeminatan::whereDate('created_at', today())->get();
 
-        // Eloquent query to get investments grouped by sektor
-        $investasiBySektor = Kepeminatan::select('sektor')
-            ->selectRaw('SUM(nilai_investasi) as total_investasi_usd, SUM(nilai_investasi_rupiah) as total_investasi_rupiah')
-            ->groupBy('sektor')
-            ->get();
+        // Calculate raw numeric values
+        $rawKepeminatan = $kepeminatanToday->count();
+        $rawUsd = (float) $kepeminatanToday->sum('nilai_investasi');
+        $rawIdr = (float) $kepeminatanToday->sum('nilai_investasi_rupiah'); // This is the sum from the database column
+
+        // Calculate sumKepeminatan based on the current rate
+        $calculatedIdr = $rawUsd * $this->usdToIdrRate;
+
+        // Update public properties
+        $this->totalKepeminatan = $rawKepeminatan;
+        $this->totalInvestasiDollar = $rawUsd;
+        $this->totalInvestasiRupiah = $rawIdr; // The original sum from the DB
+        $this->sumKepeminatan = $calculatedIdr; // The newly calculated sum
     }
     protected static string $view = 'filament.clusters.kepeminatan.resources.kepeminatan-resource.widgets.quick-report-kepeminatan';
 }
