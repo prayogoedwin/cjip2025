@@ -57,19 +57,7 @@
                                         class="hover:bg-slate-900 shadow-lg text-center btn-primary mb-2 mt-4 bg-slate-500 px-10 py-2 rounded-md text-white">
                                         Cancel
                                     </button>
-                                    <button type="submit"
-                                        class="hover:bg-green-600 shadow-lg text-center btn-primary mb-2 mt-4 bg-green-500 px-10 py-2 rounded-md text-white flex items-center justify-center gap-2"
-                                        wire:loading.attr="disabled" wire:target="store">
-                                        <svg wire:loading wire:target="store" class="animate-spin h-5 w-5 text-white"
-                                            fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10"
-                                                stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor"
-                                                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-                                        </svg>
-                                        <span wire:loading.remove wire:target="store">Submit</span>
-                                        <span wire:loading wire:target="store">Processing...</span>
-                                    </button>
+
                                 </div>
                             </form>
                         </div>
