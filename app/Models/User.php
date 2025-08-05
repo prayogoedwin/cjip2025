@@ -9,6 +9,7 @@ use App\Models\Cjip\Kawasan;
 use App\Models\Kemitraan\Product;
 use App\Models\Kepeminatan\Perusahaan;
 use App\Models\Simike\Report;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Traits\HasRoles;
 use TomatoPHP\FilamentMediaManager\Traits\InteractsWithMediaFolders;
 
-class User extends Authenticatable implements HasAvatar
+class User extends Authenticatable implements HasAvatar, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 

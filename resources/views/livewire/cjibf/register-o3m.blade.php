@@ -57,7 +57,6 @@
                                         class="hover:bg-slate-900 shadow-lg text-center btn-primary mb-2 mt-4 bg-slate-500 px-10 py-2 rounded-md text-white">
                                         Cancel
                                     </button>
-
                                 </div>
                             </form>
                         </div>
@@ -66,6 +65,7 @@
 
                 {{-- </div> --}}
             </div>
+        </div>
     </section>
 
     <!-- Modal -->

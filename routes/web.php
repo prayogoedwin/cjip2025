@@ -1,6 +1,7 @@
 <?php
 
 use App\Filament\Pages\Kemitraan\DetailMinat;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LocalizationController;
 use App\Livewire\Base\Maps;
 use App\Livewire\Beranda\Beranda;
@@ -11,7 +12,6 @@ use App\Livewire\Cjibf\RegisterO3m;
 use App\Livewire\Faq\Faq;
 use App\Livewire\Frontend\Auth\Login;
 use App\Livewire\Frontend\Auth\Profile;
-use App\Livewire\Frontend\Auth\Register;
 use App\Livewire\Frontend\DaftarPmaPmdn;
 use App\Livewire\Frontend\Dashboard as FrontendDashboard;
 use App\Livewire\Frontend\Kemitraan\Admin\FormKemitraan;
@@ -51,6 +51,8 @@ use App\Livewire\Proyek\DetailProyek;
 use App\Livewire\Proyek\Proyek;
 use App\Livewire\Proyek\Sektor;
 use App\Models\Cjip\ProfileKabkota;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -83,7 +85,6 @@ Route::get('panduan-investasi', Faq::class)->name('faq');
 // Route::get('success-download', ConfirmSuccess::class)->name('confirm_kajian_proyek');
 Route::get('cjibf/real-count-kepeminatan', \App\Livewire\Cjibf\RealCount::class)->name('cjibf.realcount');
 
-
 Route::get('register-o3m', RegisterO3m::class)->name('register.cjibf');
 
 // Route::get('profil-kabkota/{id}', ProfilKabKota::class)->name('profil_kabkota');
@@ -92,8 +93,27 @@ Route::get('/loi', function () {
     return view('templates.loi');
 });
 
-Route::get('register', Register::class)->name('register');
+Route::get('register', \App\Livewire\Frontend\Auth\FormRegister::class)->name('register');
 Route::get('login', Login::class, 'login')->name('login');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+// The page the user sees telling them to verify their email.
+Route::get('/email/verify', function () {
+    return view('livewire.frontend.auth.verification-notice');
+})->middleware('auth')->name('verification.notice');
+
+// The route that handles the link clicked in the verification email.
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    // Redirect the user to the intended protected page after verification.
+    return redirect()->route('dashboard.investor');
+})->middleware(['signed'])->name('verification.verify');
+
+// The route that handles resending the verification email.
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('status', 'verification-link-sent');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // Kepeminatan
 Route::get('kepeminatan', BerandaPengajuan::class)->name('pengajuan.kepeminatan');
@@ -115,7 +135,7 @@ Route::get('/peminat-product/{id}', DetailMinat::class)->name('peminat-product.s
 Route::get('kemitraan-form/{record}', FormKemitraan::class)->name('form-kemitraan');
 
 
-Route::middleware(['auth', 'auth.investor'])->prefix('dashboard')->group(function () {
+Route::middleware(['auth', 'auth.investor', 'verified'])->prefix('dashboard')->group(function () {
 
     // Kemitraan
     Route::get('product-me', ProductMe::class)->name('product.me');
