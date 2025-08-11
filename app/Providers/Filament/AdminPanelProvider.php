@@ -21,6 +21,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\SpatieLaravelTranslatablePlugin;
 use Awcodes\LightSwitch\LightSwitchPlugin;
@@ -70,7 +71,13 @@ class AdminPanelProvider extends PanelProvider
             ->plugin(
                 BreezyCore::make()
                     ->enableSanctumTokens(
-                        permissions: ['my', 'custom', 'permissions']
+                        permissions: ['read', 'update', 'write']
+                    )
+                    ->enableTwoFactorAuthentication(force: false)
+                    ->enableBrowserSessions(condition: true)
+                    ->passwordUpdateRules(
+                        rules: [Password::default()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
+                        requiresCurrentPassword: true, // when false, the user can update their password without entering their current password. (default = true)
                     )
                     ->myProfile(
                         shouldRegisterUserMenu: true,
@@ -80,6 +87,7 @@ class AdminPanelProvider extends PanelProvider
                         hasAvatars: false,
                         slug: 'my-profile'
                     )
+
             )
             ->plugins([
                 FilamentShieldPlugin::make()

@@ -95,7 +95,7 @@ Route::get('/loi', function () {
 
 Route::get('register', \App\Livewire\Frontend\Auth\FormRegister::class)->name('register');
 Route::get('login', Login::class, 'login')->name('login');
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout')->middleware(['auth']);
 
 // The page the user sees telling them to verify their email.
 Route::get('/email/verify', function () {
@@ -150,7 +150,7 @@ Route::middleware(['auth', 'auth.investor', 'verified'])->prefix('dashboard')->g
     Route::get('minat-keluar/{slug}', DetailMinatKeluar::class)->name('detail.minat-keluar');
 
     // Kepeminatan
-    Route::get('/', MasterDashboard::class)->name('dashboard.investor');
+    //Route::get('/', MasterDashboard::class)->name('dashboard.investor');
     Route::get('/', FrontendDashboard::class)->name('dashboard.investor');
     Route::get('profile', Profile::class)->name('dashboard.profile'); // perbaikan
     Route::get('kepeminatan', SuratKepeminatan::class)->name('dashboard.kepeminatan');
