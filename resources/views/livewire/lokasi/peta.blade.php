@@ -95,6 +95,27 @@
                         <span class="mx-2 text-sm font-medium">{{ __('map.industry', [], $locale) }}</span>
                     </a>
                 </li>
+
+                <div
+                    class="py-3 flex items-center text-sm text-black after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:after:border-gray-600">
+                    Ketersediaan Tenaga Kerja</div>
+                <li>
+                    <a class="flex ring-1 hover:ring-yellow-500 items-center px-3 py-2  transition-colors duration-300 transform rounded-lg  hover:bg-primary-500  hover:text-yellow-500"
+                    href="#" id="tenagaKerja">
+                    <img src="{{ asset('map/tenaga-kerja.png') }}" class="h-6" alt="">
+
+                    <span class="mx-2 text-sm font-medium">{{ __('map.tenaga_kerja', [], $locale) }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="flex ring-1 hover:ring-yellow-500 items-center px-3 py-2  transition-colors duration-300 transform rounded-lg  hover:bg-primary-500  hover:text-yellow-500"
+                        href="#" id="potensiTenagaKerja">
+                        <img src="{{ asset('map/potensi_tenaga_kerja_new.png') }}" class="h-6" alt="">
+
+                        <span class="mx-2 text-sm font-medium">{{ __('map.potensi', [], $locale) }}</span>
+                    </a>
+                </li>
+
                 <div
                     class="py-3 flex items-center text-sm text-black after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:after:border-gray-600">
                     Perusahaan</div>

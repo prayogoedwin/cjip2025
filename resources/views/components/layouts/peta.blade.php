@@ -234,6 +234,20 @@
                 iconSize: [50, 50], // size of the icon
                 shadowSize: [50, 64],
             });
+
+            var Icon11 = L.icon({
+                iconUrl: '/map/tenaga-kerja.png',
+                iconSize: [50, 50], // size of the icon
+                shadowSize: [50, 64],
+            });
+
+            var Icon12 = L.icon({
+                iconUrl: '/map/potensi_tenaga_kerja_new.png',
+                iconSize: [50, 50], // size of the icon
+                shadowSize: [50, 64],
+            });
+
+
             // ====================================================
 
             // ================= marker ready to over =====================
@@ -832,6 +846,210 @@
             });
             // ====================================================
 
+
+            // ================= marker pencaker =======================
+            var markersPencaker = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true
+            });
+
+            <?php foreach ($pencakers as $map) { ?>
+
+            var redirect =
+                '<a href="https://bursakerja.jatengprov.go.id/home/register_penyedia_kerja_sidikaryo/99" target="blank" class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">Buat Lowongan di Ayokerjo</a>';
+
+            var popupkawasan =
+                '<div class="">' +
+                 '<h4 style="margin-bottom: 15px; text-align: center;">Ketersediaan Tenaga Kerja <?= $map->kota ?></h4>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Laki-laki :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->l ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Perempuan :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->p ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Lulusan SMA/SMK :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->lulusan_sma_smk ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Lulusan Dibawah SMA/SMK :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->lulusan_dibawah_sma_smk ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Lulusan Sarjana :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->lulusan_sarjana_keatas ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Jurusan Terbanyak :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->jurusan_terbanyak ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Sumber Data :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> Ayokerjo (<?= $map->created_at ?>) </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+
+
+
+
+                '<br>' +
+                '</div>'+
+                redirect;
+
+            var kawasanOptions = {
+                'maxWidth': '600',
+                'width': '600',
+                'className': 'popupCustom'
+            };
+
+            var kawasans = L.marker([<?= $map->lat ?>, <?= $map->lng ?>], {
+                    icon: Icon11,
+                    draggable: false,
+                    shadow: true
+                })
+                .bindPopup(popupkawasan, kawasanOptions);
+
+            markersPencaker.addLayer(kawasans);
+            <?php } ?>
+
+            document.getElementById('tenagaKerja').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+                if (map.hasLayer(markersPencaker)) {
+                    map.removeLayer(markersPencaker);
+                } else {
+                    map.addLayer(markersPencaker);
+                }
+            });
+
+
+            // ================= marker kelulusan =======================
+            var markersKelulusan = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true
+            });
+
+            <?php foreach ($kelulusans as $map) { ?>
+
+             var kodeKabkota = '<?= $map->kode_kabkota ?? "" ?>';
+            var redirect = kodeKabkota ?
+                `<a href="${window.location.origin}/bkk/${kodeKabkota}/#main-section"
+                target="_blank"
+                class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">
+                Lihat Daftar BKK
+                </a>` : '';
+
+            var popupkawasan =
+                '<div class="">' +
+                 '<h4 style="margin-bottom: 15px; text-align: center;">Potensi Kelulusan <?= $map->kab_kota ?></h4>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Laki-laki :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->total_laki ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Perempuan :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->total_perempuan ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Potensi Lulusan SMA/SMK :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->total_potensi ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Jurusan Terbanyak :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> <?= $map->jurusan_terbanyak ?> </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+                 '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Sumber Data :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong> Dapodik (<?= $map->dataperiode ?>) </strong></span>' +
+                '</a>' +
+                '</div>' +
+
+                '<br>' +
+                '</div>'+
+                redirect;
+
+            var kawasanOptions = {
+                'maxWidth': '600',
+                'width': '600',
+                'className': 'popupCustom'
+            };
+
+            var kawasans = L.marker([<?= $map->lat ?>, <?= $map->lng ?>], {
+                    icon: Icon12,
+                    draggable: false,
+                    shadow: true
+                })
+                .bindPopup(popupkawasan, kawasanOptions);
+
+            markersKelulusan.addLayer(kawasans);
+            <?php } ?>
+
+            document.getElementById('potensiTenagaKerja').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+                if (map.hasLayer(markersKelulusan)) {
+                    map.removeLayer(markersKelulusan);
+                } else {
+                    map.addLayer(markersKelulusan);
+                }
+            });
+
+
             // ================= marker pma =======================
             var markersPma = L.markerClusterGroup({
                 spiderfyOnMaxZoom: true,
@@ -964,6 +1182,77 @@
 
 
             // ================= marker jembatan =======================
+            <?php if($jembatans != null){ ?>
+            var markersJembatan = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true
+            });
+
+            <?php foreach ($jembatans as $map) {
+                $latitude = floatval($map['geometry']['coordinates'][1]);
+                $longitude = floatval($map['geometry']['coordinates'][0]);
+            ?>
+            // var redirect =
+            //     '<a href="#" target="blank" class="btn btn-primary rounded py-1 text-sm flex justify-center mt-2 px-1 font-semibold">Lihat Daftar PMDN</a>';
+
+            var popupkawasan =
+                '<div class="">' +
+                '<br>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Nama Jembatan :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong><?= $map['properties']['nama'] ?></strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<div class=" grid-cols-2">' +
+                '<span class="control-label col-lg-10">Unker :</span>' +
+                '<a class="">' +
+                '<span class="control-label col-lg-10"><strong><?= $map['properties']['unker'] ?></strong></span>' +
+                '</a>' +
+                '</div>' +
+                '<br>' +
+                '</div>'
+            // +
+            // redirect
+            ;
+
+            var kawasanOptions = {
+                'maxWidth': '600',
+                'width': '600',
+                'className': 'popupCustom'
+            };
+
+            var kawasans = L.marker([<?= $latitude ?>, <?= $longitude ?>], {
+                    icon: Icon3,
+                    draggable: false,
+                    shadow: true
+                })
+                .bindPopup(popupkawasan, kawasanOptions);
+
+            markersJembatan.addLayer(kawasans);
+            <?php } ?>
+
+            document.getElementById('jembatanprovinsi').addEventListener('click', function() {
+                var element = this;
+
+                if (element.classList.contains('active')) {
+                    element.classList.remove('active');
+                    element.classList.remove('text-yellow-500');
+                    element.classList.remove('ring-yellow-500');
+                } else {
+                    element.classList.add('active');
+                    element.classList.add('text-yellow-500'); // Active color
+                    element.classList.add('ring-yellow-500'); // Active color
+                }
+                event.preventDefault();
+                if (map.hasLayer(markersJembatan)) {
+                    map.removeLayer(markersJembatan);
+                } else {
+                    map.addLayer(markersJembatan);
+                }
+            });
+             <?php } ?>
 
 
 

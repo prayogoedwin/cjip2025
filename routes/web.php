@@ -10,6 +10,7 @@ use App\Livewire\Berita\DetailBerita;
 use App\Livewire\Cjibf\Dashboard;
 use App\Livewire\Cjibf\RegisterO3m;
 use App\Livewire\Faq\Faq;
+use App\Livewire\Bkk\Bkk;
 use App\Livewire\Frontend\Auth\Login;
 use App\Livewire\Frontend\Auth\Profile;
 use App\Livewire\Frontend\DaftarPmaPmdn;
@@ -44,6 +45,7 @@ use App\Livewire\KajianProyek\FormDownload;
 use App\Livewire\Kawasan\DetailKawasan;
 use App\Livewire\Kawasan\Kawasan;
 use App\Livewire\Lokasi\Peta;
+use App\Livewire\Infografis\Infografis;
 use App\Livewire\Profil\DetailProfil;
 use App\Livewire\Profil\Profil;
 use App\Livewire\Profil\ProfilKabkota;
@@ -79,8 +81,10 @@ Route::get('peluang-investasi', Proyek::class)->name('peluang_investasi');
 Route::get('detail-proyek-investasi/{slug}', DetailProyek::class)->name('detail_proyek_investasi');
 Route::get('sektor', Sektor::class)->name('sektor');
 Route::get('peta-investasi', Peta::class)->name('peta');
+Route::get('infografis', Infografis::class)->name('infografis');
 Route::get('cjibf', Dashboard::class)->name('cjibf');
 Route::get('panduan-investasi', Faq::class)->name('faq');
+Route::get('bkk/{kabkota}', Bkk::class)->name('bkk');
 // Route::get('download-kajian-proyek', FormDownload::class)->name('form_kajian_proyek');
 // Route::get('success-download', ConfirmSuccess::class)->name('confirm_kajian_proyek');
 Route::get('cjibf/real-count-kepeminatan', \App\Livewire\Cjibf\RealCount::class)->name('cjibf.realcount');
@@ -133,6 +137,11 @@ Route::get('sk-kepala-dpm/{record}', SkInsentifKepalaDpm::class)->name('sk-insen
 
 Route::get('/peminat-product/{id}', DetailMinat::class)->name('peminat-product.show');
 Route::get('kemitraan-form/{record}', FormKemitraan::class)->name('form-kemitraan');
+
+Route::get('/check-user', function () {
+    $user = auth()->user();
+    dd($user?->toArray());
+});
 
 
 Route::middleware(['auth', 'auth.investor', 'verified'])->prefix('dashboard')->group(function () {

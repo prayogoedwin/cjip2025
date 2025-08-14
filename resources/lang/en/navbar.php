@@ -16,4 +16,8 @@ return [
     'service' => 'Service Information',
     'maps' => 'Maps',
     'kajian' => 'Unduh Project Review',
+    'bkk' => 'Daftar Bursa Kerja Khusus (BKK)',
+    'info' => 'Information',
+    'grafis' => 'Infographics',
+    
 ];

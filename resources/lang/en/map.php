@@ -14,6 +14,10 @@ return [
     "strategi" => "National Strategic Project",
 
     'industry' => 'Industrial Area',
+
+    'tenaga_kerja' => 'Manpower Available',
+    'potensi' => 'Potential Graduation',
+
     'pma' => 'PMA',
     'pmdn' => 'PMDN',
 
