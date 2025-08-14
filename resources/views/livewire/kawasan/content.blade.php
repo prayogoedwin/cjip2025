@@ -35,7 +35,7 @@
                                     style="height: 230px; width: 100%;">
 
                                 <div class="content p-6">
-                                    <a href="{{ route('detail_kawasan', $kawasan->id) }}"
+                                        <a href="{{ route('detail_kawasan', $kawasan->getTranslation('slug', $locale) ?? $kawasan->slug) }}"
                                         class="title h5 text-xl font-semibold hover:text-primary-600 transition duration-500 text-justify">{{ \Illuminate\Support\Str::limit(strip_tags($kawasan->getTranslations('nama', [$locale]) ? $kawasan->getTranslations('nama', [$locale])[$locale] : $kawasan->nama), 100, ' ...') }}</a>
 
                                     <p class="text-gray-500 mt-3 text-justify">
@@ -50,7 +50,7 @@
                                         ) !!}</p>
 
                                     <div class="mt-4">
-                                        <a href="{{ route('detail_kawasan', $kawasan->id) }}"
+                                        <a href="{{ route('detail_kawasan', $kawasan->getTranslation('slug', $locale) ?? $kawasan->slug) }}"
                                             class="btn btn-link font-normal hover:text-primary-600 after:bg-primary-600 transition duration-500">{{ __('read more', [], $locale) }}
                                             <i class="uil uil-arrow-right"></i></a>
                                     </div>

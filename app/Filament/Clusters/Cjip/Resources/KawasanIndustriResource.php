@@ -20,6 +20,8 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -36,6 +38,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class KawasanIndustriResource extends Resource
 {
@@ -64,7 +67,16 @@ class KawasanIndustriResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
-                    TextInput::make('nama')->label('Nama Kawasan Industri')->required()->placeholder('Nama Lengkap Kawasan Industri'),
+                    Grid::make()->schema([
+                        TextInput::make('nama')
+                            ->label('Nama Kawasan Industri')
+                            ->required()
+                            ->placeholder('Nama Lengkap Kawasan Industri')
+                            ->live(debounce: '500ms')
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+
+                        TextInput::make('slug')->required(),
+                    ])->columns(2),
                     Section::make('Profil')->label('Profil')->schema([
                         TiptapEditor::make('perusahaan')
                             ->label('Profil Perusahaan')

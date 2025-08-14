@@ -164,7 +164,7 @@
                                     <div
                                         class="absolute p-4 start-0 end-0 text-center bg-slate-900/80 -bottom-24 group-hover:bottom-0 duration-300">
 
-                                        <a href="{{ route('detail_investasi', $proyek->id) }}"
+                                        <a href="{{ route('detail_proyek_investasi', $proyek->getTranslation('slug', $locale) ?? $proyek->slug) }}"
                                             class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">{{ __('proyek.button_1', [], $locale) }}</a>
                                         <a href="{{ route('profil_kabkota', $proyek->kab_kota_id) }}"
                                             class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-green-600 hover:bg-yellow-500 border-green-600 hover:border-yellow-500 text-white rounded-md">{{ __('proyek.button_2', [], $locale) }}</a>
@@ -194,7 +194,7 @@
                                         <p class="text-base px-5 py-1 bg-green-600 rounded text-white font-normal">
                                             {{ $proyek->kabkota->nama }}</p>
                                     </div>
-                                    <a href="{{ route('detail_investasi', $proyek->id) }}"
+                                    <a href="{{ route('detail_proyek_investasi', $proyek->getTranslation('slug', $locale) ?? $proyek->slug) }}"
                                         class="hover:text-green-600 text-lg font-semibold">{{ \Illuminate\Support\Str::limit(strip_tags($proyek->getTranslations('nama', [$locale]) ? $proyek->getTranslations('nama', [$locale])[$locale] : $proyek->nama), 100, ' ...') }}</a>
                                     <p class="text-slate-600 mt-2 text-justify">
                                         {{ \Illuminate\Support\Str::limit(strip_tags($proyek->getTranslations('latar_belakang', [$locale]) ? $proyek->getTranslations('latar_belakang', [$locale])[$locale] : $proyek->latar_belakang), 200, ' ...') }}

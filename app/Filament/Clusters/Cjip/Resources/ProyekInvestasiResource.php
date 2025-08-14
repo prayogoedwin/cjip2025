@@ -21,6 +21,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Pages\Page;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Concerns\Translatable;
@@ -45,6 +46,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProyekInvestasiResource extends Resource
 {
@@ -72,7 +74,14 @@ class ProyekInvestasiResource extends Resource
                             ->icon('heroicon-m-document-text')
                             ->completedIcon('heroicon-m-hand-thumb-up')
                             ->schema([
-                                TextInput::make('nama')->label('Nama Proyek')->required(),
+                                \Filament\Forms\Components\Grid::make()->schema([
+                                    TextInput::make('nama')->label('Nama Proyek')->required()
+                                        ->live(onBlur: true)
+                                        ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                    TextInput::make('slug')->required()
+                                    ->hint('*Slug akan otomatis terisi jika nama proyek diisi'),
+                                ])->columns(2),
+
                                 TiptapEditor::make('latar_belakang')->label('Latar Belakang')
                                     ->columnSpan('full')
                                     ->required()

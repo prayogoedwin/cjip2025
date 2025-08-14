@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rules\Password;
+use MarcoGermani87\FilamentCaptcha\Forms\Components\CaptchaField;
 use Spatie\Permission\Models\Role;
 use Livewire\Component as LivewireComponent;
 
@@ -67,12 +68,8 @@ class FormRegister extends LivewireComponent implements HasForms
                     ->revealable()
                     ->same('password')
                     ->validationAttribute('password confirmation'),
-                Captcha::make('captcha')
-                    ->rules(['captcha'])
-                    ->required()
-                    ->validationMessages([
-                        'captcha'  =>  __('Captcha does not match the image'),
-                    ]),
+                CaptchaField::make('captcha')
+                        ->columnSpanFull(),
             ])
             ->statePath('data'); // This will store form state in the $data public property
     }

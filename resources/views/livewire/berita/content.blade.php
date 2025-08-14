@@ -2,12 +2,15 @@
     <section id="featured" class="mx-3 md:mx-8">
         <div class="grid md:grid-cols-5 grid-rows-3 md:grid-rows-2 gap-8 container my-16">
             <div class="row-span-1 md:row-span-2 md:col-span-3 ">
-                <a href="{{ route('detail_berita', $tagline[0]->getTranslations('slug', [$locale])[$locale]) }}">
+                {{-- <a href="{{ route('detail_berita', $tagline[0]->getTranslations('slug', [$locale])[$locale]) }}"> --}}
+
+                <a
+                    href="{{ route('detail_berita', $tagline[0]->hasTranslation('slug', $locale) ? $tagline[0]->getTranslation('slug', $locale) : $tagline[0]->slug) }}">
                     <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),  url({{ asset('storage/' . $tagline[0]->image[0]) }}); background-size: cover;"
                         class="rounded-2xl h-full bg-cover bg-no-repeat object-cover bg-gradient-to-t">
                         <div class=" pt-72">
                             <div class="pt-5 mb-2 px-5 text-bold text-xl text-white font-bold hover:text-yellow-500">
-                                {{ $tagline[0]->getTranslations('title', [$locale])[$locale] ? $tagline[0]->getTranslations('title', [$locale])[$locale] : $tagline[0]->title }}
+                                {{ $tagline[0]->hasTranslation('title', $locale) ? $tagline[0]->getTranslation('title', $locale) : $tagline[0]->title }}
                             </div>
                             <div class="pb-5 pl-5 text-bold text-md md:text-xl text-white font-light">
                                 <ul
@@ -46,7 +49,9 @@
                 </a>
             </div>
             <div class="row-span-1 md:col-span-2">
-                <a href="{{ route('detail_berita', $tagline[1]->getTranslations('slug', [$locale])[$locale]) }}">
+                {{-- <a href="{{ route('detail_berita', $tagline[1]->getTranslations('slug', [$locale])[$locale]) }}"> --}}
+                <a
+                    href="{{ route('detail_berita', $tagline[1]->hasTranslation('slug', $locale) ? $tagline[1]->getTranslation('slug', $locale) : $tagline[1]->slug) }}">
                     @if (Storage::disk('public')->exists($tagline[1]->image[0]))
                         <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),  url({{ asset('storage/' . $tagline[1]->image[0]) }}); background-size: cover;"
                             class="rounded-2xl h-full bg-cover bg-no-repeat object-cover">
@@ -56,7 +61,7 @@
                     @endif
                     <div class="">
                         <div class="pt-5 mb-2 px-5 text-bold text-xl text-white font-bold hover:text-yellow-500">
-                            {{ $tagline[1]->getTranslations('title', [$locale])[$locale] ? $tagline[1]->getTranslations('title', [$locale])[$locale] : $tagline[1]->title }}
+                            {{ $tagline[1]->hasTranslation('title', $locale) ? $tagline[1]->getTranslation('title', $locale) : $tagline[1]->title }}
                         </div>
                         {{-- <div class="pb-5 px-5 text-bold text-md text-white font-light">
                             Publish : {{ date('d M Y', strtotime($tagline[1]->created_at)) }}</div> --}}
@@ -98,7 +103,9 @@
             </div>
         </div>
         <div class="row-span-1 md:col-span-2">
-            <a href="{{ route('detail_berita', $tagline[2]->getTranslations('slug', [$locale])[$locale]) }}">
+<a href="{{ route('detail_berita', $tagline[2]->hasTranslation('slug', $locale) ? $tagline[2]->getTranslation('slug', $locale) : $tagline[2]->slug) }}">
+            {{-- <a
+                href="{{ route('detail_berita', $tagline[2]->hasTranslation('slug', $locale) ? $tagline[2]->getTranslation('slug', $locale) : $tagline[2]->slug) }}"> --}}
                 @if (Storage::disk('public')->exists($tagline[2]->image[0]))
                     <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),  url({{ asset('storage/' . $tagline[2]->image[0]) }}); background-size: cover;"
                         class="rounded-2xl h-full bg-cover bg-no-repeat">
@@ -109,7 +116,8 @@
                 <div class="">
                     <div class="pt-5 mb-2 pl-5 text-bold text-xl text-white font-bold hover:text-yellow-500">
                         {{-- {{ $tagline[2]->title }} --}}
-                        {{ $tagline[2]->getTranslations('title', [$locale])[$locale] ? $tagline[2]->getTranslations('title', [$locale])[$locale] : $tagline[2]->title }}
+                        {{ $tagline[2]->hasTranslation('title', $locale) ? $tagline[2]->getTranslation('title', $locale) : $tagline[2]->title }}
+                        {{-- {{ $tagline[2]->getTranslations('title', [$locale])[$locale] ? $tagline[2]->getTranslations('title', [$locale])[$locale] : $tagline[2]->title }} --}}
                     </div>
                     {{-- <div class="pb-5 pl-5 text-bold text-md text-white font-light">
                         Publish : {{ date('d M Y', strtotime($tagline[2]->created_at)) }}</div> --}}
@@ -185,8 +193,7 @@
                                                     d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                             {{-- Publish : --}}
-                                            <span
-                                                class="">{{ date('d M Y', strtotime($berita->created_at)) }}</span>
+                                            <span class="">{{ date('d M Y', strtotime($berita->created_at)) }}</span>
                                         </li>
 
                                         {{-- <li class="flex items-center me-4 gap-1">
@@ -207,10 +214,10 @@
                                         </li> --}}
                                     </ul>
                                 </div>
-                                <a href="{{ route('detail_berita', $berita->getTranslations('slug', [$locale])[$locale]) }}"
-                                    class="title h5 text-xl font-semibold hover:text-green-600 transition duration-500 text-justify">{{ $berita->getTranslations('title', [$locale])[$locale] ? $berita->getTranslations('title', [$locale])[$locale] : $berita->title }}</a>
+                                <a href="{{ route('detail_berita', $berita->hasTranslation('slug', $locale) ? $berita->getTranslation('slug', $locale) : $berita->slug) }}"
+                                    class="title h5 text-xl font-semibold hover:text-green-600 transition duration-500 text-justify">{{ $berita->hasTranslation('title', $locale) ? $berita->getTranslation('title', $locale) : $berita->title }}</a>
                                 <p class="text-gray-500 mt-3 text-justify">
-                                    {{ \Illuminate\Support\Str::limit(strip_tags($berita->getTranslations('body', [$locale])[$locale] ? $berita->getTranslations('body', [$locale])[$locale] : $berita->body), 200, ' ...') }}
+                                    {{ \Illuminate\Support\Str::limit(strip_tags($berita->getTranslation('body', $locale) ?? $berita->body), 200, ' ...') }}
                                 </p>
 
                                 <div class="mt-4">
@@ -219,7 +226,7 @@
                                             Publish : {{ date('d M Y', strtotime($berita->created_at)) }}
                                         </div> --}}
                                     </div>
-                                    <a href="{{ route('detail_berita', $berita->getTranslations('slug', [$locale])[$locale]) }}"
+                                    <a href="{{ route('detail_berita', $berita->hasTranslation('slug', $locale) ? $berita->getTranslation('slug', $locale) : $berita->slug) }}"
                                         class="btn btn-link font-normal hover:text-green-600 after:bg-primary-600 transition duration-500">{{ __('beranda.read_more', [], $locale) }}<i
                                             class="uil uil-arrow-right"></i></a>
                                 </div>

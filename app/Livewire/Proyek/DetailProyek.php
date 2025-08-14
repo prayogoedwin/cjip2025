@@ -6,84 +6,56 @@ use App\Models\Cjip\ProyekInvestasi;
 use Livewire\Component;
 use Illuminate\Support\Facades\Session;
 
-
 class DetailProyek extends Component
 {
-
-    public $proyek_id;
-    protected $proyek;
-    public $nama;
+    // Hapus properti yang tidak perlu atau duplikat
+    public ProyekInvestasi $proyek; // Gunakan type-hinting untuk properti model, lebih bersih
     public $locale;
-    public $query = '';
-    public $col;
-    public $name;
-    public $lokasi;
+    public $tot;
 
-    // protected $listeners = ['changeLanguange' => 'languageChange'];
+    // Listener tidak perlu diubah
     protected $listeners = ['changeLanguange' => 'languageChange'];
 
     public function languageChange($lang)
     {
-        //dd($lang);
         $this->locale = $lang['lang'];
+        Session::put('lang', $this->locale); // Simpan ke session agar konsisten
     }
 
-    public function mount($id)
+    /**
+     * Mount method diubah untuk menerima $slug dan mencari berdasarkan itu.
+     */
+    public function mount($slug)
     {
-        $this->proyek = ProyekInvestasi::findOrFail($id);
+        // Tetapkan locale terlebih dahulu
+        $this->locale = Session::get('lang', 'id');
+
+        // Cari proyek berdasarkan slug yang sesuai dengan bahasa aktif
+        $this->proyek = ProyekInvestasi::where('slug->' . $this->locale, $slug)->firstOrFail();
     }
+
+    /**
+     * Render method disederhanakan.
+     */
     public function render()
     {
-        if (Session::get('lang')) {
-            // dd(Session::get('lang'));
-            if (is_array(Session::get('lang'))) {
-                $this->locale = Session::get('lang')[0];
-            } else {
-                $this->locale = Session::get('lang');
-            }
-            // dd($this->locale);
-        } else {
-            $this->locale = 'id';
-        }
-
-        $proyek = $this->proyek;
-        // $proyek->nama = $proyek->nama;
-
-        // dd($proyek->nama);
-        // $proyek->location = $proyek->getCoordinates();
-        //$proyek->luas_lahan = json_decode($proyek->luas_lahan);
-        //dd($proyek->luas_lahan);
+        // Logika untuk menghitung kolom yang terisi
         $col = [];
-        if (strlen($proyek->latar_belakang) > 0) {
-            array_push($col, 1);
-        }
-        if (strlen($proyek->eksisting) > 0) {
-            array_push($col, 1);
-        }
-        if (strlen($proyek->lingkup_pekerjaan) > 0) {
-            array_push($col, 1);
-        }
-        if (strlen($proyek->desain_layout_proyek) > 0) {
-            array_push($col, 1);
-        }
-        if (strlen($proyek->ketersediaan_pasar) > 0) {
-            array_push($col, 1);
-        }
-        if (strlen($proyek->ketersediaan_sd) > 0) {
-            array_push($col, 1);
-        }
-        if (strlen($proyek->skema_investasi) > 0) {
-            array_push($col, 1);
-        }
-        if (strlen($proyek->rincian_investasi) > 0) {
-            array_push($col, 1);
-        }
-        $tot = count($col);
+        if (!empty($this->proyek->getTranslation('latar_belakang', $this->locale))) array_push($col, 1);
+        if (!empty($this->proyek->getTranslation('eksisting', $this->locale))) array_push($col, 1);
+        if (!empty($this->proyek->getTranslation('lingkup_pekerjaan', $this->locale))) array_push($col, 1);
+        if (!empty($this->proyek->getTranslation('desain_layout_proyek', $this->locale))) array_push($col, 1);
+        if (!empty($this->proyek->getTranslation('ketersediaan_pasar', $this->locale))) array_push($col, 1);
+        if (!empty($this->proyek->getTranslation('ketersediaan_sd', $this->locale))) array_push($col, 1);
+        if (!empty($this->proyek->getTranslation('skema_investasi', $this->locale))) array_push($col, 1);
+        if (!empty($this->proyek->getTranslation('rincian_investasi', $this->locale))) array_push($col, 1);
 
-        // $proyek->lokasi = $proyek->lokasi;
-        $lokasi = $proyek->lokasi;
-        $name = $proyek->name;
+        $this->tot = count($col);
 
-        return view('livewire.proyek.detail-proyek', compact('proyek', 'tot'));
+        // Kirim properti langsung ke view
+        return view('livewire.proyek.detail-proyek', [
+            'proyek' => $this->proyek,
+            'tot' => $this->tot,
+        ]);
     }
 }

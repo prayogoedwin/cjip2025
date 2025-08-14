@@ -41,6 +41,7 @@ class KawasanIndustri extends Model
         'instalasi_penerangan_jalan',
         'jaringan_jalan',
         'fasilitas',
+        'slug'
 
 
         // 'tenant_en',
@@ -124,6 +125,7 @@ class KawasanIndustri extends Model
         'lng',
         'kawasan_id',
         'url_website',
+        'slug'
 
     ];
 

@@ -1,25 +1,30 @@
 @section('meta_investasi')
+    {{-- Menggunakan helper getTranslation yang lebih aman dan ringkas --}}
     <title>
-        {{ $proyek->getTranslations('nama', [$locale]) ? $proyek->getTranslations('nama', [$locale])[$locale] : $proyek->nama }}
-        - Central
+        {{ $proyek->getTranslation('nama', $locale) ?? $proyek->nama }} - Central
         Java Investment Platform</title>
 
-    <link rel="canonical" href="https://cjip.jatengprov.go.id/peluang-investasi/{{ $proyek->id }}" />
+    {{-- DIUBAH: Menggunakan slug, bukan ID --}}
+    <link rel="canonical" href="{{ route('detail_proyek_investasi', $proyek->getTranslation('slug', $locale) ?? $proyek->slug) }}" />
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
     <meta property="og:title"
-        content="{{ $proyek->getTranslations('nama', [$locale]) ? $proyek->getTranslations('nama', [$locale])[$locale] : $proyek->nama }}">
+        content="{{ $proyek->getTranslation('nama', $locale) ?? $proyek->nama }}">
     <meta name="description"
-        content=" {{ \Illuminate\Support\Str::limit(strip_tags($proyek->getTranslations('latar_belakang', [$locale]) ? $proyek->getTranslations('latar_belakang', [$locale])[$locale] : $proyek->latar_belakang), 100, ' ...') }}">
-    <meta property="og:url" content="https://cjip.jatengprov.go.id/peluang-investasi/{{ $proyek->id }}">
+        content=" {{ \Illuminate\Support\Str::limit(strip_tags($proyek->getTranslation('latar_belakang', $locale) ?? $proyek->latar_belakang), 100, ' ...') }}">
+    {{-- DIUBAH: Menggunakan slug, bukan ID --}}
+    <meta property="og:url" content="{{ route('detail_proyek_investasi', $proyek->getTranslation('slug', $locale) ?? $proyek->slug) }}">
     <meta property="og:site_name" content="Central Java Investment Platform">
-    <meta property="og:image" content="https://cjip.jatengprov.go.id/storage/{{ $proyek->foto[0] }}">
-    <meta property="og:width" content="512">
-    <meta property="og:height" content="512">
+    {{-- Pastikan foto tidak kosong sebelum diakses --}}
+    @if (!empty($proyek->foto[0]))
+        <meta property="og:image" content="{{ asset('storage/' . $proyek->foto[0]) }}">
+        <meta property="og:width" content="512">
+        <meta property="og:height" content="512">
+        <meta name="twitter:image" content="{{ asset('storage/' . $proyek->foto[0]) }}">
+    @endif
     <meta property="article:publisher" content="https://www.facebook.com/dpmptspjateng">
     <meta property='article:published_time' content='{{ $proyek->created_at }}' />
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:image" content="http://cjip.jatengprov.go.id/storage/{{ $proyek->foto[0] }}">
     <meta name="twitter:site" content="@investCJ">
 @stop
 <div>
@@ -29,7 +34,7 @@
         <div class="container mx-auto py-10">
             <div class="max-w-2xl text-center mx-auto pt-5">
                 <h1 class="block text-3xl font-bold text-gray-800 sm:text-4xl md:text-5xl dark:text-white">
-                    {{ $proyek->getTranslations('nama', [$locale]) ? $proyek->getTranslations('nama', [$locale])[$locale] : $proyek->nama }}
+                    {{ $proyek->getTranslation('nama', $locale) ?? $proyek->nama }}
                 </h1>
                 <h6 class="font-semibold text-md mt-3">
                     @if ($proyek->market->id == 1)
@@ -49,12 +54,13 @@
             </div>
 
             <div class="mt-10 relative max-w-5xl mx-auto">
-                <div
-                    class="w-full object-cover h-96 sm:h-[480px] bg-[url('https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1981&q=80')] bg-no-repeat bg-center bg-cover rounded-xl">
-                    <img src="{{ asset('storage/' . $proyek->foto[0]) }}"
-                        class=" shadow-md rounded-lg w-full object-cover h-96 sm:h-[480px]" alt="">
-
-                </div>
+                @if (!empty($proyek->foto[0]))
+                    <div
+                        class="w-full object-cover h-96 sm:h-[480px] bg-no-repeat bg-center bg-cover rounded-xl">
+                        <img src="{{ asset('storage/' . $proyek->foto[0]) }}"
+                            class=" shadow-md rounded-lg w-full object-cover h-96 sm:h-[480px]" alt="">
+                    </div>
+                @endif
                 <div
                     class="absolute bottom-12 -start-20 -z-[1] w-48 h-48 bg-gradient-to-b from-orange-500 to-white p-px rounded-lg dark:to-slate-900">
                     <div class="bg-white w-48 h-48 rounded-lg dark:bg-slate-900"></div>
@@ -66,9 +72,9 @@
             </div>
             <div class="mt-5 container">
                 <h5 class="text-lg font-semibold mb-2">{{ __('detailproyek.tabs_4', [], $locale) }} :</h5>
-                <p class="text-lg text-gray-600 dark:text-gray-400">{!! $proyek->getTranslations('latar_belakang', [$locale])
-                    ? $proyek->getTranslations('latar_belakang', [$locale])[$locale]
-                    : $proyek->latar_belakang !!}</p>
+                <p class="text-lg text-gray-600 dark:text-gray-400">
+                    {!! $proyek->getTranslation('latar_belakang', $locale) ?? $proyek->latar_belakang !!}
+                </p>
             </div>
         </div>
         <div class="container">
@@ -108,7 +114,6 @@
 
             <div class="mt-3">
                 <div id="fill-and-justify-1" role="tabpanel" aria-labelledby="fill-and-justify-item-1">
-                    <!-- List Group -->
                     <div class="flex flex-col">
                         <div class="-m-1.5 overflow-x-auto">
                             <div class="p-1.5 min-w-full inline-block align-middle">
@@ -122,10 +127,10 @@
                                                     {{ __('detailproyek.summary1', [], $locale) }}</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ $proyek->getTranslations('nilai_investasi', [$locale]) ? $proyek->getTranslations('nilai_investasi', [$locale])[$locale] : $proyek->nilai_investasi }}
+                                                    {{ $proyek->getTranslation('nilai_investasi', $locale) ?? $proyek->nilai_investasi }}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -134,12 +139,10 @@
                                                     {{ __('detailproyek.summary4', [], $locale) }}</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('skema_investasi', [$locale])
-                                                        ? $proyek->getTranslations('skema_investasi', [$locale])[$locale]
-                                                        : $proyek->skema_investasi !!}
+                                                    {!! $proyek->getTranslation('skema_investasi', $locale) ?? $proyek->skema_investasi !!}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -148,12 +151,10 @@
                                                     {{ __('detailproyek.tb_2', [], $locale) }}</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('eksisting', [$locale])
-                                                        ? $proyek->getTranslations('eksisting', [$locale])[$locale]
-                                                        : $proyek->eksisting !!}
+                                                    {!! $proyek->getTranslation('eksisting', $locale) ?? $proyek->eksisting !!}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -162,12 +163,10 @@
                                                     {{ __('detailproyek.tb_3', [], $locale) }}</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('lingkup_pekerjaan', [$locale])
-                                                        ? $proyek->getTranslations('lingkup_pekerjaan', [$locale])[$locale]
-                                                        : $proyek->lingkup_pekerjaan !!}
+                                                    {!! $proyek->getTranslation('lingkup_pekerjaan', $locale) ?? $proyek->lingkup_pekerjaan !!}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -176,12 +175,10 @@
                                                     {{ __('detailproyek.tb_5', [], $locale) }}</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('ketersediaan_pasar', [$locale])
-                                                        ? $proyek->getTranslations('ketersediaan_pasar', [$locale])[$locale]
-                                                        : $proyek->ketersediaan_pasar !!}
+                                                    {!! $proyek->getTranslation('ketersediaan_pasar', $locale) ?? $proyek->ketersediaan_pasar !!}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -190,12 +187,10 @@
                                                     {{ __('detailproyek.summary2', [], $locale) }}</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('luas_lahan', [$locale])
-                                                        ? $proyek->getTranslations('luas_lahan', [$locale])[$locale]
-                                                        : $proyek->luas_lahan !!}
+                                                    {!! $proyek->getTranslation('luas_lahan', $locale) ?? $proyek->luas_lahan !!}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -204,12 +199,10 @@
                                                     {{ __('detailproyek.summary6', [], $locale) }}</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('sumber_air', [$locale])
-                                                        ? $proyek->getTranslations('sumber_air', [$locale])[$locale]
-                                                        : $proyek->sumber_air !!}
+                                                    {!! $proyek->getTranslation('sumber_air', $locale) ?? $proyek->sumber_air !!}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -218,12 +211,10 @@
                                                     {{ __('detailproyek.summary7', [], $locale) }}</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('kelistrikan', [$locale])
-                                                        ? $proyek->getTranslations('kelistrikan', [$locale])[$locale]
-                                                        : $proyek->kelistrikan !!}
+                                                    {!! $proyek->getTranslation('kelistrikan', $locale) ?? $proyek->kelistrikan !!}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -232,12 +223,10 @@
                                                     {{ __('detailproyek.summary8', [], $locale) }}</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('telekomunikasi', [$locale])
-                                                        ? $proyek->getTranslations('telekomunikasi', [$locale])[$locale]
-                                                        : $proyek->telekomunikasi !!}
+                                                    {!! $proyek->getTranslation('telekomunikasi', $locale) ?? $proyek->telekomunikasi !!}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -246,12 +235,10 @@
                                                     {{ __('detailproyek.summary9', [], $locale) }}</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('jaringan_jalan', [$locale])
-                                                        ? $proyek->getTranslations('jaringan_jalan', [$locale])[$locale]
-                                                        : $proyek->jaringan_jalan !!}
+                                                    {!! $proyek->getTranslation('jaringan_jalan', $locale) ?? $proyek->jaringan_jalan !!}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -260,7 +247,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End List Group -->
                 </div>
                 <div id="fill-and-justify-2" class="hidden" role="tabpanel"
                     aria-labelledby="fill-and-justify-item-2">
@@ -277,14 +263,11 @@
                                                     Npv</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('npv', [$locale])
-                                                        ? $proyek->getTranslations('npv', [$locale])[$locale]
-                                                        : $proyek->npv !!}
+                                                    {!! $proyek->getTranslation('npv', $locale) ?? $proyek->npv !!}
                                                 </td>
-
                                             </tr>
                                             <tr>
                                                 <td
@@ -292,12 +275,10 @@
                                                     Irr</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('irr', [$locale])
-                                                        ? $proyek->getTranslations('irr', [$locale])[$locale]
-                                                        : $proyek->irr !!}</td>
+                                                    {!! $proyek->getTranslation('irr', $locale) ?? $proyek->irr !!}</td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -305,12 +286,10 @@
                                                     Bc Ratio</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('bc_ratio', [$locale])
-                                                        ? $proyek->getTranslations('bc_ratio', [$locale])[$locale]
-                                                        : $proyek->bc_ratio !!}</td>
+                                                    {!! $proyek->getTranslation('bc_ratio', $locale) ?? $proyek->bc_ratio !!}</td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -318,12 +297,10 @@
                                                     Payback Period</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                </td>
+                                                    :</td>
                                                 <td
                                                     class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                                    {!! $proyek->getTranslations('playback_period', [$locale])
-                                                        ? $proyek->getTranslations('playback_period', [$locale])[$locale]
-                                                        : $proyek->playback_period !!}
+                                                    {!! $proyek->getTranslation('playback_period', $locale) ?? $proyek->playback_period !!}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -347,12 +324,11 @@
                                                 {{ __('detailproyek.contact1', [], $locale) }}</td>
                                             <td
                                                 class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                            </td>
+                                                :</td>
                                             <td
                                                 class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
                                                 {{ $proyek->cp_nama }}
                                             </td>
-
                                         </tr>
                                         <tr>
                                             <td
@@ -360,7 +336,7 @@
                                                 {{ __('detailproyek.contact2', [], $locale) }}</td>
                                             <td
                                                 class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                            </td>
+                                                :</td>
                                             <td
                                                 class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
                                                 {{ $proyek->kabkota->nama }}</td>
@@ -371,7 +347,7 @@
                                                 {{ __('detailproyek.contact3', [], $locale) }}</td>
                                             <td
                                                 class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                            </td>
+                                                :</td>
                                             <td
                                                 class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
                                                 {{ $proyek->cp_alamat }}</td>
@@ -382,7 +358,7 @@
                                                 {{ __('detailproyek.contact4', [], $locale) }}</td>
                                             <td
                                                 class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
-                                            </td>
+                                                :</td>
                                             <td
                                                 class="px-6 py-4 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">
                                                 {{ $proyek->cp_hp }} /
@@ -421,13 +397,6 @@
                                 <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
                                     width="1920" height="600" type="text/html" src="{{ $proyek->url_video }}">
                                 </iframe>
-                                <div
-                                    style="position: absolute;bottom: 10px;left: 0;right: 0;margin-left: auto;margin-right: auto;color: #000;text-align: center;">
-                                    <div style="overflow: auto; position: absolute; height: 0pt; width: 0pt;">
-                                        Generated by <a href="https://www.embedista.com/embed-youtube-video">Embed
-                                            Youtube Video</a> online
-                                    </div>
-                                </div>
                             </div>
                             <br />
                         @endif
@@ -454,51 +423,68 @@
             </div>
             {{-- Tombol Share --}}
             <div class="flex flex-wrap items-center gap-2 mt-3 justify-center sm:justify-end">
-                {{-- Label --}}
                 <div class="w-full sm:w-auto text-center sm:text-left font-semibold">
                     <i class="uil uil-share mr-1"></i>Share:
                 </div>
 
                 {{-- Copy URL --}}
-                <button onclick="copyToClipboard('{{ route('detail_investasi', $proyek->id) }}')"
+                <button
+                    onclick="copyToClipboard('{{ route('detail_proyek_investasi', $proyek->getTranslation('slug', $locale) ?? $proyek->slug) }}')"
                     class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600">
                     <i class="uil uil-copy"></i>
                     Copy URL
                 </button>
 
                 {{-- Facebook --}}
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('detail_investasi', $proyek->id)) }}"
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('detail_proyek_investasi', $proyek->getTranslation('slug', $locale) ?? $proyek->slug)) }}"
                     target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
                     <i class="uil uil-facebook-f align-middle w-10"></i>
                     Facebook
                 </a>
 
                 {{-- Twitter --}}
-                <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('detail_investasi', $proyek->id)) }}&text={{ urlencode($proyek->nama) }}"
+                <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('detail_proyek_investasi', $proyek->getTranslation('slug', $locale) ?? $proyek->slug)) }}&text={{ urlencode($proyek->getTranslation('nama', $locale) ?? $proyek->nama) }}"
                     target="_blank" class="bg-blue-400 text-white px-3 py-1 rounded text-sm hover:bg-blue-500">
                     <i class="uil uil-twitter"></i>
                     Twitter
                 </a>
 
                 {{-- WhatsApp --}}
-                <a href="https://wa.me/?text={{ urlencode(route('detail_investasi', $proyek->id)) }}" target="_blank"
-                    class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
+                <a href="https://wa.me/?text={{ urlencode(route('detail_proyek_investasi', $proyek->getTranslation('slug', $locale) ?? $proyek->slug)) }}"
+                    target="_blank" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
                     <i class="uil uil-whatsapp"></i>
                     WhatsApp
                 </a>
             </div>
-
         </div>
-
     </div>
+
     <!-- End Hero -->
     <script>
         function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(function() {
-                alert('URL berhasil disalin ke clipboard!');
-            }, function(err) {
-                alert('Gagal menyalin URL');
-            });
+            // Gunakan fallback untuk environment yang tidak aman (non-HTTPS)
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(function() {
+                    alert('URL berhasil disalin ke clipboard!');
+                }, function(err) {
+                    alert('Gagal menyalin URL');
+                });
+            } else {
+                // Fallback untuk HTTP atau browser lama
+                let textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed"; // Hindari scroll jump
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    alert('URL berhasil disalin ke clipboard!');
+                } catch (err) {
+                    alert('Gagal menyalin URL');
+                }
+                document.body.removeChild(textArea);
+            }
         }
     </script>
 

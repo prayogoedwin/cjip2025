@@ -24,12 +24,17 @@ class DetailKawasan extends Component
         Session::put('lang', $this->locale);
     }
 
-    public function mount($id)
-    {
-        $this->locale = Session::get('lang', 'id');
-        $this->kawasan = KawasanIndustri::findOrFail($id);
-        $this->tenant = KawasanIndustri::findOrFail($id)->tenant;
-    }
+   public function mount($slug) // <-- Terima $slug dari URL
+{
+    $this->locale = Session::get('lang', 'id');
+
+    // Cari berdasarkan kolom slug yang bisa diterjemahkan
+    // Contoh: 'slug->id' atau 'slug->en'
+    $this->kawasan = KawasanIndustri::where('slug->' . $this->locale, $slug)->firstOrFail();
+
+    // Ambil relasi dari objek yang sudah ada (lebih efisien)
+    $this->tenant = $this->kawasan->tenant;
+}
 
     public function render()
     {
